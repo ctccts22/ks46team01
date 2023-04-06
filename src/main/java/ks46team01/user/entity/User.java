@@ -50,8 +50,8 @@ public class User {
     @Column(name = "status", length = 30)
     private String status;
 
-    @Column(name = "company_info_idx", length = 10)
-    private String companyInfoIdx;
+    @Column(name = "company_info_idx")
+    private Long companyInfoIdx;
 
     @Override
     public boolean equals(Object o) {

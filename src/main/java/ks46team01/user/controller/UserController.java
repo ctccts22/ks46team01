@@ -36,10 +36,11 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+    public String registerUser(@ModelAttribute User user) {
         userService.createUser(user);
-        redirectAttributes.addFlashAttribute("message", "User registered successfully!");
         return "redirect:/user/listUser";
     }
+
+
 }
 

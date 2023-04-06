@@ -37,27 +37,9 @@ public class AdminController {
     }
 
     @PostMapping("/addAdmin")
-    public String addAdmin(@ModelAttribute Admin admin, RedirectAttributes redirectAttributes) {
+    public String addAdmin(@ModelAttribute Admin admin) {
         adminRepository.save(admin);
-        redirectAttributes.addFlashAttribute("message", "Admin added successfully");
         return "redirect:/admin/listAdmin";
-    }
-
-    @PostMapping("/updateAdmin")
-    public ResponseEntity<String> updateAdmin(@RequestBody Admin admin) {
-        adminRepository.save(admin);
-        return ResponseEntity.ok("Admin updated successfully");
-    }
-
-    @DeleteMapping("/deleteAdmin/{adminUsername}")
-    public ResponseEntity<String> deleteAdmin(@PathVariable("adminUsername") String adminUsername) {
-        Optional<Admin> optionalAdmin = adminRepository.findByAdminUsername(adminUsername);
-        if (optionalAdmin.isPresent()) {
-            adminRepository.delete(optionalAdmin.get());
-            return ResponseEntity.ok("Admin deleted successfully");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
     }
 }
 
