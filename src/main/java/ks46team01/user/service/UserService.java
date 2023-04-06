@@ -22,34 +22,7 @@ public class UserService {
     }
 
     public User createUser(User user) {
+        user.setDate(new Timestamp(System.currentTimeMillis()));
         return userRepository.save(user);
-    }
-
-    public User updateUser(String username, User updatedUser) {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setPassword(updatedUser.getPassword());
-            user.setName(updatedUser.getName());
-            user.setBirth(updatedUser.getBirth());
-            user.setEmail(updatedUser.getEmail());
-            user.setPhone(updatedUser.getPhone());
-            user.setAddress(updatedUser.getAddress());
-            user.setUpdate(new Timestamp(System.currentTimeMillis()));
-            user.setStatus(updatedUser.getStatus());
-            user.setCompanyInfoIdx(updatedUser.getCompanyInfoIdx());
-            return userRepository.save(user);
-        } else {
-            throw new ResourceNotFoundException("User", "username", username);
-        }
-    }
-
-    public void deleteUser(String username) {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
-        if (optionalUser.isPresent()) {
-            userRepository.delete(optionalUser.get());
-        } else {
-            throw new ResourceNotFoundException("User", "username", username);
-        }
     }
 }

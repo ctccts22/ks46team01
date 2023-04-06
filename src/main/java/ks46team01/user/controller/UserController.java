@@ -9,14 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Slf4j
 @Controller
 @AllArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
     private final UserRepository userRepository;
 
@@ -25,9 +25,21 @@ public class UserController {
 
     @GetMapping("/listUser")
     public String userList(Model model) {
-        List<User> userList = userRepository.findAll();
-        model.addAttribute("userList", userList);
-        return "user/userList";
+        List<User> listUser = userRepository.findAll();
+        model.addAttribute("listUser", listUser);
+        return "user/listUser";
+    }
+    @GetMapping("/addUser")
+    public String userAdd(Model model) {
+        model.addAttribute("user", new User());
+        return "user/addUser";
+    }
 
+    @PostMapping("/addUser")
+    public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        userService.createUser(user);
+        redirectAttributes.addFlashAttribute("message", "User registered successfully!");
+        return "redirect:/user/listUser";
     }
 }
+

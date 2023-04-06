@@ -28,16 +28,25 @@
                         <th>회원주소</th>
                         <th>회원가입날짜</th>
                         <th>회원수정날짜</th>
-                        <th>회원탈퇴날1</th>
+                        <th>회원탈퇴날짜</th>
+                        <th>회원상태</th>
+                        <th>사업자 정보 고유번호</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="user : ${userList}">
-                        <td th:text="${admin.adminUsername}"></td>
-                        <td th:text="${admin.adminPassword}"></td>
-                        <td th:text="${admin.adminName}"></td>
-                        <td th:text="${admin.adminLogin}"></td>
-                        <td th:text="${admin.adminLogout}"></td>
+                    <tr th:each="user : ${listUser}">
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.password}"></td>
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.birth}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.phone}"></td>
+                        <td th:text="${user.address}"></td>
+                        <td th:text="${user.date}"></td>
+                        <td th:text="${user.modifyDate}"></td>
+                        <td th:text="${user.dropDate}"></td>
+                        <td th:text="${user.status}"></td>
+                        <td th:text="${user.companyInfoIdx}"></td>
                     </tr>
                     </tbody>
                 </table>

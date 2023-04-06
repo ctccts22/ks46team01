@@ -41,16 +41,16 @@ public class User {
     @Column(name = "date", nullable = false, updatable = false)
     private Timestamp date;
 
-    @Column(name = "update", nullable = false)
-    private Timestamp update;
+    @Column(name = "modify_date")
+    private Timestamp modifyDate;
 
-    @Column(name = "drop")
-    private Timestamp drop;
+    @Column(name = "drop_date")
+    private Timestamp dropDate;
 
-    @Column(name = "status", length = 30, nullable = false)
+    @Column(name = "status", length = 30)
     private String status;
 
-    @Column(name = "company_info_idx", length = 10, nullable = false)
+    @Column(name = "company_info_idx", length = 10)
     private String companyInfoIdx;
 
     @Override
