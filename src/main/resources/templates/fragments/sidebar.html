@@ -10,8 +10,9 @@
 					<li><a href="#">소개</a></li>
 					<li><a href="#">공지사항</a></li>
 				</ul></li>
-			<li><a><i class="fa fa-adn"></i> 관리자페이지 <span
-					class="fa fa-chevron-down"></span></a>
+			<li th:if="${session.userRole == 'ROLE_ADMIN'}">
+				<a><i class="fa fa-adn"></i> 관리자페이지
+					<span class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a><i class="fa fa-group"></i> 회원조회 <span
 							class="fa fa-chevron-down"></span></a>
@@ -23,7 +24,7 @@
 					<li><a><i class="fa fa-archive"></i> 사업자 관리 <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="#">사업자 종류 코드</a></li>
+							<li><a th:href="@{/companies/listCompany}">사업자 종류 코드</a></li>
 							<li><a href="#">사업자 정보 조회</a></li>
 							<li><a href="#">사업자 계약 신청관리</a></li>
 							<li><a href="#">사업자 계약단가 등록</a></li>

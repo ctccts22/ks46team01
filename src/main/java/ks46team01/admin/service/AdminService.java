@@ -22,13 +22,5 @@ public class AdminService {
     public void addAdmin(Admin admin) {
         adminRepository.save(admin);
     }
-
-    public void updateAdmin(Admin admin) {
-        adminRepository.save(admin);
-    }
-
-    public void deleteAdmin(String username) {
-        adminRepository.deleteByAdminUsername(username);
-    }
 }
 

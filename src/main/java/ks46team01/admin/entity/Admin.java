@@ -1,10 +1,12 @@
 package ks46team01.admin.entity;
 
 import jakarta.persistence.*;
+import ks46team01.company.entity.Company;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -30,6 +32,9 @@ public class Admin {
 
     @Column(name = "admin_logout")
     private Timestamp adminLogout;
+
+    @OneToMany(mappedBy = "adminUsername", cascade = CascadeType.ALL)
+    private List<Company> companies;
 
     @Override
     public boolean equals(Object o) {
