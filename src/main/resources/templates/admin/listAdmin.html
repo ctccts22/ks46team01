@@ -21,6 +21,7 @@
           <tr>
             <th>아이디</th>
             <th>비밀번호</th>
+            <th>권한</th>
             <th>이름</th>
             <th>로그인시간</th>
             <th>로그아웃시간</th>
@@ -30,6 +31,7 @@
           <tr th:each="admin : ${adminList}">
             <td th:text="${admin.adminUsername}"></td>
             <td th:text="${admin.adminPassword}"></td>
+            <td th:text="${admin.roleId}"></td>
             <td th:text="${admin.adminName}"></td>
             <td th:text="${admin.adminLogin}"></td>
             <td th:text="${admin.adminLogout}"></td>

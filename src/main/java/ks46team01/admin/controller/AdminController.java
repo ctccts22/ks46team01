@@ -2,15 +2,14 @@ package ks46team01.admin.controller;
 
 import ks46team01.admin.entity.Admin;
 import ks46team01.admin.repository.AdminRepository;
+import ks46team01.auth.entity.Role;
+import ks46team01.auth.repository.RoleRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -18,9 +17,11 @@ import java.util.Optional;
 public class AdminController {
 
     private final AdminRepository adminRepository;
+    private final RoleRepository roleRepository;
 
-    public AdminController(AdminRepository adminRepository) {
+    public AdminController(AdminRepository adminRepository, RoleRepository roleRepository) {
         this.adminRepository = adminRepository;
+        this.roleRepository = roleRepository;
     }
 
     @GetMapping("/listAdmin")
@@ -38,9 +39,12 @@ public class AdminController {
 
     @PostMapping("/addAdmin")
     public String addAdmin(@ModelAttribute Admin admin) {
+        Role adminRole = roleRepository.findByRoleName(Role.RoleName.ADMIN);
+        admin.setRoleId(adminRole);
         adminRepository.save(admin);
         return "redirect:/admin/listAdmin";
     }
+
 }
 
 

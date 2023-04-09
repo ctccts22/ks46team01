@@ -1,6 +1,7 @@
 package ks46team01.admin.entity;
 
 import jakarta.persistence.*;
+import ks46team01.auth.entity.Role;
 import ks46team01.company.entity.Company;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -23,6 +24,10 @@ public class Admin {
 
     @Column(name = "admin_password", nullable = false)
     private String adminPassword;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role roleId;
 
     @Column(name = "admin_name", nullable = false)
     private String adminName;

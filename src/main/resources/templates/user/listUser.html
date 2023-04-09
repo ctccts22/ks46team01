@@ -20,6 +20,7 @@
                     <tr>
                         <th>아이디</th>
                         <th>비밀번호</th>
+                        <th>권한</th>
                         <th>회원이름</th>
                         <th>회원생년월일</th>
                         <th>회원이메일</th>
@@ -36,6 +37,7 @@
                     <tr th:each="user : ${userList}">
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.password}"></td>
+                        <td th:text="${user.roleId}"></td>
                         <td th:text="${user.name}"></td>
                         <td th:text="${user.birth}"></td>
                         <td th:text="${user.email}"></td>

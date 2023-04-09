@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 import jakarta.persistence.*;
 
+import ks46team01.auth.entity.Role;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -22,6 +23,10 @@ public class User {
 
     @Column(name = "password", length = 30, nullable = false)
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role roleId;
 
     @Column(name = "name", length = 10, nullable = false)
     private String name;
@@ -65,4 +70,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(username);
     }
+
 }
