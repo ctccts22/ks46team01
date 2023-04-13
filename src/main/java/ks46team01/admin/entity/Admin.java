@@ -26,8 +26,9 @@ public class Admin {
     private String adminPassword;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role roleId;
+    @JoinColumn(name = "role_idx", nullable = false)
+    @ToString.Exclude
+    private Role roleIdx;
 
     @Column(name = "admin_name", nullable = false)
     private String adminName;
@@ -39,6 +40,7 @@ public class Admin {
     private Timestamp adminLogout;
 
     @OneToMany(mappedBy = "adminUsername", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Company> companies;
 
     @Override

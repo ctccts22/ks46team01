@@ -40,7 +40,7 @@ public class AdminController {
     @PostMapping("/addAdmin")
     public String addAdmin(@ModelAttribute Admin admin) {
         Role adminRole = roleRepository.findByRoleName(Role.RoleName.ADMIN);
-        admin.setRoleId(adminRole);
+        admin.setRoleIdx(adminRole);
         adminRepository.save(admin);
         return "redirect:/admin/listAdmin";
     }

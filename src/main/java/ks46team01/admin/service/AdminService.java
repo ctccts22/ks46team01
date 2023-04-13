@@ -7,6 +7,7 @@ import ks46team01.auth.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminService {
@@ -25,8 +26,17 @@ public class AdminService {
 
     public void addAdmin(Admin admin) {
         Role adminRole = roleRepository.findByRoleName(Role.RoleName.ADMIN);
-        admin.setRoleId(adminRole);
+        admin.setRoleIdx(adminRole);
         adminRepository.save(admin);
+    }
+
+    public Optional<Admin> findByAdminUsername(String adminUsername) {
+        return adminRepository.findByAdminUsername(adminUsername);
+    }
+
+    // 로그인 로그아웃 시간 업데이트 쿼리
+    public Admin updateAdmin(Admin admin) {
+        return adminRepository.save(admin);
     }
 
 

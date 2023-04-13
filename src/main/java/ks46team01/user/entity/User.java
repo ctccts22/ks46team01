@@ -9,7 +9,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Getter
 @Setter
 @ToString
@@ -25,8 +25,8 @@ public class User {
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role roleId;
+    @JoinColumn(name = "role_idx", nullable = false)
+    private Role roleIdx;
 
     @Column(name = "name", length = 10, nullable = false)
     private String name;

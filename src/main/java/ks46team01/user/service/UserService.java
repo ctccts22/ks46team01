@@ -25,7 +25,7 @@ public class UserService {
 
     public User createUser(User user) {
         Role userRole = roleRepository.findByRoleName(Role.RoleName.USER);
-        user.setRoleId(userRole);
+        user.setRoleIdx(userRole);
 
 
         user.setDate(new Timestamp(System.currentTimeMillis()));

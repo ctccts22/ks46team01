@@ -18,17 +18,17 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    private Long roleId;
+    @Column(name = "role_idx")
+    private Long roleIdx;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role_name", nullable = false, unique = true)
     private RoleName roleName;
 
-    @OneToMany(mappedBy = "roleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "roleIdx", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
 
-    @OneToMany(mappedBy = "roleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "roleIdx", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Admin> admins = new HashSet<>();
 
     @Override
