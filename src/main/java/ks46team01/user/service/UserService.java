@@ -2,6 +2,7 @@ package ks46team01.user.service;
 
 import ks46team01.auth.entity.Role;
 import ks46team01.auth.repository.RoleRepository;
+import ks46team01.auth.security.BcryptHashing;
 import ks46team01.user.entity.User;
 import ks46team01.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,9 @@ public class UserService {
     }
 
     public User createUser(User user) {
+        String hashedPassword = BcryptHashing.hash(user.getPassword());
+        user.setPassword(hashedPassword);
+
         Role userRole = roleRepository.findByRoleName(Role.RoleName.USER);
         user.setRoleIdx(userRole);
 

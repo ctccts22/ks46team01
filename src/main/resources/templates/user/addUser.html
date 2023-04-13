@@ -12,8 +12,90 @@
             if (message) {
                 alert(message);
             }
+
+            // Add an event listener for the form submit event
+            $("#demo-form2").on("submit", function(event) {
+                const password = $("#password").val();
+                const passwordDuplicate = $("#password_duplicate").val();
+
+                // Compare the password and duplicate password values
+                if (password !== passwordDuplicate) {
+                    event.preventDefault(); // Prevent the form submission
+                    alert("비밀번호가 일치하지 않습니다."); // Show an error message
+                }
+            });
+
+            // Add an event listener for the duplicate password input field keyup event
+            $("#password_duplicate").on("keyup", function() {
+                const password = $("#password").val();
+                const passwordDuplicate = $("#password_duplicate").val();
+
+                // Compare the password and duplicate password values
+                if (password === passwordDuplicate) {
+                    $("#password_match_message").text("비밀번호가 일치합니다.")
+                        .css("color", "green");
+                } else {
+                    $("#password_match_message").text("비밀번호가 일치하지 않습니다.")
+                        .css("color", "red");
+                }
+            });
+        });
+
+
+        // Add an event listener for the "Check" button click event
+        let isUsernameAvailable = false;
+        let usernameCheckTimeout;
+
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            if (message) {
+                alert(message);
+            }
+
+            // Attach input event to the username input field
+            $("#username").on("input", function() {
+                clearTimeout(usernameCheckTimeout);
+
+                usernameCheckTimeout = setTimeout(function() {
+                    const username = $("#username").val();
+
+                    if (username) {
+                        $.ajax({
+                            url: "/user/checkUsername",
+                            type: "GET",
+                            data: { username: username },
+                            success: function(isAvailable) {
+                                if (isAvailable) {
+                                    $("#username_available_message").text("사용 가능한 아이디입니다.")
+                                        .css("color", "green");
+                                    isUsernameAvailable = true;
+                                } else {
+                                    $("#username_available_message").text("이미 사용 중인 아이디입니다.")
+                                        .css("color", "red");
+                                    isUsernameAvailable = false;
+                                }
+                            }
+                        });
+                    } else {
+                        $("#username_available_message").text("아이디를 입력해주세요.")
+                            .css("color", "red");
+                        isUsernameAvailable = false;
+                    }
+                }, 500); // 500 ms delay
+            });
+        });
+
+        // Add form submit event listener
+        $("#demo-form2").on("submit", function(event) {
+            if (!isUsernameAvailable) {
+                event.preventDefault();
+                alert("회원가입이 불가합니다.");
+            }
         });
     </script>
+
+
 </th:block>
 
 <th:block layout:fragment="customContent">
@@ -21,16 +103,24 @@
     <div class="x_content">
         <br/>
         <form th:object="${user}" th:action="@{/user/addUser}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-        <div class="item form-group">
+            <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="username">아이디</label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="username" th:field="*{username}" required="required" class="form-control ">
+                    <input type="text" id="username" th:field="*{username}" required="required" class="form-control">
+                    <span id="username_available_message" class="help-block"></span> <!-- Add this line -->
                 </div>
             </div>
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="password">비밀번호</label>
                 <div class="col-md-6 col-sm-6 ">
                     <input type="password" id="password" th:field="*{password}" required="required" class="form-control">
+                </div>
+            </div>
+            <div class="item form-group">
+                <label class="col-form-label col-md-3 col-sm-3 label-align" for="password_duplicate">비밀번호 확인</label>
+                <div class="col-md-6 col-sm-6 ">
+                    <span id="password_match_message" class="help-block"></span>
+                    <input type="password" id="password_duplicate" required="required" class="form-control">
                 </div>
             </div>
             <div class="item form-group">

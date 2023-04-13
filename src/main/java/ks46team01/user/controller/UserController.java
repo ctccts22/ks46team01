@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -22,6 +23,13 @@ public class UserController {
 
     private final UserService userService;
 
+    // UserController.java
+    @GetMapping("/checkUsername")
+    @ResponseBody
+    public boolean checkUsername(@RequestParam("username") String username) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        return userOptional.isEmpty();
+    }
 
     @GetMapping("/listUser")
     public String userList(Model model) {
@@ -38,7 +46,7 @@ public class UserController {
     @PostMapping("/addUser")
     public String registerUser(@ModelAttribute User user) {
         userService.createUser(user);
-        return "redirect:/user/listUser";
+        return "redirect:/";
     }
 
 

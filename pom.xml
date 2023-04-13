@@ -83,15 +83,7 @@
             <version>1.16</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-            <version>3.1.1.RELEASE</version>
-        </dependency>
+
         <!-- H2 데이터베이스 -->
         <dependency>
             <groupId>com.h2database</groupId>
@@ -99,8 +91,11 @@
             <scope>runtime</scope>
             <version>2.1.214</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
     </dependencies>
 
     <build>
