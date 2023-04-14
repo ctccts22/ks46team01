@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head></head>
+
+<th:block layout:fragment="customJs">
+  <script>
+    $(document).ready(function() {
+      // Validate current password
+      $("#modify-form").on("submit", function(e) {
+        e.preventDefault();
+
+        var passwordCheck = $("#password_check").val();
+        if (passwordCheck.length === 0) {
+          $("#password_error").text("비밀번호를 입력해주세요.");
+          return false;
+        }
+
+        // Send an AJAX request to the server to verify the password
+        $.ajax({
+          url: "/user/validatePassword",
+          type: "POST",
+          data: {
+            username: $("#modify-form input[name='username']").val(),
+            password_check: passwordCheck
+          },
+          success: function(response) {
+            if (response === "true") {
+              // If the password is correct, submit the form
+              $("#modify-form").off("submit").submit();
+            } else {
+              // If the password is incorrect, display an error message and alert
+              // $("#password_error").text("비밀번호가 일치하지 않습니다.");
+              alert("회원수정에 실패했습니다");
+            }
+          }
+        });
+      });
+
+      // Validate new password confirmation
+      $("#new_password_confirm").on("keyup", function() {
+        const newPassword = $("#new_password").val();
+        const newPasswordConfirm = $("#new_password_confirm").val();
+
+        if (newPassword === newPasswordConfirm) {
+          $("#password_match_message").text("비밀번호가 일치합니다.")
+                  .css("color", "green");
+        } else {
+          $("#password_match_message").text("비밀번호가 일치하지 않습니다.")
+                  .css("color", "red");
+        }
+      });
+    });
+  </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <h2>회원 정보 수정</h2>
+  <div class="container">
+    <form th:object="${user}" th:action="@{/user/modifyUser}" method="post" id="modify-form" data-parsley-validate class="form-horizontal form-label-left">
+      <input type="hidden" th:field="*{username}"/>
+
+      <div class="form-group">
+        <label for="password_check">현재 비밀번호</label>
+        <input type="password" name="password_check" id="password_check" class="form-control" required="required">
+<!--        <span id="password_error" style="color: red;"></span>-->
+      </div>
+
+      <div class="form-group">
+        <label for="new_password">새 비밀번호</label>
+        <input type="password" name="new_password" id="new_password" class="form-control" required="required">
+      </div>
+
+      <div class="form-group">
+        <label for="new_password_confirm">새 비밀번호 확인</label>
+        <input type="password" name="new_password_confirm" id="new_password_confirm" class="form-control" required="required">
+        <span id="password_match_message" style="color: red;"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="email">이메일</label>
+        <input type="email" id="email" th:field="*{email}" class="form-control" required="required">
+      </div>
+
+      <div class="form-group">
+        <label for="phone">전화번호</label>
+        <input type="tel" id="phone" th:field="*{phone}" class="form-control" required="required">
+      </div>
+
+      <div class="form-group">
+        <label for="address">주소</label>
+        <input type="text" id="address" th:field="*{address}" class="form-control" required="required">
+      </div>
+
+      <button type="submit" class="btn btn-primary">정보 수정</button>
+      <button type="reset" class="btn btn-secondary">취소</button>
+    </form>
+  </div>
+</th:block>
+</html>
+

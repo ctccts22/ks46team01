@@ -10,7 +10,7 @@
 					<li><a href="#">소개</a></li>
 					<li><a href="#">공지사항</a></li>
 				</ul></li>
-			<li>
+			<li th:if="${session.userRole == 'ROLE_ADMIN'}">
 				<a><i class="fa fa-adn"></i> 관리자페이지
 					<span class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
