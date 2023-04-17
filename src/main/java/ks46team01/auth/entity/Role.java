@@ -1,8 +1,8 @@
 package ks46team01.auth.entity;
 
 import jakarta.persistence.*;
-import ks46team01.admin.entity.Admin;
-import ks46team01.user.entity.User;
+import ks46team01.admin.info.entity.Admin;
+import ks46team01.user.info.entity.User;
 import lombok.*;
 
 import java.util.HashSet;
