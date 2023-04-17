@@ -23,7 +23,8 @@ public class WebConfig implements WebMvcConfigurer {
 
         //  로그인 비활성화 상태에서 회원수정 하는거 방지
         registry.addInterceptor(new PreventNotLoggedInUserAccessInterceptor())
-                .addPathPatterns("/user/modifyUser/**");
+                .addPathPatterns("/user/modifyUser/**")
+                .addPathPatterns("/user/userProfile");
 
     }
 

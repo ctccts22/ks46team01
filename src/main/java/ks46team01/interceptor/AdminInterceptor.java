@@ -1,6 +1,6 @@
 package ks46team01.interceptor;
 
-import ks46team01.admin.entity.Admin;
+import ks46team01.admin.info.entity.Admin;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 

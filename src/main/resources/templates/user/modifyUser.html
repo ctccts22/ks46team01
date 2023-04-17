@@ -11,26 +11,28 @@
       $("#modify-form").on("submit", function(e) {
         e.preventDefault();
 
-        var passwordCheck = $("#password_check").val();
+        const passwordCheck = $("#password_check").val();
         if (passwordCheck.length === 0) {
           $("#password_error").text("비밀번호를 입력해주세요.");
           return false;
         }
 
-        // Send an AJAX request to the server to verify the password
+        // AJAX 요청을 서버로 전송하여 암호 확인
         $.ajax({
           url: "/user/validatePassword",
           type: "POST",
           data: {
             username: $("#modify-form input[name='username']").val(),
-            password_check: passwordCheck
+            password_check: passwordCheck,
+            new_password: $("#new_password").val(),
+            new_password_confirm: $("#new_password_confirm").val()
           },
           success: function(response) {
             if (response === "true") {
               // If the password is correct, submit the form
               $("#modify-form").off("submit").submit();
             } else {
-              // If the password is incorrect, display an error message and alert
+              // 암호가 올바르지 않으면 오류 메시지를 표시하고 경고합니다
               // $("#password_error").text("비밀번호가 일치하지 않습니다.");
               alert("회원수정에 실패했습니다");
             }
@@ -38,7 +40,7 @@
         });
       });
 
-      // Validate new password confirmation
+      // 새 암호 확인
       $("#new_password_confirm").on("keyup", function() {
         const newPassword = $("#new_password").val();
         const newPasswordConfirm = $("#new_password_confirm").val();
@@ -64,17 +66,17 @@
       <div class="form-group">
         <label for="password_check">현재 비밀번호</label>
         <input type="password" name="password_check" id="password_check" class="form-control" required="required">
-<!--        <span id="password_error" style="color: red;"></span>-->
+        <!--        <span id="password_error" style="color: red;"></span>-->
       </div>
 
       <div class="form-group">
         <label for="new_password">새 비밀번호</label>
-        <input type="password" name="new_password" id="new_password" class="form-control" required="required">
+        <input type="password" name="new_password" id="new_password" class="form-control">
       </div>
 
       <div class="form-group">
         <label for="new_password_confirm">새 비밀번호 확인</label>
-        <input type="password" name="new_password_confirm" id="new_password_confirm" class="form-control" required="required">
+        <input type="password" name="new_password_confirm" id="new_password_confirm" class="form-control">
         <span id="password_match_message" style="color: red;"></span>
       </div>
 
@@ -99,4 +101,3 @@
   </div>
 </th:block>
 </html>
-
