@@ -9,8 +9,8 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 @Entity
-@Table(name = "users")
-//@Table(name = "user")
+//@Table(name = "users")
+@Table(name = "user")
 @Getter
 @Setter
 @ToString
