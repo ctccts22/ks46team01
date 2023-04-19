@@ -20,7 +20,7 @@ public class EmailService {
 
     public void sendTemporaryPassword(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("ctccts22@naver.com");
+        message.setFrom("ks46team01email@naver.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
