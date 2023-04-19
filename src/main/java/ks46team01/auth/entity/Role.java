@@ -1,8 +1,8 @@
 package ks46team01.auth.entity;
 
 import jakarta.persistence.*;
-import ks46team01.admin.entity.Admin;
-import ks46team01.user.entity.User;
+import ks46team01.admin.info.entity.Admin;
+import ks46team01.user.info.entity.User;
 import lombok.*;
 
 import java.util.HashSet;
@@ -18,17 +18,17 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    private Long roleId;
+    @Column(name = "role_idx")
+    private Long roleIdx;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role_name", nullable = false, unique = true)
     private RoleName roleName;
 
-    @OneToMany(mappedBy = "roleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "roleIdx", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
 
-    @OneToMany(mappedBy = "roleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "roleIdx", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Admin> admins = new HashSet<>();
 
     @Override

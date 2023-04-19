@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head></head>
+
+<th:block layout:fragment="customJs">
+  <script>
+    // Add custom JavaScript if needed
+  </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="my-4">회원 정보</h2>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>아이디</th>
+          <th>회원이름</th>
+          <th>회원생년월일</th>
+          <th>회원이메일</th>
+          <th>회원전화번호</th>
+          <th>회원주소</th>
+          <th>회원가입날짜</th>
+          <th>회원수정날짜</th>
+          <th>회원상태</th>
+          <th>사업자 정보 고유번호</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td th:text="${user.username}"></td>
+          <td th:text="${user.name}"></td>
+          <td th:text="${user.birth}"></td>
+          <td th:text="${user.email}"></td>
+          <td th:text="${user.phone}"></td>
+          <td th:text="${user.address}"></td>
+          <td th:text="${user.date}"></td>
+          <td th:text="${user.modifyDate}"></td>
+          <td th:text="${user.status}"></td>
+          <td th:text="${user.companyInfoIdx}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</th:block>
+</html>

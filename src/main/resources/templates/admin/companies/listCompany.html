@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head></head>
+
+<th:block layout:fragment="customJs">
+  <script>
+
+  </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="my-4">사업장 종류 코드</h2>
+        <a th:href="@{/admin/companies/addCompany}" class="btn btn-primary mb-3">Add Company</a>
+        <table class="table table-striped table-bordered table-hover">
+          <thead class="thead-dark">
+          <tr>
+            <th>사업자 종류 고유번호</th>
+            <th>사업자 종류</th>
+            <th>운영자 아이디</th>
+            <th>사업자 종류 등록 날짜</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="company : ${companyList}">
+            <td th:text="${company.companyIdx}"></td>
+            <td th:text="${company.companyType}"></td>
+            <td th:text="${company.adminUsername.adminUsername}"></td>
+            <td th:text="${company.companyDate}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>
+
+

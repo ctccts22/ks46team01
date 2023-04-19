@@ -15,9 +15,9 @@
 						<span th:text="${session.user.username}"></span>
 					</a>
 					<div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="javascript:;"> 회원정보</a>
+						<a class="dropdown-item" th:href="@{user/profileUser}"> 회원정보</a>
 						<a class="dropdown-item" href="javascript:;"> 회원사진등록</a>
-						<a class="dropdown-item" th:href="@{/user/modifyUser}"> 회원정보수정</a>
+						<a class="dropdown-item" th:href="@{/user/modifyUser/{username}(username=${session.user.username})}"> 회원정보수정</a>
 						<a class="dropdown-item" th:href="@{/auth/logout}">
 							<i class="fa fa-sign-out pull-right"></i>
 							로그아웃
@@ -66,7 +66,7 @@
 					<a th:href="@{/user/addUser}" class="nav-link">회원가입</a>
 				</li>
 				<li class="nav-item" style="padding-left: 15px;">
-					<a href="#" class="nav-link">비밀번호 찾기</a>
+					<a th:href="@{/user/findPasswordUser}" class="nav-link">비밀번호 찾기</a>
 				</li>
 				<li class="nav-item" style="padding-left: 15px;">
 					<a th:href="@{/auth/loginAdmin}" class="nav-link">관리자 로그인</a>
