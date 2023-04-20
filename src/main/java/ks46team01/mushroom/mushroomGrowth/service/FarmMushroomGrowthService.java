@@ -19,15 +19,13 @@ public class FarmMushroomGrowthService {
     public List<FarmMushroomGrowth> getFarmMushroomGrowth(String searchKey , String searchValue){
         if(searchKey != null){
             switch (searchKey) {
-                case "mushroomGrowthIdx" -> searchKey = "mushroom_growth_idx";
-                case "farmDataIdx" -> searchKey = "farm_data_idx";
+                case "mushroom_growth_idx" -> searchKey = "mushroom_growth_idx";
+                case "farm_data_idx" -> searchKey = "farm_data_idx";
                 default -> searchKey = "crop_idx";
             }
         }
 
         System.out.println(searchKey+ "입력값");
-
-
         System.out.println(searchValue + "찾는값");
 
 

@@ -28,22 +28,24 @@
                         <th>생산 일자</th>
                         <th>매출 발생 일자</th>
                         <th>예상 폐배지 수량</th>
+                        <th>등록일자</th>
 
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:unless="${fd == null}" th:each="l:${fd}">
 
-                        <td th:text="${l.farmDataIdx}"></td>
+                        <td th:text="${l.farm_data_idx}"></td>
                         <td th:text="${l.username}"></td>
-                        <td th:text="${l.companyInfoIdx}"></td>
-                        <td th:text="${l.farmDataCompost}"></td>
-                        <td th:text="${l.farmDataProduction}"></td>
-                        <td th:text="${l.farmDataExpectedSale}"></td>
-                        <td th:text="${l.farmDataActualSale}"></td>
-                        <td th:text="${l.farmDataProductionDate}"></td>
-                        <td th:text="${l.farmDataOccurrenceSaleDate}"></td>
-                        <td th:text="${l.farmDataExpectedWasted}"></td>
+                        <td th:text="${l.company_info_idx}"></td>
+                        <td th:text="${l.farm_data_compost}"></td>
+                        <td th:text="${l.farm_data_production}"></td>
+                        <td th:text="${l.farm_data_expected_sale}"></td>
+                        <td th:text="${l.farm_data_actual_sale}"></td>
+                        <td th:text="${l.farm_data_production_date}"></td>
+                        <td th:text="${l.farm_data_occurrence_sale_date}"></td>
+                        <td th:text="${l.farm_data_expected_wasted}"></td>
+                        <td th:text="${l.farm_data_date}"></td>
                     </tr>
 
 
