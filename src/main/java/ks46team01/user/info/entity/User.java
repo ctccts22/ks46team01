@@ -1,10 +1,12 @@
 package ks46team01.user.info.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 import jakarta.persistence.*;
 
 import ks46team01.auth.entity.Role;
+import ks46team01.common.company.info.entity.CompanyInfo;
 import lombok.*;
 import org.hibernate.Hibernate;
 
