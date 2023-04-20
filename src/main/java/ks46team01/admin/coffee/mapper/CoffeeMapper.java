@@ -10,5 +10,5 @@ import java.util.List;
 
 @Mapper
 public interface CoffeeMapper {
-    public List<CoffeeRequestConfirm> listCoffee();
+    public List<CoffeeRequestConfirm> listConfirmCoffee();
 }
