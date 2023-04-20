@@ -3,7 +3,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ks46team01.admin.coffee.mapper.CoffeeMapper">
-    <resultMap id="coffeeRequestMap" type="CoffeeRequestConfirm">
+    <resultMap id="coffeeRequestMap" type="ks46team01.common.coffee.dto.CoffeeRequestConfirm">
         <id column="coffee_request_confirm_idx" property="coffeeRequestConfirmIdx"/>
         <result column="username" property="userName"/>
         <result column="coffee_request_idx" property="coffeeRequestIdx"/>
@@ -13,7 +13,7 @@
         <result column="admin_username" property="adminUsername"/>
         <result column="coffee_request_confirm_date" property="coffeeRequestConfirmDate"/>
     </resultMap>
-<select id="listConfirmCoffee" resultType="CoffeeRequestConfirm">
+<select id="listConfirmCoffee" resultMap="coffeeRequestMap">
     SELECT
     coffee_request_confirm_idx,
     username,

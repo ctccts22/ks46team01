@@ -2,6 +2,7 @@ package ks46team01.admin.coffee.controller;
 
 import ks46team01.admin.coffee.mapper.CoffeeMapper;
 import ks46team01.admin.coffee.service.CoffeeService;
+import ks46team01.admin.coffee.service.CoffeeServiceImpl;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,8 @@ import java.util.List;
 @RequestMapping("/admin/coffee")
 public class AdminCoffeeController {
 
-    private CoffeeService coffeeService;
+    @Autowired
+    private CoffeeServiceImpl coffeeService;
     @GetMapping("/listCoffeeAdmin")
     public String adminCoffeeList(){
 
@@ -24,6 +26,7 @@ public class AdminCoffeeController {
     }
     @GetMapping("/listConfirmCoffeeAdmin")
     public String adminCoffeeConfirmList(Model model){
+        System.out.println("/listConfirmCoffeeAdmin 실행?");
         List<CoffeeRequestConfirm> coffeeConfirmList = coffeeService.listConfirmCoffee();
         model.addAttribute("title","커피가루승인상태");
         model.addAttribute("coffeeConfirmList",coffeeConfirmList);
