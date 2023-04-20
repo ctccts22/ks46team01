@@ -25,14 +25,14 @@
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/companies/listCompany}">사업자 종류 코드</a></li>
-							<li><a href="#">사업자 정보 조회</a></li>
-							<li><a href="#">사업자 계약 신청관리</a></li>
-							<li><a href="#">사업자 계약단가 등록</a></li>
+							<li><a th:href="@{/admin/companies/info/listInfoCompany}">사업자 정보 조회</a></li>
+							<li><a th:href="@{/admin/companies/contract/listContractCompany}">사업자 계약 신청관리</a></li>
+							<li><a th:href="@{/admin/companies/unit/listUnitCompany}">사업자 계약단가 등록</a></li>
 						</ul></li>
 					<li><a><i class="fa fa-cube"></i> 재고관리 <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="#">재고물품관리</a></li>
+							<li><a th:href="@{/admin/inventory/listInventory}">재고물품관리</a></li>
 							<li><a href="#">물품 입고 재고관리</a></li>
 							<li><a href="#">물품 출고 재고관리</a></li>
 						</ul></li>
