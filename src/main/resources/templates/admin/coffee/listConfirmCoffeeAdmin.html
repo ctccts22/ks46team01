@@ -49,8 +49,8 @@
               <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
                 <thead>
                 <tr>
-                  </th>
                   <th>카페명</th>
+                  <th>회원아이디</th>
                   <th>수거 담당자 번호</th>
                   <th>카페 주소</th>
                   <th>중량</th>
@@ -60,15 +60,17 @@
                 </thead>
 
 
-                <tbody>
-                <tr th:unless="${coffeeConfirmList == null}" th:each=" c : ${coffeeConfirmList}">
-                  <td th:text="${c.coffeeRequestConfirmIdx}"></td>
-                  <td th:text="${c.coffeeRequestConfirmDate}"></td>
-                  <td th:text="${c.adminUsername}"></td>
-                  <td th:text="${c.coffeeRequestConfirmIdx}"></td>
+                <tbody th:unless="companyInfoList == null" th:each="i : ${companyInfoList}">
+                <tr th:unless="coffeeConfirmList == null" th:each="c : ${coffeeConfirmList}">
+                  <td th:text="${i.companyInfoName}"></td>
+                  <td th:text="${c.userName}"></td>
+                  <td th:text="${i.companyInfoPhone}"></td>
+                  <td th:text="${i.companyInfoAddress}"></td>
+                  <td th:text="${i.companyInfoAddress}"></td>
                   <td th:text="${c.userName}"></td>
                   <td th:text="${c.userName}"></td>
                 </tr>
+
                 <tr th:if="${coffeeConfirmList == null}">
                   <td colspan="7">등록된 상품의 정보가 없습니다.</td>
                 </tr>
@@ -80,5 +82,8 @@
       </div>
     </div>
   </div>
+
 </th:block>
+
+
 </html>

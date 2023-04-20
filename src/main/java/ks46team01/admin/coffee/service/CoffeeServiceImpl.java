@@ -4,13 +4,13 @@ import ks46team01.admin.coffee.mapper.CoffeeMapper;
 import ks46team01.common.coffee.dto.CoffeeDelivery;
 import ks46team01.common.coffee.dto.CoffeeRequest;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
+import ks46team01.common.coffee.dto.CompanyInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class CoffeeServiceImpl implements CoffeeService{
-
     @Autowired
     private CoffeeMapper coffeeMapper;
     //커피가루 수거신청 리스트
@@ -32,4 +32,12 @@ public class CoffeeServiceImpl implements CoffeeService{
     public List<CoffeeDelivery> listDeliveryCoffee() {
         return null;
     }
+
+    @Override
+    public List<CompanyInfo> listConfirmCompanyInfo() {
+        List<CompanyInfo> companyInfoList = coffeeMapper.listConfirmCompanyInfo();
+        return companyInfoList;
+    }
+
+
 }

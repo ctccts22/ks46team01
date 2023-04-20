@@ -25,4 +25,14 @@
     coffee_request_confirm_date
     FROM coffee_request_confirm;
 </select>
+    <select id="listConfirmCompanyInfo" resultType="ks46team01.common.coffee.dto.CompanyInfo">
+        SELECT
+        ci.company_info_name as companyInfoName,
+        ci.company_info_phone as companyInfoPhone,
+        ci.company_info_address as companyInfoAddress
+        FROM
+        coffee_request_confirm crc
+        INNER JOIN company_info ci
+        ON ci.company_info_idx = crc.company_info_idx;
+    </select>
 </mapper>

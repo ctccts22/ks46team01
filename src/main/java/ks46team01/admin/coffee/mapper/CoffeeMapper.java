@@ -4,6 +4,7 @@ import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
 import ks46team01.common.coffee.dto.CoffeeRequest;
 import ks46team01.common.coffee.dto.CoffeeDelivery;
 
+import ks46team01.common.coffee.dto.CompanyInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,4 +12,5 @@ import java.util.List;
 @Mapper
 public interface CoffeeMapper {
     public List<CoffeeRequestConfirm> listConfirmCoffee();
+    public List<CompanyInfo> listConfirmCompanyInfo();
 }
