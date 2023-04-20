@@ -38,6 +38,9 @@
                       <option selected>선택</option>
                       <option value="1">카페명</option>
                       <option value="2">카페주소</option>
+                      <option value="3">회원아이디</option>
+                      <option value="4">관리자아이디</option>
+                      <option value="5">승인상태</option>
                     </select>
                     <input type="text" class="form-control" placeholder="검색어를 입력하세요.">
                     <span class="input-group-btn">
@@ -54,8 +57,10 @@
                   <th>수거 담당자 번호</th>
                   <th>카페 주소</th>
                   <th>중량</th>
-                  <th>승인신청 날짜</th>
+                  <th>승인완료일</th>
                   <th>승인상태</th>
+                  <th>승인내용</th>
+                  <th>승인관리자</th>
                 </tr>
                 </thead>
 
@@ -66,9 +71,11 @@
                   <td th:text="${c.userName}"></td>
                   <td th:text="${i.companyInfoPhone}"></td>
                   <td th:text="${i.companyInfoAddress}"></td>
-                  <td th:text="${i.companyInfoAddress}"></td>
-                  <td th:text="${c.userName}"></td>
-                  <td th:text="${c.userName}"></td>
+                  <td th:text="${c.coffeeRequestAmount}+kg"></td>
+                  <td th:text="${c.coffeeRequestConfirmDate}"></td>
+                  <td th:text="${c.coffeeRequestConfirmStatus}"></td>
+                  <td th:text="${c.coffeeRequestConfirmContent}"></td>
+                  <td th:text="${c.adminUsername}"></td>
                 </tr>
 
                 <tr th:if="${coffeeConfirmList == null}">

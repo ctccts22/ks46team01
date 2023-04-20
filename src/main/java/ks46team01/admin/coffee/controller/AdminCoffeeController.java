@@ -3,6 +3,7 @@ package ks46team01.admin.coffee.controller;
 import ks46team01.admin.coffee.mapper.CoffeeMapper;
 import ks46team01.admin.coffee.service.CoffeeService;
 import ks46team01.admin.coffee.service.CoffeeServiceImpl;
+import ks46team01.common.coffee.dto.CoffeeRequest;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
 import ks46team01.common.coffee.dto.CompanyInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,6 @@ public class AdminCoffeeController {
         System.out.println("/listConfirmCoffeeAdmin 실행?");
         List<CoffeeRequestConfirm> coffeeConfirmList = coffeeService.listConfirmCoffee();
         List<CompanyInfo> companyInfoList = coffeeService.listConfirmCompanyInfo();
-
         model.addAttribute("coffeeConfirmList",coffeeConfirmList);
         model.addAttribute("companyInfoList",companyInfoList);
 

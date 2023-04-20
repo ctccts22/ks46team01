@@ -11,7 +11,7 @@
 
 <th:block layout:fragment="customContent">
     <div class="x_content">
-        <form class="request_form" th:action="@{/user/coffee/insertRequestCoffee}" method="post" novalidate>
+        <form class="request_form" th:action="@{/user/coffee/insertRequestCoffee}" method="get" novalidate>
             <label class="col-form-label col-md-3 col-sm-3  label-align">버섯농가 규모<span class="required">*</span></label>
             <div class="col-md-6 col-sm-6">
                 <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="area"

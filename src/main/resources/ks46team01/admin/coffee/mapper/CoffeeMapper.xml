@@ -14,16 +14,19 @@
         <result column="coffee_request_confirm_date" property="coffeeRequestConfirmDate"/>
     </resultMap>
 <select id="listConfirmCoffee" resultMap="coffeeRequestMap">
-    SELECT
-    coffee_request_confirm_idx,
-    username,
-    coffee_request_idx,
-    company_info_idx,
-    coffee_request_confirm_status,
-    coffee_request_confirm_content,
-    admin_username,
-    coffee_request_confirm_date
-    FROM coffee_request_confirm;
+    select
+    rc.coffee_request_confirm_idx,
+    rc.username,
+    rc.coffee_request_idx,
+    rc.coffee_request_confirm_status,
+    rc.coffee_request_confirm_content,
+    rc.admin_username,
+    rc.coffee_request_confirm_date,
+    r.coffee_request_amount as coffeeRequestAmount
+    from coffee_request_confirm
+    as rc inner join coffee_request r
+    on r.company_info_idx = rc.company_info_idx
+    inner join company_info as i on r.company_info_idx = i.company_info_idx;
 </select>
     <select id="listConfirmCompanyInfo" resultType="ks46team01.common.coffee.dto.CompanyInfo">
         SELECT

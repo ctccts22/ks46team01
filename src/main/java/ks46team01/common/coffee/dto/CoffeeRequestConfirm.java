@@ -3,7 +3,7 @@ package ks46team01.common.coffee.dto;
 import lombok.Data;
 
 @Data
-public class CoffeeRequestConfirm {
+public class CoffeeRequestConfirm extends CoffeeRequest{
 
     private Long coffeeRequestConfirmIdx; //커피가루 배송 고유번호 PK
     private String userName; // 회원 아이디 FK
