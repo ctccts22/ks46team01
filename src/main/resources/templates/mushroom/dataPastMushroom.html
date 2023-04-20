@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head></head>
+
+<th:block layout:fragment="customJs">
+    <script>
+
+    </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="my-4">버섯생산 과거데이터</h2>
+
+                <!--        <button id="addAdminBtn" class="btn btn-primary">운영자 정보</button>-->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>과거버섯데이터 고유코드</th>
+                        <th>사업자 고유코드</th>
+                        <th>작물고유코드</th>
+                        <th>작물종류</th>
+                        <th>생산량 </th>
+                        <th>매출합계</th>
+                        <th>배지사용비용</th>
+                        <th>년도</th>
+                        <th>사용유무</th>
+                        <th>플랫폼사용 전 데이터인데 흠.</th>
+                        <th>등록날짜</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:unless="${fpd == null}"  th:each="l:${fpd}">
+                        <td th:text="${l.past_data_idx}"></td>
+                        <td th:text="${l.username}"></td>
+                        <td th:text="${l.company_info_idx}"></td>
+                        <td th:text="${l.crop_idx}"></td>
+                        <td th:text="${l.crop_type}"></td>
+                        <td th:text="${l.past_data_mushroom_production}"></td>
+                        <td th:text="${l.past_data_total_revenue}"></td>
+                        <td th:text="${l.past_data_badge_use}"></td>
+                        <td th:text="${l.past_data_use}"></td>
+                        <td th:text="${l.past_data_comparison}"></td>
+                        <td th:text="${l.past_data_date}"></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
+
+
+
+
+

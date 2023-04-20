@@ -2,50 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
-
+<head></head>
 
 <th:block layout:fragment="customJs">
+    <script>
+
+    </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="my-4">관리자 회계 매입 자료</h2>
+                <h2 class="my-4">관리자 회계 매출 자료</h2>
                 <!--        <button id="addAdminBtn" class="btn btn-primary">운영자 정보</button>-->
                 <table class="table table-striped table-bordered table-hover">
                     <thead class="thead-dark">
                     <tr>
-                        <th>회계관리 매입 고유번호</th>
-                        <th>사업장 고유코드</th>
+                        <th>회계관리 매출 고유번호</th>
+                        <th>사업장 고유번호</th>
                         <th>재고물품고유번호</th>
-                        <th>사업자 계약 신청관리</th>
+                        <th>사업자 계약신청관리</th>
                         <th>거래일자</th>
-                        <th>거래단가</th>
-                        <th>매입거래량</th>
+                        <th>거래유형</th>
                         <th>결제유형</th>
-                        <th>매입액</th>
+                        <th>매출액</th>
                         <th>운영자아이디</th>
                         <th>수정날짜</th>
+                        <th>매출 마감 그룹코드</th>
 
 
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:unless="${ac ==null}" th:each="l:${ac}">
+                    <tr th:unless="${as ==null}" th:each="l:${as}">
 
-                        <td th:text="${l.accounting_purchase_admin_idx}"></td>
+                        <td th:text="${l.accounting_sales_admin_idx}"></td>
                         <td th:text="${l.company_idx}"></td>
                         <td th:text="${l.inventory_idx}"></td>
                         <td th:text="${l.company_contract_idx}"></td>
-                        <td th:text="${l.accounting_purchase_admin_date}"></td>
-                        <td th:text="${l.accounting_purchase_admin_price}"></td>
-                        <td th:text="${l.accounting_purchase_admin_amount}"></td>
-                        <td th:text="${l.accounting_purchase_admin_payment}"></td>
-                        <td th:text="${l.accounting_purchase_admin_sum}"></td>
+                        <td th:text="${l.accounting_sales_admin_date}"></td>
+                        <td th:text="${l.accounting_sales_admin_type}"></td>
+                        <td th:text="${l.accounting_sales_admin_payment}"></td>
+                        <td th:text="${l.accounting_sales_admin_sum}"></td>
                         <td th:text="${l.admin_username}"></td>
-                        <td th:text="${l.accounting_purchase_admin_update}"></td>
-
+                        <td th:text="${l.accounting_sales_admin_update}"></td>
+                        <td th:text="${l.accounting_sales_admin_finish_update}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -54,6 +56,7 @@
     </div>
 </th:block>
 </html>
+
 
 
 
