@@ -57,9 +57,6 @@ public class User {
     @Column(name = "status", length = 30)
     private String status;
 
-    @Column(name = "company_info_idx")
-    private Long companyInfoIdx;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
