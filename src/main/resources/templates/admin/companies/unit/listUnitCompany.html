@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head></head>
+
+<th:block layout:fragment="customJs">
+    <script>
+
+    </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="my-4">재고물품목록</h2>
+                <!--        <button id="addAdminBtn" class="btn btn-primary">운영자 정보</button>-->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>사업자계약단가코드</th>
+                        <th>회원아이디</th>
+                        <th>사업자종류단가코드</th>
+                        <th>재고물품고유번호</th>
+                        <th>사업자중량단가</th>
+                        <th>사업자중량단가금액</th>
+                        <th>사업자단가등록년도</th>
+                        <th>운영자아이디</th>
+                        <th>운영자등록날짜</th>
+                        <th>운영자수정날짜</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="companyUnit : ${companyUnitList}">
+                        <td th:text="${companyUnit.companyUnitIdx}"></td>
+                        <td th:text="${companyUnit.username.username}"></td>
+                        <td th:text="${companyUnit.companyIdx.companyIdx}"></td>
+                        <td th:text="${companyUnit.inventoryIdx.inventoryIdx}"></td>
+                        <td th:text="${companyUnit.companyUnitAmount}"></td>
+                        <td th:text="${companyUnit.companyUnitPrice}"></td>
+                        <td th:text="${companyUnit.companyUnitYear}"></td>
+                        <td th:text="${companyUnit.adminUsername.adminUsername}"></td>
+                        <td th:text="${companyUnit.companyUnitDate}"></td>
+                        <td th:text="${companyUnit.companyUnitUpdate}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
+
+
+
