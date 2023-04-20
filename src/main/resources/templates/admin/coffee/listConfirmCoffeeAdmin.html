@@ -61,16 +61,25 @@
 
 
                 <tbody>
-                <tr th:unless="${coffeeConfirmList == null}" th:each=" c : ${coffeeConfirmList}">
-                  <td th:text="${c.coffeeRequestConfirmIdx}"></td>
-                  <td th:text="${c.coffeeRequestConfirmDate}"></td>
-                  <td th:text="${c.adminUsername}"></td>
-                  <td th:text="${c.coffeeRequestConfirmIdx}"></td>
-                  <td th:text="${c.userName}"></td>
-                  <td th:text="${c.userName}"></td>
+                <tr>
+                  <td>ediya</td>
+                  <td>010-1234-5678</td>
+                  <td>이디야 전주고속터미널점</td>
+                  <td>15kg</td>
+                  <td>2023/04/12</td>
+                  <td>승인확인</td>
                 </tr>
-                <tr th:if="${coffeeConfirmList == null}">
-                  <td colspan="7">등록된 상품의 정보가 없습니다.</td>
+                <tr>
+                  <td>ediya</td>
+                  <td>010-5789-5478</td>
+                  <td>이디야 정읍고속터미널점</td>
+                  <td>1005kg</td>
+                  <td>2023/04/13</td>
+                  <td>승인거절</td>
+                </tr>
+                <tr>
+                  <td>
+                  </td>
                 </tr>
                 </tbody>
               </table>
