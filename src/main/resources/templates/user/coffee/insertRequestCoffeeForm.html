@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
-<head></head>
+<head>
+</head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
   new daum.Postcode({
@@ -18,30 +19,31 @@
 </th:block>
 <th:block layout:fragment="customContent">
   <div class="x_content">
-    <form class="" action="" method="post" novalidate>
-      <p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a>
-      </p>
+    <form class="request_form" th:action="@{/user/coffee/insertRequestCoffee}" method="post" novalidate>
+
+<!--      <p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a>-->
+<!--      </p>-->
       <span class="section">커피가루 수거신청</span>
       <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">카페명<span class="required">*</span></label>
         <div class="col-md-6 col-sm-6">
-          <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="coffee" placeholder="카페명" required="required" />
+          <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="r_coffee" placeholder="카페명" required="required" />
         </div>
       </div>
       <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">커피가루 수거중량 <span class="required">*</span></label>
         <div class="col-md-6 col-sm-6">
-          <input class="form-control number" type="number" name="number" data-validate-minmax="10,100" required='required' placeholder="kg"></div>
+          <input class="form-control number" type="number" name="r_amount" data-validate-minmax="1,1000" required='required' placeholder="kg"></div>
       </div>
       <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">커피가루 수거신청날짜<span class="required">*</span></label>
         <div class="col-md-6 col-sm-6">
-          <input class="form-control date" type="date" name="date" required='required'></div>
+          <input class="form-control date" type="date" name="r_date" required='required'></div>
       </div>
       <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">커피가루 수거신청시간<span class="required">*</span></label>
         <div class="col-md-6 col-sm-6">
-          <input class="form-control time"  type="time" name="time" required='required'></div>
+          <input class="form-control time"  type="time" name="r_time" required='required'></div>
       </div>
       <div class="filed item form-group">
 
@@ -51,12 +53,12 @@
         <label class="col-form-label col-md-3 col-sm-3  label-align">상세 주소<span class="required">*</span></label>
         <div class="col-md-6 col-sm-6">
           <input class="form-control" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-          <input class="form-control" type="text" id="sample4_postcode" placeholder="우편번호">
-          <input class="form-control" type="text" id="sample4_roadAddress" placeholder="도로명주소">
-          <input class="form-control" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+          <input class="form-control" type="text" id="r_postcode" placeholder="우편번호">
+          <input class="form-control" type="text" id="r_roadAddress" placeholder="도로명주소">
+          <input class="form-control" type="text" id="r_jibunAddress" placeholder="지번주소">
           <span id="guide" style="color:#999;display:none"></span>
-          <input class="form-control" type="text" id="sample4_extraAddress" placeholder="참고항목">
-          <input class="form-control" type="text" id="sample4_detailAddress" placeholder="상세주소">
+          <input class="form-control" type="text" id="r_extraAddress" placeholder="참고항목">
+          <input class="form-control" type="text" id="r_detailAddress" placeholder="상세주소">
 
           <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
           <script>
@@ -86,15 +88,15 @@
                   }
 
                   // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                  document.getElementById('sample4_postcode').value = data.zonecode;
-                  document.getElementById("sample4_roadAddress").value = roadAddr;
-                  document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                  document.getElementById('r_postcode').value = data.zonecode;
+                  document.getElementById("r_roadAddress").value = roadAddr;
+                  document.getElementById("r_jibunAddress").value = data.jibunAddress;
 
                   // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
                   if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                    document.getElementById("r_extraAddress").value = extraRoadAddr;
                   } else {
-                    document.getElementById("sample4_extraAddress").value = '';
+                    document.getElementById("r_extraAddress").value = '';
                   }
 
                   var guideTextBox = document.getElementById("guide");
@@ -118,16 +120,16 @@
           </script>
         </div>
       </div>
-
+        
       <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">수거 담당자 번호<span class="required">*</span></label>
         <div class="col-md-6 col-sm-6">
-          <input class="form-control tel" type="tel" name="phone" required='required' data-validate-length-range="8,20" /></div>
+          <input class="form-control tel" type="tel" name="r_phone" required='required' data-validate-length-range="8,20" /></div>
       </div>
       <div class="field item form-group">
         <label class="col-form-label col-md-3 col-sm-3  label-align">수거 상세내용<span class="required">*</span></label>
         <div class="col-md-6 col-sm-6">
-          <textarea required="required" name='message'></textarea></div>
+          <textarea required="required" name='r_message'></textarea></div>
       </div>
       <div class="ln_solid">
         <div class="form-group">
@@ -141,5 +143,3 @@
   </div>
 </th:block>
 </html>
-
-
