@@ -46,10 +46,12 @@ public class CoffeeController {
                                       @RequestParam(value = "detailAddress") String detailAddress,
                                       @RequestParam(value = "r_phone") String phone, //휴대폰번호
                                       @RequestParam(value = "r_message") String message ){
+
         String address = zonecode + roadAddress + jibunAddress + detailAddress;
         System.out.println("아이디:"+Id);
         CompanyInfo ci = coffeeService.listCompanyCode(Id);
         System.out.println(ci.getCompanyInfoIdx());
+
         return "/user/coffee/listConfirmRequestCoffee";
     }
 }
