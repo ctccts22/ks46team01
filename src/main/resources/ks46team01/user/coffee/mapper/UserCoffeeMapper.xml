@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ks46team01.user.coffee.mapper.UserCoffeeMapper">
+    <select id="listCompanyCode" parameterType="String" resultType="ks46team01.common.coffee.dto.CompanyInfo">
+        SELECT
+        company_info_idx as companyInfoIdx
+        FROM
+        company_info WHERE username = #{userId};
+    </select>
+</mapper>

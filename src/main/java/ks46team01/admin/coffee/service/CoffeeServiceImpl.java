@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class CoffeeServiceImpl implements CoffeeService{
+
     @Autowired
     private CoffeeMapper coffeeMapper;
     //커피가루 수거신청 리스트
