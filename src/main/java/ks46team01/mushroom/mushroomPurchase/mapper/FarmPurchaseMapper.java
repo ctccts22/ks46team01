@@ -10,4 +10,6 @@ import java.util.List;
 @Mapper
 public interface FarmPurchaseMapper {
     List<FarmPurchase> getFarmPurchase();
+
+    int addFarmPurchase (FarmPurchase farmPurchase);
 }

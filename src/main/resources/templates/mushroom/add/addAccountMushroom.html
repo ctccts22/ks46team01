@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="kor">
+<th:block layout:fragment="customJs">
+  <script th:src="@{/js/jquery-3.6.4.js}"></script>
+
+  <th:block layout:fragment="customContents">
+
+    <form id="addInfo" th:action="@{/mushroom/add/addAccountMushroom.html}" method="post">
+
+      <table>
+        <tbody>
+        <tr>
+          <td class="labeltd">
+            <label>회계관리 매입 고유번호</label>
+          </td>
+
+          <td>
+            <button type="button" id="checkBtn">아이디 중복체크</button>
+          </td>
+        </tr>
+        <tr>
+          <td class="labeltd">
+            <label>사업장 고유코드</label>
+          </td>
+
+        </tr>
+        <tr>
+          <td class="labeltd">
+            <label>재고물품고유번호</label>
+          </td>
+        </tr>
+        <tr>
+          <td class="labeltd">
+            <label>사업자 계약관리고유번호</label>
+          </td>
+
+        </tr>
+
+        </tbody>
+      </table>
+    </form>
+
+  </th:block>
+
+</html>

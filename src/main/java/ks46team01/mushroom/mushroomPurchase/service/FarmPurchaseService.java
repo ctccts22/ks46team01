@@ -22,5 +22,12 @@ public class FarmPurchaseService {
         return farmPurchase;
     }
 
+    public int add(FarmPurchase farmPurchase) {
+        int result =
+                farmPurchaseMapper.addFarmPurchase(farmPurchase);
+
+        return result;
+    }
+
 
 }
