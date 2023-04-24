@@ -5,8 +5,6 @@
 <head></head>
 <th:block layout:fragment="customJs">
   <script>
-
-
   </script>
 </th:block>
 
@@ -14,21 +12,23 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h2 class="my-4">버섯재배일지</h2>
+        <h2 class="my-4">농장 회계 등록</h2>
+        <form id="addInfo" th:action="@{/admin/accounting/sale/saleAccountingAdd}" method="post">
 
-
-        <form id="addDataGrown" th:action="@{/mushroom/add/addDataGrownMushroom}" method="post">
           <table class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">
             <tr>
-              <th>버섯생육정보 고유코드</th>
-              <th>농가재배정보등록고유코드</th>
-              <th>작물 고유코드</th>
-              <th>버섯 생육일</th>
-              <th>버섯 생육상태</th>
-              <th>버섯 생육정보 등록일자</th>
-              <th>버섯 생육정보 수정일자</th>
-              <th>버섯 생육정보 상세내용</th>
+              <th>회계관리 매출 고유번호</th>
+              <th>사업장 고유번호</th>
+              <th>재고물품고유번호</th>
+              <th>사업자 계약신청관리</th>
+              <th>거래일자</th>
+              <th>거래유형</th>
+              <th>결제유형</th>
+              <th>매출액</th>
+              <th>운영자아이디</th>
+              <th>수정날짜</th>
+              <th>매출 마감 그룹코드</th>
             </tr>
             </thead>
             <tbody>
@@ -41,3 +41,7 @@
   </div>
 </th:block>
 </html>
+
+
+
+
