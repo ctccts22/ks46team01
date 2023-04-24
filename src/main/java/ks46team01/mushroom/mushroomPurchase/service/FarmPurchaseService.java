@@ -25,7 +25,6 @@ public class FarmPurchaseService {
     public int add(FarmPurchase farmPurchase) {
         int result =
                 farmPurchaseMapper.addFarmPurchase(farmPurchase);
-
         return result;
     }
 

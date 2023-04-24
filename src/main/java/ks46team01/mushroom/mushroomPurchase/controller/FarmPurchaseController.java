@@ -32,14 +32,18 @@
             return "mushroom/accountMushroom";
         }
 
-        @PostMapping("/add")
-        public String addMember(FarmPurchase farmPurchase) {
+        @PostMapping("/add/addAccountMushroom")
+        public String addAccount(FarmPurchase farmPurchase) {
             farmPurchaseService.add(farmPurchase);
 
-
-            return "mushroom/add/add";
+            return "redirect:/mushroom/addAccountMushroom";
         }
-
+        @GetMapping("/add/addAccountMushroom")
+        public String addFarmPurchase(Model model) {
+            model.addAttribute("title", "등록");
+            model.addAttribute("farmPurchase", new FarmPurchase());
+            return "mushroom/add/addAccountMushroom";
+        }
 
     }
 
