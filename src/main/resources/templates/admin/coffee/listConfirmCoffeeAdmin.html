@@ -65,12 +65,12 @@
                 </thead>
 
 
-                <tbody th:unless="companyInfoList == null" th:each="i : ${companyInfoList}">
+                <tbody>
                 <tr th:unless="coffeeConfirmList == null" th:each="c : ${coffeeConfirmList}">
-                  <td th:text="${i.companyInfoName}"></td>
+                  <td th:text="${c.companyInfoName}"></td>
                   <td th:text="${c.userName}"></td>
-                  <td th:text="${i.companyInfoPhone}"></td>
-                  <td th:text="${i.companyInfoAddress}"></td>
+                  <td th:text="${c.coffeeRequestPhone}"></td>
+                  <td th:text="${c.coffeeRequestAddress}"></td>
                   <td th:text="${c.coffeeRequestAmount}+kg"></td>
                   <td th:text="${c.coffeeRequestConfirmDate}"></td>
                   <td th:text="${c.coffeeRequestConfirmStatus}"></td>

@@ -17,8 +17,8 @@ public class CoffeeServiceImpl implements CoffeeService{
     //커피가루 수거신청 리스트
     @Override
     public List<CoffeeRequest> listCoffeeAdmin() {
-
-        return null;
+        List<CoffeeRequest> coffeeAdmin = coffeeMapper.listCoffeeAdmin();
+        return coffeeAdmin;
     }
     // 커피가루 승인상태 확인
     @Override
@@ -38,6 +38,12 @@ public class CoffeeServiceImpl implements CoffeeService{
     public List<CompanyInfo> listConfirmCompanyInfo() {
         List<CompanyInfo> companyInfoList = coffeeMapper.listConfirmCompanyInfo();
         return companyInfoList;
+    }
+
+    @Override
+    public List<CoffeeDelivery> listCoffeeDelivery() {
+        List<CoffeeDelivery> deliveryList = coffeeMapper.listCoffeeDelivery();
+        return deliveryList;
     }
 
 

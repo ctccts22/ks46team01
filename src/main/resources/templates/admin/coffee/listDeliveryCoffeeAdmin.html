@@ -60,17 +60,19 @@
                                         <th>중량</th>
                                         <th>수거신청 날짜</th>
                                         <th>배송상태</th>
+                                        <th>운송장번호</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    <tr>
-                                        <td>ediya</td>
-                                        <td>010-1234-5678</td>
-                                        <td>이디야 전주고속터미널점</td>
-                                        <td>15kg</td>
-                                        <td>2011/04/25</td>
-                                        <td>배송중</td>
+                                    <tr th:each="coffeeDelivery : ${coffeeDelivery}">
+                                        <td th:text="${coffeeDelivery.companyInfoName}"></td>
+                                        <td th:text="${coffeeDelivery.coffeeRequestPhone}"></td>
+                                        <td th:text="${coffeeDelivery.coffeeRequestAddress}"></td>
+                                        <td th:text="${coffeeDelivery.coffeeRequestAmount}"></td>
+                                        <td th:text="${coffeeDelivery.coffeeDeliveryComplete}"></td>
+                                        <td th:text="${coffeeDelivery.coffeeDeliveryStatus}"></td>
+                                        <td th:text="${coffeeDelivery.coffeeDeliveryTrack}"></td>
                                     </tr>
                                     </tbody>
                                 </table>

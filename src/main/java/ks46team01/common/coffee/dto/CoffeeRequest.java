@@ -3,7 +3,7 @@ package ks46team01.common.coffee.dto;
 import lombok.Data;
 
 @Data
-public class CoffeeRequest {
+public class CoffeeRequest extends CompanyInfo{
     private Long coffeeRequestIdx;
     private String userName;
     private Long companyContractIdx;

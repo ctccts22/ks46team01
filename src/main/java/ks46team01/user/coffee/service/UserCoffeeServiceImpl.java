@@ -4,6 +4,8 @@ import ks46team01.common.coffee.dto.CompanyInfo;
 import ks46team01.user.coffee.mapper.UserCoffeeMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public class UserCoffeeServiceImpl implements UserCoffeeService {
 
@@ -17,6 +19,12 @@ public class UserCoffeeServiceImpl implements UserCoffeeService {
     public CompanyInfo listCompanyCode(String userId) {
         CompanyInfo ci = userCoffeeMapper.listCompanyCode(userId);
         return ci;
+    }
+
+    @Override
+    public int insertCoffeeRequest(HashMap<String, Object> map) {
+        int result = userCoffeeMapper.insertCoffeeRequest(map);
+        return result;
     }
 
 //    @Override // 커피 수거신청

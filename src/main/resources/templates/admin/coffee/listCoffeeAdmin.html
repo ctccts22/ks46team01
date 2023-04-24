@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
 <head>
+
   <script>
-    function checkAll() {
-      const checkboxes = document.querySelectorAll('#datatable-checkbox tbody input[type="checkbox"]');
-      for (let i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = document.getElementById('check-all').checked;
-      }
-    }
+
   </script>
 </head>
 <th:block layout:fragment="customContent">
@@ -62,6 +57,7 @@
                     전체
                   <th><input type="checkbox" id="check-all" onclick="checkAll()"></th>
                   </th>
+                  <th>아이디</th>
                   <th>카페명</th>
                   <th>수거 담당자 번호</th>
                   <th>카페 주소</th>
@@ -73,17 +69,18 @@
 
 
                 <tbody>
-                <tr>
+                <tr id="check-box-value" th:each="coffeeRequest : ${coffeeRequestList}">
                   <td>
                     선택
-                  <th><input type="checkbox" id="check-seperated" ></th>
+                  <th><input type="checkbox" id="check-seperated"></th>
                   </td>
-                  <td>ediya</td>
-                  <td>010-1234-5678</td>
-                  <td>이디야 전주고속터미널점</td>
-                  <td>15kg</td>
-                  <td>2011/04/25</td>
-                  <td>승인대기중</td>
+                  <td th:text="${coffeeRequest.userName}" th:value="${coffeeRequest.userName}"></td>
+                  <td th:text="${coffeeRequest.companyInfoName}" th:value="${coffeeRequest.companyInfoName}"></td>
+                  <td th:text="${coffeeRequest.coffeeRequestPhone}" th:value="${coffeeRequest.coffeeRequestPhone}"></td>
+                  <td th:text="${coffeeRequest.coffeeRequestAddress}" th:value="${coffeeRequest.coffeeRequestAddress}"></td>
+                  <td th:text="${coffeeRequest.coffeeRequestAmount}+kg" th:value="${coffeeRequest.coffeeRequestAmount}"></td>
+                  <td th:text="${coffeeRequest.coffeeRequestDate}" th:value="${coffeeRequest.coffeeRequestDate}"></td>
+                  <td>대기중</td>
                 </tr>
                 <tr>
                   <td>
@@ -100,14 +97,15 @@
                     <div class="modal-content">
 
                       <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">확인</h4>
+                        <h4 class="modal-title" id="myModalLabel">승인여부</h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                       </div>
                       <div class="modal-body">
-                        <h4>ㅁㅇㄹ</h4>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <h4>허가내용</h4>
+                        <label style=" margin:0 auto;">
+                          <input type="text" placeholder="허가내용" style="width:300px;height:20px;">
+                        </label>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-primary">확인</button>
@@ -128,12 +126,12 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <h4>ㅁㅇㄹ</h4>
+                        <h4>?</h4>
                         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
                         <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">확인</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                       </div>
                     </div>
