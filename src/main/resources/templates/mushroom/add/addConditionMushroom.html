@@ -4,13 +4,14 @@
       layout:decorate="~{layout/default}">
 <head></head>
 <th:block layout:fragment="customJs">
+  <script th:src="@{/js/jquery-3.6.4.js}"></script>
   <script>
     $(function() {
       //alert('제이쿼리')
       function validationCheck(ele) {
         let data = $(ele).val();
         let isValid = true;
-        if (typeof data == 'undefined' || data == null || data === '') {
+        if (typeof data == 'undefined' || data == null || data == '') {
           isValid = false;
         }
         return isValid;
@@ -27,11 +28,6 @@
             let msg = $(item).parents('tr').find('label').text();
             alert(msg + '입력해주세요.');
             $(item).focus();
-            return false;
-          } else if (item.id === 'crop_idx' && !Number.isInteger(parseInt(item.value))) {
-            alert('유효한 crop_idx를 입력해주세요.');
-            $(item).focus();
-            isSubmit = false;
             return false;
           }
 
@@ -55,24 +51,24 @@
             <tbody>
             <tr>
               <td class="labeltd">
-                <label for="ConditionIdx">버섯종류 코드</label>
+                <label for="mushroomConditionIdx">버섯종류 코드</label>
               </td>
               <td colspan="2">
-                <input type="text" id="ConditionIdx"
-                       name="ConditionIdx" placeholder=" ???을 입력해주세요."  />
+                <input type="text" id="mushroomConditionIdx"
+                       name="mushroomConditionIdx" placeholder=" ???을 입력해주세요."  />
               </td>
             </tr>
             <tr>
               <td class="labeltd">
-                <label for="Crop">작물 코드</label>
+                <label for="cropIdx">작물 코드</label>
               </td>
               <td colspan="2">
-                <select id="Crop" name="Crop">
+                <select id="cropIdx" name="cropIdx">
                   <th:block th:unless="${farmCondition == null}"
                             th:each="l : ${farmCondition}">
-                    <option th:value="${l.crop_idx}">[[${l.crop_idx}]]</option>
+                    <option th:value="${CropIdx}">[[${CropIdx}]]</option>
                   </th:block>
-                  <th:block th:if="${farmCondition == null}">
+                  <th:block th:if="${CropIdx == null}">
                     <option>등록된 작물이 없습니다.</option>
                   </th:block>
                 </select>
@@ -82,56 +78,92 @@
 
             <tr>
               <td class="labeltd">
-                <label for="temperature">온도</label>
+                <label for="mushroomConditionTemperature">온도</label>
               </td>
               <td colspan="2">
-                <input type="text" id="temperature"
-                       name="temperature" placeholder="  온도" />
+                <input type="text" id="mushroomConditionTemperature"
+                       name="mushroomConditionTemperature" placeholder="  온도" />
               </td>
             </tr>
             <tr>
               <td class="labeltd">
-                <label for="humidity">습도</label>
+                <label for="mushroomConditionHumidity">습도</label>
               </td>
               <td colspan="2">
-                <input type="text" id="humidity"
-                       name="humidity" placeholder="  습도" />
+                <input type="text" id="mushroomConditionHumidity"
+                       name="mushroomConditionHumidity" placeholder="  습도" />
               </td>
             </tr>
             <tr>
               <td class="labeltd">
-                <label for="oxygen">산소</label>
+                <label for="mushroomConditionOxygen">산소</label>
               </td>
               <td colspan="2">
-                <input type="text" id="oxygen"
-                       name="oxygen" placeholder="  산소" />
+                <input type="text" id="mushroomConditionOxygen"
+                       name="mushroomConditionOxygen" placeholder="  산소" />
               </td>
             </tr>
             <tr>
               <td class="labeltd">
-                <label for="co2">이산화탄소농도</label>
+                <label for="mushroomConditionCo2">이산화탄소농도</label>
               </td>
               <td colspan="2">
-                <input type="text" id="co2"
-                       name="co2" placeholder="  이산화탄소농도" />
+                <input type="text" id="mushroomConditionCo2"
+                       name="mushroomConditionCo2" placeholder="  이산화탄소농도" />
               </td>
             </tr>
             <tr>
               <td class="labeltd">
-                <label for="illuminance">조도</label>
+                <label for="mushroomConditionIlluminance">조도</label>
               </td>
               <td colspan="2">
-                <input type="text" id="illuminance"
-                       name="illuminance" placeholder="  조도"  />
+                <input type="text" id="mushroomConditionIlluminance"
+                       name="mushroomConditionIlluminance" placeholder="  조도"  />
               </td>
             </tr>
             <tr>
               <td class="labeltd">
-                <label for="ph">수소 이온 농도지수</label>
+                <label for="mushroomConditionPh">수소 이온 농도지수</label>
               </td>
               <td colspan="2">
-                <input type="text" id="ph"
-                       name="ph" placeholder="  수소 이온 농도지수 " />
+                <input type="text" id="mushroomConditionPh"
+                       name="mushroomConditionPh" placeholder="  수소 이온 농도지수 " />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionYear">년도</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionYear"
+                       name="mushroomConditionYear" placeholder=" 년도 " />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionUse">사용여부</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionUse"
+                       name="mushroomConditionUse" placeholder=" 사용여부 " />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="adminUsername">이용자</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="adminUsername"
+                       name="adminUsername" placeholder="  이용자 " />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionDate">등록년도</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionDate"
+                       name="mushroomConditionDate" placeholder="등록년도 " />
               </td>
             </tr>
 
