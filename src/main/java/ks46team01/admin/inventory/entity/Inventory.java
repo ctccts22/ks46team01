@@ -26,6 +26,7 @@ public class Inventory {
     @Column(name = "inventory_type", length = 20, nullable = false)
     private String inventoryType;
 
+    @Column(name = "inventory_amount", nullable = false)
     private Double inventoryAmount;
 
     @ManyToOne
@@ -52,6 +53,8 @@ public class Inventory {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+
 
 
 

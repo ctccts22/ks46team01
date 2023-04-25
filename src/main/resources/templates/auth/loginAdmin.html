@@ -5,7 +5,14 @@
 <head></head>
 
 <th:block layout:fragment="customJs">
-
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            let error = /*[[${error}]]*/ null;
+            if (error) {
+                alert(error);
+            }
+        });
+    </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
@@ -17,7 +24,7 @@
             <div class="animate form login_form">
                 <section class="login_content">
                     <form th:action="@{/auth/loginAdmin}" method="post">
-                        <div id="login-alert" class="alert alert-danger" style="display: none;">
+                        <div id="error-alert" class="alert alert-danger" style="display: none;">
                             <p></p>
                         </div>
                         <h1>운영자 로그인</h1>

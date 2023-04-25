@@ -62,6 +62,44 @@
       });
     });
   </script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    function sample6_execDaumPostcode() {
+      new daum.Postcode({
+        oncomplete: function(data) {
+          var addr = '';
+          var extraAddr = '';
+
+          if (data.userSelectedType === 'R') {
+            addr = data.roadAddress;
+          } else {
+            addr = data.jibunAddress;
+          }
+
+          if(data.userSelectedType === 'R'){
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+              extraAddr += data.bname;
+            }
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+              extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            if(extraAddr !== ''){
+              extraAddr = ' (' + extraAddr + ')';
+            }
+          }
+
+          document.getElementById('modify_main_address').value = addr;
+          document.getElementById('modify_extra_address').value = extraAddr;
+          document.getElementById('modify_main_address').focus();
+        }
+      }).open();
+    }
+    document.getElementById("modify-form").addEventListener("submit", function(event) {
+      const mainAddress = document.getElementById("modify_main_address").value;
+      const extraAddress = document.getElementById("modify_extra_address").value;
+      document.getElementById("modify_address").value = mainAddress + extraAddress;
+    });
+  </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
@@ -98,8 +136,14 @@
       </div>
 
       <div class="form-group">
-        <label for="address">주소</label>
-        <input type="text" id="address" th:field="*{address}" class="form-control" required="required">
+        <label for="modify_address">주소</label>
+        <br>
+        <input type="text" id="sample6_postcode" placeholder="우편번호">
+        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+        <br>
+        <input type="text" id="modify_main_address" placeholder="주소" class="form-control">
+        <input type="text" id="modify_extra_address" placeholder="상세주소" class="form-control">
+        <input type="hidden" id="modify_address" th:field="*{address}" required="required" class="form-control">
       </div>
 
       <button type="submit" class="btn btn-primary">정보 수정</button>
