@@ -6,23 +6,25 @@ import ks46team01.common.coffee.dto.CoffeeDelivery;
 import ks46team01.common.coffee.dto.CoffeeRequest;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
 import ks46team01.common.coffee.dto.CompanyInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
 @RequestMapping("/admin/coffee")
 public class AdminCoffeeController {
 
-    @Autowired
-    private CoffeeServiceImpl coffeeService;
+
+    private final CoffeeServiceImpl coffeeService;
+
+    public AdminCoffeeController(CoffeeServiceImpl coffeeService) {
+        this.coffeeService = coffeeService;
+    }
+
     @GetMapping("/listCoffeeAdmin")
     public String adminCoffeeList(Model model){
         System.out.println("실행?");
