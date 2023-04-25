@@ -34,11 +34,10 @@ public class AdminService {
         return adminRepository.findByAdminUsername(adminUsername);
     }
 
-    // 로그인 로그아웃 시간 업데이트 쿼리
     public Admin updateAdmin(Admin admin) {
         return adminRepository.save(admin);
     }
 
-
 }
+
 

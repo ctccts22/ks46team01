@@ -1,6 +1,6 @@
 package ks46team01.admin.company.info.controller;
 
-import ks46team01.admin.company.info.repository.CompanyInfoRepository;
+import ks46team01.common.company.info.repository.CompanyInfoRepository;
 import ks46team01.common.company.info.entity.CompanyInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

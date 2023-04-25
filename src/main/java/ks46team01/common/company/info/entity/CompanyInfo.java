@@ -8,6 +8,7 @@ import ks46team01.user.info.entity.User;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -45,9 +46,6 @@ public class CompanyInfo {
     @Column(name = "company_info_license_number", nullable = false)
     private String companyInfoLicenseNumber;
 
-    @Column(name = "company_info_type", nullable = false)
-    private String companyInfoType;
-
     @Column(name = "company_info_address", nullable = false)
     private String companyInfoAddress;
 
@@ -69,7 +67,7 @@ public class CompanyInfo {
     private Admin adminUsername;
 
     @Column(name = "company_info_approve_date")
-    private Timestamp companyInfoApproveDate;
+    private Date companyInfoApproveDate;
 
     @Column(name = "company_info_status")
     private String companyInfoStatus;

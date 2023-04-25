@@ -16,7 +16,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, String> {
 
     // 모든 엔티티를 조회한다.
-    List<User> findAll();
 
     Optional<User> findByUsername(String username);
 
