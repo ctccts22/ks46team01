@@ -16,7 +16,7 @@
 					</a>
 					<div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" th:href="@{/user/profileUser}"> 회원정보</a>
-						<a class="dropdown-item" href="javascript:;"> 회원사진등록</a>
+						<a class="dropdown-item" th:href="@{/user/deleteUser/{username}(username=${session.user.username})}"> 회원탈퇴</a>
 						<a class="dropdown-item" th:href="@{/user/modifyUser/{username}(username=${session.user.username})}"> 회원정보수정</a>
 						<a class="dropdown-item" th:href="@{/auth/logout}">
 							<i class="fa fa-sign-out pull-right"></i>

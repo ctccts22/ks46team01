@@ -39,7 +39,13 @@ public class AuthController {
         Optional<User> userOptional = userRepository.findByUsername(username);
 
         if (userOptional.isPresent() && BcryptHashing.verify(password, userOptional.get().getPassword())) {
-            session.setAttribute("user", userOptional.get());
+            User user = userOptional.get();
+            if (user.getIsDel().equals("Y")) {
+                model.addAttribute("error", "This account has been deleted.");
+                return "auth/login";
+            }
+
+            session.setAttribute("user", user);
 
             // Create a cookie
             Cookie cookie = new Cookie("username", username);
@@ -56,6 +62,7 @@ public class AuthController {
             return "auth/login";
         }
     }
+
 
 
     @GetMapping("/logout")

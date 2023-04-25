@@ -13,24 +13,24 @@
                 alert(message);
             }
 
-            // Add an event listener for the form submit event
+            // 제출 이벤트에 대한 이벤트 리스너 추가
             $("#demo-form2").on("submit", function(event) {
                 const password = $("#password").val();
                 const passwordDuplicate = $("#password_duplicate").val();
 
-                // Compare the password and duplicate password values
+                // 비밀번호와 중복 비밀번호 값 비교
                 if (password !== passwordDuplicate) {
-                    event.preventDefault(); // Prevent the form submission
-                    alert("비밀번호가 일치하지 않습니다."); // Show an error message
+                    event.preventDefault(); // 양식 제출 방지
+                    alert("비밀번호가 일치하지 않습니다."); // 오류 메시지 표시
                 }
             });
 
-            // Add an event listener for the duplicate password input field keyup event
+            // 중복 비밀번호 입력 필드 키 입력 이벤트에 대한 이벤트 리스너 추가
             $("#password_duplicate").on("keyup", function() {
                 const password = $("#password").val();
                 const passwordDuplicate = $("#password_duplicate").val();
 
-                // Compare the password and duplicate password values
+                // 비밀번호와 중복 비밀번호 값 비교
                 if (password === passwordDuplicate) {
                     $("#password_match_message").text("비밀번호가 일치합니다.")
                         .css("color", "green");
@@ -41,8 +41,7 @@
             });
         });
 
-
-        // Add an event listener for the "Check" button click event
+        // "확인" 버튼 클릭 이벤트에 대한 이벤트 리스너 추가
         let isUsernameAvailable = false;
         let usernameCheckTimeout;
 
@@ -53,7 +52,7 @@
                 alert(message);
             }
 
-            // Attach input event to the username input field
+            // 사용자 이름 입력 필드에 입력 이벤트 연결
             $("#username").on("input", function() {
                 clearTimeout(usernameCheckTimeout);
 
@@ -82,11 +81,11 @@
                             .css("color", "red");
                         isUsernameAvailable = false;
                     }
-                }, 500); // 500 ms delay
+                }, 500); // 500 ms 지연
             });
         });
 
-        // Add form submit event listener
+        // 양식 제출 이벤트 리스너 추가
         $("#demo-form2").on("submit", function(event) {
             if (!isUsernameAvailable) {
                 event.preventDefault();
@@ -94,8 +93,6 @@
             }
         });
     </script>
-
-
 </th:block>
 
 <th:block layout:fragment="customContent">

@@ -7,13 +7,21 @@
 <th:block layout:fragment="customJs">
   <script>
     $(document).ready(function() {
-      // Validate current password
+
       $("#modify-form").on("submit", function(e) {
         e.preventDefault();
 
         const passwordCheck = $("#password_check").val();
         if (passwordCheck.length === 0) {
           $("#password_error").text("비밀번호를 입력해주세요.");
+          return false;
+        }
+
+        const newPassword = $("#new_password").val();
+        const newPasswordConfirm = $("#new_password_confirm").val();
+
+        if (newPassword !== newPasswordConfirm) {
+          alert("비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
           return false;
         }
 
@@ -24,8 +32,8 @@
           data: {
             username: $("#modify-form input[name='username']").val(),
             password_check: passwordCheck,
-            new_password: $("#new_password").val(),
-            new_password_confirm: $("#new_password_confirm").val()
+            new_password: newPassword,
+            new_password_confirm: newPasswordConfirm
           },
           success: function(response) {
             if (response === "true") {
@@ -33,7 +41,6 @@
               $("#modify-form").off("submit").submit();
             } else {
               // 암호가 올바르지 않으면 오류 메시지를 표시하고 경고합니다
-              // $("#password_error").text("비밀번호가 일치하지 않습니다.");
               alert("회원수정에 실패했습니다");
             }
           }
