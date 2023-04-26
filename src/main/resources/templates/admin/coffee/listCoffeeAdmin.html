@@ -21,6 +21,7 @@
                         const cafe_address = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_address').text();
                         const coffee_amount = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_amount').text();
                         const coffee_date = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_date').text();
+                        console.log(coffeeRequestIndex);
                         console.log(name);
                         console.log(cafe_name);
                         console.log(cafe_phone);
@@ -28,7 +29,6 @@
                         console.log(coffee_amount);
                         console.log(coffee_date);
                         arr = arr + [name,cafe_name,cafe_phone,cafe_address,coffee_amount,coffee_date];
-                        console.log(arr);
                 } else {
                     alert(`${this.value} is unchecked`);
                 }
