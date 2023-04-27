@@ -5,6 +5,7 @@ import ks46team01.admin.inventory.entity.Inventory;
 import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.user.info.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public interface CompanyInfoRepository
         extends JpaRepository<CompanyInfo, Long> {
 
+    @Query("select ci from CompanyInfo as ci")
     List<CompanyInfo> findAll();
 
     CompanyInfo findByUsername(User user);

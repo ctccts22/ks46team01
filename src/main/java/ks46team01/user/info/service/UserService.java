@@ -17,6 +17,7 @@ import java.util.Random;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -44,7 +45,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-
     public User modifyUser(User updatedUser) {
         Optional<User> existingUserOptional = userRepository.findById(updatedUser.getUsername());
         if (existingUserOptional.isPresent()) {
@@ -66,7 +66,7 @@ public class UserService {
             User existingUser = existingUserOptional.get();
             existingUser.setIsDel("Y");
             existingUser.setIsDelDate(new Timestamp(System.currentTimeMillis()));
-
+            // save() 업데이트 하고 없으면 등록
             return userRepository.save(existingUser);
         } else {
             throw new IllegalArgumentException("User not found with username: " + username);
