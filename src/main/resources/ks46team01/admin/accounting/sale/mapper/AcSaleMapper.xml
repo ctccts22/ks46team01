@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ks46team01.admin.accounting.sale.mapper.AcSaleMapper">
+    <select id="getAcSale" resultType="ks46team01.admin.accounting.sale.mapper.AcSaleMapper">
+        SELECT
+        accounting_sales_admin_idx
+        , company_idx
+        , inventory_idx
+        , company_contract_idx
+        , accounting_sales_admin_date
+        , accounting_sales_admin_type
+        , accounting_sales_admin_payment
+        , accounting_sales_admin_sum
+        , admin_username
+        , accounting_sales_admin_update
+        , accounting_sales_admin_finish_update
+
+        FROM accounting_sales_admin
+    </select>
+</mapper>

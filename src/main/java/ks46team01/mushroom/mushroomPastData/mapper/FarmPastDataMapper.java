@@ -9,4 +9,7 @@ import java.util.List;
 @Mapper
 public interface FarmPastDataMapper {
     List<FarmPastData> getFarmPastData();
+
+
+    int addFarmPastData(FarmPastData farmPastData);
 }

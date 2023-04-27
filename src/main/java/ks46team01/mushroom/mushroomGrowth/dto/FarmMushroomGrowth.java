@@ -14,5 +14,14 @@ public class FarmMushroomGrowth {
     private String mushroom_growth_date;
     private String mushroom_growth_content;
 
+    public void setMushroom_growth_idx(Long mushroom_growth_idx) {
+        this.mushroom_growth_idx = mushroom_growth_idx;
+    }
+    public Long getMushroom_growth_idx() {
+        return mushroom_growth_idx;
+    }
 
 }
+
+
+

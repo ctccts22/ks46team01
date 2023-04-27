@@ -12,5 +12,6 @@ public interface FarmMushroomGrowthMapper {
     List<FarmMushroomGrowth> getFarmMushroomGrowth();
     List<FarmMushroomGrowth> getMushroomGrowthInfoById(String searchKey, String searchValue);
 
+    int addFarmMushroomGrowth(FarmMushroomGrowth farmMushroomGrowth);
 
 }

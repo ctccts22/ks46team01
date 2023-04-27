@@ -6,7 +6,9 @@
 
 <th:block layout:fragment="customJs">
     <script>
-
+        document.getElementById("addBtn1").addEventListener("click", function() {
+            window.location.href = "/mushroom/add/addDataFarmMushroom";
+        });
     </script>
 </th:block>
 
@@ -14,8 +16,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="my-4">버섯 생육 최적 조건</h2>
-<!--                <div th:insert="~{/search/searchFarmGrownData :: searchFragment}"></div>-->
+                <h2 class="my-4">버섯 재배일지</h2>
+                <button id="addBtn1" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 등록 </button>
+                <button id="addBtn2" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 수정 </button>
+                <button id="addBtn3" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 삭제 </button>
+                <button id="addBtn4" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 검색기능? </button>
+                <button id="addBtn5" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 추가 할거 생각해보기 </button>
+                <div th:insert="~{/mushroom/search/searchDataGrownMushroom :: searchFragment}"></div>
                 <table class="table table-striped table-bordered table-hover">
                     <thead class="thead-dark">
                     <tr>
