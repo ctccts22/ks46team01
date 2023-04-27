@@ -5,22 +5,19 @@
 <mapper namespace="ks46team01.admin.accounting.purchase.mapper.AcPurchaseMapper">
     <select id="getAcPurchase" resultType="ks46team01.admin.accounting.purchase.mapper.AcPurchaseMapper">
         SELECT
-        accounting_purchase_admin_idx
-        , company_idx
-        , inventory_idx
-        , company_contract_idx
-        , accounting_purchase_admin_date
-        , accounting_purchase_admin_price
-        , accounting_purchase_admin_amount
-        , accounting_purchase_admin_payment
-        , accounting_purchase_admin_sum
-        , admin_username
-        , accounting_purchase_admin_update
-
+        accounting_purchase_idx 				AS accountingPurchaseIdx
+        , company_idx				            AS companyIdx
+        , inventory_idx		                    AS inventoryIdx
+        , company_contract_idx	                AS companyContract
+        , accounting_purchase_date	            AS accountingPurchaseDate
+        , accounting_purchase_type	            AS accountingPurchaseType
+        , accounting_purchase_unit_price		AS accountingPurchaseUnitPrice
+        , accounting_purchase_amount	        AS accountingPurchaseAmount
+        , accounting_purchase_payment		    AS accountingPurchasePayment
+        , accounting_purchase_sum	            AS accountingPurchaseSum
+        , admin_username		                AS adminUsername
+        , accounting_purchase_update	    	AS accountingPurchaseUpdate
         FROM
-        accounting_purchase_admin
-
-
-
+        accounting_purchase
     </select>
 </mapper>
