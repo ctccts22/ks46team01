@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ks46team01.mushroom.mushroomCondition.mapper.FarmConditionMapper">
+
+    <resultMap id="FarmCondition"    type="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
+        <id column="mushroom_condition_idx"                  property="mushroomConditionIdx" />
+        <result column="crop_idx"                            property="cropIdx" />
+        <result column="mushroom_condition_temperature"      property="mushroomConditionTemperature" />
+        <result column="mushroom_condition_humidity"         property="mushroomConditionHumidity" />
+        <result column="mushroom_condition_oxygen"           property="mushroomConditionOxygen" />
+        <result column="mushroom_condition_co2"              property="mushroomConditionCo2" />
+        <result column="mushroom_condition_illuminance"      property="mushroomConditionIlluminance" />
+        <result column="mushroom_condition_ph"               property="mushroomConditionPh" />
+        <result column="mushroom_condition_year"             property="mushroomConditionYear" />
+        <result column="mushroom_condition_use"              property="mushroomConditionUse" />
+        <result column="admin_username"                      property="adminUsername" />
+        <result column="mushroom_condition_date"             property="mushroomConditionDate" />
+    </resultMap>
+
+    <insert id="addFarmCondition" parameterType="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
+        INSERT INTO       mushroom_condition
+        (mushroom_condition_idx
+        , crop_idx
+        , mushroom_condition_temperature
+        , mushroom_condition_humidity
+        , mushroom_condition_oxygen
+        , mushroom_condition_co2
+        , mushroom_condition_illuminance
+        , mushroom_condition_ph
+        , mushroom_condition_year
+        , mushroom_condition_use
+        , admin_username
+        , mushroom_condition_date)
+
+        VALUES
+        (
+          #{mushroom_condition_idx}
+        , #{crop_idx}
+        , #{mushroom_condition_temperature}
+        , #{mushroom_condition_humidity}
+        , #{mushroom_condition_oxygen}
+        , #{mushroom_condition_co2}
+        , #{mushroom_condition_illuminance}
+        , #{mushroom_condition_ph}
+        , #{mushroom_condition_year}
+        , #{mushroom_condition_use}
+        , #{admin_username}
+        , #{mushroom_condition_date}
+        )
+    </insert>
+
+    <select id="getCrop" resultType="ks46team01.mushroom.mushroomCondition.dto.Crop">
+        SELECT
+            crop_idx
+        FROM
+            crop
+
+    </select>
+
+
+    <select id="getFarmCondition" resultType="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
+        SELECT
+            mushroom_condition_idx                  as  mushroomConditionIdx
+            , crop_idx                              as  cropIdx
+            , mushroom_condition_temperature        as  mushroomConditionTemperature
+            , mushroom_condition_humidity           as  mushroomConditionHumidity
+            , mushroom_condition_oxygen             as mushroomConditionOxygen
+            , mushroom_condition_co2                as mushroomConditionCo2
+            , mushroom_condition_illuminance        as mushroomConditionIlluminance
+            , mushroom_condition_ph                 as mushroomConditionPh
+            , mushroom_condition_year               as mushroomConditionYear
+            , mushroom_condition_use                as mushroomConditionUse
+            , admin_username                        as adminUsername
+            , mushroom_condition_date               as mushroomConditionDate
+        FROM
+        mushroom_condition
+    </select>
+</mapper>

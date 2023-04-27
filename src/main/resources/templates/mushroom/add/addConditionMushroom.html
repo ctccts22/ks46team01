@@ -66,9 +66,9 @@
                 <select id="cropIdx" name="cropIdx">
                   <th:block th:unless="${farmCondition == null}"
                             th:each="l : ${farmCondition}">
-                    <option th:value="${CropIdx}">[[${CropIdx}]]</option>
+                    <option th:value="${cropList}">[[${cropList}]]</option>
                   </th:block>
-                  <th:block th:if="${CropIdx == null}">
+                  <th:block th:if="${cropList == null}">
                     <option>등록된 작물이 없습니다.</option>
                   </th:block>
                 </select>
