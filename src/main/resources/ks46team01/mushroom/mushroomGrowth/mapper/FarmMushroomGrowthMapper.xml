@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks46team01.mushroom.mushroomGrowth.mapper.FarmMushroomGrowthMapper">
+    <resultMap id="mushroomGrowthResultMap" type="ks46team01.mushroom.mushroomGrowth.dto.FarmMushroomGrowth">
+
+        <result column="mushroom_growth_idx"/>
+        <result column="farm_data_idx"/>
+        <result column="crop_idx"/>
+        <result column="mushroom_growth_daily"/>
+        <result column="mushroom_growth_status"/>
+        <result column="mushroom_growth_date"/>
+        <result column="mushroom_growth_update"/>
+    </resultMap>
+
+    <select id="getFarmMushroomGrowth" resultType="ks46team01.mushroom.mushroomGrowth.dto.FarmMushroomGrowth">
+        SELECT
+        mushroom_growth_idx
+        , username
+        , company_info_idx
+        , farm_data_idx
+        , crop_idx
+        , mushroom_growth_daily
+        , mushroom_growth_status
+        , mushroom_growth_date
+        , mushroom_growth_content
+        FROM
+        mushroom_growth
+    </select>
+
+
+
+    <select id="getMushroomGrowthInfoById" parameterType="String" resultMap="mushroomGrowthResultMap">
+        SELECT
+        mushroom_growth_idx
+        , username
+        , company_info_idx
+        , farm_data_idx
+        , crop_idx
+        , mushroom_growth_daily
+        , mushroom_growth_status
+        , mushroom_growth_date
+        , mushroom_growth_content
+
+        FROM
+        mushroom_growth
+        <where>
+            <if test="searchKey != null and searchKey != ''">
+                AND ${searchKey} LIKE CONCAT('%', #{searchValue},'%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
