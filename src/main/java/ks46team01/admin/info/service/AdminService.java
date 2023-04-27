@@ -5,11 +5,13 @@ import ks46team01.admin.info.repository.AdminRepository;
 import ks46team01.auth.entity.Role;
 import ks46team01.auth.repository.RoleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AdminService {
 
     private final AdminRepository adminRepository;
