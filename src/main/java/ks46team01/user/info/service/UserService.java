@@ -6,6 +6,7 @@ import ks46team01.auth.security.BcryptHashing;
 import ks46team01.user.info.entity.User;
 import ks46team01.user.info.repository.UserRepository;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,18 +16,14 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
+@AllArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
     private final EmailService emailService;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, EmailService emailService) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.emailService = emailService;
-    }
 
 
     public List<User> getAllUsers() {
@@ -48,7 +45,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-
     public User modifyUser(User updatedUser) {
         Optional<User> existingUserOptional = userRepository.findById(updatedUser.getUsername());
         if (existingUserOptional.isPresent()) {
@@ -64,23 +60,38 @@ public class UserService {
         }
     }
 
-    public void sendTemporaryPassword(String username, String email) {
+    public User deleteUser(String username) {
+        Optional<User> existingUserOptional = userRepository.findById(username);
+        if (existingUserOptional.isPresent()) {
+            User existingUser = existingUserOptional.get();
+            existingUser.setIsDel("Y");
+            existingUser.setIsDelDate(new Timestamp(System.currentTimeMillis()));
+            // save() 업데이트 하고 없으면 등록
+            return userRepository.save(existingUser);
+        } else {
+            throw new IllegalArgumentException("User not found with username: " + username);
+        }
+    }
+
+
+    public void sendTemporaryPassword(String username, String email) throws Exception {
         List<User> users = userRepository.findByEmail(email);
         boolean userFound = false;
 
         for (User user : users) {
             if (user.getUsername().equals(username)) {
+                if (user.getIsDel().equals("Y")){
+                    throw new Exception("존재하지 않는 회원입니다.");
+                }
                 userFound = true;
                 String temporaryPassword = generateRandomPassword();
                 String hashedTemporaryPassword = BcryptHashing.hash(temporaryPassword);
                 user.setPassword(hashedTemporaryPassword);
                 userRepository.save(user);
-
                 emailService.sendTemporaryPassword(user.getEmail(), "Temporary Password", "Your temporary password is: " + temporaryPassword);
                 break;
             }
         }
-
         if (!userFound) {
             throw new IllegalArgumentException("User not found with email: " + email + " and username: " + username);
         }

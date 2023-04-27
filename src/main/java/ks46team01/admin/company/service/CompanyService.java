@@ -6,17 +6,20 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class CompanyService {
 
-    private final CompanyRepository companyRepository;
+        private final CompanyRepository companyRepository;
 
-    public List<Company> getAllCompanies() {
-        return companyRepository.findAll();
-    }
-    public Company createCompany(Company company) {
-        return companyRepository.save(company);
-    }
+        public List<Company> getAllCompanies() {
+            return companyRepository.findAll();
+        }
+
+        public Company createCompany(Company company) {
+            return companyRepository.save(company);
+        }
+
 }

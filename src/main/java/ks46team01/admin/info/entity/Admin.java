@@ -1,6 +1,7 @@
 package ks46team01.admin.info.entity;
 
 import jakarta.persistence.*;
+import ks46team01.admin.inventory.entity.Inventory;
 import ks46team01.auth.entity.Role;
 import ks46team01.admin.company.entity.Company;
 import lombok.*;
@@ -42,6 +43,10 @@ public class Admin {
     @OneToMany(mappedBy = "adminUsername", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Company> companies;
+
+    @OneToMany(mappedBy = "adminUsername", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Inventory> inventories;
 
     @Override
     public boolean equals(Object o) {

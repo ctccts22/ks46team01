@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head></head>
+
+<th:block layout:fragment="customJs">
+  <script>
+
+  </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="my-4">사업자 정보 목록</h2>
+        <a th:href="@{/admin/companies/info/addCompanyInfo}" class="btn btn-primary mb-3">사업자정보추가</a>
+        <a th:href="@{/admin/companies/info/modifyCompanyInfo}" class="btn btn-success mb-3">사업자정보수정</a>
+        <a th:href="@{/admin/companies/info/deleteCompanyInfo}" class="btn btn-danger mb-3">사업자정보삭제</a>
+        <table class="table table-striped table-bordered table-hover">
+          <thead class="thead-dark">
+          <tr>
+            <th>사업자정보고유번호</th>
+            <th>회원아이디</th>
+            <th>사업자종류고유번호</th>
+            <th>사업주상호명</th>
+            <th>재고물품고유번호</th>
+            <th>사업자번호</th>
+            <th>사업자주소</th>
+            <th>사업자전화번호</th>
+            <th>사업장등록일</th>
+            <th>사업자삭제날짜</th>
+            <th>사업자수정날짜</th>
+            <th>운영자아이디</th>
+            <th>운영자승인일자</th>
+            <th>운영자승인상태</th>
+            <th>운영자승인반려사유</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="companyInfo : ${companyInfoList}">
+            <td th:text="${companyInfo.companyInfoIdx}"></td>
+            <td th:text="${companyInfo.username.username}"></td>
+            <td th:text="${companyInfo.companyIdx.companyIdx}"></td>
+            <td th:text="${companyInfo.companyInfoName}"></td>
+            <td th:text="${companyInfo.inventoryIdx.inventoryIdx}"></td>
+            <td th:text="${companyInfo.companyInfoLicenseNumber}"></td>
+            <td th:text="${companyInfo.companyInfoAddress}"></td>
+            <td th:text="${companyInfo.companyInfoPhone}"></td>
+            <td th:text="${companyInfo.companyInfoDate}"></td>
+            <td th:text="${companyInfo.companyInfoDrop}"></td>
+            <td th:text="${companyInfo.companyInfoUpdate}"></td>
+            <td th:text="${companyInfo.adminUsername.adminUsername}"></td>
+            <td th:text="${companyInfo.companyInfoApproveDate}"></td>
+            <td th:text="${companyInfo.companyInfoStatus}"></td>
+            <td th:text="${companyInfo.companyInfoStatus}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>
+
+
+
