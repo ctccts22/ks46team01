@@ -51,16 +51,16 @@ public class AuthAdminController {
 
             // Create a cookie
             Cookie cookie = new Cookie("adminUsername", adminUsername);
-            cookie.setMaxAge(60 * 60 * 24); // Set cookie expiration time to 24 hours
-            cookie.setHttpOnly(true); // Prevent access to the cookie from JavaScript
-            cookie.setPath("/"); // Set the path for the cookie
+            cookie.setMaxAge(60 * 60 * 24); // 쿠키 만료 시간을 24시간으로 설정
+            cookie.setHttpOnly(true); // JavaScript에서 쿠키에 대한 액세스 금지
+            cookie.setPath("/"); // 쿠키 경로 설정
 
-            // Add the cookie to the response
+            // 응답에 쿠키 추가
             response.addCookie(cookie);
 
             return "redirect:/";
         } else {
-            model.addAttribute("error", "Invalid username or password.");
+            model.addAttribute("error", "로그인에 실패했습니다.");
             return "auth/loginAdmin";
         }
     }

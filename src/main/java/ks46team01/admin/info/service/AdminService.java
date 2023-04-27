@@ -5,11 +5,13 @@ import ks46team01.admin.info.repository.AdminRepository;
 import ks46team01.auth.entity.Role;
 import ks46team01.auth.repository.RoleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AdminService {
 
     private final AdminRepository adminRepository;
@@ -34,11 +36,10 @@ public class AdminService {
         return adminRepository.findByAdminUsername(adminUsername);
     }
 
-    // 로그인 로그아웃 시간 업데이트 쿼리
     public Admin updateAdmin(Admin admin) {
         return adminRepository.save(admin);
     }
 
-
 }
+
 

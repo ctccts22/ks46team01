@@ -11,7 +11,6 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 @Entity
-//@Table(name = "users")
 @Table(name = "user")
 @Getter
 @Setter
@@ -53,11 +52,17 @@ public class User {
     @Column(name = "modify_date")
     private Timestamp modifyDate;
 
-    @Column(name = "drop_date")
-    private Timestamp dropDate;
+    @Column(name = "is_del")
+    private String isDel;
 
-    @Column(name = "status", length = 30)
-    private String status;
+    @Column(name = "is_del_date")
+    private Timestamp isDelDate;
+
+    // 회원가입하면 is_del에 N을 디폴트 데이터로 입력
+    @PrePersist
+    public void setDefaultIsDel() {
+        this.isDel = (this.isDel == null) ? "N" : this.isDel;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -85,14 +85,14 @@
 			<li><a><i class="fa fa-edit"></i> 사업자 관리 <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a href="#">사업자 정보등록</a></li>
+					<li><a th:href="@{/user/companies/addCompanyInfo}">사업자 정보등록</a></li>
 					<li><a href="#">사업자 계약조회</a></li>
 					<li><a href="#">사업자 계약단가 조회</a></li>
 				</ul></li>
 			<li><a><i class="fa fa-coffee"></i> 카페사업자 관리 <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a th:href="@{/user/coffee/listRequestCoffee}">커피가루 수거신청</a></li>
+					<li><a th:href="@{/user/coffee/insertRequestCoffeeForm}">커피가루 수거신청</a></li>
 					<li><a th:href="@{/user/coffee/listConfirmRequestCoffee}">커피가루 신청상태</a></li>
 					<li><a th:href="@{/user/coffee/listDeliveryCoffee}">커피가루 배송조회</a></li>
 				</ul></li>

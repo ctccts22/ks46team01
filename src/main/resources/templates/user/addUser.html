@@ -13,24 +13,24 @@
                 alert(message);
             }
 
-            // Add an event listener for the form submit event
+            // 제출 이벤트에 대한 이벤트 리스너 추가
             $("#demo-form2").on("submit", function(event) {
                 const password = $("#password").val();
                 const passwordDuplicate = $("#password_duplicate").val();
 
-                // Compare the password and duplicate password values
+                // 비밀번호와 중복 비밀번호 값 비교
                 if (password !== passwordDuplicate) {
-                    event.preventDefault(); // Prevent the form submission
-                    alert("비밀번호가 일치하지 않습니다."); // Show an error message
+                    event.preventDefault(); // 양식 제출 방지
+                    alert("비밀번호가 일치하지 않습니다."); // 오류 메시지 표시
                 }
             });
 
-            // Add an event listener for the duplicate password input field keyup event
+            // 중복 비밀번호 입력 필드 키 입력 이벤트에 대한 이벤트 리스너 추가
             $("#password_duplicate").on("keyup", function() {
                 const password = $("#password").val();
                 const passwordDuplicate = $("#password_duplicate").val();
 
-                // Compare the password and duplicate password values
+                // 비밀번호와 중복 비밀번호 값 비교
                 if (password === passwordDuplicate) {
                     $("#password_match_message").text("비밀번호가 일치합니다.")
                         .css("color", "green");
@@ -41,8 +41,7 @@
             });
         });
 
-
-        // Add an event listener for the "Check" button click event
+        // "확인" 버튼 클릭 이벤트에 대한 이벤트 리스너 추가
         let isUsernameAvailable = false;
         let usernameCheckTimeout;
 
@@ -53,7 +52,7 @@
                 alert(message);
             }
 
-            // Attach input event to the username input field
+            // 사용자 이름 입력 필드에 입력 이벤트 연결
             $("#username").on("input", function() {
                 clearTimeout(usernameCheckTimeout);
 
@@ -82,11 +81,11 @@
                             .css("color", "red");
                         isUsernameAvailable = false;
                     }
-                }, 500); // 500 ms delay
+                }, 500); // 500 ms 지연
             });
         });
 
-        // Add form submit event listener
+        // 양식 제출 이벤트 리스너 추가
         $("#demo-form2").on("submit", function(event) {
             if (!isUsernameAvailable) {
                 event.preventDefault();
@@ -94,8 +93,44 @@
             }
         });
     </script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function sample6_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    var addr = '';
+                    var extraAddr = '';
 
+                    if (data.userSelectedType === 'R') {
+                        addr = data.roadAddress;
+                    } else {
+                        addr = data.jibunAddress;
+                    }
 
+                    if(data.userSelectedType === 'R'){
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraAddr += data.bname;
+                        }
+                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        if(extraAddr !== ''){
+                            extraAddr = ' (' + extraAddr + ')';
+                        }
+                    }
+
+                    document.getElementById('main_address').value = addr;
+                    document.getElementById('extra_address').value = extraAddr;
+                    document.getElementById('main_address').focus();
+                }
+            }).open();
+        }
+        document.getElementById("demo-form2").addEventListener("submit", function(event) {
+            const mainAddress = document.getElementById("main_address").value;
+            const extraAddress = document.getElementById("extra_address").value;
+            document.getElementById("address").value = mainAddress + extraAddress;
+        });
+    </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
@@ -150,7 +185,12 @@
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="address">주소</label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="address" th:field="*{address}" required="required" class="form-control">
+                        <input type="text" id="sample6_postcode" placeholder="우편번호">
+                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+                        <br>
+                        <input type="text" id="main_address" placeholder="주소" class="form-control">
+                        <input type="text" id="extra_address" placeholder="상세주소" class="form-control">
+                    <input type="hidden" id="address" th:field="*{address}" required="required" class="form-control">
                 </div>
             </div>
             <div class="form-group">

@@ -15,7 +15,9 @@
     <div class="row">
       <div class="col-md-12">
         <h2 class="my-4">사업자 정보 목록</h2>
-        <!--        <button id="addAdminBtn" class="btn btn-primary">운영자 정보</button>-->
+        <a th:href="@{/admin/companies/info/addCompanyInfo}" class="btn btn-primary mb-3">사업자정보추가</a>
+        <a th:href="@{/admin/companies/info/modifyCompanyInfo}" class="btn btn-success mb-3">사업자정보수정</a>
+        <a th:href="@{/admin/companies/info/deleteCompanyInfo}" class="btn btn-danger mb-3">사업자정보삭제</a>
         <table class="table table-striped table-bordered table-hover">
           <thead class="thead-dark">
           <tr>
@@ -25,7 +27,6 @@
             <th>사업주상호명</th>
             <th>재고물품고유번호</th>
             <th>사업자번호</th>
-            <th>사업자업종</th>
             <th>사업자주소</th>
             <th>사업자전화번호</th>
             <th>사업장등록일</th>
@@ -45,7 +46,6 @@
             <td th:text="${companyInfo.companyInfoName}"></td>
             <td th:text="${companyInfo.inventoryIdx.inventoryIdx}"></td>
             <td th:text="${companyInfo.companyInfoLicenseNumber}"></td>
-            <td th:text="${companyInfo.companyInfoType}"></td>
             <td th:text="${companyInfo.companyInfoAddress}"></td>
             <td th:text="${companyInfo.companyInfoPhone}"></td>
             <td th:text="${companyInfo.companyInfoDate}"></td>

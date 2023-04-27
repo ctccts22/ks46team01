@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ks46team01.mushroom.mushroomPastData.mapper.FarmPastDataMapper">
+
+    <select id="getFarmPastData" resultType="ks46team01.mushroom.mushroomPastData.mapper.FarmPastDataMapper">
+
+        SELECT
+        past_data_idx
+        , username
+        , company_info_idx
+        , crop_idx
+        , crop_type
+        , past_data_mushroom_production
+        , past_data_total_revenue
+        , past_data_badge_use
+        , past_data_year
+        , past_data_use
+        , past_data_comparison
+        , past_data_date
+        FROM
+        mushroom_past_data
+    </select>
+</mapper>
