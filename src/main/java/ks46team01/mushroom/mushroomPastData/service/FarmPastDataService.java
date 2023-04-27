@@ -1,6 +1,7 @@
 package ks46team01.mushroom.mushroomPastData.service;
 
 
+import ks46team01.mushroom.mushroomGrowth.dto.FarmMushroomGrowth;
 import ks46team01.mushroom.mushroomPastData.dto.FarmPastData;
 import ks46team01.mushroom.mushroomPastData.mapper.FarmPastDataMapper;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,11 @@ public class FarmPastDataService {
         return farmPastData;
     }
 
+    public int add(FarmPastData farmPastData){
+        int result =
+                farmPastDataMapper.addFarmPastData(farmPastData);
+        return result;
+
+    }
 
 }

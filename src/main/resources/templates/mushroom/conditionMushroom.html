@@ -4,7 +4,11 @@
       layout:decorate="~{layout/default}">
 
 <th:block layout:fragment="customJs">
-
+    <script>
+        document.getElementById("addBtn1").addEventListener("click", function() {
+            window.location.href = "/mushroom/add/addConditionMushroom";
+        });
+    </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
@@ -12,7 +16,11 @@
         <div class="row">
             <div class="col-md-12">
                 <h2 class="my-4">버섯 생육 최적 조건</h2>
-                <!--        <button id="addAdminBtn" class="btn btn-primary">운영자 정보</button>-->
+                <button id="addBtn1" th:href="@{/mushroom/add/addConditionMushroom}" class="btn btn-primary"> 등록 </button>
+                <button id="addBtn2" th:href="@{/mushroom/add/addConditionMushroom}" class="btn btn-primary"> 수정 </button>
+                <button id="addBtn3" th:href="@{/mushroom/add/addConditionMushroom}" class="btn btn-primary"> 삭제 </button>
+                <button id="addBtn4" th:href="@{/mushroom/add/addConditionMushroom}" class="btn btn-primary"> 검색기능? </button>
+                <button id="addBtn5" th:href="@{/mushroom/add/addConditionMushroom}" class="btn btn-primary"> 추가 할거 생각해보기 </button>
                 <table class="table table-striped table-bordered table-hover">
                     <thead class="thead-dark">
                     <tr>
@@ -33,19 +41,18 @@
                     </thead>
                     <tbody>
                     <tr th:unless="${fc == null}" th:each="l:${fc}">
-
-                        <td th:text="${l.mushroom_condition_idx}"></td>
-                        <td th:text="${l.crop_idx}"></td>
-                        <td th:text="${l.mushroom_condition_temperature}"></td>
-                        <td th:text="${l.mushroom_condition_humidity}"></td>
-                        <td th:text="${l.mushroom_condition_oxygen}"></td>
-                        <td th:text="${l.mushroom_condition_co2}"></td>
-                        <td th:text="${l.mushroom_condition_illuminance}"></td>
-                        <td th:text="${l.mushroom_condition_ph}"></td>
-                        <td th:text="${l.mushroom_condition_year}"></td>
-                        <td th:text="${l.mushroom_condition_use}"></td>
-                        <td th:text="${l.admin_username}"></td>
-                        <td th:text="${l.mushroom_condition_date}"></td>
+                        <td th:text="${l.mushroomConditionIdx}"></td>
+                        <td th:text="${l.cropIdx}"></td>
+                        <td th:text="${l.mushroomConditionTemperature}"></td>
+                        <td th:text="${l.mushroomConditionHumidity}"></td>
+                        <td th:text="${l.mushroomConditionOxygen}"></td>
+                        <td th:text="${l.mushroomConditionCo2}"></td>
+                        <td th:text="${l.mushroomConditionIlluminance}"></td>
+                        <td th:text="${l.mushroomConditionPh}"></td>
+                        <td th:text="${l.mushroomConditionYear}"></td>
+                        <td th:text="${l.mushroomConditionUse}"></td>
+                        <td th:text="${l.adminUsername}"></td>
+                        <td th:text="${l.mushroomConditionDate}"></td>
                     </tr>
                     </tbody>
                 </table>

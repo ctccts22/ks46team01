@@ -2,6 +2,7 @@ package ks46team01.admin.accounting.purchase.controller;
 
 import ks46team01.admin.accounting.purchase.dto.AcPurchase;
 import ks46team01.admin.accounting.purchase.service.AcPurchaseService;
+import ks46team01.admin.accounting.sale.dto.AcSale;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,4 +27,42 @@ public class AcPurchaseController {
 
         return "admin/accounting/purchase/purchaseAccounting";
     }
+
+    @PostMapping("/admin/accounting/purchase")
+    public String addAccountingPurchase(AcPurchase acPurchase) {
+        acPurchaseService.add(acPurchase);
+
+        return "redirect:/admin/purchaseAccountingAdd";
+    }
+    @GetMapping("/purchaseAccountingAdd")
+    public String addAccountingPurchase(Model model) {
+        model.addAttribute("title", "등록");
+        model.addAttribute("acSale", new AcPurchase());
+        return "/admin/accounting/purchase/purchaseAccountingAdd";
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
