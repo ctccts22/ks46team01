@@ -1,12 +1,18 @@
 package ks46team01.mushroom.mushroomCondition.dto;
 
-import lombok.Data;
+import lombok.*;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 public class Crop {
-     private String cropIdx;
+     private Long cropIdx;
+     private String cropType;
+     private String cropContent;
+     private String adminUsername;
+     private Timestamp cropDate;
 
-
-
+     private List<FarmCondition> farmConditionList;
 
 }
