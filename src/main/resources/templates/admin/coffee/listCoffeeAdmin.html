@@ -4,25 +4,43 @@
 <head>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
-        var index;
-        var arr = [];
         $(document).ready(function () {
-
-            $("#check-all").click(function () {
-                $("input[name=check-seperated]:checkbox").each(function() {
-                    $(this).attr("checked", true);
-                });
-
-            });
+            var index;
+            var arr = [];
 
             $('input[type="checkbox"]').click(function () {
                 index = $(this).closest('tr').index() + 1;
+                indexArr = index.length;
                 console.log('체크박스 index ' + index + ' 번클릭.');
             });
+
+            $("#check-all").change(function () {
+                if (this.checked) {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", true);
+                    });
+                    for (var i = 1; i <= $('input[type=checkbox][name=check-seperated]').length; i++) {
+                        const name = $('#user_list #check-box-value:nth-child(' + i + ') #user_name').text();
+                        const cafe_name = $('#user_list #check-box-value:nth-child(' + i + ') #cafe_name').text();
+                        const cafe_phone = $('#user_list #check-box-value:nth-child(' + i + ') #cafe_phone').text();
+                        const cafe_address = $('#user_list #check-box-value:nth-child(' + i + ') #cafe_address').text();
+                        const coffee_amount = $('#user_list #check-box-value:nth-child(' + i + ') #coffee_amount').text();
+                        const coffee_date = $('#user_list #check-box-value:nth-child(' + i + ') #coffee_date').text();
+                        arr.push([name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date]); // 배열에 추가
+                    }
+                    console.log(arr);
+                }else {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", false);
+                        arr = []; // clear the array
+                    });
+                    console.log(arr, 'else?');
+                }
+            });
+
             $('input[type=checkbox][name=check-seperated]').change(function () {
                 if (this.checked) {
                     // alert(`${this.value} is checked`);
-                    const coffeeRequestIndex = document.querySelector('#check-box-value th').dataset.coffeeRequestIndex;
                     const name = $('#user_list #check-box-value:nth-child(' + index + ') #user_name').text();
                     const cafe_name = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_name').text();
                     const cafe_phone = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_phone').text();
@@ -39,6 +57,9 @@
                     arr.push([name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date]); // 배열에 추가
                     console.log(arr);
                 } else {
+                     if($('input[type=checkbox][name=check-seperated]').length !== $('input[type=checkbox][name=check-seperated]:checked').length) {
+                        $("input:checkbox[id='check-all']").prop("checked", false);
+                    }
                     const name = $('#user_list #check-box-value:nth-child(' + index + ') #user_name').text();
                     const cafe_name = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_name').text();
                     const cafe_phone = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_phone').text();
@@ -110,7 +131,7 @@
                                     <th>
                                         No
                                     </th>
-                                    <th><input type="checkbox" id="check-all"></th>
+                                    <th><input type="checkbox" id="check-all" name="check-all"></th>
                                     <th>아이디</th>
                                     <th>카페명</th>
                                     <th>수거 담당자 번호</th>
