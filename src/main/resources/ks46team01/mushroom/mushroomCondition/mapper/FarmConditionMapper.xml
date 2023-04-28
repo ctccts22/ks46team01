@@ -51,13 +51,14 @@
         )
     </insert>
 
-    <select id="getCrop" resultType="ks46team01.mushroom.mushroomCondition.dto.Crop">
+    <select id="getCropIdx" resultType="ks46team01.mushroom.mushroomCondition.dto.Crop">
         SELECT
-            crop_idx
+        crop_idx
         FROM
             crop
-
     </select>
+
+
 
 
     <select id="getFarmCondition" resultType="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">

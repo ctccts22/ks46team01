@@ -62,20 +62,15 @@
               <td class="labeltd">
                 <label for="cropIdx">작물 코드</label>
               </td>
+
               <td colspan="2">
                 <select id="cropIdx" name="cropIdx">
-                  <th:block th:unless="${farmCondition == null}"
-                            th:each="l : ${farmCondition}">
-                    <option th:value="${cropList}">[[${cropList}]]</option>
-                  </th:block>
-                  <th:block th:if="${cropList == null}">
-                    <option>등록된 작물이 없습니다.</option>
+                  <th:block th:each="l : ${FarmCondition.cropIdx}">
+                    <option th:value="${l.cropIdx}">[[${l.cropInfo.cropIdx}]]</option>
                   </th:block>
                 </select>
               </td>
             </tr>
-
-
             <tr>
               <td class="labeltd">
                 <label for="mushroomConditionTemperature">온도</label>
@@ -146,24 +141,6 @@
               <td colspan="2">
                 <input type="text" id="mushroomConditionUse"
                        name="mushroomConditionUse" placeholder=" 사용여부 " />
-              </td>
-            </tr>
-            <tr>
-              <td class="labeltd">
-                <label for="adminUsername">이용자</label>
-              </td>
-              <td colspan="2">
-                <input type="text" id="adminUsername"
-                       name="adminUsername" placeholder="  이용자 " />
-              </td>
-            </tr>
-            <tr>
-              <td class="labeltd">
-                <label for="mushroomConditionDate">등록년도</label>
-              </td>
-              <td colspan="2">
-                <input type="text" id="mushroomConditionDate"
-                       name="mushroomConditionDate" placeholder="등록년도 " />
               </td>
             </tr>
 
