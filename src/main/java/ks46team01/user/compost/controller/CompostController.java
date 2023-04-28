@@ -12,17 +12,17 @@ public class CompostController {
     @GetMapping("/listCompostOrder")
     public String orderCompostList() {
         // 커피 배지 주문신청
-        return "/user/compost/listCompostOrder";
+        return "user/compost/listCompostOrder";
     }
     @GetMapping("/listConfirmCompostOrder")
     public String orderCompostConfirmList(){
         // 커피배지 승인상태
-        return "/user/compost/listConfirmCompostOrder";
+        return "user/compost/listConfirmCompostOrder";
     }
     @GetMapping("/listDeliveryCompostOrder")
     public String orderCompostDeliveryList(){
         // 커피배송 조회
-        return "/user/compost/listDeliveryCompostOrder";
+        return "user/compost/listDeliveryCompostOrder";
     }
 
 }
