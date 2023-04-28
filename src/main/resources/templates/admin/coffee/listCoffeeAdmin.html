@@ -5,9 +5,16 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         $(document).ready(function () {
-            var index;
-            var arr = [];
-
+            let index;
+            let arr = [];
+            $('#btn-success').click(function (){
+                console.log("success실행?");
+                console.log(arr);
+            });
+            $('#btn-danger').click(function (){
+                console.log("danger실행?");
+                console.log(arr);
+            });
             $('input[type="checkbox"]').click(function () {
                 index = $(this).closest('tr').index() + 1;
                 indexArr = index.length;
@@ -176,7 +183,7 @@
                                             </label>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-success" onclick="model()">승인</button>
+                                            <button type="button" class="btn btn-success" id="btn-success" data-dismiss="modal">승인</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
                                             </button>
                                         </div>
@@ -201,9 +208,9 @@
                                             </label>
                                         </div>
                                         <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" id="btn-danger" data-dismiss="modal">거부</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
                                             </button>
-                                            <button type="button" class="btn btn-danger">거부</button>
                                         </div>
                                     </div>
                                 </div>
