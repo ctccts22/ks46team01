@@ -34,9 +34,9 @@
                     <tbody>
                     <tr th:each="companyUnit : ${companyUnitList}">
                         <td th:text="${companyUnit.companyUnitIdx}"></td>
-                        <td th:text="${companyUnit.username.username}"></td>
-                        <td th:text="${companyUnit.companyIdx.companyIdx}"></td>
-                        <td th:text="${companyUnit.inventoryIdx.inventoryIdx}"></td>
+                        <td th:text="${companyUnit.companyInfoIdx.username.username}"></td>
+                        <td th:text="${companyUnit.companyInfoIdx.companyIdx.companyType}"></td>
+                        <td th:text="${companyUnit.companyInfoIdx.inventoryIdx.inventoryType}"></td>
                         <td th:text="${companyUnit.companyUnitAmount}"></td>
                         <td th:text="${companyUnit.companyUnitPrice}"></td>
                         <td th:text="${companyUnit.companyUnitYear}"></td>
