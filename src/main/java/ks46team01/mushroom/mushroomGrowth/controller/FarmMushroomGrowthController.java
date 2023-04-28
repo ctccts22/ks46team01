@@ -1,6 +1,6 @@
     package ks46team01.mushroom.mushroomGrowth.controller;
 
-    import ks46team01.mushroom.mushroomCondition.dto.FarmCondition;
+    import ks46team01.mushroom.mushroomFarmData.dto.FarmData;
     import ks46team01.mushroom.mushroomGrowth.dto.FarmMushroomGrowth;
     import ks46team01.mushroom.mushroomGrowth.service.FarmMushroomGrowthService;
     import lombok.AllArgsConstructor;
@@ -21,18 +21,6 @@
     public class FarmMushroomGrowthController {
         private final FarmMushroomGrowthService farmMushroomGrowthService;
 
-
-        @GetMapping("/dataGrownMushroom")
-        public String farmMushroomGrowthService(Model model
-                , @RequestParam(name = "searchKey", required = false) String searchKey
-                , @RequestParam(name = "searchValue", required = false) String searchValue) {
-
-            List<FarmMushroomGrowth> fmsg = farmMushroomGrowthService.getFarmMushroomGrowth(searchKey, searchValue);
-            model.addAttribute("title", "조회");
-            model.addAttribute("fmsg", fmsg);
-            return "mushroom/dataGrownMushroom";
-        }
-
         @PostMapping("/add/addDataGrownMushroom")
         public String addDataGrown(FarmMushroomGrowth farmMushroomGrowth) {
             farmMushroomGrowthService.add(farmMushroomGrowth);
@@ -45,6 +33,22 @@
             model.addAttribute("farmMushroomGrowth", new FarmMushroomGrowth());
             return "mushroom/add/addDataGrownMushroom";
         }
+
+
+        @GetMapping("/dataGrownMushroom")
+        public String farmMushroomGrowthService(Model model
+                , @RequestParam(name = "searchKey", required = false) String searchKey
+                , @RequestParam(name = "searchValue", required = false) String searchValue) {
+
+            List<FarmMushroomGrowth> fmsg = farmMushroomGrowthService.getFarmMushroomGrowth(searchKey, searchValue);
+            log.info("list로 담은 데이터 = {}", fmsg );
+
+            model.addAttribute("title", "조회");
+            model.addAttribute("fmsg", fmsg);
+
+            return "mushroom/dataGrownMushroom";
+        }
+
 
 
       }
