@@ -27,21 +27,6 @@ public class CompanyContract {
     @Column(name = "company_contract_idx", nullable = false)
     private Long companyContractIdx;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username", nullable = false)
-    @ToString.Exclude
-    private User username;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_info_idx", nullable = false)
-    @ToString.Exclude
-    private CompanyInfo companyInfoIdx;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "inventory_idx", nullable = false)
-    @ToString.Exclude
-    private Inventory inventoryIdx;
-
     @Column(name = "company_contract_term", nullable = false)
     private Integer companyContractTerm;
 

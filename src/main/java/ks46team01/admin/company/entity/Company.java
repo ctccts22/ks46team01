@@ -23,13 +23,13 @@ public class Company {
 
     @Column(name = "company_type", nullable = false)
     private String companyType;
+
     @ManyToOne
     @JoinColumn(name = "admin_username", nullable = false)
     private Admin adminUsername;
 
     @Column(name = "company_date", nullable = false)
     private Timestamp companyDate;
-
 
     @Override
     public boolean equals(Object o) {

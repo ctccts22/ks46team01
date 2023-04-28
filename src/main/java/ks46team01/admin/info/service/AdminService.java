@@ -32,7 +32,7 @@ public class AdminService {
         adminRepository.save(admin);
     }
 
-    public Optional<Admin> findByAdminUsername(String adminUsername) {
+    public Optional<Admin> getAdminByAdminUsername(String adminUsername) {
         return adminRepository.findByAdminUsername(adminUsername);
     }
 
