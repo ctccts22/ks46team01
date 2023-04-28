@@ -31,7 +31,7 @@ public class AdminCoffeeController {
         System.out.println(coffeeRequestList.get(0));
         model.addAttribute("coffeeRequestList",coffeeRequestList);
 
-        return "/admin/coffee/listCoffeeAdmin";
+        return "admin/coffee/listCoffeeAdmin";
     }
     @GetMapping("/listConfirmCoffeeAdmin")
     public String adminCoffeeConfirmList(Model model){
@@ -41,7 +41,7 @@ public class AdminCoffeeController {
         model.addAttribute("coffeeConfirmList",coffeeConfirmList);
         model.addAttribute("companyInfoList",companyInfoList);
 
-        return "/admin/coffee/listConfirmCoffeeAdmin";
+        return "admin/coffee/listConfirmCoffeeAdmin";
     }
     @GetMapping("/listDeliveryCoffeeAdmin")
     public String adminCoffeeDeliveryList(Model model){
@@ -49,6 +49,6 @@ public class AdminCoffeeController {
         List<CoffeeDelivery> coffeeDelivery = coffeeService.listCoffeeDelivery();
         System.out.println(coffeeDelivery.get(0));
         model.addAttribute("coffeeDelivery",coffeeDelivery);
-        return "/admin/coffee/listDeliveryCoffeeAdmin";
+        return "admin/coffee/listDeliveryCoffeeAdmin";
     }
 }

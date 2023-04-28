@@ -23,18 +23,18 @@ public class CoffeeController {
     @GetMapping("/insertRequestCoffeeForm")
     public String coffeeRequestInsertForm() {
         log.info("/coffee_request 실행?");
-        return "/user/coffee/insertRequestCoffeeForm";
+        return "user/coffee/insertRequestCoffeeForm";
     }
 
     @GetMapping("/listConfirmRequestCoffee")
     public String coffeeRequestConfirmList() {
         log.info("/coffeeRequestConfirm 실행?");
-        return "/user/coffee/listConfirmRequestCoffee";
+        return "user/coffee/listConfirmRequestCoffee";
     }
 
     @GetMapping("/listDeliveryCoffee")
     public String coffeeDeliveryList() {
-        return "/user/coffee/listDeliveryCoffee";
+        return "user/coffee/listDeliveryCoffee";
     }
 
     //커피 수거신청기능
@@ -63,6 +63,6 @@ public class CoffeeController {
         map.put("companyInfoIdx",companyInfoIdx);
         int result = coffeeService.insertCoffeeRequest(map);
         System.out.println(result+"쿼리실행확인");
-        return "/user/coffee/listConfirmRequestCoffee";
+        return "user/coffee/listConfirmRequestCoffee";
     }
 }
