@@ -5,18 +5,12 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         $(document).ready(function () {
-            let index;
-            let arr = [];
-            $('#btn-success').click(function (){
-               console.log('success 실행?');
-                console.log(arr);
-            });
-            $('#btn-danger').click(function (){
-               console.log('danger 실행?');
-                console.log(arr);
-            });
+            var index;
+            var arr = [];
+
             $('input[type="checkbox"]').click(function () {
                 index = $(this).closest('tr').index() + 1;
+                indexArr = index.length;
                 console.log('체크박스 index ' + index + ' 번클릭.');
             });
             $("#check-all").change(function () {
@@ -182,8 +176,7 @@
                                             </label>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-success" id="btn-success" data-dismiss="modal">승인
-                                            </button>
+                                            <button type="button" class="btn btn-success" onclick="model()">승인</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
                                             </button>
                                         </div>
@@ -208,10 +201,9 @@
                                             </label>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" id="btn-danger" data-dismiss="modal">거부
-                                            </button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
                                             </button>
+                                            <button type="button" class="btn btn-danger">거부</button>
                                         </div>
                                     </div>
                                 </div>
