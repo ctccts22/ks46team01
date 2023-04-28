@@ -13,7 +13,6 @@
                 indexArr = index.length;
                 console.log('체크박스 index ' + index + ' 번클릭.');
             });
-
             $("#check-all").change(function () {
                 if (this.checked) {
                     $('input[type=checkbox][name=check-seperated]').each(function () {
@@ -152,11 +151,16 @@
                             </table>
                             <!-- 모달창-->
                             <!-- 버튼 -->
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveModal">승인</button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#denyModal">거부</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#approveModal">승인
+                            </button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#denyModal">
+                                거부
+                            </button>
 
                             <!-- 모달창 -->
-                            <div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="approveModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="approveModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -173,13 +177,15 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-success" onclick="model()">승인</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="denyModal" tabindex="-1" role="dialog" aria-labelledby="denyModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="denyModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="denyModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -195,30 +201,31 @@
                                             </label>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
                                             <button type="button" class="btn btn-danger">거부</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                <!-- 페이징 처리-->
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                            <!-- 페이징 처리-->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
