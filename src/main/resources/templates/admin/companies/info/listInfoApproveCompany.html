@@ -19,7 +19,7 @@
     <div class="title">
       <div class="x_panel">
         <div class="x_title">
-          <h2 class="my-4">사업자 정보 목록</h2>
+          <h2 class="my-4">사업자 정보 관리</h2>
 
           <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -39,16 +39,16 @@
             <div class="col-md-6">
               <form th:action="@{/}" method="get">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="사업자번호를 입력하세요" name="username">
+                  <input type="text" class="form-control" placeholder="사업자승인코드조회" name="username">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">검색</button>
-                    <a class="btn btn-outline-secondary" th:href="@{/admin/companies/info/listInfoCompany}">초기화</a>
+                    <a class="btn btn-outline-secondary" th:href="@{/admin/companies/info/listInfoCompanyApprove}">초기화</a>
                   </div>
                 </div>
               </form>
 
-              <form th:action="@{/admin/companies/info/listInfoApproveCompany}" method="get">
-                    <button class="btn btn-outline-secondary" type="submit">사업자정보 상세관리</button>
+              <form th:action="@{/admin/companies/info/listInfoCompanyApprove}" method="get">
+                    <button class="btn btn-outline-secondary" type="submit">사업자정보 수정</button>
               </form>
 
             </div>
@@ -68,34 +68,22 @@
 
                     <thead>
                     <tr role="row">
-            <th>사업자정보고유번호</th>
-            <th>회원아이디</th>
-            <th>사업자종류</th>
-            <th>사업주상호명</th>
-            <th>재고물품타입</th>
+            <th>사업자아이디</th>
             <th>사업자번호</th>
-            <th>사업자주소</th>
-            <th>사업자전화번호</th>
-            <th>사업장등록일</th>
-            <th>사업자수정날짜</th>
-            <th>사업자탈퇴상태</th>
-            <th>사업자탈퇴날짜</th>
+            <th>운영자아이디</th>
+            <th>승인날짜</th>
+            <th>승인상태</th>
+            <th>사유</th>
           </tr>
           </thead>
           <tbody>
-          <tr role="row" class="odd" th:each="companyInfo : ${companyInfoList}">
-            <td th:text="${companyInfo.companyInfoIdx}"></td>
-            <td th:text="${companyInfo.username.username}"></td>
-            <td th:text="${companyInfo.companyIdx.companyType}"></td>
-            <td th:text="${companyInfo.companyInfoName}"></td>
-            <td th:text="${companyInfo.inventoryIdx.inventoryType}"></td>
-            <td th:text="${companyInfo.companyInfoLicenseNumber}"></td>
-            <td th:text="${companyInfo.companyInfoAddress}"></td>
-            <td th:text="${companyInfo.companyInfoPhone}"></td>
-            <td th:text="${companyInfo.companyInfoDate}"></td>
-            <td th:text="${companyInfo.companyInfoUpdate}"></td>
-            <td th:text="${companyInfo.companyInfoIsDel}"></td>
-            <td th:text="${companyInfo.companyInfoIsDelDate}"></td>
+          <tr role="row" class="odd" th:each="companyInfoApprove : ${companyInfoApproveList}">
+            <td th:text="${companyInfoApprove.companyInfo.username.username}"></td>
+            <td th:text="${companyInfoApprove.companyInfo.companyInfoLicenseNumber}"></td>
+            <td th:text="${companyInfoApprove.admin.adminUsername}"></td>
+            <td th:text="${companyInfoApprove.companyInfoApproveDate}"></td>
+            <td th:text="${companyInfoApprove.companyInfoStatus}"></td>
+            <td th:text="${companyInfoApprove.companyInfoContent}"></td>
           </tr>
           </tbody>
                   </table>

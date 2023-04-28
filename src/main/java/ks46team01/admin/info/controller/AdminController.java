@@ -2,13 +2,16 @@ package ks46team01.admin.info.controller;
 
 import ks46team01.admin.info.entity.Admin;
 import ks46team01.admin.info.service.AdminService;
+import ks46team01.user.info.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -18,12 +21,20 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("/listAdmin")
-    public String adminList(Model model) {
-        List<Admin> adminList = adminService.getAllAdmins();
+    public String adminList(Model model, @RequestParam(value = "adminUsername", required = false) String adminUsername) {
+        log.info("adminUsername={}", adminUsername);
+        List<Admin> adminList;
+        if (adminUsername != null && !adminUsername.isEmpty()) {
+            Optional<Admin> adminOptional = adminService.getAdminByAdminUsername(adminUsername);
+            adminList = adminOptional.map(Collections::singletonList).orElse(Collections.emptyList());
+        } else {
+            adminList = adminService.getAllAdmins();
+        }
         model.addAttribute("adminList", adminList);
         log.info("adminList={}", adminList);
         return "admin/listAdmin";
     }
+
 
     @GetMapping("/addAdmin")
     public String showAddAdminForm(Model model) {

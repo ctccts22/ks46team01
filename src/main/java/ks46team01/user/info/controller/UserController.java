@@ -6,12 +6,18 @@ import ks46team01.user.info.entity.User;
 import ks46team01.user.info.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,26 +121,24 @@ public class UserController {
                 return "redirect:/auth/login";
             }
         }
-
-        @GetMapping("/listUser")
-        public String userList(Model model, @RequestParam(value = "username", required = false) String username) {
-            log.info("사용자 이름 목록: {}", username);
-            List<User> users;
-            if (username != null && !username.isEmpty()) {
-                Optional<User> userOptional = userService.getUserByUsername(username);
-                users = userOptional.map(Collections::singletonList).orElse(Collections.emptyList());
-            } else {
-                users = userService.getAllUsers();
-            }
-            model.addAttribute("userList", users);
-            return "user/listUser";
+    @GetMapping("/listUser")
+    public String userList(Model model, @RequestParam(value = "username", required = false) String username) {
+        log.info("사용자 이름 목록: {}", username);
+        List<User> users;
+        if (username != null && !username.isEmpty()) {
+            Optional<User> userOptional = userService.getUserByUsername(username);
+            users = userOptional.map(Collections::singletonList).orElse(Collections.emptyList());
+        } else {
+            users = userService.getAllUsers();
         }
-
+        model.addAttribute("userList", users);
+        return "user/listUser";
+    }
         @GetMapping("/addUser")
         public String userAdd(Model model) {
             log.info("사용자 등록 양식 표시");
             model.addAttribute("title", "회원가입");
-            model.addAttribute("user", new User());
+            model.addAttribute("users", new User());
             log.info("user={}", new User());
             return "user/addUser";
         }

@@ -40,11 +40,10 @@ public class CompanyController {
         Admin admin = (Admin) session.getAttribute("adminUser");
         if (admin != null) {
             company.setAdminUsername(admin);
-            company.setCompanyDate(Timestamp.valueOf(LocalDateTime.now())); // Set the current timestamp as the companyDate
+            company.setCompanyDate(Timestamp.valueOf(LocalDateTime.now()));
             companyService.createCompany(company);
             return "redirect:/admin/companies/listCompany";
         } else {
-            // Handle the case when the admin is not logged in
             return "redirect:/auth/loginAdmin";
         }
     }
