@@ -9,6 +9,9 @@
         document.getElementById("addBtn1").addEventListener("click", function() {
             window.location.href = "/mushroom/add/addDataFarmMushroom";
         });
+        document.getElementById("addBtn2").addEventListener("click", function() {
+            window.location.href = "/mushroom/modify/modifyDataFarmMushroom";
+        });
     </script>
 </th:block>
 
@@ -16,12 +19,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="my-4">버섯 재배 관련 상세 정보</h2>
+                <h2 class="my-4">버섯 재배 생산량 상세 등록조회</h2>
                 <button id="addBtn1" th:href="@{/mushroom/add/addDataFarmMushroom}" class="btn btn-primary"> 등록 </button>
-                <button id="addBtn2" th:href="@{/mushroom/add/addDataFarmMushroom}" class="btn btn-primary"> 수정 </button>
+                <button id="addBtn2" th:href="@{/mushroom/modify/modifyDataFarmMushroom}" class="btn btn-primary"> 수정 </button>
                 <button id="addBtn3" th:href="@{/mushroom/add/addDataFarmMushroom}" class="btn btn-primary"> 삭제 </button>
                 <button id="addBtn4" th:href="@{/mushroom/add/addDataFarmMushroom}" class="btn btn-primary"> 검색기능? </button>
                 <button id="addBtn5" th:href="@{/mushroom/add/addDataFarmMushroom}" class="btn btn-primary"> 추가 할거 생각해보기 </button>
+                <div th:insert="~{/mushroom/search/searchDataFarmMushroom :: searchFragment}"></div>
                 <table class="table table-striped table-bordered table-hover">
                     <thead class="thead-dark">
                     <tr>
@@ -36,24 +40,23 @@
                         <th>매출 발생 일자</th>
                         <th>예상 폐배지 수량</th>
                         <th>등록일자</th>
-
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:unless="${fd == null}" th:each="l:${fd}">
-
-                        <td th:text="${l.farm_data_idx}"></td>
-                        <td th:text="${l.username}"></td>
-                        <td th:text="${l.company_info_idx}"></td>
-                        <td th:text="${l.farm_data_compost}"></td>
-                        <td th:text="${l.farm_data_production}"></td>
-                        <td th:text="${l.farm_data_expected_sale}"></td>
-                        <td th:text="${l.farm_data_actual_sale}"></td>
-                        <td th:text="${l.farm_data_production_date}"></td>
-                        <td th:text="${l.farm_data_occurrence_sale_date}"></td>
-                        <td th:text="${l.farm_data_expected_wasted}"></td>
-                        <td th:text="${l.farm_data_date}"></td>
+                    <tr th:each="farmData : ${farmDataList}">
+                        <td th:text="${farmData.farmDataIdx}"></td>
+                        <td th:text="${farmData.username}"></td>
+                        <td th:text="${farmData.companyInfoIdx}"></td>
+                        <td th:text="${farmData.farmDataCompost}"></td>
+                        <td th:text="${farmData.farmDataProduction}"></td>
+                        <td th:text="${farmData.farmDataExpectedSale}"></td>
+                        <td th:text="${farmData.farmDataActualSale}"></td>
+                        <td th:text="${farmData.farmDataProductionDate}"></td>
+                        <td th:text="${farmData.farmDataOccurrenceSaleDate}"></td>
+                        <td th:text="${farmData.farmDataExpectedWasted}"></td>
+                        <td th:text="${farmData.farmDataDate}"></td>
                     </tr>
+
 
 
                     </tbody>

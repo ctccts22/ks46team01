@@ -12,20 +12,16 @@ import java.util.List;
 @Transactional
 public class FarmDataService {
     private final FarmDataMapper farmDataMapper;
-
     public FarmDataService(FarmDataMapper farmDataMapper){
         this.farmDataMapper = farmDataMapper;
     }
-    public List<FarmData> getFarmData(){
-        List<FarmData> farmData = farmDataMapper.getFarmData();
-        return farmData;
-    }
-    public int add(FarmData farmData) {
-        int result =
+    public String add(FarmData farmData) {
+        String result =
                 farmDataMapper.addFarmData(farmData);
         return result;
     }
-
-
+    public List<FarmData> getFarmDataList() {
+        return farmDataMapper.findAllFarmData();
+    }
 
 }

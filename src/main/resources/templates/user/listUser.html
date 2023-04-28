@@ -12,6 +12,49 @@
         lengthChange : false
     });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('.btn-modify').on('click', function () {
+                var username = $(this).data('username');
+                var row = $(this).closest('tr');
+
+                row.find('td[data-key]').each(function () {
+                    var cell = $(this);
+                    var cellValue = cell.text();
+                    cell.empty().append('<input type="text" value="' + cellValue + '">');
+                });
+
+                $(this).parent().empty().append('<button class="btn btn-success btn-save" data-username="' + username + '">저장</button>');
+            });
+
+            $('table').on('click', '.btn-save', function () {
+                var username = $(this).data('username');
+                var row = $(this).closest('tr');
+                var updatedData = {};
+
+                row.find('input').each(function (index, input) {
+                    var key = $(input).closest('td').attr('data-key');
+                    updatedData[key] = $(input).val();
+                });
+
+                console.log('Sending updated data:', updatedData);
+                // Send an AJAX request with the updated data
+                $.ajax({
+                    type: 'POST',
+                    url: '/user/listUser',
+                    data: 'JSON',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        alert('회원수정에 성공했습니다.');
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('회원수정중 에러가 발생했습니다.');
+                    }
+                });
+            });
+        });
+    </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
@@ -96,21 +139,26 @@
                                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
                                                 rowspan="1" colspan="1"
                                                 aria-label="회원탈퇴날짜: activate to sort column ascending">회원탈퇴날짜</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                rowspan="1" colspan="1"
+                                                aria-label="수정: activate to sort column ascending">수정</th>
                                         </tr>
+
                                         </thead>
                                         <tbody>
                                         <tr role="row" class="odd" th:each="users : ${userList}">
-                                            <td th:text="${users.username}"></td>
-                                            <td th:text="${users.roleIdx}"></td>
-                                            <td th:text="${users.name}"></td>
-                                            <td th:text="${users.birth}"></td>
-                                            <td th:text="${users.email}"></td>
-                                            <td th:text="${users.phone}"></td>
-                                            <td th:text="${users.address}"></td>
-                                            <td th:text="${users.date}"></td>
-                                            <td th:text="${users.modifyDate}"></td>
-                                            <td th:text="${users.isDel}"></td>
-                                            <td th:text="${users.isDelDate}"></td>
+                                            <td data-key="username" th:text="${users.username}"></td>
+                                            <td data-key="roleIdx" th:text="${users.roleIdx}"></td>
+                                            <td data-key="name" th:text="${users.name}"></td>
+                                            <td data-key="birth" th:text="${users.birth}"></td>
+                                            <td data-key="email" th:text="${users.email}"></td>
+                                            <td data-key="phone" th:text="${users.phone}"></td>
+                                            <td data-key="address" th:text="${users.address}"></td>
+                                            <td data-key="date" th:text="${users.date}"></td>
+                                            <td data-key="modifyDate" th:text="${users.modifyDate}"></td>
+                                            <td data-key="isDel" th:text="${users.isDel}"></td>
+                                            <td data-key="isDelDate" th:text="${users.isDelDate}"></td>
+                                            <td><button class="btn btn-warning btn-modify" data-username="${users.username}">수정</button></td>
                                         </tr>
                                         </tbody>
                                     </table>
