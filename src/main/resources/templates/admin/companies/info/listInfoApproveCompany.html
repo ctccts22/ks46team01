@@ -78,8 +78,8 @@
           </thead>
           <tbody>
           <tr role="row" class="odd" th:each="companyInfoApprove : ${companyInfoApproveList}">
-            <td th:text="${companyInfoApprove.companyInfo.username.username}"></td>
-            <td th:text="${companyInfoApprove.companyInfo.companyInfoLicenseNumber}"></td>
+            <td th:text="${companyInfoApprove.companyInfoIdx.username.username}"></td>
+            <td th:text="${companyInfoApprove.companyInfoIdx.companyInfoLicenseNumber}"></td>
             <td th:text="${companyInfoApprove.admin.adminUsername}"></td>
             <td th:text="${companyInfoApprove.companyInfoApproveDate}"></td>
             <td th:text="${companyInfoApprove.companyInfoStatus}"></td>

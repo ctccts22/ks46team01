@@ -6,52 +6,38 @@
 
 <th:block layout:fragment="customJs">
     <script>
-    $('#datatable-custom').DataTable({
-        pagination: false,
-        searching: false,
-        lengthChange : false
-    });
-    </script>
-    <script>
         $(document).ready(function () {
-            $('.btn-modify').on('click', function () {
-                var username = $(this).data('username');
-                var row = $(this).closest('tr');
+            // Attach the click event using event delegation
+            $('body').on('click', '.edit-button', function () {
+                // Get the row containing the clicked button
+                const row = $(this).closest('tr');
 
-                row.find('td[data-key]').each(function () {
-                    var cell = $(this);
-                    var cellValue = cell.text();
-                    cell.empty().append('<input type="text" value="' + cellValue + '">');
-                });
+                // Get user data from the row
+                const username = row.find('td[data-key="username"]').text();
+                const name = row.find('td[data-key="name"]').text();
+                const birth = row.find('td[data-key="birth"]').text();
+                const email = row.find('td[data-key="email"]').text();
+                const phone = row.find('td[data-key="phone"]').text();
+                const address = row.find('td[data-key="address"]').text();
+                const isDel = row.find('td[data-key="isDel"]').text();
 
-                $(this).parent().empty().append('<button class="btn btn-success btn-save" data-username="' + username + '">저장</button>');
+                // Populate the modal's fields with the user data
+                $('#edit-username').val(username);
+                $('#edit-name').val(name);
+                $('#edit-birth').val(birth);
+                $('#edit-email').val(email);
+                $('#edit-phone').val(phone);
+                $('#edit-address').val(address);
+                $('#edit-isDel').val(isDel);
+
+                // 모달 보여짐
+                $('#modifyUserModal').modal('show');
             });
 
-            $('table').on('click', '.btn-save', function () {
-                var username = $(this).data('username');
-                var row = $(this).closest('tr');
-                var updatedData = {};
-
-                row.find('input').each(function (index, input) {
-                    var key = $(input).closest('td').attr('data-key');
-                    updatedData[key] = $(input).val();
-                });
-
-                console.log('Sending updated data:', updatedData);
-                // Send an AJAX request with the updated data
-                $.ajax({
-                    type: 'POST',
-                    url: '/user/listUser',
-                    data: 'JSON',
-                    contentType: 'application/json',
-                    success: function (response) {
-                        alert('회원수정에 성공했습니다.');
-                        location.reload();
-                    },
-                    error: function () {
-                        alert('회원수정중 에러가 발생했습니다.');
-                    }
-                });
+            $('#datatable-custom').DataTable({
+                pagination: false,
+                searching: false,
+                lengthChange : false
             });
         });
     </script>
@@ -147,7 +133,7 @@
                                         </thead>
                                         <tbody>
                                         <tr role="row" class="odd" th:each="users : ${userList}">
-                                            <td data-key="username" th:text="${users.username}"></td>
+                                        <td data-key="username" th:text="${users.username}"></td>
                                             <td data-key="roleIdx" th:text="${users.roleIdx}"></td>
                                             <td data-key="name" th:text="${users.name}"></td>
                                             <td data-key="birth" th:text="${users.birth}"></td>
@@ -158,10 +144,60 @@
                                             <td data-key="modifyDate" th:text="${users.modifyDate}"></td>
                                             <td data-key="isDel" th:text="${users.isDel}"></td>
                                             <td data-key="isDelDate" th:text="${users.isDelDate}"></td>
-                                            <td><button class="btn btn-warning btn-modify" data-username="${users.username}">수정</button></td>
+                                            <td>
+                                                <button class="edit-button">수정</button>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
+
+                                    <!-- 회원수정 모달 -->
+                                    <div class="modal fade" id="modifyUserModal" tabindex="-1" role="dialog" aria-labelledby="modifyUserModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modifyUserModalLabel">회원 정보 수정</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="edit-user-form" th:action="@{/user/updateUser}" method="post">
+                                                        <input type="hidden" id="edit-username" name="username" />
+                                                        <div class="form-group">
+                                                            <label for="edit-name">이름:</label>
+                                                            <input type="text" class="form-control" id="edit-name" name="name" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="edit-birth">생일:</label>
+                                                            <input type="date" class="form-control" id="edit-birth" name="birth" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="edit-email">이메일:</label>
+                                                            <input type="email" class="form-control" id="edit-email" name="email" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="edit-phone">전화번호:</label>
+                                                            <input type="text" class="form-control" id="edit-phone" name="phone" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="edit-address">주소:</label>
+                                                            <input type="text" class="form-control" id="edit-address" name="address" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="edit-isDel">탈퇴여부:</label>
+                                                            <select class="form-control" id="edit-isDel" name="isDel">
+                                                                <option value="Y">Y</option>
+                                                                <option value="N">N</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">수정</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 회원수정 모달 -->
                                 </div>
                             </div>
                         </div>
