@@ -26,6 +26,7 @@ public class Role {
     private RoleName roleName;
 
     @OneToMany(mappedBy = "roleIdx", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "roleIdx", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

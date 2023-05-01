@@ -10,8 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -108,4 +109,22 @@ public class UserService {
         }
         return passwordBuilder.toString();
     }
+
+    public User updateUser(String username, String name, LocalDate birth, String email, String phone, String address, String isDel) {
+        Optional<User> existingUserOptional = userRepository.findByUsername(username);
+
+        if (existingUserOptional.isPresent()) {
+            User existingUser = existingUserOptional.get();
+            existingUser.setName(name);
+            existingUser.setBirth(Date.valueOf(birth));
+            existingUser.setEmail(email);
+            existingUser.setPhone(phone);
+            existingUser.setAddress(address);
+            existingUser.setIsDel(isDel);
+            return userRepository.save(existingUser);
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
 }
