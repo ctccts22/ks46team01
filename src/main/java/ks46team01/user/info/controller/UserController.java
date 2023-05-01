@@ -6,18 +6,14 @@ import ks46team01.user.info.entity.User;
 import ks46team01.user.info.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,13 +53,13 @@ public class UserController {
                 return "user/modifyUser";
             } else {
                 log.warn("사용자 이름에 대한 사용자를 찾을 수 없습니다: {}", username);
-                return "error"; // error message 404 view 사용예정
+                return "error/404"; // error message 404 view 사용예정
             }
         }
 
         @PostMapping("/modifyUser")
         public String modifyUser(@ModelAttribute("user") User user,
-                                 BindingResult bindingResult, Model model) {
+                                 BindingResult bindingResult) {
             log.info("회원수정: {}", user);
             if (bindingResult.hasErrors()) {
                 return "user/modifyUser";
@@ -159,7 +155,7 @@ public class UserController {
                 return "user/deleteUser";
             } else {
                 log.warn("회원에 대한 아이디를 찾을 수 없습니다: {}", username);
-                return "error"; // error message 404 view 사용예정
+                return "error/404"; // error message 404 view 사용예정
             }
         }
 
@@ -173,7 +169,7 @@ public class UserController {
                 return "redirect:/";
             } else {
                 log.warn("회원에 대한 아이디를 찾을 수 없습니다: {}", username);
-                return "error"; // error message 404 view 사용예정
+                return "error/404"; // error message 404 view 사용예정
             }
         }
 
@@ -196,4 +192,27 @@ public class UserController {
                 return "false";
             }
         }
+
+
+
+    @PostMapping("/updateUser")
+    public String updateUser(@RequestParam("username") String username,
+                             @RequestParam("name") String name,
+                             @RequestParam("birth") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birth,
+                             @RequestParam("email") String email,
+                             @RequestParam("phone") String phone,
+                             @RequestParam("address") String address,
+                             @RequestParam("isDel") String isDel,
+                             Model model) {
+        User updatedUser = userService.updateUser(username, name, birth, email, phone, address, isDel);
+
+        if (updatedUser == null) {
+            model.addAttribute("errorMessage", "Failed to update user.");
+        } else {
+            model.addAttribute("successMessage", "User updated successfully.");
+        }
+
+        // Redirect to the listUser page or any other page you want to show after the update
+        return "redirect:/user/listUser";
     }
+}
