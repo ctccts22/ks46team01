@@ -25,29 +25,27 @@
             *
         FROM
         mushroom_farm_data
-
     </select>
 
     <select id="getSearchFarmData" parameterType="String" resultType="ks46team01.mushroom.mushroomFarmData.dto.FarmData" >
         SELECT
-            farm_data_idx                     as farmDataIdx
-            , username                        as username
-            , company_info_idx                as companyInfoIdx
-            , farm_data_compost               as farmDataCompost
-            , farm_data_production            as farmDataProduction
-            , farm_data_expected_sale         as farmDataExpectedSale
-            , farm_data_actual_sale           as farmDataActualSale
-            , farm_data_production_date       as farmDataProductionDate
-            , farm_data_occurrence_sale_date  as farmDataOccurrenceSaleDate
-            , farm_data_expected_wasted       as farmDataExpectedWasted
-            , farm_data_date                  as farmDataDate
+            farm_data_idx
+            , username
+            , company_info_idx
+            , farm_data_compost
+            , farm_data_production
+            , farm_data_expected_sale
+            , farm_data_actual_sale
+            , farm_data_production_date
+            , farm_data_occurrence_sale_date
+            , farm_data_expected_wasted
+            , farm_data_date
         FROM
              mushroom_farm_data
         <where>
             <if test="searchKey != null and searchKey != '' ">
                ${searchKey} LIKE CONCAT('%', #{searchValue},'%')
             </if>
-
         </where>
     </select>
 </mapper>

@@ -27,19 +27,19 @@
                     <thead class="thead-dark">
                     <tr>
                         <th>버섯생육정보 고유코드</th>
+                        <th>이용자 아이디</th>
+                        <th>사업자 정보</th>
                         <th>농가재배정보등록고유코드</th>
                         <th>작물 고유코드</th>
                         <th>버섯 생육일</th>
                         <th>버섯 생육상태</th>
                         <th>버섯 생육정보 등록일자</th>
-                        <th>버섯 생육정보 수정일자</th>
                         <th>버섯 생육정보 상세내용</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${fmsg == null}" th:each="l:${fmsg}">
-
-                        <td th:text="${l.mushroom_growth_idx}"></td>
+                    <tr th:each="l:${fmsg}">
+                        <td th:text="${l.mushroomGrowthIdx}"></td>
                         <td th:text="${l.username}"></td>
                         <td th:text="${l.companyInfoIdx}"></td>
                         <td th:text="${l.farmDataIdx}"></td>

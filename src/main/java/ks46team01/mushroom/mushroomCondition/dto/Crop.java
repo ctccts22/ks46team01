@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class Crop {
-     private Long cropIdx;
+     private Long cropIdxInfo;
      private String cropType;
      private String cropContent;
      private String adminUsername;

@@ -21,36 +21,30 @@
     public class FarmMushroomGrowthController {
         private final FarmMushroomGrowthService farmMushroomGrowthService;
 
-        @PostMapping("/add/addDataGrownMushroom")
-        public String addDataGrown(FarmMushroomGrowth farmMushroomGrowth) {
-            farmMushroomGrowthService.add(farmMushroomGrowth);
-
-            return "redirect:/mushroom/addDataGrownMushroom";
+        @GetMapping("/dataGrownMushroom")
+        public String farmMushroomGrowthService(Model model
+                        , @RequestParam(name = "searchKey", required = false) String searchKey
+                        , @RequestParam(name = "searchValue", required = false) String searchValue) {
+            List<FarmMushroomGrowth> fmsg = farmMushroomGrowthService.getFarmMushroomGrowth(searchKey, searchValue);
+            model.addAttribute("title", "조회");
+            model.addAttribute("fmsg", fmsg);
+            log.info("search 들어가는값 = {} ", fmsg);
+            return "mushroom/dataGrownMushroom";
         }
+
+
         @GetMapping("/add/addDataGrownMushroom")
         public String addDataGrown(Model model) {
             model.addAttribute("title", "등록");
             model.addAttribute("farmMushroomGrowth", new FarmMushroomGrowth());
             return "mushroom/add/addDataGrownMushroom";
         }
+        @PostMapping("/add/addDataGrownMushroom")
+        public String addDataGrown(FarmMushroomGrowth farmMushroomGrowth) {
+            farmMushroomGrowthService.add(farmMushroomGrowth);
 
-
-        @GetMapping("/dataGrownMushroom")
-        public String farmMushroomGrowthService(Model model
-                , @RequestParam(name = "searchKey", required = false) String searchKey
-                , @RequestParam(name = "searchValue", required = false) String searchValue) {
-
-            List<FarmMushroomGrowth> fmsg = farmMushroomGrowthService.getFarmMushroomGrowth(searchKey, searchValue);
-            log.info("list로 담은 데이터 = {}", fmsg );
-
-            model.addAttribute("title", "조회");
-            model.addAttribute("fmsg", fmsg);
-
-            return "mushroom/dataGrownMushroom";
+            return "redirect:mushroom/addDataGrownMushroom";
         }
-
-
-
       }
 
 

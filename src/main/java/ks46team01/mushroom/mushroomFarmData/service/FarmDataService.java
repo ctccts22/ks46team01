@@ -15,13 +15,31 @@ public class FarmDataService {
     public FarmDataService(FarmDataMapper farmDataMapper){
         this.farmDataMapper = farmDataMapper;
     }
+
+    public List<FarmData> getFarmDataList(String searchKey, String searchValue) {
+        if(searchKey != null) {
+            switch (searchKey) {
+                case "farm_data_idx":
+                    searchKey = "farm_data_idx";
+                    break;
+                case "username":
+                    searchKey = "username";
+                    break;
+                default:
+                    searchKey = "company_info_idx";
+                    break;
+            }
+        }
+        List<FarmData> getFarmDataList = farmDataMapper.getSearchFarmData(searchKey, searchValue);
+        return  getFarmDataList;
+    }
+
     public String add(FarmData farmData) {
         String result =
                 farmDataMapper.addFarmData(farmData);
         return result;
     }
-    public List<FarmData> getFarmDataList() {
-        return farmDataMapper.findAllFarmData();
-    }
+
+
 
 }

@@ -12,5 +12,8 @@ public interface FarmDataMapper {
 
 
     List<FarmData> findAllFarmData();
+    List<FarmData> getSearchFarmData(String searchKey, String searchValue);
+
+    FarmData saveFarmData(FarmData farmData);
 
 }

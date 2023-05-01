@@ -11,10 +11,11 @@ import java.util.List;
 @Transactional
 public class FarmMushroomGrowthService {
     private final FarmMushroomGrowthMapper farmMushroomGrowthMapper;
-
     public FarmMushroomGrowthService(FarmMushroomGrowthMapper farmMushroomGrowthMapper) {
         this.farmMushroomGrowthMapper = farmMushroomGrowthMapper;
     }
+
+
 
     public List<FarmMushroomGrowth> getFarmMushroomGrowth(String searchKey, String searchValue) {
         if(searchKey != null){
@@ -30,7 +31,7 @@ public class FarmMushroomGrowthService {
                     break;
             }
         }
-        List<FarmMushroomGrowth> farmMushroomGrowth = farmMushroomGrowthMapper.getFarmMushroomGrowth(searchKey, searchValue);
+        List<FarmMushroomGrowth> farmMushroomGrowth = farmMushroomGrowthMapper.getMushroomGrowthInfoById(searchKey, searchValue);
         return farmMushroomGrowth;
     }
 

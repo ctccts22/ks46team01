@@ -19,7 +19,7 @@
         <result column="mushroom_condition_date"             property="mushroomConditionDate" />
     </resultMap>
 
-    <insert id="addFarmCondition" parameterType="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
+    <insert id="saveFarmCondition" parameterType="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
         INSERT INTO       mushroom_condition
         (mushroom_condition_idx
         , crop_idx
@@ -36,24 +36,26 @@
 
         VALUES
         (
-          #{mushroom_condition_idx}
-        , #{crop_idx}
-        , #{mushroom_condition_temperature}
-        , #{mushroom_condition_humidity}
-        , #{mushroom_condition_oxygen}
-        , #{mushroom_condition_co2}
-        , #{mushroom_condition_illuminance}
-        , #{mushroom_condition_ph}
-        , #{mushroom_condition_year}
-        , #{mushroom_condition_use}
-        , #{admin_username}
-        , #{mushroom_condition_date}
+          #{mushroomConditionIdx}
+        , #{cropInfo.crop}
+        , #{mushroomConditionTemperature}
+        , #{mushroomConditionHumidity}
+        , #{mushroomConditionOxygen}
+        , #{mushroomConditionCo2}
+        , #{mushroomConditionIlluminance}
+        , #{mushroomConditionPh}
+        , #{mushroomConditionYear}
+        , #{mushroomConditionUse}
+        , #{adminUsername}
+        , #{mushroomConditionDate}
         )
     </insert>
 
+
+
     <select id="getCropIdx" resultType="ks46team01.mushroom.mushroomCondition.dto.Crop">
         SELECT
-        crop_idx
+        *
         FROM
             crop
     </select>

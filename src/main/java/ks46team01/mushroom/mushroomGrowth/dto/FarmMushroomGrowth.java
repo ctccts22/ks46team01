@@ -16,6 +16,8 @@ public class FarmMushroomGrowth {
     private Timestamp mushroomGrowthDate;
     private String mushroomGrowthContent;
 
+
+
     public Long mushroomGrowthIdx() {
         return mushroomGrowthIdx;
     }

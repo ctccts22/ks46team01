@@ -33,20 +33,20 @@
 
     <select id="getMushroomGrowthInfoById" parameterType="String" resultMap="mushroomGrowthResultMap">
         SELECT
-        mushroom_growth_idx
-        , username
-        , company_info_idx
-        , farm_data_idx
-        , crop_idx
-        , mushroom_growth_daily
-        , mushroom_growth_status
-        , mushroom_growth_date
-        , mushroom_growth_content
+            mushroom_growth_idx
+            , username
+            , company_info_idx
+            , farm_data_idx
+            , crop_idx
+            , mushroom_growth_daily
+            , mushroom_growth_status
+            , mushroom_growth_date
+            , mushroom_growth_content
         FROM
-        mushroom_growth
+             mushroom_growth
         <where>
             <if test="searchKey != null and searchKey != ''">
-                AND ${searchKey} LIKE CONCAT('%', #{searchValue},'%')
+                ${searchKey} LIKE CONCAT('%', #{searchValue},'%')
             </if>
         </where>
     </select>

@@ -2,6 +2,7 @@
 
     import jakarta.servlet.http.HttpSession;
     import ks46team01.admin.info.entity.Admin;
+    import ks46team01.mushroom.mushroomCondition.dto.Crop;
     import ks46team01.mushroom.mushroomCondition.dto.FarmCondition;
     import ks46team01.mushroom.mushroomCondition.service.FarmConditionService;
     import lombok.AllArgsConstructor;
@@ -33,6 +34,9 @@
         @GetMapping("/add/addConditionMushroom")
         public String showAddFarmConditionForm(Model model) {
             model.addAttribute("FarmCondition", new FarmCondition());
+            model.addAttribute("Crop", new Crop());
+            log.info("들어오는값= {FarmCondition}",new FarmCondition());
+            log.info("들어오는값= {Crop}",new Crop());
             return "mushroom/add/addConditionMushroom";
         }
         @PostMapping("/add/addConditionMushroom")
@@ -49,7 +53,6 @@
                 return "redirect:/auth/loginAdmin";
             }
         }
-
 
 
 
