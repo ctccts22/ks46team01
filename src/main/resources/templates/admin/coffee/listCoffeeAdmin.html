@@ -5,49 +5,75 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         $(document).ready(function () {
-            var index;
-            var arr = [];
-            $('input[type="checkbox"]').click(function() {
-                 index = $(this).closest('tr').index()+1;
+            let index;
+            let arr = [];
+            $('#btn-success').click(function (){
+                console.log("success실행?");
+                console.log(arr);
+            });
+            $('#btn-danger').click(function (){
+                console.log("danger실행?");
+                console.log(arr);
+            });
+            $('input[type="checkbox"]').click(function () {
+                index = $(this).closest('tr').index() + 1;
+                indexArr = index.length;
                 console.log('체크박스 index ' + index + ' 번클릭.');
             });
+            $("#check-all").change(function () {
+                if (this.checked) {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", true);
+                    });
+                    for (var i = 1; i <= $('input[type=checkbox][name=check-seperated]').length; i++) {
+                        const name = $('#user_list #check-box-value:nth-child(' + i + ') #user_name').text();
+                        const cafe_name = $('#user_list #check-box-value:nth-child(' + i + ') #cafe_name').text();
+                        const cafe_phone = $('#user_list #check-box-value:nth-child(' + i + ') #cafe_phone').text();
+                        const cafe_address = $('#user_list #check-box-value:nth-child(' + i + ') #cafe_address').text();
+                        const coffee_amount = $('#user_list #check-box-value:nth-child(' + i + ') #coffee_amount').text();
+                        const coffee_date = $('#user_list #check-box-value:nth-child(' + i + ') #coffee_date').text();
+                        arr.push([name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date]); // 배열에 추가
+                    }
+                    console.log(arr);
+                } else {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", false);
+                        arr = []; // clear the array
+                    });
+                    console.log(arr, 'else?');
+                }
+            });
+
             $('input[type=checkbox][name=check-seperated]').change(function () {
                 if (this.checked) {
-                        alert(`${this.value} is checked`);
-                        const coffeeRequestIndex = document.querySelector('#check-box-value th').dataset.coffeeRequestIndex;
-                        const name = $('#user_list #check-box-value:nth-child(' + index + ') #user_name').text();
-                        const cafe_name = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_name').text();
-                        const cafe_phone = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_phone').text();
-                        const cafe_address = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_address').text();
-                        const coffee_amount = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_amount').text();
-                        const coffee_date = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_date').text();
-
-                        console.log(coffeeRequestIndex);
-                        console.log(name);
-                        console.log(cafe_name);
-                        console.log(cafe_phone);
-                        console.log(cafe_address);
-                        console.log(coffee_amount);
-                        console.log(coffee_date);
-                        arr.push([name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date]); // 배열에 추가
-                        console.log(arr);
-
-                } else {
-                    alert(`${this.value} is unchecked`);
+                    // alert(`${this.value} is checked`);
                     const name = $('#user_list #check-box-value:nth-child(' + index + ') #user_name').text();
                     const cafe_name = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_name').text();
                     const cafe_phone = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_phone').text();
                     const cafe_address = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_address').text();
                     const coffee_amount = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_amount').text();
                     const coffee_date = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_date').text();
-
-                    const valueToRemove = [name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date];
-                    for (let i = 0; i < valueToRemove.length; i++) {
-                        const indexToRemove = arr.indexOf(valueToRemove[i]);
-                        if (indexToRemove > -1) {
-                            arr.splice(indexToRemove, 1);
-                        }
+                    arr.push([name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date]); // 배열에 추가
+                    console.log(arr);
+                } else {
+                    if ($('input[type=checkbox][name=check-seperated]').length !== $('input[type=checkbox][name=check-seperated]:checked').length) {
+                        $("input:checkbox[id='check-all']").prop("checked", false);
                     }
+                    const name = $('#user_list #check-box-value:nth-child(' + index + ') #user_name').text();
+                    const cafe_name = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_name').text();
+                    const cafe_phone = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_phone').text();
+                    const cafe_address = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_address').text();
+                    const coffee_amount = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_amount').text();
+                    const coffee_date = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_date').text();
+                    arr = arr.filter(item => (
+                        item[0] !== name ||
+                        item[1] !== cafe_name ||
+                        item[2] !== cafe_phone ||
+                        item[3] !== cafe_address ||
+                        item[4] !== coffee_amount ||
+                        item[5] !== coffee_date
+                    ));
+                    console.log(arr);
                 }
             });
         });
@@ -104,7 +130,7 @@
                                     <th>
                                         No
                                     </th>
-                                    <th><input type="checkbox" id="check-all"></th>
+                                    <th><input type="checkbox" id="check-all" name="check-all"></th>
                                     <th>아이디</th>
                                     <th>카페명</th>
                                     <th>수거 담당자 번호</th>
@@ -114,9 +140,11 @@
                                     <th>승인상태</th>
                                 </tr>
                                 </thead>
-                                <tbody id ="user_list">
-                                <tr id="check-box-value" th:each="coffeeRequest, coffeeRequestIndex: ${coffeeRequestList}">
-                                    <th data-coffee-request-index="${coffeeRequestIndex.count}" th:text="${coffeeRequestIndex.count}"></th>
+                                <tbody id="user_list">
+                                <tr id="check-box-value"
+                                    th:each="coffeeRequest, coffeeRequestIndex: ${coffeeRequestList}">
+                                    <th data-coffee-request-index="${coffeeRequestIndex.count}"
+                                        th:text="${coffeeRequestIndex.count}"></th>
                                     <th><input type="checkbox" id="check-seperated" name="check-seperated"></th>
                                     <td id="user_name" th:text="${coffeeRequest.userName}"></td>
                                     <td id="cafe_name" th:text="${coffeeRequest.companyInfoName}"></td>
@@ -128,77 +156,88 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <div class="col-md-6 col-sm-6 offset-md-3">
-                                <!--  <button type="submit" class="btn btn-success">승인</button>-->
-                                <!-- 승인 버튼-->
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target=".bs-example-modal-lg">승인
-                                </button>
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
+                            <!-- 모달창-->
+                            <!-- 버튼 -->
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#approveModal">승인
+                            </button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#denyModal">
+                                거부
+                            </button>
 
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel">승인여부</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><span
-                                                        aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h4>허가내용</h4>
-                                                <label style=" margin:0 auto;">
-                                                    <input type="text" placeholder="허가내용"
-                                                           style="width:300px;height:20px;">
-                                                </label>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary">확인</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    닫기
-                                                </button>
-                                            </div>
+                            <!-- 모달창 -->
+                            <div class="modal fade" id="approveModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="approveModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="approveModalLabel">승인</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                    </div>
-                                    <!-- 거절 버튼 -->
-                                </div>
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target=".bs-example-modal-lg">거절
-                                </button>
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel2">거절</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><span
-                                                        aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h4>?</h4>
-                                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-                                                    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
-                                                    auctor.</p>
-                                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-                                                    cursus magna, vel scelerisque nisl consectetur et. Donec sed odio
-                                                    dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">확인
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    닫기
-                                                </button>
-                                            </div>
+                                        <div class="modal-body">
+                                            승인의견
+                                            <label>
+                                                <input type="text" name="approve">
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id="btn-success" data-dismiss="modal">승인</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="reset">초기화</button>
                             </div>
+
+                            <div class="modal fade" id="denyModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="denyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="denyModalLabel">거부</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            거부의견
+                                            <label>
+                                                <input type="text" name="refusal">
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" id="btn-danger" data-dismiss="modal">거부</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 페이징 처리-->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 </th:block>
 </html>

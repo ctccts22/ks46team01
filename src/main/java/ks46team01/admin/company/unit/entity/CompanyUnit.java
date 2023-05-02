@@ -1,14 +1,17 @@
 package ks46team01.admin.company.unit.entity;
 
 import jakarta.persistence.*;
+import ks46team01.admin.company.contract.entity.CompanyContract;
 import ks46team01.admin.company.entity.Company;
 import ks46team01.admin.info.entity.Admin;
 import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.user.info.entity.User;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,19 +29,9 @@ public class CompanyUnit {
     private Long companyUnitIdx;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username", nullable = false)
+    @JoinColumn(name = "company_info_idx", nullable = false)
     @ToString.Exclude
-    private User username;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_idx", nullable = false)
-    @ToString.Exclude
-    private Company companyIdx;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "inventory_idx", nullable = false)
-    @ToString.Exclude
-    private Inventory inventoryIdx;
+    private CompanyInfo companyInfoIdx;
 
     @Column(name = "company_unit_amount", nullable = false)
     private Double companyUnitAmount;
@@ -59,6 +52,11 @@ public class CompanyUnit {
 
     @Column(name = "company_unit_update")
     private Timestamp companyUnitUpdate;
+
+    @OneToMany(mappedBy = "companyUnitIdx", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<CompanyContract> CompanyContracts;
+
 
     @Override
     public boolean equals(Object o) {

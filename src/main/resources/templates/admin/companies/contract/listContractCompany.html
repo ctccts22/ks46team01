@@ -20,16 +20,13 @@
           <thead class="thead-dark">
           <tr>
             <th>사업자계약관리고유번호</th>
-            <th>회원아이디</th>
-            <th>사업자정보고유번호</th>
-            <th>재고물품고유번호</th>
             <th>사업자계약기간</th>
             <th>사업자계약시작년도</th>
             <th>사업자배송기준텀</th>
             <th>사업자계약시작일</th>
             <th>사업자계약종료일</th>
             <th>사업자계약요구중량</th>
-            <th>사업자계약단가코드</th>
+            <th>사업자계약단가(1kg)</th>
             <th>사업자계약상태</th>
             <th>사업자계약상태상세내용</th>
             <th>운영자아이디</th>
@@ -40,16 +37,13 @@
           <tbody>
           <tr th:each="companyContract : ${companyContractList}">
             <td th:text="${companyContract.companyContractIdx}"></td>
-            <td th:text="${companyContract.username.username}"></td>
-            <td th:text="${companyContract.companyInfoIdx.companyInfoIdx}"></td>
-            <td th:text="${companyContract.inventoryIdx.inventoryIdx}"></td>
             <td th:text="${companyContract.companyContractTerm}"></td>
             <td th:text="${companyContract.companyContractYear}"></td>
             <td th:text="${companyContract.companyContractDeliveryTerm}"></td>
             <td th:text="${companyContract.companyContractStart}"></td>
             <td th:text="${companyContract.companyContractEnd}"></td>
             <td th:text="${companyContract.companyContractAmount}"></td>
-            <td th:text="${companyContract.companyUnitIdx.companyUnitIdx}"></td>
+            <td th:text="${companyContract.companyUnitIdx.companyUnitPrice}"></td>
             <td th:text="${companyContract.companyContractStatus}"></td>
             <td th:text="${companyContract.companyContractContent}"></td>
             <td th:text="${companyContract.adminUsername.adminUsername}"></td>
