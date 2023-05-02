@@ -3,9 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script>
-    $(document).ready(function () {
       let userId = document.getElementById("userId").value;
       console.log(userId);
 
@@ -20,9 +18,13 @@
 
       form.appendChild(input_userId);
       document.body.appendChild(form); //form 태그 문서에 추가
-      form.submit();
-    });
 
+      // Submit the form only if the userId value is not empty
+      if (userId !== "") {
+        form.submit();
+      } else {
+        console.log("userId is empty!");
+      }
   </script>
 </head>
 <th:block layout:fragment="customContent">
