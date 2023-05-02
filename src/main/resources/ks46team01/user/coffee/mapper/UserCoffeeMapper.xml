@@ -3,11 +3,17 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ks46team01.user.coffee.mapper.UserCoffeeMapper">
+    <select id="listCoffeeConfirm" parameterType="String" resultType="ks46team01.common.coffee.dto.CoffeeRequestConfirm">
+
+    </select>
     <select id="listCompanyCode" parameterType="String" resultType="ks46team01.common.coffee.dto.CompanyInfo">
-        SELECT
-        company_info_idx as companyInfoIdx
-        FROM
-        company_info WHERE username = #{userId};
+        SELECT DISTINCT *
+        FROM coffee_request_confirm AS crc
+        INNER JOIN coffee_request AS cr
+        ON crc.company_info_idx = cr.company_info_idx
+        INNER JOIN company_info AS ci
+        ON ci.company_info_idx = crc.company_info_idx
+        WHERE cr.username = #{userId};
     </select>
     <insert id="insertCoffeeRequest" parameterType="hashmap">
         INSERT INTO coffee_request(

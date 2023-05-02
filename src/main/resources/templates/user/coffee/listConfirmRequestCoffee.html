@@ -3,6 +3,27 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      let userId = document.getElementById("userId").value;
+      console.log(userId);
+
+      let form = document.createElement("form");
+      form.setAttribute("method", "get");
+      form.setAttribute("action", "/user/coffee/listConfirmRequestCoffee");
+
+      let input_userId = document.createElement("input");
+      input_userId.setAttribute("type","hidden");
+      input_userId.setAttribute("name","userId");
+      input_userId.setAttribute("value",userId);
+
+      form.appendChild(input_userId);
+      document.body.appendChild(form); //form 태그 문서에 추가
+      form.submit();
+    });
+
+  </script>
 </head>
 <th:block layout:fragment="customContent">
   <div class="col-md-12 col-sm-12 ">
@@ -47,6 +68,16 @@
                   </div>
                 </div>
               </div>
+              <th:block th:if="${session.user?.getUsername() != null}">
+                <input type="hidden" id="userId" name="userId" th:value="${session.user.getUsername()}" />
+              </th:block>
+              <!--        <th:block th:unless="${session.user?.getUsername() != null}">-->
+              <!--            <script>-->
+              <!--                alert("로그인후 이용해주세요.");-->
+              <!--                window.stop(); // 폼 전송 중지-->
+              <!--                location.replace('/auth/login'); //이전페이지로 이동시키지 못하게-->
+              <!--            </script>-->
+              <!--        </th:block>-->
               <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
                 <thead>
                 <tr>

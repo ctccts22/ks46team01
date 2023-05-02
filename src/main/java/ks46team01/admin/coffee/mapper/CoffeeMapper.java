@@ -13,6 +13,7 @@ import java.util.List;
 @Mapper
 public interface CoffeeMapper {
     public List<CoffeeRequest> listCoffeeAdmin(); // 커피가루 수거신청 확인페이지
+    public void insertConfirmCoffeeAdmin(CoffeeRequestConfirm confirm); // 커피가루 수거신청 승인/거절
     public List<CoffeeRequestConfirm> listConfirmCoffee(); //
     public List<CompanyInfo> listConfirmCompanyInfo(); //
     
