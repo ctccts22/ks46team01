@@ -20,6 +20,7 @@
                 const phone = row.find('td[data-key="phone"]').text();
                 const address = row.find('td[data-key="address"]').text();
                 const isDel = row.find('td[data-key="isDel"]').text();
+                const isDelDate = row.find('td[data-key="isDelDate"]').text();
 
                 // Populate the modal's fields with the user data
                 $('#edit-username').val(username);
@@ -29,7 +30,7 @@
                 $('#edit-phone').val(phone);
                 $('#edit-address').val(address);
                 $('#edit-isDel').val(isDel);
-
+                $('#edit-isDelDate').val(isDel);
                 // 모달 보여짐
                 $('#modifyUserModal').modal('show');
             });
@@ -145,7 +146,7 @@
                                             <td data-key="isDel" th:text="${users.isDel}"></td>
                                             <td data-key="isDelDate" th:text="${users.isDelDate}"></td>
                                             <td>
-                                                <button class="edit-button">수정</button>
+                                                <button type="button" class="edit-button">수정</button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -191,6 +192,10 @@
                                                                 <option value="N">N</option>
                                                             </select>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label for="edit-isDelDate">탈퇴시간:</label>
+                                                            <input type="datetime-local" class="form-control" id="edit-isDelDate" name="isDelDate" />
+                                                        </div>
                                                         <button type="submit" class="btn btn-primary">수정</button>
                                                     </form>
                                                 </div>
@@ -198,6 +203,7 @@
                                         </div>
                                     </div>
                                     <!-- 회원수정 모달 -->
+
                                 </div>
                             </div>
                         </div>
