@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -203,16 +204,15 @@ public class UserController {
                              @RequestParam("phone") String phone,
                              @RequestParam("address") String address,
                              @RequestParam("isDel") String isDel,
+                             @RequestParam(value = "isDelDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime isDelDate,
                              Model model) {
-        User updatedUser = userService.updateUser(username, name, birth, email, phone, address, isDel);
+        User updatedUser = userService.updateUser(username, name, birth, email, phone, address, isDel, isDelDate);
 
         if (updatedUser == null) {
-            model.addAttribute("errorMessage", "Failed to update user.");
+            model.addAttribute("에러", "실패했습니다.");
         } else {
-            model.addAttribute("successMessage", "User updated successfully.");
+            model.addAttribute("성공", "성공했습니다.");
         }
-
-        // Redirect to the listUser page or any other page you want to show after the update
         return "redirect:/user/listUser";
     }
 }

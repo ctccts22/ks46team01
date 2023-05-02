@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -110,7 +111,7 @@ public class UserService {
         return passwordBuilder.toString();
     }
 
-    public User updateUser(String username, String name, LocalDate birth, String email, String phone, String address, String isDel) {
+    public User updateUser(String username, String name, LocalDate birth, String email, String phone, String address, String isDel, LocalDateTime isDelDate) {
         Optional<User> existingUserOptional = userRepository.findByUsername(username);
 
         if (existingUserOptional.isPresent()) {
@@ -121,6 +122,9 @@ public class UserService {
             existingUser.setPhone(phone);
             existingUser.setAddress(address);
             existingUser.setIsDel(isDel);
+            existingUser.setIsDelDate(isDelDate != null ? Timestamp.valueOf(isDelDate) : null);
+            //수정날짜 업데이트
+            existingUser.setModifyDate(new Timestamp(System.currentTimeMillis()));
             return userRepository.save(existingUser);
         } else {
             throw new RuntimeException();

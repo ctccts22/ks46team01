@@ -17,8 +17,8 @@
 					<li><a><i class="fa fa-group"></i> 회원조회(이규노!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/user/listUser}" href="#"> 회원 조회</a></li>
-							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/listAdmin}" href="#">관리자 조회</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/user/listUser}" href="#"> 회원 관리</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/listAdmin}" href="#">관리자 관리</a></li>
 						</ul></li>
 					<li><a><i class="fa fa-archive"></i> 사업자 관리(이규노!) <span
 							class="fa fa-chevron-down"></span></a>
