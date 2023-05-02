@@ -15,8 +15,6 @@
         <result column="mushroom_condition_ph"               property="mushroomConditionPh" />
         <result column="mushroom_condition_year"             property="mushroomConditionYear" />
         <result column="mushroom_condition_use"              property="mushroomConditionUse" />
-        <result column="admin_username"                      property="adminUsername" />
-        <result column="mushroom_condition_date"             property="mushroomConditionDate" />
     </resultMap>
 
     <insert id="saveFarmCondition" parameterType="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
@@ -31,13 +29,12 @@
         , mushroom_condition_ph
         , mushroom_condition_year
         , mushroom_condition_use
-        , admin_username
-        , mushroom_condition_date)
+       )
 
         VALUES
         (
           #{mushroomConditionIdx}
-        , #{cropInfo.crop}
+        , #{cropIdx}
         , #{mushroomConditionTemperature}
         , #{mushroomConditionHumidity}
         , #{mushroomConditionOxygen}
@@ -46,8 +43,6 @@
         , #{mushroomConditionPh}
         , #{mushroomConditionYear}
         , #{mushroomConditionUse}
-        , #{adminUsername}
-        , #{mushroomConditionDate}
         )
     </insert>
 
@@ -55,12 +50,11 @@
 
     <select id="getCropIdx" resultType="ks46team01.mushroom.mushroomCondition.dto.Crop">
         SELECT
-        *
+         crop_idx as cropIdx
+        ,crop_content as cropContent
         FROM
-            crop
+         crop
     </select>
-
-
 
 
     <select id="getFarmCondition" resultType="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
@@ -75,9 +69,10 @@
             , mushroom_condition_ph                 as mushroomConditionPh
             , mushroom_condition_year               as mushroomConditionYear
             , mushroom_condition_use                as mushroomConditionUse
-            , admin_username                        as adminUsername
-            , mushroom_condition_date               as mushroomConditionDate
         FROM
         mushroom_condition
     </select>
+
+
+
 </mapper>

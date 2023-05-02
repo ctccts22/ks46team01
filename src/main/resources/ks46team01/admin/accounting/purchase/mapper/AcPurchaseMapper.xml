@@ -10,14 +10,15 @@
         , inventory_idx		                    AS inventoryIdx
         , company_contract_idx	                AS companyContract
         , accounting_purchase_date	            AS accountingPurchaseDate
-        , accounting_purchase_type	            AS accountingPurchaseType
-        , accounting_purchase_unit_price		AS accountingPurchaseUnitPrice
+        , accounting_purchase_admin_price       AS accountingPurchaseAdminPrice
         , accounting_purchase_amount	        AS accountingPurchaseAmount
         , accounting_purchase_payment		    AS accountingPurchasePayment
         , accounting_purchase_sum	            AS accountingPurchaseSum
         , admin_username		                AS adminUsername
         , accounting_purchase_update	    	AS accountingPurchaseUpdate
         FROM
-        accounting_purchase
+        accounting_purchase_admin
     </select>
+
+
 </mapper>

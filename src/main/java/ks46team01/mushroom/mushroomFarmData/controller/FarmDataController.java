@@ -1,8 +1,8 @@
     package ks46team01.mushroom.mushroomFarmData.controller;
 
     import ks46team01.mushroom.mushroomFarmData.dto.FarmData;
+    import ks46team01.mushroom.mushroomFarmData.mapper.FarmDataMapper;
     import ks46team01.mushroom.mushroomFarmData.service.FarmDataService;
-    import ks46team01.mushroom.mushroomGrowth.dto.FarmMushroomGrowth;
     import lombok.AllArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
     import org.springframework.stereotype.Controller;
@@ -16,7 +16,12 @@
     @RequestMapping("/mushroom")
     public class FarmDataController {
         private final FarmDataService farmDataService;
+        private final FarmDataMapper farmDataMapper;
 
+
+
+
+        // list, search
         @GetMapping("/dataFarmMushroom")
         public String farmData(Model model
                                 ,@RequestParam(name="searchKey", required = false) String searchKey
@@ -28,7 +33,7 @@
             return "mushroom/dataFarmMushroom";
         }
 
-
+        // add
         @GetMapping("/add/addDataFarmMushroom")
         public String addDataFarmMushroom(Model model) {
             model.addAttribute("title", "등록");
@@ -42,8 +47,6 @@
             log.info("post farmData ={}", new FarmData());
             return "redirect:mushroom/add/addDataFarmMushroom";
         }
-
-
 
 
 

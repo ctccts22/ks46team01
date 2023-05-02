@@ -11,7 +11,7 @@
       function validationCheck(ele) {
         let data = $(ele).val();
         let isValid = true;
-        if (typeof data == 'undefined' || data == null || data == '') {
+        if (typeof data == 'undefined' || data == null || data === '') {
           isValid = false;
         }
         return isValid;

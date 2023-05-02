@@ -16,6 +16,7 @@ public class FarmDataService {
         this.farmDataMapper = farmDataMapper;
     }
 
+
     public List<FarmData> getFarmDataList(String searchKey, String searchValue) {
         if(searchKey != null) {
             switch (searchKey) {

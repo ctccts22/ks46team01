@@ -64,8 +64,8 @@
 
               <td colspan="2">
                 <select id="cropIdx" name="cropIdx">
-                  <th:block th:each="Crop : ${Crop}">
-                    <option th:value="${Crop.cropIdxInfo}">[[${crop}]]</option>
+                  <th:block th:each="c : ${cropList}">
+                    <option th:value="${c.cropIdx}">[[${c.cropContent}]]</option>
                   </th:block>
                 </select>
               </td>

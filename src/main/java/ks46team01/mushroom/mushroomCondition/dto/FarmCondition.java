@@ -6,6 +6,8 @@ import lombok.*;
 import java.sql.Timestamp;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FarmCondition {
     private Long mushroomConditionIdx;
     private Long cropIdx;
@@ -17,8 +19,6 @@ public class FarmCondition {
     private String mushroomConditionPh;
     private int mushroomConditionYear;
     private String mushroomConditionUse;
-    private String adminUsername;
-    private Timestamp mushroomConditionDate;
 
     private Admin adminInfo;
 
