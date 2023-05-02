@@ -4,6 +4,8 @@
       layout:decorate="~{layout/default}">
 <head>
   <script>
+      let one = false;
+      if(one==false){
       let userId = document.getElementById("userId").value;
       console.log(userId);
 
@@ -24,6 +26,7 @@
         form.submit();
       } else {
         console.log("userId is empty!");
+      }
       }
   </script>
 </head>
