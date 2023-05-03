@@ -4,39 +4,6 @@
       layout:decorate="~{layout/default}">
 <head></head>
 <th:block layout:fragment="customJs">
-  <script th:src="@{/js/jquery-3.6.4.js}"></script>
-  <script>
-    $(function() {
-      //alert('제이쿼리')
-      function validationCheck(ele) {
-        let data = $(ele).val();
-        let isValid = true;
-        if (typeof data == 'undefined' || data == null || data == '') {
-          isValid = false;
-        }
-        return isValid;
-      }
-
-
-      $('#submitBtn').click(function () {
-        const addConditionMushroomForm = $('#addConditionMushroomForm');
-        const inputGroup = $('#addConditionMushroomForm input');
-        let isSubmit = true;
-        inputGroup.each(function (idx, item) {
-          isSubmit = validationCheck(item);
-          if (!isSubmit) {
-            let msg = $(item).parents('tr').find('label').text();
-            alert(msg + '입력해주세요.');
-            $(item).focus();
-            return false;
-          }
-
-        });
-        if (isSubmit) addConditionMushroomForm.submit();
-      });
-    });
-
-  </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
@@ -142,9 +109,6 @@
                        name="mushroomConditionUse" placeholder=" 사용여부 " />
               </td>
             </tr>
-
-
-
             <tr>
                 <td colspan="3">
                   <button type="button" id="submitBtn" >등록</button>

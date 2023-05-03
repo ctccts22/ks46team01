@@ -3,22 +3,36 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ks46team01.mushroom.mushroomPastData.mapper.FarmPastDataMapper">
+    <resultMap id="FarmPastData" type="ks46team01.mushroom.mushroomPastData.dto.FarmPastData" >
+        <id column="past_data_idx"                           property="pastDataIdx"/>
+        <result column="username"                            property="username"/>
+        <result column="company_info_idx"                    property="companyInfoIdx"/>
+        <result column="crop_idx"                            property="cropIdx"/>
+        <result column="crop_type"                           property="cropType"/>
+        <result column="past_data_mushroom_production"       property="pastDataMushroomProduction"/>
+        <result column="past_data_total_revenue"             property="pastDataTotalRevenue"/>
+        <result column="past_data_badge_use"                 property="pastDataBadgeUse"/>
+        <result column="past_data_year"                      property="pastDataYear"/>
+        <result column="past_data_use"                       property="pastDataUse"/>
+        <result column="past_data_comparison"                property="pastDataComparison"/>
+        <result column="past_data_date"                      property="pastDataDate"/>
+    </resultMap>
 
-    <select id="getFarmPastData" resultType="ks46team01.mushroom.mushroomPastData.mapper.FarmPastDataMapper">
 
+    <select id="getFarmPastData" resultType="ks46team01.mushroom.mushroomPastData.dto.FarmPastData">
         SELECT
-        past_data_idx
-        , username
-        , company_info_idx
-        , crop_idx
-        , crop_type
-        , past_data_mushroom_production
-        , past_data_total_revenue
-        , past_data_badge_use
-        , past_data_year
-        , past_data_use
-        , past_data_comparison
-        , past_data_date
+        past_data_idx                           as pastDataIdx
+        , username                              as username
+        , company_info_idx                      as companyInfoIdx
+        , crop_idx                              as cropIdx
+        , crop_type                             as cropType
+        , past_data_mushroom_production         as pastDataMushroomProduction
+        , past_data_total_revenue               as pastDataTotalRevenue
+        , past_data_badge_use                   as pastDataBadgeUse
+        , past_data_year                        as pastDataYear
+        , past_data_use                         as pastDataUse
+        , past_data_comparison                  as pastDataComparison
+        , past_data_date                        as pastDataDate
         FROM
         mushroom_past_data
     </select>
