@@ -25,8 +25,8 @@
 						<ul class="nav child_menu">
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/listCompany}">사업자 종류 코드</a></li>
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/info/listInfoCompany}">사업자 정보 조회</a></li>
-							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/contract/listContractCompany}">사업자 계약 신청관리</a></li>
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/unit/listUnitCompany}">사업자 계약단가 등록</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/contract/listContractCompany}">사업자 계약 신청관리</a></li>
 						</ul></li>
 					<li><a><i class="fa fa-cube"></i> 재고관리(!이규노) <span
 							class="fa fa-chevron-down"></span></a>

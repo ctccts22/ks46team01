@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CompanyInfoRepository
@@ -22,4 +23,7 @@ public interface CompanyInfoRepository
     List<CompanyInfo> findByCompanyIdx(Company companyInfo);
 
     List<CompanyInfo> findByInventoryIdx(Inventory companyInfo);
+
+    Optional<CompanyInfo> findByCompanyInfoIdx(Long companyInfoIdx);
+
 }
