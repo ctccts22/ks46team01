@@ -1,5 +1,6 @@
 package ks46team01.user.coffee.service;
 
+import ks46team01.common.coffee.dto.CoffeeDelivery;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
 import ks46team01.common.coffee.dto.CompanyInfo;
 import ks46team01.user.coffee.mapper.UserCoffeeMapper;
@@ -15,6 +16,12 @@ public class UserCoffeeServiceImpl implements UserCoffeeService {
 
     public UserCoffeeServiceImpl(UserCoffeeMapper userCoffeeMapper) {
         this.userCoffeeMapper = userCoffeeMapper;
+    }
+
+    @Override
+    public List<CoffeeDelivery> listCoffeeDelivery(String userId) {
+        List<CoffeeDelivery> listCoffeeDelivery = userCoffeeMapper.listCoffeeDelivery(userId);
+        return listCoffeeDelivery;
     }
 
     @Override //사업자 조회

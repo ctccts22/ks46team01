@@ -1,8 +1,11 @@
 package ks46team01.user.coffee.controller;
 
+import jakarta.servlet.http.HttpSession;
+import ks46team01.common.coffee.dto.CoffeeDelivery;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
 import ks46team01.common.coffee.dto.CompanyInfo;
 import ks46team01.user.coffee.service.UserCoffeeServiceImpl;
+import ks46team01.user.info.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +26,8 @@ public class CoffeeController {
     public CoffeeController(UserCoffeeServiceImpl coffeeService) {
         this.coffeeService = coffeeService;
     }
-    
+
+
     @GetMapping("/insertRequestCoffeeForm") //inserRequestCoffeeForm 페이지로 이동
     public String coffeeRequestInsertForm() {
         log.info("/coffee_request 실행?");
@@ -32,17 +36,33 @@ public class CoffeeController {
 
     @GetMapping("/listConfirmRequestCoffee") //유저 커피가루 신청상태 확인
     public String coffeeRequestConfirmList(Model model,
-                                           @RequestParam("userId") String userId) {
+                                           @RequestParam("userId") String userId,
+                                           HttpSession session) {
         log.info("/coffeeRequestConfirm 실행?");
         System.out.println("userId:"+userId);
-        List<CoffeeRequestConfirm> confirm = coffeeService.listCoffeeConfirm(userId);
+        User user = (User) session.getAttribute("user");
+        String sessionId = user.getUsername();
+        if(userId.equals(sessionId)){
+        List<CoffeeRequestConfirm> userConfirmList = coffeeService.listCoffeeConfirm(sessionId);
+        model.addAttribute("userConfirmList",userConfirmList);
+        }
 
         return "user/coffee/listConfirmRequestCoffee";
     }
 
     @GetMapping("/listDeliveryCoffee")
-    public String coffeeDeliveryList() {
-
+    public String coffeeDeliveryList(Model model,
+                                     @RequestParam("userId") String userId,
+                                     HttpSession session) {
+        System.out.println("/listDeliveryCoffee 실행?");
+        User user = (User) session.getAttribute("user");
+        String sessionId = user.getUsername();
+        System.out.println(sessionId);
+        if(userId.equals(sessionId)){
+        List<CoffeeDelivery> userDeliveryList = coffeeService.listCoffeeDelivery(sessionId);
+        model.addAttribute("userDeliveryList",userDeliveryList);
+            System.out.println("실행????????");
+        }
         return "user/coffee/listDeliveryCoffee";
     }
 
