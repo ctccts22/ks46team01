@@ -6,11 +6,37 @@
 
 <th:block layout:fragment="customJs">
     <script>
+        $(document).ready(function () {
+            $('body').on('click', '.edit-button', function () {
+                const row = $(this).closest('tr');
+
+                const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
+                const companyInfoName = row.find('td[data-key="companyInfoName"]').text();
+                const companyInfoLicenseNumber = row.find('td[data-key="companyInfoLicenseNumber"]').text();
+                const companyInfoAddress = row.find('td[data-key="companyInfoAddress"]').text();
+                const companyInfoIsDel = row.find('td[data-key="companyInfoIsDel"]').text();
+                const companyInfoIsDelDate = row.find('td[data-key="companyInfoIsDelDate"]').text();
+
+
+                $('#edit-companyInfoIdx').val(companyInfoIdx);
+                $('#edit-companyInfoName').val(companyInfoName);
+                $('#edit-companyInfoLicenseNumber').val(companyInfoLicenseNumber);
+                $('#edit-companyInfoAddress').val(companyInfoAddress);
+                $('#edit-companyInfoIsDel').val(companyInfoIsDel);
+                $('#edit-companyInfoIsDelDate').val(companyInfoIsDelDate);
+                // 모달 보여짐
+                $('#editCompanyInfoModal').modal('show');
+            });
+
         $('#datatable-custom').DataTable({
             pagination: false,
-            searching: false,
-            lengthChange: false
+            searching: true,
+            lengthChange: false,
+            dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
         });
+    });
     </script>
 </th:block>
 
@@ -33,25 +59,13 @@
                     <div class="clearfix"></div>
                 </div>
 
-
-                <div class="x_content">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <form method="get" th:action="@{/}">
-                                <div class="input-group">
-                                    <input class="form-control" name="username" placeholder="사업자번호를 입력하세요" type="text">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit">검색</button>
-                                        <a class="btn btn-outline-secondary"
-                                           th:href="@{/admin/companies/info/listInfoCompany}">초기화</a>
-                                    </div>
-                                </div>
-                            </form>
-
                             <form method="get" th:action="@{/admin/companies/info/listInfoApproveCompany}">
                                 <button class="btn btn-outline-secondary" type="submit">사업자정보 상세관리</button>
                             </form>
 
+                <div class="x_content">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
                         </div>
                     </div>
 
@@ -74,6 +88,7 @@
                                                 <th>사업자종류</th>
                                                 <th>사업주상호명</th>
                                                 <th>재고물품타입</th>
+                                                <th>승인상태</th>
                                                 <th>사업자번호</th>
                                                 <th>사업자주소</th>
                                                 <th>사업자전화번호</th>
@@ -81,25 +96,77 @@
                                                 <th>사업자수정날짜</th>
                                                 <th>사업자탈퇴상태</th>
                                                 <th>사업자탈퇴날짜</th>
+                                                <th>수정</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr class="odd" role="row" th:each="companyInfo : ${companyInfoList}">
-                                                <td data-key="companyIdx" th:text="${companyInfo.companyInfoIdx}"></td>
+                                                <td data-key="companyInfoIdx" th:text="${companyInfo.companyInfoIdx}"></td>
                                                 <td data-key="username" th:text="${companyInfo.username.username}"></td>
                                                 <td data-key="companyType" th:text="${companyInfo.companyIdx.companyType}"></td>
-                                                <td data-key="" th:text="${companyInfo.companyInfoName}"></td>
-                                                <td th:text="${companyInfo.inventoryIdx.inventoryType}"></td>
-                                                <td th:text="${companyInfo.companyInfoLicenseNumber}"></td>
-                                                <td th:text="${companyInfo.companyInfoAddress}"></td>
-                                                <td th:text="${companyInfo.companyInfoPhone}"></td>
-                                                <td th:text="${companyInfo.companyInfoDate}"></td>
-                                                <td th:text="${companyInfo.companyInfoUpdate}"></td>
-                                                <td th:text="${companyInfo.companyInfoIsDel}"></td>
-                                                <td th:text="${companyInfo.companyInfoIsDelDate}"></td>
+                                                <td data-key="companyInfoName" th:text="${companyInfo.companyInfoName}"></td>
+                                                <td data-key="inventoryType" th:text="${companyInfo.inventoryIdx.inventoryType}"></td>
+                                                <td data-key="companyInfoStatus">
+                                                    <span th:each="approval : ${companyInfo.companyInfoApprovals}" th:text="${approval.companyInfoApproveStatus}+' '"></span>
+                                                </td>
+                                                <td data-key="companyInfoLicenseNumber" th:text="${companyInfo.companyInfoLicenseNumber}"></td>
+                                                <td data-key="companyInfoAddress" th:text="${companyInfo.companyInfoAddress}"></td>
+                                                <td data-key="companyInfoPhone" th:text="${companyInfo.companyInfoPhone}"></td>
+                                                <td data-key="companyInfoDate" th:text="${companyInfo.companyInfoDate}"></td>
+                                                <td data-key="companyInfoUpdate" th:text="${companyInfo.companyInfoUpdate}"></td>
+                                                <td data-key="companyInfoIsDel" th:text="${companyInfo.companyInfoIsDel}"></td>
+                                                <td data-key="companyInfoIsDelDate" th:text="${companyInfo.companyInfoIsDelDate}"></td>
+                                                <td>
+                                                    <button type="button" class="edit-button">수정</button>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
+
+                                        <!-- 사업자정보수정 모달 -->
+                                        <div class="modal fade" id="editCompanyInfoModal" tabindex="-1" role="dialog" aria-labelledby="editCompanyInfoModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editCompanyInfoModalLabel">사업자정보 수정</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="edit-companyInfo-form" th:action="@{/admin/companies/info/updateCompanyInfo}" method="post">
+                                                            <input type="hidden" id="edit-companyInfoIdx" name="companyInfoIdx" />
+                                                            <div class="form-group">
+                                                                <label for="edit-companyInfoName">사업자상호명:</label>
+                                                                <input type="text" class="form-control" id="edit-companyInfoName" name="companyInfoName" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="edit-companyInfoLicenseNumber">사업자번호:</label>
+                                                                <input type="text" class="form-control" id="edit-companyInfoLicenseNumber" name="companyInfoLicenseNumber" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="edit-companyInfoAddress">사업자주소:</label>
+                                                                <input type="text" class="form-control" id="edit-companyInfoAddress" name="companyInfoAddress" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="edit-companyInfoIsDel">탈퇴여부:</label>
+                                                                <select class="form-control" id="edit-companyInfoIsDel" name="companyInfoIsDel">
+                                                                    <option value="Y">Y</option>
+                                                                    <option value="N">N</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="edit-companyInfoIsDelDate">탈퇴시간:</label>
+                                                                <input type="datetime-local" class="form-control" id="edit-companyInfoIsDelDate" name="companyInfoIsDelDate" />
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">수정</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 사업자정보수정 모달 -->
+
                                     </div>
                                 </div>
                             </div>
