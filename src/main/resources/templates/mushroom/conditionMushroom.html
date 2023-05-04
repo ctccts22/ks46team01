@@ -19,7 +19,6 @@
                 const mushroomConditionPh = row.find('td[data-key="mushroomConditionPh"]').text();
                 const mushroomConditionYear = row.find('td[data-key="mushroomConditionYear"]').text();
                 const mushroomConditionUse = row.find('td[data-key="mushroomConditionUse"]').text();
-                const mushroomConditionDate = row.find('td[data-key="mushroomConditionDate"]').text();
 
 
                 $('#add-mushroomConditionIdx').val(mushroomConditionIdx);
@@ -32,7 +31,6 @@
                 $('#add-mushroomConditionPh').val(mushroomConditionPh);
                 $('#add-mushroomConditionYear').val(mushroomConditionYear);
                 $('#add-mushroomConditionUse').val(mushroomConditionUse);
-                $('#add-mushroomConditionDate').val(mushroomConditionDate);
 
                 // 모달 보여짐
                 $('#addFarmConditionModal').modal('show');
@@ -50,7 +48,6 @@
                     const mushroomConditionPh = row.find('td[data-key="mushroomConditionPh"]').text();
                     const mushroomConditionYear = row.find('td[data-key="mushroomConditionYear"]').text();
                     const mushroomConditionUse = row.find('td[data-key="mushroomConditionUse"]').text();
-                    const mushroomConditionDate = row.find('td[data-key="mushroomConditionDate"]').text();
 
 
                 $('#modify-mushroomConditionIdx').val(mushroomConditionIdx);
@@ -63,7 +60,6 @@
                 $('#modify-mushroomConditionPh').val(mushroomConditionPh);
                 $('#modify-mushroomConditionYear').val(mushroomConditionYear);
                 $('#modify-mushroomConditionUse').val(mushroomConditionUse);
-                $('#modify-mushroomConditionDater').val(mushroomConditionDate);
 
                 // 모달 보여짐
                 $('#modifyFarmConditionModal').modal('show');
@@ -74,14 +70,17 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/mushroom/delete/deleteConditionMushroom' + mushroomConditionIdx,
+                    url: '/mushroom/delete/deleteConditionMushroom',
+                    data: { mushroomConditionIdx: mushroomConditionIdx },
                     success: function (response) {
                         alert('삭제성공');
+                        location.href = '/mushroom/conditionMushroom'; // 페이지 다시 로드
                         $('button[data-mushroomConditionIdx="' + mushroomConditionIdx + '"]').closest('tr').remove();
                     },
                     error: function () {
-                        alert('FK 제약조건 에러');
-                    },
+                        alert('삭제실패');
+                    }
+
                 });
             });
 
@@ -91,6 +90,20 @@
                 lengthChange : false
             });
         });
+    </script>
+
+    <script>
+        //수정화면 체크박스
+        function handleCheckboxClick(clickedCheckbox) {
+            const checkbox1 = document.getElementById("modify-mushroomConditionUse1");
+            const checkbox2 = document.getElementById("modify-mushroomConditionUse2");
+
+            if (clickedCheckbox === checkbox1) {
+                checkbox2.checked = false;
+            } else if (clickedCheckbox === checkbox2) {
+                checkbox1.checked = false;
+            }
+        }
     </script>
 </th:block>
 
@@ -109,13 +122,14 @@
                 <div class="x_content">
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <form th:action="@{/mushroom/ConditionMushroom}" method="get">
+                            <form th:action="@{/mushroom/conditionMushroom}" method="get">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="버섯종류 코드를 입력하세요" name="mushroomConditionIdx">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="submit">검색</button>
-                                        <a class="btn btn-outline-secondary" th:href="@{/mushroom/ConditionMushroom}">초기화</a>
+                                        <a class="btn btn-outline-secondary" th:href="@{/mushroom/conditionMushroom}">초기화</a>
                                     </div>
+                                    <div th:insert="~{/mushroom/search/searchConditionMushroom :: searchFragment}"></div>
                                 </div>
                             </form>
                             <div style="display: flex;">
@@ -143,23 +157,24 @@
                                                 <th>이산화탄소 농도</th>
                                                 <th>조도</th>
                                                 <th>수소 이온 농도지수</th>
-                                                <th>년도</th>
                                                 <th>사용유무</th>
-
+                                                <th>날짜</th>
+                                                <th>수정</th>
+                                                <th>삭제</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr role="row" class="odd" th:each="l:${fc}">
+                                            <tr role="row" class="odd" th:each="l:${fc}" >
                                                 <td data-key="mushroomConditionIdx" th:text="${l.mushroomConditionIdx}"></td>
-                                                <td data-key="cropIdx" th:text="${l.cropIdx}"></td>
+                                                <td data-key="cropIdx" th:text="${l.cropContent}"></td>
                                                 <td data-key="mushroomConditionTemperature" th:text="${l.mushroomConditionTemperature}"></td>
                                                 <td data-key="mushroomConditionHumidity" th:text="${l.mushroomConditionHumidity}"></td>
                                                 <td data-key="mushroomConditionOxygen" th:text="${l.mushroomConditionOxygen}"></td>
                                                 <td data-key="mushroomConditionCo2" th:text="${l.mushroomConditionCo2}"></td>
                                                 <td data-key="mushroomConditionIlluminance" th:text="${l.mushroomConditionIlluminance}"></td>
                                                 <td data-key="mushroomConditionPh" th:text="${l.mushroomConditionPh}"></td>
-                                                <td data-key="mushroomConditionYear" th:text="${l.mushroomConditionYear}"></td>
                                                 <td data-key="mushroomConditionUse" th:text="${l.mushroomConditionUse}"></td>
+                                                <td data-key="mushroomConditionYear" th:text="${l.mushroomConditionYear}"></td>
 
                                                 <td>
                                                     <button type="button" class="edit-button">수정</button>
@@ -184,10 +199,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form th:action="@{/mushroom/add/addConditionMushroom}" method="post">
-                                                            <div class="form-group">
-                                                                <label for="add-mushroomConditionIdx">버섯종류코드</label>
-                                                                <input type="text" class="form-control" id="add-mushroomConditionIdx" name="mushroomConditionIdx" placeholder="버섯코드 입력하세요" required>
-                                                            </div>
+                                                            <input type="hidden" id="add-mushroomConditionIdx" name="mushroomConditionIdx">
                                                             <div class="form-group">
                                                                 <label for="add-cropIdx">작물</label>
                                                                 <select class="form-control" id="add-cropIdx" name="cropIdx"  required>
@@ -221,14 +233,7 @@
                                                                 <label for="add-mushroomConditionPh">수소 이온 농도지수</label>
                                                                 <input type="text" class="form-control" id="add-mushroomConditionPh" name="mushroomConditionPh" placeholder="수소 이온 농조지수를 입력하세요" required>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="add-mushroomConditionYear">년도</label>
-                                                                <input type="text" class="form-control" id="add-mushroomConditionYear" name="mushroomConditionYear" placeholder="년도를 입력하세요" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="add-mushroomConditionUse">사용유무</label>
-                                                                <input type="text" class="form-control" id="add-mushroomConditionUse" name="mushroomConditionUse" placeholder="사용유무를 입력하세요" required>
-                                                            </div>
+
 
                                                             <button type="submit" class="btn btn-primary">등록</button>
                                                             <button type="reset" class="btn btn-warning">취소</button>
@@ -251,10 +256,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form th:action="@{/mushroom/modify/modifyConditionMushroom}" method="post">
-                                                            <div class="form-group">
-                                                                <label for="modify-mushroomConditionIdx">버섯 종류코드</label>
-                                                                <input type="text" class="form-control" id="modify-mushroomConditionIdx" name="mushroomConditionIdx" placeholder="버섯 종류코드를 입력하세요"/>
-                                                            </div>
+                                                            <input type="hidden" id="modify-mushroomConditionIdx" name="mushroomConditionIdx">
                                                             <div class="form-group">
                                                                 <label for="modify-cropIdx">작물 고유코드</label>
                                                                 <select class="form-control" id="modify-cropIdx" name="cropIdx"  required>
@@ -290,13 +292,15 @@
                                                                 <input type="text" class="form-control" id="modify-mushroomConditionPh" name="mushroomConditionPh" placeholder="수소 이온 농도지수을 입력하세요"/>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="modify-mushroomConditionYear">년도</label>
-                                                                <input type="text" class="form-control" id="modify-mushroomConditionYear" name="mushroomConditionYear" placeholder="년도을 입력하세요"/>
+                                                                <label for="modify-mushroomConditionUse1">사용유무</label><br>
+                                                                <input type="checkbox" id="modify-mushroomConditionUse1" name="mushroomConditionUse" value="사용" onclick="handleCheckboxClick(this)"> 사용
+                                                                <input type="checkbox" id="modify-mushroomConditionUse2" name="mushroomConditionUse" value="사용중지" onclick="handleCheckboxClick(this)"> 사용중지
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="modify-mushroomConditionUse">사용유무</label>
-                                                                <input type="text" class="form-control" id="modify-mushroomConditionUse" name="mushroomConditionUse" placeholder="사용유무을 입력하세요"/>
-                                                           </div>
+                                                                <label for="modify-mushroomConditionYear">수정일자</label>
+                                                                <input type="text" class="form-control" id="modify-mushroomConditionYear" name="mushroomConditionYear" placeholder="수정날짜를 입력하세요"/>
+                                                            </div>
+
 
 
                                                             <button type="submit" class="btn btn-primary">저장</button>
