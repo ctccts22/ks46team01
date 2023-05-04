@@ -1,15 +1,21 @@
 package ks46team01.admin.company.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
+import ks46team01.admin.company.dto.CompanyDTO;
+import ks46team01.admin.info.dto.AdminDTO;
 import ks46team01.admin.info.entity.Admin;
 import ks46team01.admin.company.entity.Company;
 import ks46team01.admin.company.service.CompanyService;
+import ks46team01.admin.info.util.AdminConverter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -24,7 +30,7 @@ public class CompanyController {
 
     @GetMapping("/listCompany")
     public String getAllCompony(Model model) {
-        List<Company> companyList = companyService.getAllCompanies();
+        List<CompanyDTO> companyList = companyService.getAllCompanies();
         model.addAttribute("companyList", companyList);
         return "admin/companies/listCompany";
     }
@@ -36,16 +42,20 @@ public class CompanyController {
     }
 
     @PostMapping("/addCompany")
-    public String addCompany(Company company, HttpSession session) {
+    @ResponseBody
+    public String addCompany(CompanyDTO companyDTO, HttpSession session) throws JsonProcessingException {
         Admin admin = (Admin) session.getAttribute("adminUser");
+        String result = null;
         if (admin != null) {
-            company.setAdminUsername(admin);
-            company.setCompanyDate(Timestamp.valueOf(LocalDateTime.now()));
-            companyService.createCompany(company);
-            return "redirect:/admin/companies/listCompany";
-        } else {
-            return "redirect:/auth/loginAdmin";
+            AdminDTO adminDTO = AdminConverter.entityToDTO(admin);
+            companyDTO.setAdminUsername(adminDTO);
+            companyDTO.setCompanyDate(Timestamp.valueOf(LocalDateTime.now()));
+            companyService.createCompany(companyDTO);
+            List<CompanyDTO> companyList = companyService.getAllCompanies();
+            ObjectMapper mapper = new ObjectMapper();
+            result = mapper.writeValueAsString(companyList);
         }
+        return result;
     }
 
 
