@@ -2,7 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
-<head></head>
+<head>
+  <style>
+    .dataTables_wrapper .dataTables_filter {
+      float: left;
+      text-align: left;
+    }
+  </style>
+</head>
 
 <th:block layout:fragment="customJs">
   <script>
@@ -79,7 +86,7 @@
                          style="width: 100%;" role="grid"
                          aria-describedby="datatable-buttons_info">
 
-                    <thead>
+                    <thead class="thead-dark">
                     <tr role="row">
             <th style="display: none">사업자승인번호</th>
             <th style="display: none">사업자정보번호</th>
@@ -139,6 +146,7 @@
                               <input type="text" class="form-control" id="edit-companyInfoApproveContent" name="companyInfoApproveContent" />
                             </div>
                             <button type="submit" class="btn btn-primary">수정</button>
+                            <button type="reset" class="btn btn-warning">취소</button>
                           </form>
                         </div>
                       </div>

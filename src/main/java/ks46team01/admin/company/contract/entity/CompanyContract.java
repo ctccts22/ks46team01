@@ -27,12 +27,6 @@ public class CompanyContract {
     @Column(name = "company_contract_idx", nullable = false)
     private Long companyContractIdx;
 
-    @Column(name = "company_contract_term", nullable = false)
-    private Integer companyContractTerm;
-
-    @Column(name = "company_contract_year", nullable = false)
-    private Integer companyContractYear;
-
     @Column(name = "company_contract_delivery_term", nullable = false)
     private String companyContractDeliveryTerm;
 
