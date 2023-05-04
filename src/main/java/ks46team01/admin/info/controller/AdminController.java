@@ -49,12 +49,12 @@ public class AdminController {
     }
 
     @PostMapping("/addAdmin")
-    public String addAdmin(@ModelAttribute Admin admin, Model model) {
+    @ResponseBody
+    public ResponseEntity<?> addAdmin(@ModelAttribute Admin admin, Model model) {
         adminService.addAdmin(admin);
         log.info("Admin: {}", admin);
-        return "redirect:/admin/listAdmin";
+        return ResponseEntity.ok().body("관리자가 성공적으로 등록되었습니다.");
     }
-
 
     @PostMapping("/modifyAdmin")
     public String modifyAdmin(@RequestParam("adminUsername") String adminUsername,
@@ -70,7 +70,6 @@ public class AdminController {
         }
         return "redirect:/admin/listAdmin";
     }
-
 
     @PostMapping("/delete/{adminUsername}")
     @ResponseBody

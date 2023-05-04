@@ -194,8 +194,6 @@ public class UserController {
             }
         }
 
-
-
     @PostMapping("/updateUser")
     public String updateUser(@RequestParam("username") String username,
                              @RequestParam("name") String name,

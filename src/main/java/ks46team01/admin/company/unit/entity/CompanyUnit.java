@@ -1,5 +1,6 @@
 package ks46team01.admin.company.unit.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import ks46team01.admin.company.contract.entity.CompanyContract;
 import ks46team01.admin.company.entity.Company;
@@ -29,9 +30,9 @@ public class CompanyUnit {
     private Long companyUnitIdx;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_info_idx", nullable = false)
+    @JoinColumn(name = "company_idx", nullable = false)
     @ToString.Exclude
-    private CompanyInfo companyInfoIdx;
+    private Company companyIdx;
 
     @Column(name = "company_unit_amount", nullable = false)
     private Double companyUnitAmount;
@@ -50,11 +51,9 @@ public class CompanyUnit {
     @Column(name = "company_unit_date", nullable = false)
     private Timestamp companyUnitDate;
 
-    @Column(name = "company_unit_update")
-    private Timestamp companyUnitUpdate;
-
     @OneToMany(mappedBy = "companyUnitIdx", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<CompanyContract> CompanyContracts;
 
 

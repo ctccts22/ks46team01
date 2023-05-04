@@ -68,10 +68,6 @@ public class CompanyInfo {
     @ToString.Exclude
     private List<CompanyInfoApprove> companyInfoApprovals;
 
-    @OneToMany(mappedBy = "companyInfoIdx", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<CompanyUnit> companyUnits;
-
     @PrePersist
     public void setDefaultCompanyInfoIsDel() {
         this.companyInfoIsDel = (this.companyInfoIsDel == null) ? "N" : this.companyInfoIsDel;
