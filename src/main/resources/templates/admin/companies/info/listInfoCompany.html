@@ -110,13 +110,13 @@
                       <tr class="odd" role="row" th:each="companyInfo : ${companyInfoList}">
                         <td data-key="companyInfoIdx"
                             th:text="${companyInfo.companyInfoIdx}"></td>
-                        <td data-key="username" th:text="${companyInfo.username.username}"></td>
+                        <td data-key="username" th:text="${companyInfo.username}"></td>
                         <td data-key="companyType"
-                            th:text="${companyInfo.companyIdx.companyType}"></td>
+                            th:text="${companyInfo.companyType}"></td>
                         <td data-key="companyInfoName"
                             th:text="${companyInfo.companyInfoName}"></td>
                         <td data-key="inventoryType"
-                            th:text="${companyInfo.inventoryIdx.inventoryType}"></td>
+                            th:text="${companyInfo.inventoryType}"></td>
                         <td data-key="companyInfoStatus">
                         <span th:each="approval : ${companyInfo.companyInfoApprovals}"
                         th:text="${approval.companyInfoApproveStatus}+' '"></span>

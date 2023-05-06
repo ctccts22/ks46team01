@@ -2,6 +2,7 @@ package ks46team01.common.company.info.entity;
 
 import jakarta.persistence.*;
 import ks46team01.admin.info.entity.Admin;
+import ks46team01.common.company.info.dto.CompanyInfoApproveDTO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -58,6 +59,16 @@ public class CompanyInfoApprove {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public CompanyInfoApproveDTO toCompanyInfoApproveDTO() {
+        CompanyInfoApproveDTO dto = new CompanyInfoApproveDTO();
+        dto.setCompanyInfoApproveIdx(this.getCompanyInfoApproveIdx());
+        dto.setAdminUsername(this.getAdminUsername().getAdminUsername());
+        dto.setCompanyInfoApproveDate(this.getCompanyInfoApproveDate());
+        dto.setCompanyInfoApproveStatus(this.getCompanyInfoApproveStatus());
+        dto.setCompanyInfoApproveContent(this.getCompanyInfoApproveContent());
+        return dto;
     }
 
 }
