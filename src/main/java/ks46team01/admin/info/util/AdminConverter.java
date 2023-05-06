@@ -26,7 +26,6 @@ public class AdminConverter {
     public static Admin dtoToEntity(AdminDTO dto) {
         Admin admin = new Admin();
         BeanUtils.copyProperties(dto, admin);
-
         Role role = RoleConverter.dtoToEntity(dto.getRole());
         admin.setRoleIdx(role);
 

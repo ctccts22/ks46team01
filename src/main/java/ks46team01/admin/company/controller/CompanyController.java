@@ -48,7 +48,7 @@ public class CompanyController {
         String result = null;
         if (admin != null) {
             AdminDTO adminDTO = AdminConverter.entityToDTO(admin);
-            companyDTO.setAdminUsername(adminDTO);
+            companyDTO.setAdminUsername(adminDTO.getAdminUsername());
             companyDTO.setCompanyDate(Timestamp.valueOf(LocalDateTime.now()));
             companyService.createCompany(companyDTO);
             List<CompanyDTO> companyList = companyService.getAllCompanies();
@@ -57,6 +57,7 @@ public class CompanyController {
         }
         return result;
     }
+
 
 
 }
