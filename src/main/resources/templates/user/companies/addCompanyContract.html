@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head></head>
+
+<th:block layout:fragment="customJs">
+  <script>
+      document.getElementById("business_type").addEventListener("change", function() {
+          const selectedIndex = this.value;
+          document.getElementById("company_idx").value = selectedIndex;
+          document.getElementById("inventory_idx").value = selectedIndex;
+      });
+  </script>
+
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <h1>사업자계약</h1>
+  <div class="x_content">
+    <br/>
+    <form th:object="${companyContract}" th:action="@{/user/companies/addCompanyInfo}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+<!--      <div class="item form-group">-->
+<!--        <label class="col-form-label col-md-3 col-sm-3 label-align" for="username">회원아이디</label>-->
+<!--        <div class="col-md-6 col-sm-6 ">-->
+<!--          <input type="text" id="username" th:field="${session.user.username}" disabled class="form-control">-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_info_name">사업주 상호명</label>
+        <div class="col-md-6 col-sm-6 ">
+          <input type="text" id="company_info_name" th:field="*{companyInfoIdx.companyInfoName}" disabled class="form-control">
+        </div>
+      </div>
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_info_license_number">사업자 번호</label>
+        <div class="col-md-6 col-sm-6 ">
+          <input type="text" id="company_info_license_number" th:field="*{companyInfoIdx.companyInfoLicenseNumber}" disabled class="form-control">
+        </div>
+      </div>
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_contract_start">계약 시작일</label>
+        <div class="col-md-6 col-sm-6 ">
+          <input type="date" id="company_contract_start" th:field="*{companyContractStart}" required="required" class="form-control">
+        </div>
+      </div>
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_contract_end">계약 종료일</label>
+        <div class="col-md-6 col-sm-6 ">
+          <input type="date" id="company_contract_end" th:field="*{companyContractEnd}" required="required" class="form-control">
+        </div>
+      </div>
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_contract_delivery_term">배송 주기</label>
+        <div class="col-md-6 col-sm-6 ">
+          <input type="text" id="company_contract_delivery_term" th:field="*{companyContractDeliveryTerm}" required="required" class="form-control">
+        </div>
+      </div>
+
+      <input type="hidden" id="company_unit_idx" th:field="*{companyUnitIdx}" required="required" class="form-control">
+      <input type="hidden" id="inventory_info_idx" th:field="*{companyInfoIdx}" required="required" class="form-control">
+
+      <div class="form-group">
+        <div class="col-md-6 col-sm-6 offset-md-3">
+          <button type="submit" class="btn btn-primary">확인</button>
+          <button type="reset" class="btn btn-secondary">취소</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</th:block>
+</html>
