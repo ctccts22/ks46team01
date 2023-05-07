@@ -2,12 +2,9 @@ package ks46team01.admin.company.unit.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import ks46team01.admin.company.contract.entity.CompanyContract;
+import ks46team01.common.company.contract.entity.CompanyContract;
 import ks46team01.admin.company.entity.Company;
 import ks46team01.admin.info.entity.Admin;
-import ks46team01.admin.inventory.entity.Inventory;
-import ks46team01.common.company.info.entity.CompanyInfo;
-import ks46team01.user.info.entity.User;
 import lombok.*;
 import org.hibernate.Hibernate;
 
