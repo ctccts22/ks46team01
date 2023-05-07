@@ -200,6 +200,7 @@
                                                     <div class="modal-body">
                                                         <form th:action="@{/mushroom/add/addConditionMushroom}" method="post">
                                                             <input type="hidden" id="add-mushroomConditionIdx" name="mushroomConditionIdx">
+
                                                             <div class="form-group">
                                                                 <label for="add-cropIdx">작물</label>
                                                                 <select class="form-control" id="add-cropIdx" name="cropIdx"  required>
@@ -265,7 +266,6 @@
                                                                         <option th:value="${c.cropIdx}">[[${c.cropContent}]]</option>
                                                                     </th:block>
                                                                 </select>
-
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-mushroomConditionTemperature">온도</label>

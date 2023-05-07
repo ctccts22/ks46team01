@@ -40,11 +40,6 @@
 
     </select>
 
-
-
-
-
-
     <select id="getCropIdx" resultType="ks46team01.mushroom.mushroomCondition.dto.Crop">
         /* crop 테이블 조회*/
         SELECT
@@ -104,7 +99,7 @@
 
 
     <update id="modifyFarmCondition" parameterType="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
-        /* 회원 정보 수정 */
+        /* 정보 수정 */
         UPDATE mushroom_condition
         <trim prefix="SET" suffixOverrides=",">
             <if test="cropIdx != null and cropIdx != ''">
@@ -145,7 +140,7 @@
 
 
     <select id="getFarmConditionInfoByDeleteId" parameterType="Long" resultMap="FarmCondition">
-        /* 특정회원 조회 */
+        /* 삭제 대상 회원 조회*/
         SELECT
         mushroom_condition_idx
         , crop_idx
@@ -164,7 +159,7 @@
     </select>
 
     <delete id="deleteFarmConditionByIdx" parameterType="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
-        /* 회원 탈퇴 */
+        /* 삭제 */
         DELETE
         FROM
             mushroom_condition

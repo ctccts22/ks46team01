@@ -1,6 +1,6 @@
 package ks46team01.mushroom.mushroomCondition.service;
 
-import ks46team01.mushroom.mushroomCondition.dto.Crop;
+import ks46team01.crop.dto.Crop;
 import ks46team01.mushroom.mushroomCondition.dto.FarmCondition;
 import ks46team01.mushroom.mushroomCondition.mapper.FarmConditionMapper;
 
@@ -43,7 +43,8 @@ public class FarmConditionService {
                                                 , String mushroomConditionPh
                                                 , String mushroomConditionUse
                                                 , int mushroomConditionYear){
-        FarmCondition farmConditionInfo = farmConditionMapper.getFarmConditionInfoById(mushroomConditionIdx
+        FarmCondition farmConditionInfo = farmConditionMapper.getFarmConditionInfoById(
+                                            mushroomConditionIdx
                                             ,cropIdx
                                             ,mushroomConditionTemperature
                                             ,mushroomConditionHumidity
@@ -87,6 +88,7 @@ public class FarmConditionService {
 
     public void deleteFarmCondition(Long mushroomConditionIdx){
         farmConditionMapper.deleteFarmConditionByIdx(mushroomConditionIdx);
+
     }
 
 

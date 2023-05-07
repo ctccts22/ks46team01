@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h2 class="my-4">버섯 생육 최적조건 </h2>
-                <form id="addConditionMushroomForm" th:action="@{/mushroom/add/addConditionMushroom}" method="post">
+                <form id="deleteConditionMushroom" th:action="@{/mushroom/delete/deleteConditionMushroom}" method="post">
                     <table class="table table-striped table-bordered table-hover">
 
                         <tbody>
@@ -22,19 +22,6 @@
                             <td colspan="2">
                                 <input type="text" id="mushroomConditionIdx"
                                        name="mushroomConditionIdx" placeholder=" ???을 입력해주세요."  />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="labeltd">
-                                <label for="adminUsername">작물 코드</label>
-                            </td>
-
-                            <td colspan="2">
-                                <select id="adminUsername" name="adminUsername">
-                                    <th:block th:each="a : ${adminDTOS}">
-                                        <option th:value="${a.adminUsername}">[[${c.adminUsername}]]</option>
-                                    </th:block>
-                                </select>
                             </td>
                         </tr>
                         <tr>

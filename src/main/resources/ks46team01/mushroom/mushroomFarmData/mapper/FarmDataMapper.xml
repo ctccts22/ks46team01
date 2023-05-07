@@ -28,26 +28,29 @@
     </select>
 
     <select id="getSearchFarmData" parameterType="String" resultType="ks46team01.mushroom.mushroomFarmData.dto.FarmData" >
-        /* 회원목록 조회 */
         SELECT
-            farm_data_idx                         as farmDataIdx
-            , username                            as username
-            , company_info_idx                    as companyInfoIdx
-            , farm_data_compost                   as farmDataCompost
-            , farm_data_production                as farmDataProduction
-            , farm_data_expected_sale             as farmDataExpectedSale
-            , farm_data_actual_sale               as farmDataActualSale
-            , farm_data_production_date           as farmDataProductionDate
-            , farm_data_occurrence_sale_date      as farmDataOccurrenceSaleDate
-            , farm_data_expected_wasted           as farmDataExpectedWasted
-            , farm_data_date                      as farmDataDate
+        m.farm_data_idx                         as farmDataIdx
+        , a.admin_name                          as adminName
+        , c.company_info_license_number         as companyInfoLicenseNumber
+        , m.farm_data_compost                   as farmDataCompost
+        , m.farm_data_production                as farmDataProduction
+        , m.farm_data_expected_sale             as farmDataExpectedSale
+        , m.farm_data_actual_sale               as farmDataActualSale
+        , m.farm_data_production_date           as farmDataProductionDate
+        , m.farm_data_occurrence_sale_date      as farmDataOccurrenceSaleDate
+        , m.farm_data_expected_wasted           as farmDataExpectedWasted
+        , m.farm_data_date                      as farmDataDate
         FROM
-             mushroom_farm_data
-        <where>
-            <if test="searchKey != null and searchKey != '' ">
-               ${searchKey} LIKE CONCAT('%', #{searchValue},'%')
-            </if>
-        </where>
+        mushroom_farm_data m
+        INNER JOIN
+        admin a
+        ON
+        m.username = a.admin_username
+        INNER JOIN
+        company_info c
+        ON
+        m.company_info_idx = c.company_info_idx;
+
     </select>
 
 

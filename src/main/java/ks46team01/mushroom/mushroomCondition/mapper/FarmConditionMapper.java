@@ -1,6 +1,6 @@
 package ks46team01.mushroom.mushroomCondition.mapper;
 
-import ks46team01.mushroom.mushroomCondition.dto.Crop;
+import ks46team01.crop.dto.Crop;
 import ks46team01.mushroom.mushroomCondition.dto.FarmCondition;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -27,7 +27,7 @@ public interface FarmConditionMapper{
                                     ,String mushroomConditionCo2
                                     ,String mushroomConditionPh
                                     ,String mushroomConditionUse
-                                    ,int mushroomConditionYear);
+                                    ,Integer mushroomConditionYear);
     // 수정
     void modifyFarmCondition(Long mushroomConditionIdx
                             ,Long cropIdx
@@ -38,7 +38,7 @@ public interface FarmConditionMapper{
                             ,String mushroomConditionIlluminance
                             ,String mushroomConditionPh
                             ,String mushroomConditionUse
-                            ,int mushroomConditionYear
+                            ,Integer mushroomConditionYear
                             );
 
 

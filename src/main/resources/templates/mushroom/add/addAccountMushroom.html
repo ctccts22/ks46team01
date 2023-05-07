@@ -4,37 +4,117 @@
       layout:decorate="~{layout/default}">
 <head></head>
 <th:block layout:fragment="customJs">
-  <script>
-  </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h2 class="my-4">농장 회계 등록</h2>
-        <form id="addInfo" th:action="@{/mushroom/add/addAccountMushroom}" method="post">
+        <h2 class="my-4">버섯 생육 최적조건 </h2>
+        <form id="addConditionMushroomForm" th:action="@{/mushroom/add/addConditionMushroom}" method="post">
           <table class="table table-striped table-bordered table-hover">
-            <thead class="thead-dark">
-            <tr>
-              <th>회계관리 매입 고유번호</th>
-              <th>사업장 고유코드</th>
-              <th>재고물품고유번호</th>
-              <th>사업자 계약관리고유번호</th>
-              <th>거래일자</th>
-              <th>거래유형</th>
-              <th>거래단가</th>
-              <th>매입거래량</th>
-              <th>결제유형</th>
-              <th>금액</th>
-              <th>운영자아이디</th>
-              <th>수정날짜</th>
-              <th>매출 마감 그룹코드</th>
-            </tr>
-            </thead>
+
             <tbody>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionIdx">버섯종류 코드</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionIdx"
+                       name="mushroomConditionIdx" placeholder=" ???을 입력해주세요."  />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="cropIdx">작물 코드</label>
+              </td>
 
-
+              <td colspan="2">
+                <select id="cropIdx" name="cropIdx">
+                  <th:block th:each="c : ${cropList}">
+                    <option th:value="${c.cropIdx}">[[${c.cropContent}]]</option>
+                  </th:block>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionTemperature">온도</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionTemperature"
+                       name="mushroomConditionTemperature" placeholder="  온도" />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionHumidity">습도</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionHumidity"
+                       name="mushroomConditionHumidity" placeholder="  습도" />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionOxygen">산소</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionOxygen"
+                       name="mushroomConditionOxygen" placeholder="  산소" />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionCo2">이산화탄소농도</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionCo2"
+                       name="mushroomConditionCo2" placeholder="  이산화탄소농도" />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionIlluminance">조도</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionIlluminance"
+                       name="mushroomConditionIlluminance" placeholder="  조도"  />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionPh">수소 이온 농도지수</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionPh"
+                       name="mushroomConditionPh" placeholder="  수소 이온 농도지수 " />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionYear">년도</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionYear"
+                       name="mushroomConditionYear" placeholder=" 년도 " />
+              </td>
+            </tr>
+            <tr>
+              <td class="labeltd">
+                <label for="mushroomConditionUse">사용여부</label>
+              </td>
+              <td colspan="2">
+                <input type="text" id="mushroomConditionUse"
+                       name="mushroomConditionUse" placeholder=" 사용여부 " />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <button type="button" id="submitBtn" >등록</button>
+                <button type="reset" id="resetBtn" >입력취소</button>
+              </td>
+            </tr>
             </tbody>
           </table>
         </form>
@@ -43,7 +123,3 @@
   </div>
 </th:block>
 </html>
-
-
-
-

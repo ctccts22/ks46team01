@@ -1,6 +1,5 @@
 package ks46team01.mushroom.mushroomFarmData.dto;
 
-import ks46team01.admin.info.entity.Admin;
 import lombok.Data;
 
 import java.sql.Date;
@@ -9,8 +8,8 @@ import java.sql.Timestamp;
 @Data
 public class FarmData {
     private Long farmDataIdx;
-    private String username;
-    private Long companyInfoIdx;
+    private String adminName;
+    private String companyInfoLicenseNumber;
     private String farmDataCompost;
     private String farmDataProduction;
     private String farmDataExpectedSale;
@@ -22,5 +21,6 @@ public class FarmData {
 
 
 
-    private Admin adminInfo;
+    private String username;
+    private Long companyInfoIdx;
 }

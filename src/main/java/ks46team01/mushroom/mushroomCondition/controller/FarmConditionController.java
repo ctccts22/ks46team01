@@ -1,8 +1,7 @@
     package ks46team01.mushroom.mushroomCondition.controller;
 
-    import ks46team01.mushroom.mushroomCondition.dto.Crop;
+    import ks46team01.crop.dto.Crop;
     import ks46team01.mushroom.mushroomCondition.dto.FarmCondition;
-    import ks46team01.mushroom.mushroomCondition.mapper.FarmConditionMapper;
     import ks46team01.mushroom.mushroomCondition.service.FarmConditionService;
     import lombok.AllArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,6 @@
     @RequestMapping("/mushroom")
     public class FarmConditionController {
         private final FarmConditionService farmConditionService;
-        private final FarmConditionMapper farmConditionMapper;
 
         //조회
         @GetMapping("/conditionMushroom")
@@ -101,6 +99,7 @@
 
             return "redirect:/mushroom/conditionMushroom";
         }
+
         //삭제
 
         @PostMapping("/delete/deleteConditionMushroom")

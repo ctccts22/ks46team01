@@ -9,10 +9,11 @@ import java.util.List;
 @Mapper
 public interface FarmDataMapper {
 
-    String addFarmData(FarmData farmData);
-    List<FarmData> findAllFarmData();
-
     List<FarmData> getSearchFarmData(String searchKey, String searchValue);
+
+    String addFarmData(FarmData farmData);
+
+
 
     FarmData saveFarmData(FarmData farmData);
 

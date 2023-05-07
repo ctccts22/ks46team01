@@ -16,18 +16,18 @@ public class FarmDataService {
         this.farmDataMapper = farmDataMapper;
     }
 
-
+    //조회 서치
     public List<FarmData> getFarmDataList(String searchKey, String searchValue) {
         if(searchKey != null) {
             switch (searchKey) {
                 case "farm_data_idx":
-                    searchKey = "farm_data_idx";
+                    searchKey = "m.farm_data_idx";
                     break;
-                case "username":
-                    searchKey = "username";
+                case "adminName":
+                    searchKey = "a.admin_name";
                     break;
                 default:
-                    searchKey = "company_info_idx";
+                    searchKey = "c.company_info_license_number";
                     break;
             }
         }
