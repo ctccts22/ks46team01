@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+      .board-item {
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          padding: 20px;
+          margin-bottom: 20px;
+          background-color: #f8f8f8;
+      }
+
+      .board-item-title {
+          font-size: 18px;
+          font-weight: bold;
+      }
+
+      .board-item-metadata {
+          font-size: 14px;
+          color: #999;
+      }
+
+      .board-item-content {
+          font-size: 14px;
+          margin-top: 10px;
+      }
+
+      .board-item-actions {
+          margin-top: 10px;
+      }
+  </style>
+</head>
+
+<th:block layout:fragment="customJs">
+
+</th:block>
+
+  <th:block layout:fragment="customContent">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Board Form</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div th:each="board : ${page.content}" class="board-item">
+          <div class="board-item-title">
+            <a th:href="@{'/user/freeBoardContent/' + ${board.freeBoardIdx}}" th:text="${board.freeBoardTitle}"></a>
+          </div>
+          <div class="board-item-metadata">
+            <span th:text="${board.username.username}"></span> |
+            <span th:text="${board.freeBoardDate}"></span> |
+            <span>조회수: </span><span th:text="${board.freeBoardView}"></span>
+          </div>
+          <div class="board-item-content" th:text="${board.freeBoardContent}"></div>
+          <div class="board-item-actions">
+            <a th:href="@{'/edit/' + ${board.freeBoardIdx}}">수정</a> |
+            <a th:href="@{'/delete/' + ${board.freeBoardIdx}}">삭제</a>
+          </div>
+        </div>
+        <!-- Add the pagination section below the board-item loop -->
+        <div class="pagination-wrapper">
+          <nav aria-label="Page navigation">
+            <ul class="pagination pagination-split">
+              <li th:class="${pageable.hasPrevious() ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link" aria-label="Previous" th:href="@{'?page=' + ${pageable.previousOrFirst().pageNumber}}">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li th:class="${pageNum == pageable.pageNumber ? 'page-item active' : 'page-item'}"
+                  th:each="pageNum : ${#numbers.sequence(0, page.totalPages-1)}">
+                <a class="page-link" th:href="@{'?page=' + ${pageNum}}" th:text="${pageNum + 1}">1</a>
+              </li>
+              <li th:class="${page.hasNext() ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link" aria-label="Next" th:href="@{'?page=' + ${pageable.next().pageNumber}}">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>
