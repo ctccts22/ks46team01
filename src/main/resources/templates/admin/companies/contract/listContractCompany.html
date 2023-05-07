@@ -45,7 +45,7 @@
         </div>
 
         <div style="display: flex;">
-          <button class="btn btn-outline-secondary add-button" type="submit">사업자코드등록</button>
+          <button class="btn btn-outline-secondary add-button" type="submit">사업자계약체결승인</button>
         </div>
 
         <div class="x_content">
@@ -75,11 +75,6 @@
                         <th>사업자계약기간</th>
                         <th>사업자계약요구중량</th>
                         <th>사업자계약단가(1kg)</th>
-                        <th>사업자계약상태</th>
-                        <th>사업자계약상태상세내용</th>
-                        <th>운영자아이디</th>
-                        <th>운영자등록날짜</th>
-                        <th>운영자수정날짜</th>
                         <th>승인</th>
                         <th>삭제</th>
                       </tr>
@@ -93,11 +88,6 @@
                         <td th:text="${companyContract.contractDuration}+일"></td>
                         <td th:text="${companyContract.companyContractAmount}+kg"></td>
                         <td th:text="${companyContract.companyUnitPrice}+원"></td>
-                        <td th:text="${companyContract.companyContractStatus}"></td>
-                        <td th:text="${companyContract.companyContractContent}"></td>
-                        <td th:text="${companyContract.adminUsername}"></td>
-                        <td th:text="${companyContract.companyContractAdminDate}"></td>
-                        <td th:text="${companyContract.companyContractAdminUpdate}"></td>
                         <td><button></button></td>
                         <td><button></button></td>
                       </tr>

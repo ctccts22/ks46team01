@@ -53,8 +53,8 @@ public class CompanyInfoApprove {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CompanyInfoApprove CompanyInfoApproval = (CompanyInfoApprove) o;
-        return Objects.equals(companyInfoApproveIdx, CompanyInfoApproval.companyInfoApproveIdx);
+        CompanyInfoApprove companyInfoApprove = (CompanyInfoApprove) o;
+        return Objects.equals(companyInfoApproveIdx, companyInfoApprove.companyInfoApproveIdx);
     }
     @Override
     public int hashCode() {
