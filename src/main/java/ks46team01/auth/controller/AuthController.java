@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -35,7 +36,8 @@ public class AuthController {
                         @RequestParam("password") String password,
                         HttpSession session,
                         HttpServletResponse response,
-                        Model model) {
+                        Model model,
+                        RedirectAttributes redirectAttributes) {
         Optional<User> userOptional = userRepository.findByUsername(username);
 
         if (userOptional.isPresent() && BcryptHashing.verify(password, userOptional.get().getPassword())) {
@@ -55,7 +57,7 @@ public class AuthController {
 
             // 응답에 쿠키 추가
             response.addCookie(cookie);
-
+            redirectAttributes.addFlashAttribute("success", "로그인에 성공했습니다.");
             return "redirect:/";
         } else {
             model.addAttribute("error", "로그인에 실패했습니다.");

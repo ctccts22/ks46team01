@@ -2,14 +2,14 @@ package ks46team01.common.company.info.entity;
 
 import jakarta.persistence.*;
 import ks46team01.admin.company.entity.Company;
-import ks46team01.admin.info.entity.Admin;
+import ks46team01.admin.company.unit.entity.CompanyUnit;
 import ks46team01.admin.inventory.entity.Inventory;
 import ks46team01.user.info.entity.User;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -55,25 +55,23 @@ public class CompanyInfo {
     @Column(name = "company_info_date", nullable = false)
     private Timestamp companyInfoDate;
 
-    @Column(name = "company_info_drop")
-    private Timestamp companyInfoDrop;
-
     @Column(name = "company_info_update")
     private Timestamp companyInfoUpdate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_username")
+    @Column(name = "company_info_is_del", length = 2, columnDefinition = "char(2) default 'N'")
+    private String companyInfoIsDel;
+
+    @Column(name = "company_info_is_del_date")
+    private Timestamp companyInfoIsDelDate;
+
+    @OneToMany(mappedBy = "companyInfoIdx", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    private Admin adminUsername;
+    private List<CompanyInfoApprove> companyInfoApprovals;
 
-    @Column(name = "company_info_approve_date")
-    private Date companyInfoApproveDate;
-
-    @Column(name = "company_info_status")
-    private String companyInfoStatus;
-
-    @Column(name = "company_info_content")
-    private String companyInfoContent;
+    @PrePersist
+    public void setDefaultCompanyInfoIsDel() {
+        this.companyInfoIsDel = (this.companyInfoIsDel == null) ? "N" : this.companyInfoIsDel;
+    }
 
     @Override
     public boolean equals(Object o) {

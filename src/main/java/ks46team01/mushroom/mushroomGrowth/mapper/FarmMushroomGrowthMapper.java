@@ -9,9 +9,10 @@ import java.util.List;
 @Mapper
 public interface FarmMushroomGrowthMapper {
 
-    List<FarmMushroomGrowth> getFarmMushroomGrowth();
-    List<FarmMushroomGrowth> getMushroomGrowthInfoById(String searchKey, String searchValue);
+    public  List<FarmMushroomGrowth> getFarmMushroomGrowth(String searchKey, String searchValue);
 
     int addFarmMushroomGrowth(FarmMushroomGrowth farmMushroomGrowth);
+
+
 
 }

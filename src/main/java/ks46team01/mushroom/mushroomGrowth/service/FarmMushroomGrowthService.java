@@ -17,16 +17,23 @@ public class FarmMushroomGrowthService {
     }
 
     public List<FarmMushroomGrowth> getFarmMushroomGrowth(String searchKey, String searchValue) {
-        if (searchKey != null) {
+        if(searchKey != null){
             switch (searchKey) {
-                case "mushroom_growth_idx" -> searchKey = "mushroom_growth_idx";
-                case "farm_data_idx" -> searchKey = "farm_data_idx";
-                default -> searchKey = "crop_idx";
+                case "mushroomGrowthIdx":
+                    searchKey = "mushroom_growth_idx";
+                    break;
+                case "farmDataIdx":
+                    searchKey = "farm_data_idx";
+                    break;
+                default:
+                    searchKey = "crop_idx";
+                    break;
             }
         }
-        List<FarmMushroomGrowth> farmMushroomGrowth = farmMushroomGrowthMapper.getMushroomGrowthInfoById(searchKey, searchValue);
+        List<FarmMushroomGrowth> farmMushroomGrowth = farmMushroomGrowthMapper.getFarmMushroomGrowth(searchKey, searchValue);
         return farmMushroomGrowth;
     }
+
 
         public int add(FarmMushroomGrowth farmMushroomGrowth){
             int result =

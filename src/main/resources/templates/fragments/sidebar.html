@@ -4,46 +4,45 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:fragment="sidebarFragment">
 	<div class="menu_section">
 		<ul class="nav side-menu">
-			<li><a><i class="fa fa-home"></i> Home <span
+			<li><a><i class="fa fa-home"></i> Home(이규노#) <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a href="#">소개</a></li>
-					<li><a href="#">공지사항</a></li>
+					<li><a href="#">소개(이규노#)</a></li>
+					<li><a href="#">공지사항(이규노#)</a></li>
 				</ul></li>
 			<li th:if="${session.userRole == 'ROLE_ADMIN'}">
 				<a><i class="fa fa-adn"></i> 관리자페이지
 					<span class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a><i class="fa fa-group"></i> 회원조회 <span
+					<li><a><i class="fa fa-group"></i> 회원조회(이규노!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/user/listUser}" href="#"> 회원 조회</a></li>
-							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/listAdmin}" href="#">관리자 조회</a></li>
-							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/addAdmin}" href="#">관리자 등록</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/user/listUser}" href="#"> 회원 관리</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/listAdmin}" href="#">관리자 관리</a></li>
 						</ul></li>
-					<li><a><i class="fa fa-archive"></i> 사업자 관리 <span
+					<li><a><i class="fa fa-archive"></i> 사업자 관리(이규노!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/companies/listCompany}">사업자 종류 코드</a></li>
-							<li><a th:href="@{/admin/companies/info/listInfoCompany}">사업자 정보 조회</a></li>
-							<li><a th:href="@{/admin/companies/contract/listContractCompany}">사업자 계약 신청관리</a></li>
-							<li><a th:href="@{/admin/companies/unit/listUnitCompany}">사업자 계약단가 등록</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/listCompany}">사업자 종류 코드</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/info/listInfoCompany}">사업자 정보 조회</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/unit/listUnitCompany}">사업자 계약단가 등록</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/contract/listContractCompany}">사업자 계약 신청관리</a></li>
 						</ul></li>
-					<li><a><i class="fa fa-cube"></i> 재고관리 <span
+					<li><a><i class="fa fa-cube"></i> 재고관리(이규노!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/inventory/listInventory}">재고물품관리</a></li>
+							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/inventory/listInventory}">재고물품관리</a></li>
 							<li><a href="#">물품 입고 재고관리</a></li>
 							<li><a href="#">물품 출고 재고관리</a></li>
 						</ul></li>
-					<li><a><i class="fa fa-coffee"></i> 카페사업자 관리 <span
+					<li><a><i class="fa fa-coffee"></i> 카페사업자 관리(강현준!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/coffee/listCoffeeAdmin}">커피가루 수거신청 관리</a></li>
 							<li><a th:href="@{/admin/coffee/listConfirmCoffeeAdmin}">커피가루 수거신청 확인관리</a></li>
 							<li><a th:href="@{/admin/coffee/listDeliveryCoffeeAdmin}">커피가루 배송관리</a></li>
 						</ul></li>
-					<li><a><i class="fa fa-tree"></i> 농가사업자 관리 <span
+					<li><a><i class="fa fa-tree"></i> 농가사업자 관리(강현준!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/farm/listOrderFarmAdmin}">커피배지 신청 관리</a></li>
@@ -54,14 +53,14 @@
 							<li><a th:href="@{/admin/farm/listDeliveryPickupFarmAdmin}">폐배지 수거배송관리 관리</a></li>
 							<li><a th:href="@{/admin/farm/listCodeCrop}">작물 고유코드</a></li>
 						</ul></li>
-					<li><a><i class="fa fa-trash"></i> 폐배지구매 사업자 관리 <span
+					<li><a><i class="fa fa-trash"></i> 폐배지구매 사업자 관리(강현준!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/wasted/listOrderWastedAdmin}">폐배지 주문신청 관리</a></li>
 							<li><a th:href="@{/admin/wasted/listConfirmOrderWastedAdmin}">폐배지 주문신청확인 관리</a></li>
 							<li><a th:href="@{/admin/wasted/listDeliveryOrderWastedAdmin}">폐배지 배송관리</a></li>
 						</ul></li>
-					<li><a><i class="fa fa-database"></i> 농가사업자 데이터 관리 <span
+					<li><a><i class="fa fa-database"></i> 농가사업자 데이터 관리(강현준!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/mushroom/conditionMushroom}">버섯생육 최적조건 관리</a></li>
@@ -70,33 +69,33 @@
 							<li><a th:href="@{/mushroom/accountMushroom}">플렛폼 일일매출 조회</a></li>
 							<li><a th:href="@{/mushroom/dataGrownMushroom}">버섯 재배일지 조회</a></li>
 						</ul></li>
-					<li><a><i class="fa fa-money"></i> 사업자 매입매출관리 <span
+					<li><a><i class="fa fa-money"></i> 사업자 매입매출관리(오진우!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a th:href="@{/admin/accounting/sale/saleAccounting}">관리자 회계 매출자료</a></li>
 							<li><a th:href="@{/admin/accounting/purchase/purchaseAccounting}">관리자 회계 매입자료</a></li>
 						</ul></li>
 				</ul></li>
-			<li><a><i class="fa fa-mortar-board"></i> 게시판 <span
+			<li><a><i class="fa fa-mortar-board"></i> 게시판(이규노!) <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a href="#">자유게시판</a></li>
+					<li><a th:href="@{/user/freeBoard}">자유게시판(이규노!)</a></li>
 				</ul></li>
-			<li><a><i class="fa fa-edit"></i> 사업자 관리 <span
+			<li><a><i class="fa fa-edit"></i> 사업자 관리(이규노!) <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a th:href="@{/user/companies/addCompanyInfo}">사업자 정보등록</a></li>
-					<li><a href="#">사업자 계약조회</a></li>
-					<li><a href="#">사업자 계약단가 조회</a></li>
+					<li><a href="#">사업자 계약단가 조회(이규노#)</a></li>
+					<li><a th:href="@{/user/companies/addCompanyInfo}">사업자 정보등록(이규노!)</a></li>
+					<li><a th:href="@{/user/companies/addCompanyContract}">사업자 계약신청(이규노#)</a></li>
 				</ul></li>
-			<li><a><i class="fa fa-coffee"></i> 카페사업자 관리 <span
+			<li><a><i class="fa fa-coffee"></i> 카페사업자 관리(강현준!) <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a th:href="@{/user/coffee/insertRequestCoffeeForm}">커피가루 수거신청</a></li>
 					<li><a th:href="${session.user != null ? '/user/coffee/listConfirmRequestCoffee?userId=' + session.user.getUsername() : '/user/coffee/listConfirmRequestCoffee'}">커피배지 신청상태</a></li>
 					<li><a th:href="${session.user != null ? '/user/coffee/listDeliveryCoffee?userId=' + session.user.getUsername() : '/user/coffee/listConfirmRequestCoffee'}">커피가루 배송조회</a></li>
 				</ul></li>
-			<li><a><i class="fa fa-tree"></i> 농가사업자 관리 <span
+			<li><a><i class="fa fa-tree"></i> 농가사업자 관리(강현준!) <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a th:href="@{/user/compost/listCompostOrder}">커피배지 신청</a></li>
@@ -106,14 +105,14 @@
 					<li><a th:href="@{/user/wasted/listConfirmPickupWasted}">폐배지 수거신청상태</a></li>
 					<li><a th:href="@{/user/wasted/listDeliveryPickupWasted}">폐배지 수거배송조회</a></li>
 				</ul></li>
-			<li><a><i class="fa fa-trash"></i> 폐배지구매 사업자 관리 <span
+			<li><a><i class="fa fa-trash"></i> 폐배지구매 사업자 관리(강현준!) <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a th:href="@{/user/wasted/listOrderWasted}">폐배지 주문신청</a></li>
 					<li><a th:href="@{/user/wasted/listConfirmWasted}">폐배지 주문상태</a></li>
 					<li><a th:href="@{/user/wasted/listDeliveryWasted}">폐배지 배송조회</a></li>
 				</ul></li>
-			<li><a><i class="fa fa-database"></i> 농가사업자 데이터 관리 <span
+			<li><a><i class="fa fa-database"></i> 농가사업자 데이터 관리(오진우!) <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a th:href="@{/mushroom/conditionMushroom}">버섯생육 최적조건 관리</a></li>
@@ -122,7 +121,7 @@
 					<li><a th:href="@{/mushroom/accountMushroom}">플렛폼 일일매출 조회</a></li>
 					<li><a th:href="@{/mushroom/dataGrownMushroom}">버섯 재배일지 조회</a></li>
 				</ul></li>
-			<li><a><i class="fa fa-question"></i> FAQ <span
+			<li><a><i class="fa fa-question"></i> FAQ(이규노#) <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a href="#">고객센터</a></li>

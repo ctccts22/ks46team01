@@ -8,9 +8,21 @@
   <script th:inline="javascript">
     $(document).ready(function() {
       let error = /*[[${error}]]*/ null;
+      let success = /*[[${success}]]*/ null;
       if (error) {
-        alert(error);
+          Swal.fire({
+              icon: 'error',
+              title: 'Fail!',
+              text: '로그인에 실패했습니다.'
+          });
       }
+        if (success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '로그인에 성공했습니다.'
+            });
+        }
     });
   </script>
 </th:block>
@@ -29,10 +41,10 @@
             </div>
             <h1>로그인</h1>
             <div>
-              <input type="text" class="form-control" placeholder="아이디" required="" name="username" />
+              <input type="text" class="form-control" placeholder="아이디" required="" name="username" value="user1"/>
             </div>
             <div>
-              <input type="password" class="form-control" placeholder="비밀번호" required="" name="password" />
+              <input type="password" class="form-control" placeholder="비밀번호" required="" name="password" value="password1"/>
             </div>
             <div>
               <button type="submit" class="btn btn-primary w-100">로그인</button>

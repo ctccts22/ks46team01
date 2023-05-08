@@ -38,15 +38,16 @@
                     </thead>
                     <tbody>
                     <tr th:if="${fmsg == null}" th:each="l:${fmsg}">
+
                         <td th:text="${l.mushroom_growth_idx}"></td>
                         <td th:text="${l.username}"></td>
-                        <td th:text="${l.company_info_idx}"></td>
-                        <td th:text="${l.farm_data_idx}"></td>
-                        <td th:text="${l.crop_idx}"></td>
-                        <td th:text="${l.mushroom_growth_daily}"></td>
-                        <td th:text="${l.mushroom_growth_status}"></td>
-                        <td th:text="${l.mushroom_growth_date}"></td>
-                        <td th:text="${l.mushroom_growth_content}"></td>
+                        <td th:text="${l.companyInfoIdx}"></td>
+                        <td th:text="${l.farmDataIdx}"></td>
+                        <td th:text="${l.cropIdx}"></td>
+                        <td th:text="${l.mushroomGrowthDaily}"></td>
+                        <td th:text="${l.mushroomGrowthStatus}"></td>
+                        <td th:text="${l.mushroomGrowthDate}"></td>
+                        <td th:text="${l.mushroomGrowthContent}"></td>
                     </tr>
                     <tr th:if="${fmsg == null}">
                         <td colspan="8">등록된 정보가 없습니다.</td>

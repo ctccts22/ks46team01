@@ -4,6 +4,7 @@ import ks46team01.admin.info.entity.Admin;
 import ks46team01.admin.info.repository.AdminRepository;
 import ks46team01.auth.entity.Role;
 import ks46team01.auth.repository.RoleRepository;
+import ks46team01.user.info.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,12 @@ public class AdminService {
         this.roleRepository = roleRepository;
     }
 
+    @Transactional
+    public Admin getAdminByUsername(String adminUsername) {
+        return adminRepository.findByAdminUsername(adminUsername)
+                .orElseThrow(() -> new RuntimeException("Admin not found with the given username: " + adminUsername));
+    }
+
     public List<Admin> getAllAdmins() {
         return adminRepository.findAll();
     }
@@ -32,14 +39,33 @@ public class AdminService {
         adminRepository.save(admin);
     }
 
-    public Optional<Admin> findByAdminUsername(String adminUsername) {
+    public Optional<Admin> getAdminByAdminUsername(String adminUsername) {
         return adminRepository.findByAdminUsername(adminUsername);
     }
 
+    // login Admin 사용
     public Admin updateAdmin(Admin admin) {
         return adminRepository.save(admin);
     }
 
+    public void deleteAdminByUsername(String adminUsername) {
+        adminRepository.deleteById(adminUsername);
+    }
+
+    public Admin modifyAdmin(String adminUsername, String adminPassword, String adminName) {
+        Optional<Admin> existingAdminOptional = adminRepository.findByAdminUsername(adminUsername);
+
+        if (existingAdminOptional.isPresent()) {
+            Admin existingAdmin = existingAdminOptional.get();
+            existingAdmin.setAdminUsername(adminUsername);
+            existingAdmin.setAdminPassword(adminPassword);
+            existingAdmin.setAdminName(adminName);
+            return adminRepository.save(existingAdmin);
+
+        } else {
+            throw new RuntimeException("Admin not found with the given username: " + adminUsername);
+        }
+    }
 }
 
 

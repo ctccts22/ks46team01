@@ -39,6 +39,7 @@ public class CoffeeController {
                                            @RequestParam("userId") String userId,
                                            HttpSession session) {
         log.info("/coffeeRequestConfirm 실행?");
+
         System.out.println("userId:"+userId);
         User user = (User) session.getAttribute("user");
         String sessionId = user.getUsername();
@@ -51,6 +52,7 @@ public class CoffeeController {
     }
 
     @GetMapping("/listDeliveryCoffee")
+
     public String coffeeDeliveryList(Model model,
                                      @RequestParam("userId") String userId,
                                      HttpSession session) {
@@ -63,6 +65,8 @@ public class CoffeeController {
         model.addAttribute("userDeliveryList",userDeliveryList);
             System.out.println("실행????????");
         }
+
+    public String coffeeDeliveryList() {
         return "user/coffee/listDeliveryCoffee";
     }
 

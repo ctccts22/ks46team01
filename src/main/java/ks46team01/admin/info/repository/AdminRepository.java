@@ -15,8 +15,14 @@ public interface AdminRepository extends JpaRepository<Admin, String> {
     @Query("SELECT a FROM Admin a")
     List<Admin> findAll();
 
-    @Query("SELECT a FROM Admin a WHERE a.adminUsername = :adminUsername")
+//    @Query("SELECT a FROM Admin a WHERE a.adminUsername = :adminUsername")
+//    Optional<Admin> findByAdminUsername(@Param("adminUsername") String adminUsername);
+
+    @Query("SELECT a FROM Admin a JOIN FETCH a.roleIdx WHERE a.adminUsername = :adminUsername")
     Optional<Admin> findByAdminUsername(@Param("adminUsername") String adminUsername);
+
+
+
 
 }
 

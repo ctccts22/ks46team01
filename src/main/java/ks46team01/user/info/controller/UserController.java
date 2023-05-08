@@ -6,11 +6,14 @@ import ks46team01.user.info.entity.User;
 import ks46team01.user.info.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -51,13 +54,13 @@ public class UserController {
                 return "user/modifyUser";
             } else {
                 log.warn("사용자 이름에 대한 사용자를 찾을 수 없습니다: {}", username);
-                return "error"; // error message 404 view 사용예정
+                return "error/404"; // error message 404 view 사용예정
             }
         }
 
         @PostMapping("/modifyUser")
         public String modifyUser(@ModelAttribute("user") User user,
-                                 BindingResult bindingResult, Model model) {
+                                 BindingResult bindingResult) {
             log.info("회원수정: {}", user);
             if (bindingResult.hasErrors()) {
                 return "user/modifyUser";
@@ -115,26 +118,24 @@ public class UserController {
                 return "redirect:/auth/login";
             }
         }
-
-        @GetMapping("/listUser")
-        public String userList(Model model, @RequestParam(value = "username", required = false) String username) {
-            log.info("사용자 이름 목록: {}", username);
-            List<User> users;
-            if (username != null && !username.isEmpty()) {
-                Optional<User> userOptional = userService.getUserByUsername(username);
-                users = userOptional.map(Collections::singletonList).orElse(Collections.emptyList());
-            } else {
-                users = userService.getAllUsers();
-            }
-            model.addAttribute("userList", users);
-            return "user/listUser";
+    @GetMapping("/listUser")
+    public String userList(Model model, @RequestParam(value = "username", required = false) String username) {
+        log.info("사용자 이름 목록: {}", username);
+        List<User> users;
+        if (username != null && !username.isEmpty()) {
+            Optional<User> userOptional = userService.getUserByUsername(username);
+            users = userOptional.map(Collections::singletonList).orElse(Collections.emptyList());
+        } else {
+            users = userService.getAllUsers();
         }
-
+        model.addAttribute("userList", users);
+        return "user/listUser";
+    }
         @GetMapping("/addUser")
         public String userAdd(Model model) {
             log.info("사용자 등록 양식 표시");
             model.addAttribute("title", "회원가입");
-            model.addAttribute("user", new User());
+            model.addAttribute("users", new User());
             log.info("user={}", new User());
             return "user/addUser";
         }
@@ -155,7 +156,7 @@ public class UserController {
                 return "user/deleteUser";
             } else {
                 log.warn("회원에 대한 아이디를 찾을 수 없습니다: {}", username);
-                return "error"; // error message 404 view 사용예정
+                return "error/404"; // error message 404 view 사용예정
             }
         }
 
@@ -169,7 +170,7 @@ public class UserController {
                 return "redirect:/";
             } else {
                 log.warn("회원에 대한 아이디를 찾을 수 없습니다: {}", username);
-                return "error"; // error message 404 view 사용예정
+                return "error/404"; // error message 404 view 사용예정
             }
         }
 
@@ -192,4 +193,24 @@ public class UserController {
                 return "false";
             }
         }
+
+    @PostMapping("/updateUser")
+    public String updateUser(@RequestParam("username") String username,
+                             @RequestParam("name") String name,
+                             @RequestParam("birth") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birth,
+                             @RequestParam("email") String email,
+                             @RequestParam("phone") String phone,
+                             @RequestParam("address") String address,
+                             @RequestParam("isDel") String isDel,
+                             @RequestParam(value = "isDelDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime isDelDate,
+                             Model model) {
+        User updatedUser = userService.updateUser(username, name, birth, email, phone, address, isDel, isDelDate);
+
+        if (updatedUser == null) {
+            model.addAttribute("에러", "실패했습니다.");
+        } else {
+            model.addAttribute("성공", "성공했습니다.");
+        }
+        return "redirect:/user/listUser";
     }
+}

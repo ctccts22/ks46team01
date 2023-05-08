@@ -1,6 +1,6 @@
-package ks46team01.admin.company.contract.repository;
+package ks46team01.common.company.contract.repository;
 
-import ks46team01.admin.company.contract.entity.CompanyContract;
+import ks46team01.common.company.contract.entity.CompanyContract;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,3 +12,4 @@ public interface CompanyContractRepository extends JpaRepository<CompanyContract
     List<CompanyContract> findAll();
 
 }
+

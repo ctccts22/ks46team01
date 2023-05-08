@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Controller
 public class CommonController {
 
+	@GetMapping("/intro")
+	public String introPage() {
+		return "intro";
+	}
 	@GetMapping("/")
 	public String mainPage() {
 		return "main";
