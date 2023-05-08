@@ -7,13 +7,215 @@
         $(document).ready(function () {
             let index;
             let arr = [];
-            $('#btn-success').click(function (){
-                console.log("success실행?");
-                console.log(arr);
+            $('#btn-success').click(function () {
+                let contentValue = document.querySelector('input[name="approve"]');
+                let content = contentValue.value;
+                console.log(content);
+                let adminIdValue = document.getElementById("adminUserName").value;
+                console.log(adminIdValue);
+                let status = '승인';
+                let coffeeIdx; // 커피수거신청 번호
+                let companyIdx; // 사업자번호
+                let name;   //유저네임
+                let cafeName; // 카페명
+                let cafePhone; // 카페번호
+                let cafeAddress; // 카페주소
+                let coffeeAmount; // 커피찌꺼기 중량
+                let coffeeDate; // 커피가루신청날짜
+                let formArr = [];
+                console.log(arr.length);
+                for (let i = 0; i < arr.length; i++) {
+                    coffeeIdx = arr[i][0];
+                    companyIdx = arr[i][1];
+                    name = arr[i][2];
+                    cafeName = arr[i][3];
+                    cafePhone = arr[i][4];
+                    cafeAddress = arr[i][5];
+                    coffeeAmount = arr[i][6];
+                    coffeeDate = arr[i][7];
+                    console.log(coffeeIdx, companyIdx, name, cafeName, cafePhone, cafeAddress, coffeeAmount, coffeeDate);
+                    formArr.push([coffeeIdx, companyIdx, name, cafeName, cafePhone, cafeAddress, coffeeAmount, coffeeDate]);
+                }
+                console.log(formArr, '????????');
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/coffee/insertCoffeeAdmin");
+                    let input_admin = document.createElement("input");
+                    input_admin.setAttribute("type","hidden");
+                    input_admin.setAttribute("name","adminId");
+                    input_admin.setAttribute("value",adminIdValue);
+                    form.appendChild(input_admin);
+
+                    let input_status = document.createElement("input");
+                    input_status.setAttribute("type","hidden");
+                    input_status.setAttribute("name","status");
+                    input_status.setAttribute("value",status);
+                    form.appendChild(input_status);
+
+                    let input_content = document.createElement("input");
+                    input_content.setAttribute("type","hidden");
+                    input_content.setAttribute("name","content");
+                    input_content.setAttribute("value",content);
+                    form.appendChild(input_content);
+                for (let i = 0; i < formArr.length; i++) {
+
+                    let input_coffeeIdx = document.createElement("input");
+                    input_coffeeIdx.setAttribute("type", "hidden");
+                    input_coffeeIdx.setAttribute("name", "coffeeIdx");
+                    input_coffeeIdx.setAttribute("value", formArr[i][0]);
+
+                    let input_companyIdx = document.createElement("input");
+                    input_companyIdx.setAttribute("type", "hidden");
+                    input_companyIdx.setAttribute("name", "companyIdx");
+                    input_companyIdx.setAttribute("value", formArr[i][1]);
+
+                    let input_name = document.createElement("input");
+                    input_name.setAttribute("type", "hidden");
+                    input_name.setAttribute("name", "name");
+                    input_name.setAttribute("value", formArr[i][2]);
+
+                    let input_cafeName = document.createElement("input");
+                    input_cafeName.setAttribute("type", "hidden");
+                    input_cafeName.setAttribute("name", "cafeName");
+                    input_cafeName.setAttribute("value", formArr[i][3]);
+
+                    let input_cafePhone = document.createElement("input");
+                    input_cafePhone.setAttribute("type", "hidden");
+                    input_cafePhone.setAttribute("name", "cafePhone");
+                    input_cafePhone.setAttribute("value", formArr[i][4]);
+
+                    let input_cafeAddress = document.createElement("input");
+                    input_cafeAddress.setAttribute("type", "hidden");
+                    input_cafeAddress.setAttribute("name", "cafeAddress");
+                    input_cafeAddress.setAttribute("value", formArr[i][5]);
+
+                    let input_coffeeAmount = document.createElement("input");
+                    input_coffeeAmount.setAttribute("type", "hidden");
+                    input_coffeeAmount.setAttribute("name", "coffeeAmount");
+                    input_coffeeAmount.setAttribute("value", formArr[i][6]);
+
+                    let input_coffeeDate = document.createElement("input");
+                    input_coffeeDate.setAttribute("type", "hidden");
+                    input_coffeeDate.setAttribute("name", "coffeeDate");
+                    input_coffeeDate.setAttribute("value", formArr[i][7]);
+
+                    form.appendChild(input_coffeeIdx);
+                    form.appendChild(input_companyIdx);
+                    form.appendChild(input_name);
+                    form.appendChild(input_cafeName);
+                    form.appendChild(input_cafePhone);
+                    form.appendChild(input_cafeAddress);
+                    form.appendChild(input_coffeeAmount);
+                    form.appendChild(input_coffeeDate);
+                }
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
             });
-            $('#btn-danger').click(function (){
-                console.log("danger실행?");
-                console.log(arr);
+            $('#btn-danger').click(function () {
+                let contentValue = document.querySelector('input[name="refusal"]');
+                let content = contentValue.value;
+                console.log(content);
+                let adminIdValue = document.getElementById("adminUserName").value;
+                console.log(adminIdValue);
+                let status = '거절';
+                let coffeeIdx; // 커피수거신청 번호
+                let companyIdx; // 사업자번호
+                let name;   //유저네임
+                let cafeName; // 카페명
+                let cafePhone; // 카페번호
+                let cafeAddress; // 카페주소
+                let coffeeAmount; // 커피찌꺼기 중량
+                let coffeeDate; // 커피가루신청날짜
+                let formArr = [];
+                console.log(arr.length);
+                for (let i = 0; i < arr.length; i++) {
+                    coffeeIdx = arr[i][0];
+                    companyIdx = arr[i][1];
+                    name = arr[i][2];
+                    cafeName = arr[i][3];
+                    cafePhone = arr[i][4];
+                    cafeAddress = arr[i][5];
+                    coffeeAmount = arr[i][6];
+                    coffeeDate = arr[i][7];
+                    console.log(coffeeIdx, companyIdx, name, cafeName, cafePhone, cafeAddress, coffeeAmount, coffeeDate);
+                    formArr.push([coffeeIdx, companyIdx, name, cafeName, cafePhone, cafeAddress, coffeeAmount, coffeeDate]);
+                }
+                console.log(formArr, '????????');
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/coffee/insertCoffeeAdmin");
+                let input_admin = document.createElement("input");
+                input_admin.setAttribute("type","hidden");
+                input_admin.setAttribute("name","adminId");
+                input_admin.setAttribute("value",adminIdValue);
+                form.appendChild(input_admin);
+
+                let input_status = document.createElement("input");
+                input_status.setAttribute("type","hidden");
+                input_status.setAttribute("name","status");
+                input_status.setAttribute("value",status);
+                form.appendChild(input_status);
+
+                let input_content = document.createElement("input");
+                input_content.setAttribute("type","hidden");
+                input_content.setAttribute("name","content");
+                input_content.setAttribute("value",content);
+                form.appendChild(input_content);
+                for (let i = 0; i < formArr.length; i++) {
+
+                    let input_coffeeIdx = document.createElement("input");
+                    input_coffeeIdx.setAttribute("type", "hidden");
+                    input_coffeeIdx.setAttribute("name", "coffeeIdx");
+                    input_coffeeIdx.setAttribute("value", formArr[i][0]);
+
+                    let input_companyIdx = document.createElement("input");
+                    input_companyIdx.setAttribute("type", "hidden");
+                    input_companyIdx.setAttribute("name", "companyIdx");
+                    input_companyIdx.setAttribute("value", formArr[i][1]);
+
+                    let input_name = document.createElement("input");
+                    input_name.setAttribute("type", "hidden");
+                    input_name.setAttribute("name", "name");
+                    input_name.setAttribute("value", formArr[i][2]);
+
+                    let input_cafeName = document.createElement("input");
+                    input_cafeName.setAttribute("type", "hidden");
+                    input_cafeName.setAttribute("name", "cafeName");
+                    input_cafeName.setAttribute("value", formArr[i][3]);
+
+                    let input_cafePhone = document.createElement("input");
+                    input_cafePhone.setAttribute("type", "hidden");
+                    input_cafePhone.setAttribute("name", "cafePhone");
+                    input_cafePhone.setAttribute("value", formArr[i][4]);
+
+                    let input_cafeAddress = document.createElement("input");
+                    input_cafeAddress.setAttribute("type", "hidden");
+                    input_cafeAddress.setAttribute("name", "cafeAddress");
+                    input_cafeAddress.setAttribute("value", formArr[i][5]);
+
+                    let input_coffeeAmount = document.createElement("input");
+                    input_coffeeAmount.setAttribute("type", "hidden");
+                    input_coffeeAmount.setAttribute("name", "coffeeAmount");
+                    input_coffeeAmount.setAttribute("value", formArr[i][6]);
+
+                    let input_coffeeDate = document.createElement("input");
+                    input_coffeeDate.setAttribute("type", "hidden");
+                    input_coffeeDate.setAttribute("name", "coffeeDate");
+                    input_coffeeDate.setAttribute("value", formArr[i][7]);
+
+                    form.appendChild(input_coffeeIdx);
+                    form.appendChild(input_companyIdx);
+                    form.appendChild(input_name);
+                    form.appendChild(input_cafeName);
+                    form.appendChild(input_cafePhone);
+                    form.appendChild(input_cafeAddress);
+                    form.appendChild(input_coffeeAmount);
+                    form.appendChild(input_coffeeDate);
+                }
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
             });
             $('input[type="checkbox"]').click(function () {
                 index = $(this).closest('tr').index() + 1;
@@ -26,13 +228,15 @@
                         $(this).prop("checked", true);
                     });
                     for (var i = 1; i <= $('input[type=checkbox][name=check-seperated]').length; i++) {
+                        const coffeeIdx = $('#user_list #check-box-value:nth-child(' + i + ') #coffeeIdx').text();
+                        const companyIdx = $('#user_list #check-box-value:nth-child(' + i + ') #companyIdx').text();
                         const name = $('#user_list #check-box-value:nth-child(' + i + ') #user_name').text();
                         const cafe_name = $('#user_list #check-box-value:nth-child(' + i + ') #cafe_name').text();
                         const cafe_phone = $('#user_list #check-box-value:nth-child(' + i + ') #cafe_phone').text();
                         const cafe_address = $('#user_list #check-box-value:nth-child(' + i + ') #cafe_address').text();
                         const coffee_amount = $('#user_list #check-box-value:nth-child(' + i + ') #coffee_amount').text();
                         const coffee_date = $('#user_list #check-box-value:nth-child(' + i + ') #coffee_date').text();
-                        arr.push([name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date]); // 배열에 추가
+                        arr.push([coffeeIdx,companyIdx, name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date]); // 배열에 추가
                     }
                     console.log(arr);
                 } else {
@@ -47,18 +251,22 @@
             $('input[type=checkbox][name=check-seperated]').change(function () {
                 if (this.checked) {
                     // alert(`${this.value} is checked`);
+                    const coffeeIdx = $('#user_list #check-box-value:nth-child(' + index + ') #coffeeIdx').text();
+                    const companyIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyIdx').text();
                     const name = $('#user_list #check-box-value:nth-child(' + index + ') #user_name').text();
                     const cafe_name = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_name').text();
                     const cafe_phone = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_phone').text();
                     const cafe_address = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_address').text();
                     const coffee_amount = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_amount').text();
                     const coffee_date = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_date').text();
-                    arr.push([name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date]); // 배열에 추가
+                    arr.push([coffeeIdx, companyIdx, name, cafe_name, cafe_phone, cafe_address, coffee_amount, coffee_date]); // 배열에 추가
                     console.log(arr);
                 } else {
                     if ($('input[type=checkbox][name=check-seperated]').length !== $('input[type=checkbox][name=check-seperated]:checked').length) {
                         $("input:checkbox[id='check-all']").prop("checked", false);
                     }
+                    const coffeeIdx = $('#user_list #check-box-value:nth-child(' + index + ') #coffeeIdx').text();
+                    const companyIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyIdx').text();
                     const name = $('#user_list #check-box-value:nth-child(' + index + ') #user_name').text();
                     const cafe_name = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_name').text();
                     const cafe_phone = $('#user_list #check-box-value:nth-child(' + index + ') #cafe_phone').text();
@@ -66,12 +274,14 @@
                     const coffee_amount = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_amount').text();
                     const coffee_date = $('#user_list #check-box-value:nth-child(' + index + ') #coffee_date').text();
                     arr = arr.filter(item => (
-                        item[0] !== name ||
-                        item[1] !== cafe_name ||
-                        item[2] !== cafe_phone ||
-                        item[3] !== cafe_address ||
-                        item[4] !== coffee_amount ||
-                        item[5] !== coffee_date
+                        item[0] !== coffeeIdx ||
+                        item[1] !== companyIdx ||
+                        item[2] !== name ||
+                        item[3] !== cafe_name ||
+                        item[4] !== cafe_phone ||
+                        item[5] !== cafe_address ||
+                        item[6] !== coffee_amount ||
+                        item[7] !== coffee_date
                     ));
                     console.log(arr);
                 }
@@ -101,6 +311,9 @@
                 </ul>
                 <div class="clearfix"></div>
             </div>
+            <th:block th:if="${session.adminUser?.getAdminUsername() != null}">
+                <input type="hidden" id="adminUserName" name="adminUserName" th:value="${session.adminUser.getAdminName()}" />
+            </th:block>
             <div class="x_content">
                 <div class="row">
                     <div class="col-sm-12">
@@ -146,6 +359,8 @@
                                     <th data-coffee-request-index="${coffeeRequestIndex.count}"
                                         th:text="${coffeeRequestIndex.count}"></th>
                                     <th><input type="checkbox" id="check-seperated" name="check-seperated"></th>
+                                    <td id="coffeeIdx" th:text="${coffeeRequest.coffeeRequestIdx}" hidden="hidden"></td>
+                                    <td id="companyIdx" th:text="${coffeeRequest.companyInfoIdx}" hidden="hidden"></td>
                                     <td id="user_name" th:text="${coffeeRequest.userName}"></td>
                                     <td id="cafe_name" th:text="${coffeeRequest.companyInfoName}"></td>
                                     <td id="cafe_phone" th:text="${coffeeRequest.coffeeRequestPhone}"></td>
@@ -183,7 +398,9 @@
                                             </label>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-success" id="btn-success" data-dismiss="modal">승인</button>
+                                            <button type="button" class="btn btn-confirm" id="btn-success"
+                                                    data-dismiss="modal" data-state="승인">승인
+                                            </button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
                                             </button>
                                         </div>
@@ -208,7 +425,9 @@
                                             </label>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" id="btn-danger" data-dismiss="modal">거부</button>
+                                            <button type="button" class="btn btn-confirm" id="btn-danger"
+                                                    data-dismiss="modal" data-state="거절">거부
+                                            </button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
                                             </button>
                                         </div>

@@ -38,13 +38,13 @@
         <th:block th:if="${session.user?.getUsername() != null}">
             <input type="hidden" name="userId" th:value="${session.user.getUsername()}" />
         </th:block>
-        <th:block th:unless="${session.user?.getUsername() != null}">
-            <script>
-                alert("로그인후 이용해주세요.");
-                window.stop(); // 폼 전송 중지
-                location.replace('/auth/login'); //이전페이지로 이동시키지 못하게
-            </script>
-        </th:block>
+<!--        <th:block th:unless="${session.user?.getUsername() != null}">-->
+<!--            <script>-->
+<!--                alert("로그인후 이용해주세요.");-->
+<!--                window.stop(); // 폼 전송 중지-->
+<!--                location.replace('/auth/login'); //이전페이지로 이동시키지 못하게-->
+<!--            </script>-->
+<!--        </th:block>-->
       <div class="filed item form-group">
 
       </div>

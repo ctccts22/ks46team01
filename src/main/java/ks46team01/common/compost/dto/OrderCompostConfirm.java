@@ -1,6 +1,9 @@
 package ks46team01.common.compost.dto;
 
-public class OrderCompostConfirm {
+import lombok.Data;
+
+@Data
+public class OrderCompostConfirm extends OrderCompost{
     private Long orderCompostConfirmIdx;
     private Long orderCompostIdx;
     private String userName;

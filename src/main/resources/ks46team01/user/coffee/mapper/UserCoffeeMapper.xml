@@ -3,13 +3,47 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ks46team01.user.coffee.mapper.UserCoffeeMapper">
-    <select id="listCompanyCode" parameterType="String" resultType="ks46team01.common.coffee.dto.CompanyInfo">
+    <select id="listCoffeeDelivery" parameterType="String" resultType="ks46team01.common.coffee.dto.CoffeeDelivery">
+        <!-- user 커피배송 상태 조회-->
         SELECT
-        company_info_idx as companyInfoIdx
-        FROM
-        company_info WHERE username = #{userId};
+        ci.username AS userName,
+        ci.company_info_name AS companyInfoName,
+        cr.coffee_request_phone AS coffeeRequestPhone,
+        cr.coffee_request_address AS coffeeRequestAddress,
+        cr.coffee_request_amount AS coffeeRequestAmount,
+        cr.coffee_request_date AS coffeeRequestDate,
+        cd.coffee_delivery_status AS coffeeDeliveryStatus
+        FROM coffee_delivery cd
+        INNER JOIN
+        coffee_request cr
+        ON cr.coffee_request_idx = cd.coffee_request_idx
+        INNER JOIN company_info ci
+        ON cd.company_info_idx = ci.company_info_idx WHERE cd.username = #{userId};
+    </select>
+    <select id="listCoffeeConfirm" parameterType="String" resultType="ks46team01.common.coffee.dto.CoffeeRequestConfirm">
+        <!-- user 커피가루수거 신청상태 조회-->
+        SELECT
+        cr.username AS userName,
+        cr.coffee_request_phone AS coffeeRequestPhone,
+        cr.coffee_request_address AS coffeeRequestAddress,
+        cr.coffee_request_amount AS coffeeRequestAmount,
+        cr.coffee_request_date AS coffeeRequestDate,
+        COALESCE(ci.company_info_name,(SELECT ci.company_info_name  FROM company_info ci WHERE ci.username = #{userId})) AS companyInfoName,
+        COALESCE(crc.coffee_request_confirm_status, '대기중') AS coffeeRequestConfirmStatus
+        FROM coffee_request cr
+        LEFT JOIN coffee_request_confirm crc
+        ON crc.coffee_request_idx = cr.coffee_request_idx
+        LEFT  JOIN company_info ci
+        ON ci.company_info_idx = crc.company_info_idx
+        WHERE cr.username = #{userId}
+        ORDER BY cr.coffee_request_date DESC;
+    </select>
+    <select id="listCompanyCode" parameterType="String" resultType="ks46team01.common.coffee.dto.CompanyInfo">
+        <!-- 사업자 idx 조회-->
+        SELECT company_info_idx as companyInfoIdx FROM company_info WHERE username = #{userId};
     </select>
     <insert id="insertCoffeeRequest" parameterType="hashmap">
+        <!-- 커피가루 수거신청 -->
         INSERT INTO coffee_request(
         username,
         company_contract_idx,

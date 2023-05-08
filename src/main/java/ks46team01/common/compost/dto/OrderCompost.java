@@ -3,7 +3,7 @@ package ks46team01.common.compost.dto;
 import lombok.Data;
 
 @Data
-public class OrderCompost {
+public class OrderCompost extends CompanyContract{
     private Long orderCompostIdx;
     private String userName;
     private Long companyContractIdx;
