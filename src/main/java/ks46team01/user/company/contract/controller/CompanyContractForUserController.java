@@ -1,69 +1,68 @@
 package ks46team01.user.company.contract.controller;
 
 import jakarta.servlet.http.HttpSession;
+import ks46team01.admin.company.contract.service.CompanyContractService;
+import ks46team01.admin.company.unit.dto.CompanyUnitDTO;
+import ks46team01.admin.company.unit.entity.CompanyUnit;
+import ks46team01.admin.company.unit.repository.CompanyUnitRepository;
 import ks46team01.common.company.contract.dto.CompanyContractDTO;
 import ks46team01.common.company.contract.entity.CompanyContract;
 import ks46team01.common.company.contract.repository.CompanyContractRepository;
+import ks46team01.common.company.info.dto.CompanyInfoDTO;
 import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.common.company.info.repository.CompanyInfoRepository;
 import ks46team01.user.info.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @Slf4j
 @AllArgsConstructor
 @RequestMapping("/user")
 public class CompanyContractForUserController {
+    private final CompanyUnitRepository companyUnitRepository;
     private final CompanyContractRepository companyContractRepository;
+    private final CompanyContractService companyContractService;
     private final CompanyInfoRepository companyInfoRepository;
 
     @GetMapping("/companies/addCompanyContract")
-    public String addCompanyContract(Model model, HttpSession session) {
-        model.addAttribute("title", "사업자계약등록");
+    public String showAddCompanyContractForm(Model model) {
         model.addAttribute("companyContract", new CompanyContract());
-        log.info("CompanyContract:{}",new CompanyContract());
         return "user/companies/addCompanyContract";
     }
 
-    /**
-     * 회원(user) 사업자 계약 등록
-     */
-    @PostMapping("/companies/addCompanyContract")
-    public String addCompanyContract(@ModelAttribute CompanyContractDTO companyContractDTO,
-                                     HttpSession session,
-                                     BindingResult bindingResult,
-                                     RedirectAttributes redirectAttributes) {
-        log.info("companyContractDTO : {}", companyContractDTO );
-        if (bindingResult.hasErrors()) {
-            return "user/companies/addCompanyContract";
-        }
+    @GetMapping("/companies/getCompanyInfo")
+    @ResponseBody
+    public CompanyInfoDTO getCompanyInfo(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        log.info("user : {}", user);
-
         CompanyInfo companyInfo = companyInfoRepository.findByUsername(user);
-        if (companyInfo == null) {
-            redirectAttributes.addFlashAttribute("error", "사용자의 회사 정보를 찾을 수 없습니다.");
-            return "user/companies/addCompanyContract";
-        }
-        if (user == null) {
-            redirectAttributes.addFlashAttribute("error", "로그인을 해야합니다.");
-            return "auth/login";
+
+        if (companyInfo != null) {
+            return CompanyInfoDTO.fromEntity(companyInfo);
         } else {
-            companyContractDTO.setUsername(user.getUsername());
-            log.info("userFromDTO : {}", user.getUsername());
+            return new CompanyInfoDTO();
         }
-
-        companyContractDTO.setCompanyInfoIdx(companyInfo.getCompanyInfoIdx());
-
-        return "/";
+    }
+    @PostMapping("/companies/addCompanyContract")
+    @ResponseBody
+    public ResponseEntity<?> addCompanyContract(@ModelAttribute CompanyContract companyContract) {
+        companyContractService.addCompanyContract(companyContract);
+        log.info("계약내용등록 : {}", companyContract);
+        return ResponseEntity.ok().body("성공적으로 등록되었습니다.");
     }
 }
+

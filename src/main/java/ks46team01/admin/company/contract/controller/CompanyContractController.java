@@ -36,8 +36,6 @@ public class CompanyContractController {
         return "admin/companies/contract/listContractCompany";
     }
 
-//    @PostMapping("/updateCompanyContract")
-//    public String updateCompanyContract(@RequestParam("companyContractIdx") Long companyContractIdx,
-//                                        @RequestParam(""))
+
 
 }

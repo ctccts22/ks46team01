@@ -44,9 +44,9 @@
           <div class="clearfix"></div>
         </div>
 
-        <div style="display: flex;">
-          <button class="btn btn-outline-secondary add-button" type="submit">사업자계약체결승인</button>
-        </div>
+        <form method="get" th:action="@{/admin/companies/contract/listContractApproveCompany}">
+          <button class="btn btn-outline-secondary" type="submit">사업자계약 승인관리</button>
+        </form>
 
         <div class="x_content">
           <div class="row mb-3">
@@ -75,7 +75,8 @@
                         <th>사업자계약기간</th>
                         <th>사업자계약요구중량</th>
                         <th>사업자계약단가(1kg)</th>
-                        <th>승인</th>
+                        <th>사업자계약승인</th>
+                        <th>수정</th>
                         <th>삭제</th>
                       </tr>
                       </thead>
@@ -88,8 +89,12 @@
                         <td th:text="${companyContract.contractDuration}+일"></td>
                         <td th:text="${companyContract.companyContractAmount}+kg"></td>
                         <td th:text="${companyContract.companyUnitPrice}+원"></td>
-                        <td><button></button></td>
-                        <td><button></button></td>
+                        <td>
+                        <span th:each="approval : ${companyContract.companyContractApprovals}"
+                              th:text="${approval.companyContractApproveStatus}"></span>
+                        </td>
+                        <td><button type="button">수정</button></td>
+                        <td><button type="button">삭재</button></td>
                       </tr>
                       </tbody>
                     </table>

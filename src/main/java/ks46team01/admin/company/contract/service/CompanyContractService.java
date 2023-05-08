@@ -28,4 +28,8 @@ public class CompanyContractService {
 
         return companyContractDTOList;
     }
+
+    public void addCompanyContract(CompanyContract companyContract) {
+        companyContractRepository.save(companyContract);
+    }
 }
