@@ -13,25 +13,6 @@
 
 <th:block layout:fragment="customJs">
   <script>
-    $(document).ready(function () {
-      $('body').on('click', '.edit-button', function () {
-        const row = $(this).closest('tr');
-        const companyInfoApproveIdx = row.find('td[data-key="companyInfoApproveIdx"]').text();
-        const companyInfoApproveDate = row.find('td[data-key="companyInfoApproveDate"]').text();
-        const companyInfoApproveStatus = row.find('td[data-key="companyInfoApproveStatus"]').text();
-        const companyInfoApproveContent = row.find('td[data-key="companyInfoApproveContent"]').text();
-        const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
-
-        $('#edit-companyInfoIdx').val(companyInfoIdx);
-        $('#edit-companyInfoApproveIdx').val(companyInfoApproveIdx);
-        $('#edit-companyInfoApproveDate').val(companyInfoApproveDate);
-        $('#edit-companyInfoApproveStatus').val(companyInfoApproveStatus);
-        $('#edit-companyInfoApproveContent').val(companyInfoApproveContent);
-        // 모달 보여짐
-        $('#editCompanyInfoApproveModal').modal('show');
-      });
-
-
 
     $('#datatable-custom').DataTable({
       pagination: false,
@@ -40,7 +21,6 @@
       dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
               "<'row'<'col-sm-12'tr>>" +
               "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
-    });
   });
   </script>
 </th:block>
@@ -50,7 +30,7 @@
     <div class="title">
       <div class="x_panel">
         <div class="x_title">
-          <h2 class="my-4">사업자승인관리</h2>
+          <h2 class="my-4">사업자계약관리</h2>
 
           <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -64,8 +44,8 @@
           <div class="clearfix"></div>
         </div>
 
-        <form method="get" th:action="@{/admin/companies/info/listInfoCompany}">
-          <button class="btn btn-outline-secondary" type="submit">사업자 정보 목록</button>
+        <form method="get" th:action="@{/admin/companies/contract/listContractCompany}">
+          <button class="btn btn-outline-secondary" type="submit">사업자 계약 목록</button>
         </form>
 
         <div class="x_content">
@@ -88,8 +68,8 @@
 
                     <thead class="thead-dark">
                     <tr role="row">
-            <th style="display: none">사업자승인번호</th>
-            <th style="display: none">사업자정보번호</th>
+            <th style="display: none">사업자계약승인번호</th>
+            <th style="display: none">사업자계약번호</th>
             <th>사업자아이디</th>
             <th>사업자번호</th>
             <th>운영자아이디</th>
@@ -100,15 +80,15 @@
           </tr>
           </thead>
           <tbody>
-          <tr role="row" class="odd" th:each="companyInfoWithApproval : ${companyInfoList}">
-            <td style="display: none" data-key="companyInfoApproveIdx" th:text="${companyInfoWithApproval[1] != null ? companyInfoWithApproval[1].companyInfoApproveIdx : ''}"></td>
-            <td style="display: none" data-key="companyInfoIdx" th:text="${companyInfoWithApproval[0].companyInfoIdx}"></td>
-            <td th:text="${companyInfoWithApproval[0].username.username}"></td>
-            <td th:text="${companyInfoWithApproval[0].companyInfoLicenseNumber}"></td>
-            <td th:text="${companyInfoWithApproval[1] != null && companyInfoWithApproval[1].adminUsername != null ? companyInfoWithApproval[1].adminUsername.adminUsername : ''}"></td>
-            <td data-key="companyInfoApproveDate" th:text="${companyInfoWithApproval[1] != null ? companyInfoWithApproval[1].companyInfoApproveDate : ''}"></td>
-            <td data-key="companyInfoApproveStatus" th:text="${companyInfoWithApproval[1] != null ? companyInfoWithApproval[1].companyInfoApproveStatus : ''}"></td>
-            <td data-key="companyInfoApproveContent" th:text="${companyInfoWithApproval[1] != null ? companyInfoWithApproval[1].companyInfoApproveContent : ''}"></td>
+          <tr role="row" class="odd" th:each="companyContractWithApproval : ${companyContractList}">
+            <td style="display: none" data-key="companyInfoApproveIdx" th:text="${companyContractWithApproval[1] != null ? companyContractWithApproval[1].companyContractApproveIdx : ''}"></td>
+            <td style="display: none" data-key="companyInfoIdx" th:text="${companyContractWithApproval[0].companyInfoIdx}"></td>
+            <td th:text="${companyContractWithApproval[0].companyInfoIdx.username.username}"></td>
+            <td th:text="${companyContractWithApproval[0].companyInfoIdx.companyInfoLicenseNumber}"></td>
+            <td th:text="${companyContractWithApproval[1] != null && companyContractWithApproval[1].adminUsername != null ? companyContractWithApproval[1].adminUsername.adminUsername : ''}"></td>
+            <td data-key="companyInfoApproveDate" th:text="${companyContractWithApproval[1] != null ? companyContractWithApproval[1].companyContractApproveDate : ''}"></td>
+            <td data-key="companyInfoApproveStatus" th:text="${companyContractWithApproval[1] != null ? companyContractWithApproval[1].companyContractApproveStatus : ''}"></td>
+            <td data-key="companyInfoApproveContent" th:text="${companyContractWithApproval[1] != null ? companyContractWithApproval[1].companyContractApproveContent : ''}"></td>
             <td>
               <button type="button" class="edit-button">허가</button>
             </td>

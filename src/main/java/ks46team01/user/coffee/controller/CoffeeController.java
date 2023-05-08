@@ -65,8 +65,6 @@ public class CoffeeController {
         model.addAttribute("userDeliveryList",userDeliveryList);
             System.out.println("실행????????");
         }
-
-    public String coffeeDeliveryList() {
         return "user/coffee/listDeliveryCoffee";
     }
 

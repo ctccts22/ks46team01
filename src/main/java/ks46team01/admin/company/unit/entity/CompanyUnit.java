@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import ks46team01.common.company.contract.entity.CompanyContract;
 import ks46team01.admin.company.entity.Company;
 import ks46team01.admin.info.entity.Admin;
+import ks46team01.common.company.info.entity.CompanyInfo;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -52,6 +53,12 @@ public class CompanyUnit {
     @ToString.Exclude
     @JsonIgnore
     private List<CompanyContract> CompanyContracts;
+
+    @OneToMany(mappedBy = "companyUnitIdx", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JsonIgnore
+    private List<CompanyInfo> companyInfos;
+
 
 
     @Override

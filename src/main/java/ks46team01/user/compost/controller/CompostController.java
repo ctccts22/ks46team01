@@ -84,10 +84,7 @@ public class CompostController {
         System.out.println("ID:"+sessionId);
         List<OrderCompostConfirm> compostConfirmList = userCompostOrderService.compostConfirmList(sessionId);
         model.addAttribute("compostConfirmList",compostConfirmList);
-    }
-    @GetMapping("/listConfirmCompostOrder")
-    public String orderCompostConfirmList(){
-        // 커피배지 승인상태
+
         return "user/compost/listConfirmCompostOrder";
     }
     @GetMapping("/listDeliveryCompostOrder")
