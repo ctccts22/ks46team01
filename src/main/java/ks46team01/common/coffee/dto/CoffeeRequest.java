@@ -10,7 +10,6 @@ public class CoffeeRequest extends CompanyInfo {
     private Long companyContractIdx;
     private Long companyInfoIdx;
     private Long inventoryIdx;
-    private Long coffeeRequestEmission;
     private Long coffeeRequestAmount;
     private String coffeeRequestAddress;
     private String coffeeRequestPhone;
