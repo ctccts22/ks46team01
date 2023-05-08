@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks46team01.user.wasted.mapper.UserWastedMapper">
+    <select id="listDeliveryWasted" resultType="ks46team01.common.wasted.dto.CompanyDTO" parameterType="String">
+        SELECT
+        ci.company_info_name AS companyInfoName,
+        ow.order_wasted_phone AS orderWastedPhone,
+        ow.order_wasted_address AS orderWastedAddress,
+        ow.order_wasted_amount AS orderWastedAmount,
+        ow.order_wasted_date AS orderWastedDate,
+        owd.order_wasted_delivery_status as orderWastedDeliveryStatus
+        FROM order_wasted_delivery owd
+        INNER JOIN company_info ci
+        ON owd.company_info_idx = ci.company_info_idx
+        INNER JOIN order_wasted ow
+        ON ow.order_wasted_idx = owd.order_wasted_idx WHERE ow.username = #{userId};
+    </select>
+    <select id="listWasted" resultType="ks46team01.common.wasted.dto.CompanyDTO">
+        SELECT
+        ci.company_info_name AS companyInfoName,
+        ow.order_wasted_phone AS orderWastedPhone,
+        ow.order_wasted_address AS orderWastedAddress,
+        ow.order_wasted_amount AS orderWastedAmount,
+        ow.order_wasted_date AS orderWastedDate,
+        COALESCE(owc.order_wasted_confirm_status , '대기중') AS orderWastedConfirmStatus
+        FROM company_info ci
+        INNER JOIN order_wasted ow
+        ON ci.company_info_idx = ow.company_info_idx
+        LEFT JOIN order_wasted_confirm owc
+        ON ow.order_wasted_idx = owc.order_wasted_idx
+        WHERE ci.username = #{userId};
+    </select>
+    <select id="companyInfo" resultType="ks46team01.common.wasted.dto.CompanyDTO">
+        SELECT
+        cu.company_unit_idx as companyUnitIdx,
+        ci.company_info_idx as companyInfoIdx,
+        cc.company_contract_idx as companyContractIdx
+        FROM company_info ci
+        INNER JOIN company_contract cc
+        ON ci.company_info_idx = cc.company_info_idx
+        INNER JOIN company_unit cu
+        ON ci.company_idx = cu.company_idx
+        WHERE ci.username = #{userId};
+    </select>
+    <insert id="insertWasted" parameterType="map">
+        INSERT INTO order_wasted(
+        company_contract_idx,
+        username,
+        company_info_idx,
+        inventory_idx,
+        order_wasted_amount,
+        company_unit_idx,
+        order_wasted_sub_total,
+        ORDER_wasted_phone,
+        order_wasted_content,
+        order_wasted_address,
+        order_wasted_date
+        )values(#{companyContractIdx},#{userId},#{companyInfoIdx},3,#{amount},#{companyUnitIdx},1000,#{phone},#{message},#{address},now());
+    </insert>
+</mapper>

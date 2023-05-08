@@ -15,7 +15,6 @@ public class OrderWasted {
     private Long orderWastedSubTotal;
     private String orderWastedPhone;
     private String orderWastedContent;
-
     private String orderWastedAddress;
     private String orderWastedDate;
 }
