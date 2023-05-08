@@ -2,14 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
-<head></head>
+<head>
+  <style>
+      .input-button-container {
+          display: flex;
+          align-items: center;
+      }
+      .input-button-container input {
+          margin-right: 5px;
+      }
+      .btn {
+          display: inline-block;
+          white-space: nowrap;
+      }
+      .hidden {
+          display: none;
+      }
+  </style>
+</head>
 
 <th:block layout:fragment="customJs">
   <script>
-      document.getElementById("business_type").addEventListener("change", function() {
-          const selectedIndex = this.value;
-          document.getElementById("company_idx").value = selectedIndex;
-          document.getElementById("inventory_idx").value = selectedIndex;
+      $(document).ready(function () {
+          $('#company_type').on('change', function () {
+              var selectedValue = $(this).val();
+              if (selectedValue === "1" || selectedValue === "2" || selectedValue === "3") {
+                  $('#additional_info').removeClass('hidden').prop('disabled', true);
+              } else {
+                  $('#additional_info').addClass('hidden').prop('disabled', true);
+              }
+          });
       });
   </script>
 
@@ -30,8 +52,9 @@
 
       <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_info_name">사업주 상호명</label>
-        <div class="col-md-6 col-sm-6 ">
+        <div class="col-md-6 col-sm-6 input-button-container">
           <input type="text" id="company_info_name" th:field="*{companyInfoIdx.companyInfoName}" disabled class="form-control">
+          <button class="btn btn-info">사업주확인</button>
         </div>
       </div>
 
@@ -41,6 +64,25 @@
           <input type="text" id="company_info_license_number" th:field="*{companyInfoIdx.companyInfoLicenseNumber}" disabled class="form-control">
         </div>
       </div>
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_type">사업자 종류</label>
+        <div class="col-md-6 col-sm-6 ">
+          <select id="company_type" name="company_type" required="required" class="form-control">
+            <option value="">-- 선택 --</option>
+            <option value="1">1. 카페사업자</option>
+            <option value="2">2. 버섯농가사업자</option>
+            <option value="3">3. 폐배지 사업자</option>
+          </select>
+        </div>
+      </div>
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="additional_info">계약단가</label>
+        <div class="col-md-6 col-sm-6">
+          <input type="text" id="additional_info" class="form-control hidden" disabled>
+        </div>
+      </div>
+
 
       <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_contract_start">계약 시작일</label>
