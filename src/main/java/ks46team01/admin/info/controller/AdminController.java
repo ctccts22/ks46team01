@@ -50,7 +50,7 @@ public class AdminController {
 
     @PostMapping("/addAdmin")
     @ResponseBody
-    public ResponseEntity<?> addAdmin(@ModelAttribute Admin admin, Model model) {
+    public ResponseEntity<?> addAdmin(@ModelAttribute Admin admin) {
         adminService.addAdmin(admin);
         log.info("Admin: {}", admin);
         return ResponseEntity.ok().body("관리자가 성공적으로 등록되었습니다.");

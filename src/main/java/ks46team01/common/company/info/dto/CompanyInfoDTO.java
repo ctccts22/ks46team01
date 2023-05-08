@@ -28,6 +28,11 @@ public class CompanyInfoDTO {
     private Timestamp companyInfoIsDelDate;
     private List<CompanyInfoApproveDTO> companyInfoApprovals;
 
+    private Long companyUnitIdx;
+    private Integer companyUnitYear;
+    private Double companyUnitAmount;
+    private Integer companyUnitPrice;
+
     public CompanyInfo toEntity() {
         CompanyInfo companyInfo = new CompanyInfo();
         BeanUtils.copyProperties(this, companyInfo);
@@ -43,6 +48,11 @@ public class CompanyInfoDTO {
         companyInfoDTO.setCompanyType(companyInfo.getCompanyIdx().getCompanyType());
         companyInfoDTO.setInventoryIdx(companyInfo.getInventoryIdx().getInventoryIdx());
         companyInfoDTO.setInventoryType(companyInfo.getInventoryIdx().getInventoryType());
+        companyInfoDTO.setCompanyUnitIdx(companyInfo.getCompanyUnitIdx().getCompanyUnitIdx());
+        companyInfoDTO.setCompanyUnitYear(companyInfo.getCompanyUnitIdx().getCompanyUnitYear());
+        companyInfoDTO.setCompanyUnitAmount(companyInfo.getCompanyUnitIdx().getCompanyUnitAmount());
+        companyInfoDTO.setCompanyUnitPrice(companyInfo.getCompanyUnitIdx().getCompanyUnitPrice());
+
         companyInfoDTO.setCompanyInfoApprovals(companyInfo.getCompanyInfoApprovals().stream()
                 .map(CompanyInfoApprove::toCompanyInfoApproveDTO)
                 .collect(Collectors.toList()));

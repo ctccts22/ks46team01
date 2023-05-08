@@ -68,6 +68,11 @@ public class CompanyInfo {
     @ToString.Exclude
     private List<CompanyInfoApprove> companyInfoApprovals;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_unit_idx", nullable = false)
+    @ToString.Exclude
+    private CompanyUnit companyUnitIdx;
+
     @PrePersist
     public void setDefaultCompanyInfoIsDel() {
         this.companyInfoIsDel = (this.companyInfoIsDel == null) ? "N" : this.companyInfoIsDel;

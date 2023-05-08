@@ -25,6 +25,13 @@ public class CompanyContractDTO {
     private Long companyInfoIdx;
     private String companyInfoLicenseNumber;
     private String username;
+
+    private String companyInfoName;
+    private String companyType;
+    private Long companyIdx;
+    private Integer companyUnitYear;
+    private Double companyUnitAmount;
+
     private List<CompanyContractApproveDTO> companyContractApprovals;
 
     public CompanyContract toEntity() {
@@ -42,6 +49,12 @@ public class CompanyContractDTO {
         companyContractDTO.setCompanyInfoIdx(companyContract.getCompanyInfoIdx().getCompanyInfoIdx());
         companyContractDTO.setCompanyInfoLicenseNumber(companyContract.getCompanyInfoIdx().getCompanyInfoLicenseNumber());
         companyContractDTO.setUsername(companyContract.getCompanyInfoIdx().getUsername().getUsername());
+        companyContractDTO.setCompanyInfoName(companyContract.getCompanyInfoIdx().getCompanyInfoName());
+        companyContractDTO.setCompanyType(companyContract.getCompanyInfoIdx().getCompanyIdx().getCompanyType());
+        companyContractDTO.setCompanyIdx(companyContract.getCompanyInfoIdx().getCompanyIdx().getCompanyIdx());
+        companyContractDTO.setCompanyUnitYear(companyContract.getCompanyUnitIdx().getCompanyUnitYear());
+        companyContractDTO.setCompanyUnitAmount(companyContract.getCompanyUnitIdx().getCompanyUnitAmount());
+
         companyContractDTO.setCompanyContractApprovals(companyContract.getCompanyContractApprovals().stream()
                 .map(CompanyContractApprove::toCompanyContractApproveDTO)
                 .collect(Collectors.toList()));
