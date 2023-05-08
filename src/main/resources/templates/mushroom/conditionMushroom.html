@@ -29,7 +29,7 @@
                 $('#add-mushroomConditionCo2').val(mushroomConditionCo2);
                 $('#add-mushroomConditionIlluminance').val(mushroomConditionIlluminance);
                 $('#add-mushroomConditionPh').val(mushroomConditionPh);
-                $('#add-mushroomConditionYear').val(mushroomConditionYear);
+                $('#add-mushroomConditionYear').val(mushroomConditionYear).prop('type', 'date');
                 $('#add-mushroomConditionUse').val(mushroomConditionUse);
 
                 // 모달 보여짐
@@ -58,7 +58,7 @@
                 $('#modify-mushroomConditionCo2').val(mushroomConditionCo2);
                 $('#modify-mushroomConditionIlluminance').val(mushroomConditionIlluminance);
                 $('#modify-mushroomConditionPh').val(mushroomConditionPh);
-                $('#modify-mushroomConditionYear').val(mushroomConditionYear);
+                $('#modify-mushroomConditionYear').attr('min', '1990').attr('max', '2023').attr('type', 'number').val(mushroomConditionYear)
                 $('#modify-mushroomConditionUse').val(mushroomConditionUse);
 
                 // 모달 보여짐
@@ -90,9 +90,6 @@
                 lengthChange : false
             });
         });
-    </script>
-
-    <script>
         //수정화면 체크박스
         function handleCheckboxClick(clickedCheckbox) {
             const checkbox1 = document.getElementById("modify-mushroomConditionUse1");

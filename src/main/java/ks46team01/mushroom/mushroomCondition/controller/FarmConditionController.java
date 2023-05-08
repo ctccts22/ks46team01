@@ -70,7 +70,7 @@
                     ,mushroomConditionYear);
             List<FarmCondition> fc = farmConditionService.getFarmCondition();
             List<Crop> cropList = farmConditionService.getCropIdx();
-            model.addAttribute("FarmCondition", new FarmCondition());
+            model.addAttribute("fc", fc);
             model.addAttribute("cropList", cropList);
             log.info("입력창  : {}", mushroomConditionIdx);
             return "mushroom/modify/modifyConditionMushroom";

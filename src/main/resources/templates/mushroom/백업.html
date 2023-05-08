@@ -1,0 +1,27 @@
+$(document).ready(function () {
+$('body').on('click', '.add-button', function () {
+const row= $(this).closest('tr');
+const username = row.find('td[data-key="username"]').text();
+const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
+const cropIdx = row.find('td[data-key="cropIdx"]').text();
+const pastDataMushroomProduction = row.find('td[data-key="pastDataMushroomProduction"]').text();
+const pastDataTotalRevenue = row.find('td[data-key="pastDataTotalRevenue"]').text();
+const pastDataBadgeUse = row.find('td[data-key="pastDataBadgeUse"]').text();
+const pastDataYear = parseInt(row.find('td[data-key="pastDataYear"]').text());
+const pastDataUse = row.find('td[data-key="pastDataUse"]').text();
+const pastDataComparison = row.find('td[data-key="pastDataComparison"]').text();
+
+$('#add-username').val(username);
+$('#add-companyInfoIdx').val(companyInfoIdx);
+$('#add-cropIdx').val(cropIdx);
+$('#add-pastDataMushroomProduction').val(pastDataMushroomProduction);
+$('#add-pastDataTotalRevenue').val(pastDataTotalRevenue);
+$('#add-pastDataBadgeUse').val(pastDataBadgeUse);
+$('#add-pastDataYear').attr('min', '1990').attr('max', '2023').attr('type', 'number').val(pastDataYear);
+$('#add-pastDataUse').val(pastDataUse);
+$('#add-pastDataComparison').val(pastDataComparison);
+
+// 모달 보여짐
+$('#addDataPastMushroomModal').modal('show');
+});
+});

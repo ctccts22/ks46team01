@@ -18,10 +18,6 @@ public class FarmMushroomGrowth {
 
 
 
-    public Long mushroomGrowthIdx() {
-        return mushroomGrowthIdx;
-    }
-
 
 
 }

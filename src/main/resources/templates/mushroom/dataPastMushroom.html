@@ -19,14 +19,13 @@
                 const pastDataUse = row.find('td[data-key="pastDataUse"]').text();
                 const pastDataComparison = row.find('td[data-key="pastDataComparison"]').text();
 
-
                 $('#add-username').val(username);
                 $('#add-companyInfoIdx').val(companyInfoIdx);
                 $('#add-cropIdx').val(cropIdx);
-                $('#add-pastDataMushroomProduction').val(pastDataMushroomProduction);
-                $('#add-pastDataTotalRevenue').val(pastDataTotalRevenue);
-                $('#add-pastDataBadgeUse').val(pastDataBadgeUse);
-                $('#add-pastDataYear').val(pastDataYear);
+                $('#add-pastDataMushroomProduction').attr('type', 'number').val(pastDataMushroomProduction);
+                $('#add-pastDataTotalRevenue').attr('type', 'number').val(pastDataTotalRevenue);
+                $('#add-pastDataBadgeUse').attr('type', 'number').val(pastDataBadgeUse);
+                $('#add-pastDataYear').attr('min', '1990').attr('max', '2023').attr('type', 'number').val(pastDataYear);
                 $('#add-pastDataUse').val(pastDataUse);
                 $('#add-pastDataComparison').val(pastDataComparison);
 
@@ -56,10 +55,10 @@
                 $('#modify-pastDataMushroomProduction').val(pastDataMushroomProduction);
                 $('#modify-pastDataTotalRevenue').val(pastDataTotalRevenue);
                 $('#modify-pastDataBadgeUse').val(pastDataBadgeUse);
-                $('#modify-pastDataYear').val(pastDataYear);
+                $('#modify-pastDataYear').attr('min', '1990').attr('max', '2023').attr('type', 'number').val(pastDataYear);
                 $('#modify-pastDataUse').val(pastDataUse);
                 $('#modify-pastDataComparison').val(pastDataComparison);
-                $('#modify-pastDataDate').val(pastDataDate);
+                $('#modify-pastDataDate').val(pastDataDate).prop('type', 'date');
 
                 // 모달 보여짐
                 $('#modifyDataPastMushroomModal').modal('show');
@@ -90,6 +89,18 @@
                 lengthChange : false
             });
         });
+
+        //수정화면 체크박스
+        function handleCheckboxClick(clickedCheckbox) {
+            const checkbox1 = document.getElementById("modify-pastDataUse1");
+            const checkbox2 = document.getElementById("modify-pastDataUse2");
+
+            if (clickedCheckbox === checkbox1) {
+                checkbox2.checked = false;
+            } else if (clickedCheckbox === checkbox2) {
+                checkbox1.checked = false;
+            }
+        }
     </script>
 </th:block>
 
@@ -311,8 +322,10 @@
                                                                 <input type="text" class="form-control" id="modify-pastDataYear" name="pastDataYear" placeholder="pastDataYear 을 입력하세요"/>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="modify-pastDataUse">pastDataUse</label>
-                                                                <input type="text" class="form-control" id="modify-pastDataUse" name="pastDataUse" placeholder="pastDataUse 을 입력하세요"/>
+                                                                <label for="modify-pastDataUse1">pastDataUse</label>
+
+                                                                <input type="checkbox" id="modify-pastDataUse1" name="pastDataUse" value="사용" onclick="handleCheckboxClick(this)"> 사용
+                                                                <input type="checkbox" id="modify-pastDataUse2" name="pastDataUse" value="사용중지" onclick="handleCheckboxClick(this)"> 사용중지
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-pastDataComparison">pastDataComparison</label>

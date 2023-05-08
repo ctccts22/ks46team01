@@ -19,39 +19,177 @@
     </resultMap>
 
 
-
-    <select id="findAllFarmData" resultType="ks46team01.mushroom.mushroomFarmData.dto.FarmData">
+    <select id="getListFarmData" parameterType="String" resultType="ks46team01.mushroom.mushroomFarmData.dto.FarmData" >
+       /* 조회*/
         SELECT
-            *
+                mf.farm_data_idx                        as farmDataIdx
+                , mf.username                           as username
+                , mf.company_info_idx                   as companyInfoIdx
+                , mf.farm_data_compost                  as farmDataCompost
+                , mf.farm_data_production               as farmDataProduction
+                , mf.farm_data_expected_sale            as farmDataExpectedSale
+                , mf.farm_data_actual_sale              as farmDataActualSale
+                , mf.farm_data_production_date          as farmDataProductionDate
+                , mf.farm_data_occurrence_sale_date     as farmDataOccurrenceSaleDate
+                , mf.farm_data_expected_wasted          as farmDataExpectedWasted
+                , mf.farm_data_date                     as farmDataDate
+        FROM
+             mushroom_farm_data mf
+        JOIN
+             user u
+        ON
+            mf.username = u.username
+        JOIN
+            company_info ci
+        ON
+            mf.company_info_idx = ci.company_info_idx;
+    </select>
+
+    <select id="getCompanyInfo" resultType="ks46team01.mushroom.mushroomFarmData.dto.CompanyInfo">
+        /*Company_info table 조회 */
+        SELECT
+            company_info_idx as             companyInfoIdx
+            , company_info_name as          companyInfoName
+            , company_info_license_number   companyInfoLicenseNumber
+            , company_info_address          companyInfoAddress
+            , company_info_phone            companyInfoPhone
+        FROM
+             company_info
+    </select>
+
+    <select id="getUsernameInfo" resultType="ks46team01.mushroom.mushroomFarmData.dto.UsernameInfo">
+        /* User table 조회*/
+        SELECT
+            username
+            , name
+            , birth
+            , email
+            , phone
+            , address
+        FROM
+            user
+    </select>
+
+    <insert id="addDataFarmMushroom" parameterType="ks46team01.mushroom.mushroomFarmData.dto.FarmData">
+        /* 입력 */
+        INSERT INTO mushroom_farm_data
+        (farm_data_idx
+        , username
+        , company_info_idx
+        , farm_data_compost
+        , farm_data_production
+        , farm_data_expected_sale
+        , farm_data_actual_sale
+        , farm_data_production_date
+        , farm_data_occurrence_sale_date
+        , farm_data_expected_wasted
+        , farm_data_date)
+
+        VALUES
+        (
+        #{farmDataIdx}
+        , #{username}
+        , #{companyInfoIdx}
+        , #{farmDataCompost}
+        , #{farmDataProduction}
+        , #{farmDataExpectedSale}
+        , #{farmDataActualSale}
+        , #{farmDataProductionDate}
+        , #{farmDataOccurrenceSaleDate}
+        , #{farmDataExpectedWasted}
+        , curdate()
+        )
+    </insert>
+
+    <select id="getFarmDataInfoByIdx" parameterType="String" resultMap="farmDataResultMap">
+        /* 특정회원조회 */
+        SELECT
+            farm_data_idx
+            , username
+            , company_info_idx
+            , farm_data_compost
+            , farm_data_production
+            , farm_data_expected_sale
+            , farm_data_actual_sale
+            , farm_data_production_date
+            , farm_data_occurrence_sale_date
+            , farm_data_expected_wasted
+            , farm_data_date
+        FROM
+             mushroom_farm_data
+        WHERE
+             farm_data_idx =  #{farmDataIdx}
+    </select>
+
+    <update id="modifyFarmData" parameterType="ks46team01.mushroom.mushroomFarmData.dto.FarmData">
+        /* 정보 수정 */
+        UPDATE mushroom_farm_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="companyInfoIdx != null and companyInfoIdx != ''">
+                company_info_idx = #{companyInfoIdx},
+            </if>
+            <if test="farmDataCompost != null and farmDataCompost != ''">
+                farm_data_compost = #{farmDataCompost},
+            </if>
+            <if test="farmDataProduction != null and farmDataProduction != ''">
+                farm_data_production = #{farmDataProduction},
+            </if>
+            <if test="farmDataExpectedSale != null and farmDataExpectedSale != ''">
+                farm_data_expected_sale = #{farmDataExpectedSale},
+            </if>
+            <if test="farmDataProductionDate != null and farmDataProductionDate != ''">
+                farm_data_production_date = #{farmDataProductionDate},
+            </if>
+            <if test="farmDataOccurrenceSaleDate != null and farmDataOccurrenceSaleDate != ''">
+                farm_data_occurrence_sale_date = #{farmDataOccurrenceSaleDate},
+            </if>
+            <if test="farmDataExpectedWasted != null and farmDataExpectedWasted != ''">
+                farm_data_expected_wasted = #{farmDataExpectedWasted},
+            </if>
+            <if test="farmDataDate != null and farmDataDate != ''">
+                farm_data_date = #{farmDataDate},
+            </if>
+        </trim>
+        WHERE
+        farm_data_idx = #{farmDataIdx};
+    </update>
+
+
+
+    <select id="getFarmDataInfoByDeleteIdx" parameterType="Long" resultMap="farmDataResultMap">
+        /* 특정회원조회 */
+        SELECT
+        farm_data_idx
+        , username
+        , company_info_idx
+        , farm_data_compost
+        , farm_data_production
+        , farm_data_expected_sale
+        , farm_data_actual_sale
+        , farm_data_production_date
+        , farm_data_occurrence_sale_date
+        , farm_data_expected_wasted
+        , farm_data_date
         FROM
         mushroom_farm_data
+        WHERE
+        farm_data_idx =  #{farmDataIdx}
     </select>
 
-    <select id="getSearchFarmData" parameterType="String" resultType="ks46team01.mushroom.mushroomFarmData.dto.FarmData" >
-        SELECT
-        m.farm_data_idx                         as farmDataIdx
-        , a.admin_name                          as adminName
-        , c.company_info_license_number         as companyInfoLicenseNumber
-        , m.farm_data_compost                   as farmDataCompost
-        , m.farm_data_production                as farmDataProduction
-        , m.farm_data_expected_sale             as farmDataExpectedSale
-        , m.farm_data_actual_sale               as farmDataActualSale
-        , m.farm_data_production_date           as farmDataProductionDate
-        , m.farm_data_occurrence_sale_date      as farmDataOccurrenceSaleDate
-        , m.farm_data_expected_wasted           as farmDataExpectedWasted
-        , m.farm_data_date                      as farmDataDate
+
+    <delete id="deleteFarmDataByIdx" parameterType="ks46team01.mushroom.mushroomFarmData.dto.FarmData">
+        DELETE
         FROM
-        mushroom_farm_data m
-        INNER JOIN
-        admin a
-        ON
-        m.username = a.admin_username
-        INNER JOIN
-        company_info c
-        ON
-        m.company_info_idx = c.company_info_idx;
+        mushroom_farm_data
+        WHERE
+        farm_data_idx= #{farmDataIdx}
+    </delete>
 
-    </select>
+
+
 
 
 

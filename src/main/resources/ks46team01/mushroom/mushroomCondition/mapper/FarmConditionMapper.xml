@@ -40,7 +40,7 @@
 
     </select>
 
-    <select id="getCropIdx" resultType="ks46team01.mushroom.mushroomCondition.dto.Crop">
+    <select id="getCropIdx" resultType="ks46team01.crop.dto.Crop">
         /* crop 테이블 조회*/
         SELECT
             crop_idx as cropIdx
