@@ -86,7 +86,6 @@
         SELECT
         inventory_idx       as inventoryIdx
         , inventory_type    as inventoryType
-        , inventory_amount  as inventoryAmount
         FROM
             inventory
     </select>
@@ -97,7 +96,7 @@
         , company_contract_delivery_term    as companyContractDeliveryTerm
         , company_contract_start            as companyContractStart
         , company_contract_end              as companyContractEnd
-        , company_contract_amount           as companyContractAmount
+        , company_contract_amount           as z
         FROM
         company_contract
     </select>
@@ -134,6 +133,106 @@
         ,#{accountingPurchaseCode}
         )
     </insert>
+
+    <select id="getPurchaseAccountInfoByIdx" parameterType="String" resultMap="PurchaseAccount">
+        /* 대상 조회 */
+        SELECT
+        accounting_purchase_idx
+        , username
+        , company_info_idx
+        , company_idx
+        , inventory_idx
+        , company_contract_idx
+        , accounting_purchase_date
+        , accounting_purchase_type
+        , accounting_purchase_unit_price
+        , accounting_purchase_amount
+        , accounting_purchase_payment
+        , accounting_purchase_sum
+        , accounting_purchase_code
+        FROM
+        mushroom_accounting_purchase
+        WHERE
+        accounting_purchase_idx = #{accountingPurchaseIdx}
+    </select>
+
+    <update id="modifyPurchaseAccount" parameterType="ks46team01.mushroom.mushroomPurchase.dto.FarmPurchase">
+        UPDATE mushroom_accounting_purchase
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="companyInfoIdx != null and companyInfoIdx != ''">
+                company_info_idx = #{companyInfoIdx},
+            </if>
+            <if test="companyIdx != null and companyIdx != ''">
+                company_idx = #{companyIdx},
+            </if>
+            <if test="inventoryIdx != null and inventoryIdx != ''">
+                inventory_idx = #{inventoryIdx},
+            </if>
+            <if test="companyContractIdx != null and companyContractIdx != ''">
+                company_contract_idx = #{companyContractIdx},
+            </if>
+            <if test="accountingPurchaseDate != null and accountingPurchaseDate != ''">
+                accounting_purchase_date = #{accountingPurchaseDate},
+            </if>
+            <if test="accountingPurchaseType != null and accountingPurchaseType != ''">
+                accounting_purchase_type = #{accountingPurchaseType},
+            </if>
+            <if test="accountingPurchaseUnitPrice != null and accountingPurchaseUnitPrice != ''">
+                accounting_purchase_unit_price = #{accountingPurchaseUnitPrice},
+            </if>
+            <if test="accountingPurchaseAmount != null and accountingPurchaseAmount != ''">
+                accounting_purchase_amount = #{accountingPurchaseAmount},
+            </if>
+            <if test="accountingPurchasePayment != null and accountingPurchasePayment != ''">
+                accounting_purchase_payment = #{accountingPurchasePayment},
+            </if>
+            <if test="accountingPurchaseSum != null and accountingPurchaseSum != ''">
+                accounting_purchase_sum = #{accountingPurchaseSum},
+            </if>
+            <if test="accountingPurchaseCode != null and accountingPurchaseCode != ''">
+                accounting_purchase_code = #{accountingPurchaseCode},
+            </if>
+
+        </trim>
+        WHERE
+        accounting_purchase_idx = #{accountingPurchaseIdx}
+    </update>
+
+
+    <select id="getPurchaseAccountDeleteInfoByIdx" parameterType="Long" resultMap="PurchaseAccount">
+        /*삭제 대상 조회 */
+        SELECT
+        accounting_purchase_idx
+        , username
+        , company_info_idx
+        , company_idx
+        , inventory_idx
+        , company_contract_idx
+        , accounting_purchase_date
+        , accounting_purchase_type
+        , accounting_purchase_unit_price
+        , accounting_purchase_amount
+        , accounting_purchase_payment
+        , accounting_purchase_sum
+        , accounting_purchase_code
+        FROM
+        mushroom_accounting_purchase
+        WHERE
+        accounting_purchase_idx = #{accountingPurchaseIdx}
+    </select>
+
+    <delete id="deletePurchaseAccountByIdx" parameterType="ks46team01.mushroom.mushroomPurchase.dto.FarmPurchase">
+        DELETE
+        FROM
+        mushroom_accounting_purchase
+        WHERE
+        accounting_purchase_idx=#{accountingPurchaseIdx}
+    </delete>
+
+
 
 
 

@@ -52,10 +52,78 @@ public class FarmPurchaseService {
         return farmPurchaseMapper.addPurchaseAccount(farmPurchase);
     }
 
+    //수정
+    public FarmPurchase getPurchaseAccountInfoByIdx(Long accountingPurchaseIdx
+                                            , String username
+                                            , Long companyInfoIdx
+                                            , Long companyIdx
+                                            , Long inventoryIdx
+                                            , Long companyContractIdx
+                                            , String accountingPurchaseDate
+                                            , String accountingPurchaseType
+                                            , int accountingPurchaseUnitPrice
+                                            , double accountingPurchaseAmount
+                                            , String accountingPurchasePayment
+                                            , int accountingPurchaseSum
+                                            , String accountingPurchaseCode){
+        FarmPurchase farmPurchaseInfo = farmPurchaseMapper.getPurchaseAccountInfoByIdx(
+                accountingPurchaseIdx
+                ,  username
+                ,  companyInfoIdx
+                ,  companyIdx
+                ,  inventoryIdx
+                ,  companyContractIdx
+                ,  accountingPurchaseDate
+                ,  accountingPurchaseType
+                ,  accountingPurchaseUnitPrice
+                ,  accountingPurchaseAmount
+                ,  accountingPurchasePayment
+                ,  accountingPurchaseSum
+                ,  accountingPurchaseCode);
+        return  farmPurchaseInfo;
+    }
+
+    public void modifyPurchaseAccount(Long accountingPurchaseIdx
+                            , String username
+                            , Long companyInfoIdx
+                            , Long companyIdx
+                            , Long inventoryIdx
+                            , Long companyContractIdx
+                            , String accountingPurchaseDate
+                            , String accountingPurchaseType
+                            , int accountingPurchaseUnitPrice
+                            , double accountingPurchaseAmount
+                            , String accountingPurchasePayment
+                            , int accountingPurchaseSum
+                            , String accountingPurchaseCode){
+        farmPurchaseMapper.modifyPurchaseAccount( accountingPurchaseIdx
+                                    ,  username
+                                    ,  companyInfoIdx
+                                    ,  companyIdx
+                                    ,  inventoryIdx
+                                    ,  companyContractIdx
+                                    ,  accountingPurchaseDate
+                                    ,  accountingPurchaseType
+                                    ,  accountingPurchaseUnitPrice
+                                    ,  accountingPurchaseAmount
+                                    ,  accountingPurchasePayment
+                                    ,  accountingPurchaseSum
+                                    ,  accountingPurchaseCode);
+    }
+
+
+
+    //삭제
+    public FarmPurchase getPurchaseAccountDeleteInfoByIdx(Long accountingPurchaseIdx){
+        FarmPurchase farmPurchaseInfoDelete = farmPurchaseMapper.getPurchaseAccountDeleteInfoByIdx(accountingPurchaseIdx);
+        return farmPurchaseInfoDelete;
+    }
+
+    public void deletePurchaseAccountByIdx(Long accountingPurchaseIdx){
+        farmPurchaseMapper.deletePurchaseAccountByIdx(accountingPurchaseIdx);
+    }
 
 }
-
-
 
 
 

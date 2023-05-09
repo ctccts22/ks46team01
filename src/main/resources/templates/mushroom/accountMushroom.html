@@ -68,7 +68,7 @@
                 $('#modify-companyContractIdx').val(companyContractIdx);
                 $('#modify-accountingPurchaseDate').val(accountingPurchaseDate);
                 $('#modify-accountingPurchaseType').val(accountingPurchaseType);
-                $('#modify-accountingPurchaseUnitPrice').val(accountingPurchaseUnitPrice)
+                $('#modify-accountingPurchaseUnitPrice').val(accountingPurchaseUnitPrice);
                 $('#modify-accountingPurchaseAmount').val(accountingPurchaseAmount);
                 $('#modify-accountingPurchasePayment').val(accountingPurchasePayment);
                 $('#modify-accountingPurchaseSum').val(accountingPurchaseSum);
@@ -208,18 +208,51 @@
                                                             <input type="hidden" id="add-accountingPurchaseIdx" name="accountingPurchaseIdx">
 
                                                             <div class="form-group">
-                                                                <label for="add-cropIdx">작물</label>
-                                                                <select class="form-control" id="add-cropIdx" name="cropIdx"  required>
+                                                                <label for="add-username">username</label>
+                                                                <select class="form-control" id="add-username" name="username"  required>
+                                                                    <option value="" disabled selected>username 을 선택하세요</option>
+                                                                    <th:block th:each="u : ${userList}">
+                                                                        <option th:value="${u.username}">[[${u.name}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-companyIdx">companyIdx</label>
+                                                                <select class="form-control" id="add-companyIdx" name="companyIdx"  required>
                                                                     <option value="" disabled selected>작물을 선택하세요</option>
-                                                                    <th:block th:each="c : ${cropList}">
-                                                                        <option th:value="${c.cropIdx}">[[${c.cropContent}]]</option>
+                                                                    <th:block th:each="cl : ${companyList}">
+                                                                        <option th:value="${cl.companyIdx}">[[${cl.companyType}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-companyInfoIdx">companyInfoIdx</label>
+                                                                <select class="form-control" id="add-companyInfoIdx" name="companyInfoIdx"  required>
+                                                                    <option value="" disabled selected>companyInfoIdx 을 선택하세요</option>
+                                                                    <th:block th:each="cil : ${companyInfoList}">
+                                                                        <option th:value="${cil.companyInfoIdx}">[[${cil.companyInfoLicenseNumber}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-inventoryIdx">inventoryIdx을</label>
+                                                                <select class="form-control" id="add-inventoryIdx" name="inventoryIdx"  required>
+                                                                    <option value="" disabled selected>inventoryIdx을 선택하세요</option>
+                                                                    <th:block th:each="i : ${inventoryList}">
+                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryType}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="add-companyContractIdx">companyContractIdx</label>
-                                                                <input type="text" class="form-control" id="add-companyContractIdx" name="companyContractIdx" placeholder="companyContractIdx 를 입력하세요" required>
+                                                                <select class="form-control" id="add-companyContractIdx" name="companyContractIdx"  required>
+                                                                    <option value="" disabled selected>companyContractIdx 을 선택하세요</option>
+                                                                    <th:block th:each="cc : ${companyContractList}">
+                                                                        <option th:value="${cc.companyContractIdx}">[[${cc.companyContractIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
                                                             </div>
+
                                                             <div class="form-group">
                                                                 <label for="add-accountingPurchaseDate">accountingPurchaseDate</label>
                                                                 <input type="text" class="form-control" id="add-accountingPurchaseDate" name="accountingPurchaseDate" placeholder="accountingPurchaseDate 를 입력하세요" required>
@@ -273,19 +306,54 @@
                                                     <div class="modal-body">
                                                         <form th:action="@{/mushroom/modify/modifyAccountMushroom}" method="post">
                                                             <input type="hidden" id="modify-accountingPurchaseIdx" name="accountingPurchaseIdx">
+
                                                             <div class="form-group">
-                                                                <label for="modify-cropIdx">작물 고유코드</label>
-                                                                <select class="form-control" id="modify-cropIdx" name="cropIdx"  required>
+                                                                <label for="modify-username">username 고유코드</label>
+                                                                <select class="form-control" id="modify-username" name="username"  required>
                                                                     <option value="" disabled selected>작물을 선택하세요</option>
-                                                                    <th:block th:each="c : ${cropList}">
-                                                                        <option th:value="${c.cropIdx}">[[${c.cropContent}]]</option>
+                                                                    <th:block th:each="u : ${userList}">
+                                                                        <option th:value="${u.username}">[[${u.username}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="modify-companyContractIdx">companyContractIdx</label>
-                                                                <input type="text" class="form-control" id="modify-companyContractIdx" name="companyContractIdx" placeholder="companyContractIdx 을 입력하세요"/>
+                                                                <label for="modify-companyIdx">companyList 고유코드</label>
+                                                                <select class="form-control" id="modify-companyIdx" name="companyIdx"  required>
+                                                                    <option value="" disabled selected>companyList 을 선택하세요</option>
+                                                                    <th:block th:each="cl : ${companyList}">
+                                                                        <option th:value="${cl.companyIdx}">[[${cl.companyIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-companyInfoIdx">companyInfoList 고유코드</label>
+                                                                <select class="form-control" id="modify-companyInfoIdx" name="companyInfoIdx"  required>
+                                                                    <option value="" disabled selected>companyInfoList 을 선택하세요</option>
+                                                                    <th:block th:each="cil : ${companyInfoList}">
+                                                                        <option th:value="${cil.companyInfoIdx}">[[${cil.companyInfoIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-inventoryIdx">inventoryList 고유코드</label>
+                                                                <select class="form-control" id="modify-inventoryIdx" name="inventoryIdx"  required>
+                                                                    <option value="" disabled selected>inventoryIdx 을 선택하세요</option>
+                                                                    <th:block th:each="i : ${inventoryList}">
+                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-companyContractIdx">companyContractIdx 고유코드</label>
+                                                                <select class="form-control" id="modify-companyContractIdx" name="companyContractIdx"  required>
+                                                                    <option value="" disabled selected>companyContractIdx 을 선택하세요</option>
+                                                                    <th:block th:each="ccl : ${companyContractList}">
+                                                                        <option th:value="${ccl.companyContractIdx}">[[${ccl.companyContractIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+
+
                                                             <div class="form-group">
                                                                 <label for="modify-accountingPurchaseDate">accountingPurchaseDate</label>
                                                                 <input type="text" class="form-control" id="modify-accountingPurchaseDate" name="accountingPurchaseDate" placeholder="accountingPurchaseDate 을 입력하세요"/>

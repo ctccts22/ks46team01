@@ -25,6 +25,38 @@ public interface FarmPurchaseMapper {
     // 입력
     int addPurchaseAccount(FarmPurchase farmPurchase);
 
+    // 특정 코드 조회
+    FarmPurchase getPurchaseAccountInfoByIdx(Long accountingPurchaseIdx
+                                    , String username
+                                    , Long companyInfoIdx
+                                    , Long companyIdx
+                                    , Long inventoryIdx
+                                    , Long companyContractIdx
+                                    , String accountingPurchaseDate
+                                    , String accountingPurchaseType
+                                    , int accountingPurchaseUnitPrice
+                                    , double accountingPurchaseAmount
+                                    , String accountingPurchasePayment
+                                    , int accountingPurchaseSum
+                                    , String accountingPurchaseCode);
 
+    //수정
+    void modifyPurchaseAccount(Long accountingPurchaseIdx
+            , String username
+            , Long companyInfoIdx
+            , Long companyIdx
+            , Long inventoryIdx
+            , Long companyContractIdx
+            , String accountingPurchaseDate
+            , String accountingPurchaseType
+            , int accountingPurchaseUnitPrice
+            , double accountingPurchaseAmount
+            , String accountingPurchasePayment
+            , int accountingPurchaseSum
+            , String accountingPurchaseCode);
+
+    //삭제
+    FarmPurchase getPurchaseAccountDeleteInfoByIdx(Long accountingPurchaseIdx);
+    void deletePurchaseAccountByIdx(Long accountingPurchaseIdx);
 
 }

@@ -18,13 +18,13 @@ private String username;
 private Long companyInfoIdx;
 private Long companyIdx;
 private Long inventoryIdx;
-private String companyContractIdx;
+private Long companyContractIdx;
 private String accountingPurchaseDate;
 private String accountingPurchaseType;
-private String accountingPurchaseUnitPrice;
-private String accountingPurchaseAmount;
+private int accountingPurchaseUnitPrice;
+private double accountingPurchaseAmount;
 private String accountingPurchasePayment;
-private String accountingPurchaseSum;
+private int accountingPurchaseSum;
 private String accountingPurchaseCode;
 
 
@@ -57,5 +57,22 @@ import ks46team01.admin.inventory.entity.Inventory;
 import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.mushroom.mushroomPurchase.dto.FarmPurchase;
 
+List<User> userList = farmPurchaseService.getUserIdx();
+List<Company> companyList =farmPurchaseService.getCompanyIdx();
+List<CompanyInfo> companyInfoList = farmPurchaseService.getCompanyInfoIdx();
+List<Inventory> inventoryList = farmPurchaseService.getInventoryIdx();
+List<CompanyContract> companyContractList = farmPurchaseService.getCompanyContractIdx();
 
-
+private Long accountingPurchaseIdx;
+private String username;
+private Long companyInfoIdx;
+private Long companyIdx;
+private Long inventoryIdx;
+private Long companyContractIdx;
+private String accountingPurchaseDate;
+private String accountingPurchaseType;
+private int accountingPurchaseUnitPrice;
+private double accountingPurchaseAmount;
+private String accountingPurchasePayment;
+private int accountingPurchaseSum;
+private String accountingPurchaseCode;
