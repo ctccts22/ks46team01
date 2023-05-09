@@ -8,24 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/farm")
 public class AdminFarmController {
-    // 커피배지 신청관리 페이지
-    @GetMapping("/listOrderFarmAdmin")
-    public String adminFarmOrderList() {
-        return "admin/farm/listOrderFarmAdmin";
-    }
-
-    // 커피배지 신청확인 관리
-    @GetMapping("/listConfirmFarmAdmin")
-    public String adminFarmConfirmList() {
-        return "admin/farm/listConfirmFarmAdmin";
-    }
-
-    // 커피배지 배송관리
-    @GetMapping("/listDeliveryFarmAdmin")
-    public String adminFarmDeliveryList() {
-        return "admin/farm/listDeliveryFarmAdmin";
-    }
-
     //폐배지 수거신청 관리
     @GetMapping("/listRequestPickupFarmAdmin")
     public String adminFarmPickupRequestList() {
