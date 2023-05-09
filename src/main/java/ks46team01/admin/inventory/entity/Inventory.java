@@ -26,9 +26,6 @@ public class Inventory {
     @Column(name = "inventory_type", length = 20, nullable = false)
     private String inventoryType;
 
-    @Column(name = "inventory_amount", nullable = false)
-    private Double inventoryAmount;
-
     @ManyToOne
     @JoinColumn(name = "admin_username", nullable = false)
     @ToString.Exclude
@@ -36,9 +33,6 @@ public class Inventory {
 
     @Column(name = "inventory_date", nullable = false)
     private Timestamp inventoryDate;
-
-    @Column(name = "inventory_update")
-    private Timestamp inventoryUpdate;
 
 
     @Override

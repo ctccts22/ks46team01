@@ -24,17 +24,76 @@
               const companyInfoIsDel = row.find('td[data-key="companyInfoIsDel"]').text();
               const companyInfoIsDelDate = row.find('td[data-key="companyInfoIsDelDate"]').text();
 
-
-              $('#edit-companyInfoIdx').val(companyInfoIdx);
-              $('#edit-companyInfoName').val(companyInfoName);
-              $('#edit-companyInfoLicenseNumber').val(companyInfoLicenseNumber);
-              $('#edit-companyInfoAddress').val(companyInfoAddress);
-              $('#edit-companyInfoIsDel').val(companyInfoIsDel);
-              $('#edit-companyInfoIsDelDate').val(companyInfoIsDelDate);
-              // 모달 보여짐
-              $('#editCompanyInfoModal').modal('show');
+              Swal.fire({
+                  title: '사업자정보수정',
+                  html:
+                      `<form id="edit-companyInfo-form">
+                      <input  type="hidden" id="edit-companyInfoIdx" name="companyInfoIdx" value="${companyInfoIdx}"/>
+                      <div class="form-group">
+                          <label for="edit-companyInfoName">사업자상호명:</label>
+                          <input class="form-control" id="edit-companyInfoName"
+                                 name="companyInfoName" value="${companyInfoName}"
+                                 type="text"/>
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-companyInfoLicenseNumber">사업자번호:</label>
+                          <input class="form-control" id="edit-companyInfoLicenseNumber"
+                                 name="companyInfoLicenseNumber" value="${companyInfoLicenseNumber}"
+                                 type="text"/>
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-companyInfoAddress">사업자주소:</label>
+                          <input class="form-control" id="edit-companyInfoAddress"
+                                 name="companyInfoAddress" value="${companyInfoAddress}"
+                                 type="text"/>
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-companyInfoIsDel">탈퇴여부:</label>
+                          <select class="form-control" id="edit-companyInfoIsDel"
+                                  name="companyInfoIsDel">
+                              <option value="Y">Y</option>
+                              <option value="N">N</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-companyInfoIsDelDate">탈퇴시간:</label>
+                          <input class="form-control" id="edit-companyInfoIsDelDate"
+                                 name="companyInfoIsDelDate" value="${companyInfoIsDelDate}"
+                                 type="datetime-local"/>
+                      </div>
+                  </form>`,
+                  showCancelButton: true,
+                  confirmButtonText: '수정',
+                  cancelButtonText: '최소',
+                  preConfirm: () => {
+                      const form = document.getElementById('edit-companyInfo-form');
+                      $.ajax({
+                          url: '/admin/companies/info/updateCompanyInfo',
+                          method: 'POST',
+                          data: {
+                              companyInfoIdx: $('#edit-companyInfoIdx').val(),
+                              companyInfoName: $('#edit-companyInfoName').val(),
+                              companyInfoLicenseNumber: $('#edit-companyInfoLicenseNumber').val(),
+                              companyInfoAddress: $('#edit-companyInfoAddress').val(),
+                              companyInfoIsDel: $('#edit-companyInfoIsDel').val(),
+                              companyInfoIsDelDate: $('#edit-companyInfoIsDelDate').val()
+                          },
+                          success: function (response) {
+                              Swal.fire('Success!', '성공적으로 수정되었습니다.', 'success')
+                                  .then(() => {
+                                      location.reload();
+                                  });
+                          },
+                          error: function () {
+                              Swal.fire('Error!', '수정에 실패했습니다.', 'error');
+                          },
+                      });
+                  }
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                  }
+              });
           });
-
           $('#datatable-custom').DataTable({
               pagination: false,
               searching: true,
@@ -119,7 +178,7 @@
                             th:text="${companyInfo.inventoryType}"></td>
                         <td data-key="companyInfoStatus">
                         <span th:each="approval : ${companyInfo.companyInfoApprovals}"
-                        th:text="${approval.companyInfoApproveStatus}+' '"></span>
+                              th:text="${approval.companyInfoApproveStatus}+' '"></span>
                         </td>
                         <td data-key="companyInfoLicenseNumber"
                             th:text="${companyInfo.companyInfoLicenseNumber}"></td>
@@ -141,68 +200,6 @@
                       </tr>
                       </tbody>
                     </table>
-
-                    <!-- 사업자정보수정 모달 -->
-                    <div aria-hidden="true" aria-labelledby="editCompanyInfoModalLabel" class="modal fade"
-                         id="editCompanyInfoModal"
-                         role="dialog" tabindex="-1">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="editCompanyInfoModalLabel">사업자정보
-                              수정</h5>
-                            <button aria-label="Close" class="close" data-dismiss="modal"
-                                    type="button">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form id="edit-companyInfo-form"
-                                  method="post"
-                                  th:action="@{/admin/companies/info/updateCompanyInfo}">
-                              <input id="edit-companyInfoIdx" name="companyInfoIdx"
-                                     type="hidden"/>
-                              <div class="form-group">
-                                <label for="edit-companyInfoName">사업자상호명:</label>
-                                <input class="form-control" id="edit-companyInfoName"
-                                       name="companyInfoName"
-                                       type="text"/>
-                              </div>
-                              <div class="form-group">
-                                <label for="edit-companyInfoLicenseNumber">사업자번호:</label>
-                                <input class="form-control" id="edit-companyInfoLicenseNumber"
-                                       name="companyInfoLicenseNumber"
-                                       type="text"/>
-                              </div>
-                              <div class="form-group">
-                                <label for="edit-companyInfoAddress">사업자주소:</label>
-                                <input class="form-control" id="edit-companyInfoAddress"
-                                       name="companyInfoAddress"
-                                       type="text"/>
-                              </div>
-                              <div class="form-group">
-                                <label for="edit-companyInfoIsDel">탈퇴여부:</label>
-                                <select class="form-control" id="edit-companyInfoIsDel"
-                                        name="companyInfoIsDel">
-                                  <option value="Y">Y</option>
-                                  <option value="N">N</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="edit-companyInfoIsDelDate">탈퇴시간:</label>
-                                <input class="form-control" id="edit-companyInfoIsDelDate"
-                                       name="companyInfoIsDelDate"
-                                       type="datetime-local"/>
-                              </div>
-                              <button class="btn btn-primary" type="submit">수정</button>
-                              <button class="btn btn-warning" type="reset">취소</button>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- 사업자정보수정 모달 -->
-
                   </div>
                 </div>
               </div>
