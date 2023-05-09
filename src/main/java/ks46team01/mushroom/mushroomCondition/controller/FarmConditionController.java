@@ -49,15 +49,15 @@
         //수정
         @GetMapping("/modify/modifyConditionMushroom")
         public String modifyFarmCondition(@RequestParam(name = "mushroomConditionIdx",required = false)Long mushroomConditionIdx
-                ,@RequestParam(name = "cropIdx",required = false)Long cropIdx
-                ,@RequestParam(name = "mushroomConditionTemperature", required = false)String mushroomConditionTemperature
-                ,@RequestParam(name = "mushroomConditionHumidity" , required = false) String mushroomConditionHumidity
-                ,@RequestParam(name = "mushroomConditionOxygen" , required = false) String mushroomConditionOxygen
-                ,@RequestParam(name = "mushroomConditionCo2" , required = false) String mushroomConditionCo2
-                ,@RequestParam(name = "mushroomConditionIlluminance" , required = false) String mushroomConditionIlluminance
-                ,@RequestParam(name = "mushroomConditionPh" , required = false) String mushroomConditionPh
-                ,@RequestParam(name = "mushroomConditionUse", required = false) String mushroomConditionUse
-                ,@RequestParam(name = "mushroomConditionYear", required = false) int mushroomConditionYear, Model model){
+                                        ,@RequestParam(name = "cropIdx",required = false)Long cropIdx
+                                        ,@RequestParam(name = "mushroomConditionTemperature", required = false)String mushroomConditionTemperature
+                                        ,@RequestParam(name = "mushroomConditionHumidity" , required = false) String mushroomConditionHumidity
+                                        ,@RequestParam(name = "mushroomConditionOxygen" , required = false) String mushroomConditionOxygen
+                                        ,@RequestParam(name = "mushroomConditionCo2" , required = false) String mushroomConditionCo2
+                                        ,@RequestParam(name = "mushroomConditionIlluminance" , required = false) String mushroomConditionIlluminance
+                                        ,@RequestParam(name = "mushroomConditionPh" , required = false) String mushroomConditionPh
+                                        ,@RequestParam(name = "mushroomConditionUse", required = false) String mushroomConditionUse
+                                        ,@RequestParam(name = "mushroomConditionYear", required = false) int mushroomConditionYear, Model model){
             FarmCondition farmConditionInfo = farmConditionService.getFarmConditionInfoById(mushroomConditionIdx
                     ,cropIdx
                     ,mushroomConditionTemperature

@@ -6,61 +6,331 @@
 
 <th:block layout:fragment="customJs">
     <script>
-        document.getElementById("addBtn1").addEventListener("click", function() {
-            window.location.href = "/mushroom/add/addDataFarmMushroom";
+        $(document).ready(function () {
+            $('body').on('click', '.add-button', function () {
+                const row= $(this).closest('tr');
+                const mushroomGrowthIdx = row.find('td[data-key="mushroomGrowthIdx"]').text();
+                const username = row.find('td[data-key="username"]').text();
+                const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
+                const farmDataIdx = row.find('td[data-key="farmDataIdx"]').text();
+                const cropIdx = row.find('td[data-key="cropIdx"]').text();
+                const mushroomGrowthDaily = row.find('td[data-key="mushroomGrowthDaily"]').text();
+                const mushroomGrowthStatus = row.find('td[data-key="mushroomGrowthStatus"]').text();
+                const mushroomGrowthDate = row.find('td[data-key="mushroomGrowthDate"]').text();
+                const mushroomGrowthContent = row.find('td[data-key="mushroomGrowthContent"]').text();
+
+
+                $('#add-mushroomGrowthIdx').val(mushroomGrowthIdx);
+                $('#add-username').val(username);
+                $('#add-companyInfoIdx').val(companyInfoIdx);
+                $('#add-farmDataIdx').val(farmDataIdx);
+                $('#add-cropIdx').val(cropIdx);
+                $('#add-mushroomGrowthDaily').val(mushroomGrowthDaily)
+                $('#add-mushroomGrowthStatus').val(mushroomGrowthStatus);
+                $('#add-mushroomGrowthDate').val(mushroomGrowthDate).prop('type', 'date');
+                $('#add-mushroomGrowthContent').val(mushroomGrowthContent);
+
+                // 모달 보여짐
+                $('#addDataGrownMushroomModal').modal('show');
+            });
+
+            $('body').on('click', '.edit-button', function () {
+                const row = $(this).closest('tr');
+                const mushroomGrowthIdx = row.find('td[data-key="mushroomGrowthIdx"]').text();
+                const username = row.find('td[data-key="username"]').text();
+                const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
+                const farmDataIdx = row.find('td[data-key="farmDataIdx"]').text();
+                const cropIdx = row.find('td[data-key="cropIdx"]').text();
+                const mushroomGrowthDaily = row.find('td[data-key="mushroomGrowthDaily"]').text();
+                const mushroomGrowthStatus = row.find('td[data-key="mushroomGrowthStatus"]').text();
+                const mushroomGrowthDate = row.find('td[data-key="mushroomGrowthDate"]').text();
+                const mushroomGrowthContent = row.find('td[data-key="mushroomGrowthContent"]').text();
+
+
+                $('#modify-mushroomGrowthIdx').val(mushroomGrowthIdx);
+                $('#modify-username').val(username);
+                $('#modify-companyInfoIdx').val(companyInfoIdx);
+                $('#modify-farmDataIdx').val(farmDataIdx);
+                $('#modify-cropIdx').val(cropIdx);
+                $('#modify-mushroomGrowthDaily').val(mushroomGrowthDaily);
+                $('#modify-mushroomGrowthStatus').val(mushroomGrowthStatus);
+                $('#modify-mushroomGrowthDate').val(mushroomGrowthDate);
+                $('#modify-mushroomGrowthContent').val(mushroomGrowthContent);
+
+                // 모달 보여짐
+                $('#modifyDataGrownMushroomModal').modal('show');
+            });
+
+            $('body').on('click', '.delete-button', function () {
+                const mushroomGrowthIdx = $(this).closest('tr').find('td[data-key="mushroomGrowthIdx"]').text();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/mushroom/delete/deleteDataGrownMushroom',
+                    data: { mushroomGrowthIdx: mushroomGrowthIdx },
+                    success: function (response) {
+                        alert('삭제성공');
+                        location.href = '/mushroom/dataGrownMushroom'; // 페이지 다시 로드
+                        $('button[data-mushroomGrowthIdx="' + mushroomGrowthIdx + '"]').closest('tr').remove();
+                    },
+                    error: function () {
+                        alert('삭제실패');
+                    }
+
+                });
+            });
+
+            $('#datatable-custom').DataTable({
+                pagination: false,
+                searching: false,
+                lengthChange : false
+            });
         });
+        //수정화면 체크박스
     </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="my-4">버섯 재배일지</h2>
-                <button id="addBtn1" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 등록 </button>
-                <button id="addBtn2" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 수정 </button>
-                <button id="addBtn3" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 삭제 </button>
-                <button id="addBtn4" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 검색기능? </button>
-                <button id="addBtn5" th:href="@{/mushroom/add/addDataGrownMushroom}" class="btn btn-primary"> 추가 할거 생각해보기 </button>
-                <div th:insert="~{/mushroom/search/searchDataGrownMushroom :: searchFragment}"></div>
-                <table class="table table-striped table-bordered table-hover">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>버섯생육정보 고유코드</th>
-                        <th>이용자 아이디</th>
-                        <th>사업자 정보</th>
-                        <th>농가재배정보등록고유코드</th>
-                        <th>작물 고유코드</th>
-                        <th>버섯 생육일</th>
-                        <th>버섯 생육상태</th>
-                        <th>버섯 생육정보 등록일자</th>
-                        <th>버섯 생육정보 상세내용</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="l:${fmsg}">
-                        <td th:text="${l.mushroomGrowthIdx}"></td>
-                        <td th:text="${l.username}"></td>
-                        <td th:text="${l.companyInfoIdx}"></td>
-                        <td th:text="${l.farmDataIdx}"></td>
-                        <td th:text="${l.cropIdx}"></td>
-                        <td th:text="${l.mushroomGrowthDaily}"></td>
-                        <td th:text="${l.mushroomGrowthStatus}"></td>
-                        <td th:text="${l.mushroomGrowthDate}"></td>
-                        <td th:text="${l.mushroomGrowthContent}"></td>
-                    </tr>
-                    <tr th:if="${fmsg == null}">
-                        <td colspan="8">등록된 정보가 없습니다.</td>
-                    </tr>
-                    </tbody>
-                </table>
+    <div class="page-title">
+        <div class="title">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 class="my-4">버섯 재배 일지</h2>
+                    <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <form th:action="@{/mushroom/dataGrownMushroom}" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder=" 버섯재배일지 검색" name="mushroomGrowthIdx">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit">검색</button>
+                                        <a class="btn btn-outline-secondary" th:href="@{/mushroom/dataGrownMushroom}">초기화</a>
+                                    </div>
+                                    <div th:insert="~{/mushroom/search/searchDataGrownMushroom :: searchFragment}"></div>
+                                </div>
+                            </form>
+                            <div style="display: flex;">
+                                <button class="add-button" type="submit">등록</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <div class="col-sm-12">
+                                    <div id="datatable-buttons_wrapper"
+                                         class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
+                                        <table id="datatable-custom"
+                                               class="table table-striped table-bordered dataTable no-footer dtr-inline"
+                                               style="width: 100%;" role="grid"
+                                               aria-describedby="datatable-buttons_info">
+                                            <thead>
+                                            <tr role="row">
+                                                <th>버섯생육정보 고유코드</th>
+                                                <th>이용자 아이디</th>
+                                                <th>사업자 정보</th>
+                                                <th>농가재배정보등록고유코드</th>
+                                                <th>작물 고유코드</th>
+                                                <th>버섯 생육일</th>
+                                                <th>버섯 생육상태</th>
+                                                <th>버섯 생육정보 등록일자</th>
+                                                <th>버섯 생육정보 상세내용</th>
+                                                <th>수정</th>
+                                                <th>삭제</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr role="row" class="odd" th:each="l:${fmsg}" >
+                                                <td data-key="mushroomGrowthIdx" th:text="${l.mushroomGrowthIdx}"></td>
+                                                <td data-key="username" th:text="${l.username}"></td>
+                                                <td data-key="companyInfoIdx" th:text="${l.companyInfoIdx}"></td>
+                                                <td data-key="farmDataIdx" th:text="${l.farmDataIdx}"></td>
+                                                <td data-key="cropIdx" th:text="${l.cropIdx}"></td>
+                                                <td data-key="mushroomGrowthDaily" th:text="${l.mushroomGrowthDaily}"></td>
+                                                <td data-key="mushroomGrowthStatus" th:text="${l.mushroomGrowthStatus}"></td>
+                                                <td data-key="mushroomGrowthDate" th:text="${l.mushroomGrowthDate}"></td>
+                                                <td data-key="mushroomGrowthContent" th:text="${l.mushroomGrowthContent}"></td>
+                                                <td>
+                                                    <button type="button" class="edit-button">수정</button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="delete-button">삭제</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <!-- 회원등록 모달 -->
+
+                                        <div class="modal fade" id="addDataGrownMushroomModal" tabindex="-1" role="dialog" aria-labelledby="addDataGrownMushroomModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addDataGrownMushroomModalLabel">등록</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/mushroom/add/addDataGrownMushroom}" method="post">
+                                                            <input type="hidden" id="add-mushroomGrowthIdx" name="mushroomGrowthIdx">
+
+                                                            <div class="form-group">
+                                                                <label for="add-username">사용자 이름 </label>
+                                                                <select class="form-control" id="add-username" name="username"  required>
+                                                                    <option value="" disabled selected>사용자을 선택하세요</option>
+                                                                    <th:block th:each="u : ${userList}">
+                                                                        <option th:value="${u.username}">[[${u.username}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-companyInfoIdx">사업자정보 </label>
+                                                                <select class="form-control" id="add-companyInfoIdx" name="companyInfoIdx"  required>
+                                                                    <option value="" disabled selected>사업자 번호를 선택하세요</option>
+                                                                    <th:block th:each="ci : ${companyInfoList}">
+                                                                        <option th:value="${ci.companyInfoIdx}">[[${ci.companyInfoLicenseNumber}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="add-farmDataIdx">농가 재배 고유 코드 </label>
+                                                                <select class="form-control" id="add-farmDataIdx" name="farmDataIdx"  required>
+                                                                    <option value="" disabled selected>사용자을 선택하세요</option>
+                                                                    <th:block th:each="fd : ${farmDataList}">
+                                                                        <option th:value="${fd.farmDataIdx}">[[${fd.farmDataIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="add-cropIdx">작물</label>
+                                                                <select class="form-control" id="add-cropIdx" name="cropIdx"  required>
+                                                                    <option value="" disabled selected>작물을 선택하세요</option>
+                                                                    <th:block th:each="c : ${cropList}">
+                                                                        <option th:value="${c.cropIdx}">[[${c.cropContent}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-mushroomGrowthDaily">mushroomGrowthDaily</label>
+                                                                <input type="number" class="form-control" id="add-mushroomGrowthDaily" name="mushroomGrowthDaily" placeholder="mushroomGrowthDaily 를 입력하세요" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-mushroomGrowthStatus">mushroomGrowthStatus</label>
+                                                                <input type="text" class="form-control" id="add-mushroomGrowthStatus" name="mushroomGrowthStatus" placeholder="mushroomGrowthStatus 를 입력하세요" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-mushroomGrowthContent">mushroomGrowthContent</label>
+                                                                <input type="text" class="form-control" id="add-mushroomGrowthContent" name="mushroomGrowthContent" placeholder="mushroomGrowthContent 를 입력하세요" required>
+                                                            </div>
+
+
+
+                                                            <button type="submit" class="btn btn-primary">등록</button>
+                                                            <button type="reset" class="btn btn-warning">취소</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 회원등록 모달 -->
+
+                                        <!-- 회원수정 모달 -->
+                                        <div class="modal fade" id="modifyDataGrownMushroomModal" tabindex="-1" role="dialog" aria-labelledby="modifyDataGrownMushroomModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modifyDataGrownMushroomModalLabel"> 조건 수정</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/mushroom/modify/modifyDataGrownMushroom}" method="post">
+                                                            <input type="hidden" id="modify-mushroomGrowthIdx" name="mushroomGrowthIdx">
+
+                                                            <div class="form-group">
+                                                                <label for="modify-username">username 고유코드</label>
+                                                                <select class="form-control" id="modify-username" name="username"  required>
+                                                                    <option value="" disabled selected>username 을 선택하세요</option>
+                                                                    <th:block th:each="u : ${userList}">
+                                                                        <option th:value="${u.username}">[[${u.username}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-farmDataIdx">farmDataIdx 고유코드</label>
+                                                                <select class="form-control" id="modify-farmDataIdx" name="farmDataIdx"  required>
+                                                                    <option value="" disabled selected>farmDataIdx 을 선택하세요</option>
+                                                                    <th:block th:each="fd : ${farmDataList}">
+                                                                        <option th:value="${fd.farmDataIdx}">[[${fd.farmDataIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-companyInfoIdx">companyInfoIdx</label>
+                                                                <select class="form-control" id="modify-companyInfoIdx" name="companyInfoIdx"  required>
+                                                                    <option value="" disabled selected>companyInfoList 선택하세요</option>
+                                                                    <th:block th:each="ci : ${companyInfoList}">
+                                                                        <option th:value="${ci.companyInfoIdx}">[[${ci.companyInfoIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-cropIdx">작물 고유코드</label>
+                                                                <select class="form-control" id="modify-cropIdx" name="cropIdx"  required>
+                                                                    <option value="" disabled selected>작물을 선택하세요</option>
+                                                                    <th:block th:each="c : ${cropList}">
+                                                                        <option th:value="${c.cropIdx}">[[${c.cropContent}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="modify-mushroomGrowthDaily">mushroomGrowthDaily</label>
+                                                                <input type="number" class="form-control" id="modify-mushroomGrowthDaily" name="mushroomGrowthDaily" placeholder="mushroomGrowthDaily 을 입력하세요"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-mushroomGrowthStatus">mushroomGrowthStatus</label>
+                                                                <input type="text" class="form-control" id="modify-mushroomGrowthStatus" name="mushroomGrowthStatus" placeholder="mushroomGrowthStatus 을 입력하세요"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-mushroomGrowthDate">mushroomGrowthDate</label>
+                                                                <input type="datetime-local" class="form-control" id="modify-mushroomGrowthDate" name="mushroomGrowthDate" placeholder="mushroomGrowthDate 를 입력하세요"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-mushroomGrowthContent">mushroomGrowthContent</label>
+                                                                <input type="text" class="form-control"  id="modify-mushroomGrowthContent" name="mushroomGrowthContent" placeholder="mushroomGrowthContent을 입력하세요"/>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary">저장</button>
+                                                            <button type="reset" class="btn btn-warning">취소</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 회원수정 모달 -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </th:block>
 </html>
-
-
 
 
 

@@ -1,27 +1,61 @@
-$(document).ready(function () {
-$('body').on('click', '.add-button', function () {
-const row= $(this).closest('tr');
-const username = row.find('td[data-key="username"]').text();
-const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
-const cropIdx = row.find('td[data-key="cropIdx"]').text();
-const pastDataMushroomProduction = row.find('td[data-key="pastDataMushroomProduction"]').text();
-const pastDataTotalRevenue = row.find('td[data-key="pastDataTotalRevenue"]').text();
-const pastDataBadgeUse = row.find('td[data-key="pastDataBadgeUse"]').text();
-const pastDataYear = parseInt(row.find('td[data-key="pastDataYear"]').text());
-const pastDataUse = row.find('td[data-key="pastDataUse"]').text();
-const pastDataComparison = row.find('td[data-key="pastDataComparison"]').text();
+<tr>
+    <th>회계관리 매입 고유번호</th>
+    <th>사업장 고유코드</th>
+    <th>재고물품고유번호</th>
+    <th>사업자 계약관리고유번호</th>
+    <th>거래일자</th>
+    <th>거래유형</th>
+    <th>거래단가</th>
+    <th>매입거래량</th>
+    <th>결제유형</th>
+    <th>금액</th>
+    <th>운영자아이디</th>
+    <th>수정날짜</th>
+    <th>매출 마감 그룹코드</th>
+</tr>
+private Long accountingPurchaseIdx;
+private String username;
+private Long companyInfoIdx;
+private Long companyIdx;
+private Long inventoryIdx;
+private String companyContractIdx;
+private String accountingPurchaseDate;
+private String accountingPurchaseType;
+private String accountingPurchaseUnitPrice;
+private String accountingPurchaseAmount;
+private String accountingPurchasePayment;
+private String accountingPurchaseSum;
+private String accountingPurchaseCode;
 
-$('#add-username').val(username);
-$('#add-companyInfoIdx').val(companyInfoIdx);
-$('#add-cropIdx').val(cropIdx);
-$('#add-pastDataMushroomProduction').val(pastDataMushroomProduction);
-$('#add-pastDataTotalRevenue').val(pastDataTotalRevenue);
-$('#add-pastDataBadgeUse').val(pastDataBadgeUse);
-$('#add-pastDataYear').attr('min', '1990').attr('max', '2023').attr('type', 'number').val(pastDataYear);
-$('#add-pastDataUse').val(pastDataUse);
-$('#add-pastDataComparison').val(pastDataComparison);
 
-// 모달 보여짐
-$('#addDataPastMushroomModal').modal('show');
-});
-});
+
+
+
+accounting_purchase_idx
+, username
+, company_info_idx
+, company_idx
+, inventory_idx
+, company_contract_idx
+, accounting_purchase_date
+, accounting_purchase_type
+, accounting_purchase_unit_price
+, accounting_purchase_amount
+, accounting_purchase_payment
+, accounting_purchase_sum
+, accounting_purchase_code
+
+List<FarmPurchase> getListPurchaseAccount();
+List<Company> getCompanyIdx();
+List<CompanyInfo> getCompanyInfoIdx();
+List<Inventory> getInventoryIdx();
+List<CompanyContract> getCompanyContractIdx();
+
+import ks46team01.admin.company.contract.entity.CompanyContract;
+import ks46team01.admin.company.entity.Company;
+import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.common.company.info.entity.CompanyInfo;
+import ks46team01.mushroom.mushroomPurchase.dto.FarmPurchase;
+
+
+

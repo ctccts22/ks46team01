@@ -4,21 +4,19 @@ import lombok.Data;
 
 @Data
 public class FarmPurchase {
-    private Long accounting_purchase_idx;
-    private String username;
-    private Long company_info_idx;
-    private Long company_idx;
-    private Long inventory_idx;
-    private String company_contract_idx;
-    private String accounting_purchase_date;
-    private String accounting_purchase_type;
-    private String accounting_purchase_unit_price;
-    private String accounting_purchase_amount;
-    private String accounting_purchase_payment;
-    private String accounting_purchase_sum;
-    private String accounting_purchase_code;
-
-
+            private Long accountingPurchaseIdx;
+            private String username;
+            private Long companyInfoIdx;
+            private Long companyIdx;
+            private Long inventoryIdx;
+            private Long companyContractIdx;
+            private String accountingPurchaseDate;
+            private String accountingPurchaseType;
+            private int accountingPurchaseUnitPrice;
+            private double accountingPurchaseAmount;
+            private String accountingPurchasePayment;
+            private int accountingPurchaseSum;
+            private String accountingPurchaseCode;
 
 
 
