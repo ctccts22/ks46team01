@@ -1,7 +1,7 @@
-package ks46team01.admin.inventory.dto;
+package ks46team01.admin.inventories.inventory.dto;
 
 import ks46team01.admin.info.entity.Admin;
-import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.admin.inventories.inventory.entity.Inventory;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;

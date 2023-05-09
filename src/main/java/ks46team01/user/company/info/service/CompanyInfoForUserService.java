@@ -2,9 +2,7 @@ package ks46team01.user.company.info.service;
 
 
 import ks46team01.admin.company.entity.Company;
-import ks46team01.admin.company.repository.CompanyRepository;
-import ks46team01.admin.inventory.entity.Inventory;
-import ks46team01.admin.inventory.repository.InventoryRepository;
+import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.common.company.info.repository.CompanyInfoRepository;
 import ks46team01.common.company.info.entity.CompanyInfo;
 import lombok.AllArgsConstructor;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
