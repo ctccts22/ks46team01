@@ -16,22 +16,66 @@
     $(document).ready(function () {
       $('body').on('click', '.edit-button', function () {
         const row = $(this).closest('tr');
+
         const companyInfoApproveIdx = row.find('td[data-key="companyInfoApproveIdx"]').text();
         const companyInfoApproveDate = row.find('td[data-key="companyInfoApproveDate"]').text();
         const companyInfoApproveStatus = row.find('td[data-key="companyInfoApproveStatus"]').text();
         const companyInfoApproveContent = row.find('td[data-key="companyInfoApproveContent"]').text();
         const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
 
-        $('#edit-companyInfoIdx').val(companyInfoIdx);
-        $('#edit-companyInfoApproveIdx').val(companyInfoApproveIdx);
-        $('#edit-companyInfoApproveDate').val(companyInfoApproveDate);
-        $('#edit-companyInfoApproveStatus').val(companyInfoApproveStatus);
-        $('#edit-companyInfoApproveContent').val(companyInfoApproveContent);
-        // 모달 보여짐
-        $('#editCompanyInfoApproveModal').modal('show');
+          Swal.fire({
+              title: '사업자정보수정',
+              html:
+                  `<form id="edit-companyInfoApprove-form">
+                            <input type="hidden" id="edit-companyInfoApproveIdx" name="companyInfoApproveIdx" value="${companyInfoApproveIdx}"/>
+                            <input type="hidden" id="edit-companyInfoIdx" name="companyInfoIdx" value="${companyInfoIdx}"/>
+                            <div class="form-group">
+                              <label for="edit-companyInfoApproveDate">승인날짜:</label>
+                              <input type="date" class="form-control" id="edit-companyInfoApproveDate" name="companyInfoApproveDate" value="${companyInfoApproveDate}"/>
+                            </div>
+                            <div class="form-group">
+                              <label for="edit-companyInfoApproveStatus">승인상태:</label>
+                              <select class="form-control" id="edit-companyInfoApproveStatus" name="companyInfoApproveStatus" value="${companyInfoApproveStatus}"/>
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="edit-companyInfoApproveContent">승인사유:</label>
+                              <input type="text" class="form-control" id="edit-companyInfoApproveContent" name="companyInfoApproveContent" value="${companyInfoApproveContent}"/>
+                            </div>
+                          </form>`,
+              showCancelButton: true,
+              confirmButtonText: '수정',
+              cancelButtonText: '최소',
+              preConfirm: () => {
+                  const form = document.getElementById('edit-companyInfoApproveIdx');
+                  $.ajax({
+                      url: '/admin/companies/info/updateCompanyInfoApprove',
+                      method: 'POST',
+                      data: {
+                          companyInfoIdx: $('#edit-companyInfoIdx').val(),
+                          companyInfoApproveIdx: $('#edit-companyInfoApproveIdx').val(),
+                          companyInfoApproveDate: $('#edit-companyInfoApproveDate').val(),
+                          companyInfoApproveStatus: $('#edit-companyInfoApproveStatus').val(),
+                          companyInfoApproveContent: $('#edit-companyInfoApproveContent').val()
+                      },
+                      success: function (response) {
+                          Swal.fire('Success!', '성공적으로 수정되었습니다.', 'success')
+                              .then(() => {
+                                  location.reload();
+                              });
+                      },
+                      error: function () {
+                          Swal.fire('Error!', '수정에 실패했습니다.', 'error');
+                      },
+                  });
+              }
+          }).then((result) => {
+              if (result.isConfirmed) {
+              }
+          });
       });
-
-
 
     $('#datatable-custom').DataTable({
       pagination: false,
@@ -115,45 +159,6 @@
           </tr>
           </tbody>
                   </table>
-
-                  <!-- 사업자허가 모달 -->
-                  <div class="modal fade" id="editCompanyInfoApproveModal" tabindex="-1" role="dialog" aria-labelledby="editCompanyInfoApproveModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="editCompanyInfoApproveModalLabel">사업자허가</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form id="edit-companyInfoApprove-form" th:action="@{/admin/companies/info/updateCompanyInfoApprove}" method="post">
-                            <input type="hidden" id="edit-companyInfoApproveIdx" name="companyInfoApproveIdx" />
-                            <input type="hidden" id="edit-companyInfoIdx" name="companyInfoIdx" />
-                            <div class="form-group">
-                              <label for="edit-companyInfoApproveDate">승인날짜:</label>
-                              <input type="date" class="form-control" id="edit-companyInfoApproveDate" name="companyInfoApproveDate" />
-                            </div>
-                            <div class="form-group">
-                              <label for="edit-companyInfoApproveStatus">승인상태:</label>
-                              <select class="form-control" id="edit-companyInfoApproveStatus" name="companyInfoApproveStatus">
-                                <option value="Y">Y</option>
-                                <option value="N">N</option>
-                              </select>
-                            </div>
-                            <div class="form-group">
-                              <label for="edit-companyInfoApproveContent">승인사유:</label>
-                              <input type="text" class="form-control" id="edit-companyInfoApproveContent" name="companyInfoApproveContent" />
-                            </div>
-                            <button type="submit" class="btn btn-primary">수정</button>
-                            <button type="reset" class="btn btn-warning">취소</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- 사업자허가 모달 -->
-
                 </div>
               </div>
             </div>
