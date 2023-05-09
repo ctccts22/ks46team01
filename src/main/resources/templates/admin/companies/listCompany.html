@@ -88,6 +88,44 @@
               });
           });
 
+          $('body').on('click', '.delete-button', function () {
+              const row = $(this).closest('tr');
+              const companyIdx = row.find('td[data-key="companyIdx"]').text();
+
+              Swal.fire({
+                  title: '삭제하시겠습니까?',
+                  text: "삭제하면 복구할수 없습니다",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '삭제',
+                  cancelButtonText: '취소',
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      $.ajax({
+                          url: '/admin/companies/deleteCompany',
+                          method: 'POST',
+                          data: {
+                              companyIdx: companyIdx
+                          },
+                          success: function (response) {
+                              Swal.fire(
+                                  '삭제!',
+                                  '성공적으로 삭제되었습니다',
+                                  'success'
+                              ).then(() => {
+                                  location.reload();
+                              });
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                              Swal.fire('Error!', 'An error occurred: ' + errorThrown, 'error');
+                          }
+                      });
+                  }
+              });
+          });
+
           $('#datatable-custom').DataTable({
               pagination: false,
               searching: true,
@@ -148,6 +186,7 @@
                         <th>사업자 종류</th>
                         <th>운영자 아이디</th>
                         <th>사업자 종류 등록 날짜</th>
+                        <th>삭제</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -156,6 +195,7 @@
                         <td data-key="companyType" th:text="${company.companyType}"></td>
                         <td data-key="adminUsername" th:text="${company.adminUsername}"></td>
                         <td data-key="companyDate" th:text="${company.companyDate}"></td>
+                        <td><button class="delete-button">삭제</button></td>
                       </tr>
                       </tbody>
                     </table>
