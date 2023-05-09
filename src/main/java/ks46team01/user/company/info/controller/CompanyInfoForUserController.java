@@ -2,10 +2,10 @@ package ks46team01.user.company.info.controller;
 
 import jakarta.servlet.http.HttpSession;
 import ks46team01.admin.company.entity.Company;
-import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.common.company.info.repository.CompanyInfoRepository;
 import ks46team01.admin.company.repository.CompanyRepository;
-import ks46team01.admin.inventory.repository.InventoryRepository;
+import ks46team01.admin.inventories.inventory.repository.InventoryRepository;
 import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.user.company.info.service.CompanyInfoForUserService;
 import ks46team01.user.info.entity.User;
@@ -15,9 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.sql.Timestamp;
 import java.util.NoSuchElementException;
 
 @Controller
