@@ -14,6 +14,7 @@ public interface CompanyContractRepository extends JpaRepository<CompanyContract
     @Query("select cc from CompanyContract as cc")
     List<CompanyContract> findAll();
 
+    Optional<CompanyContract> findByCompanyContractIdx(Long companyContractIdx);
 
 }
 

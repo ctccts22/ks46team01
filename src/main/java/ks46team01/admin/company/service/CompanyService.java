@@ -3,6 +3,7 @@ package ks46team01.admin.company.service;
 import ks46team01.admin.company.dto.CompanyDTO;
 import ks46team01.admin.company.repository.CompanyRepository;
 import ks46team01.admin.company.entity.Company;
+import ks46team01.admin.info.entity.Admin;
 import ks46team01.admin.info.repository.AdminRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,18 @@ public class CompanyService {
         Company company = companyDTO.toEntity(adminRepository);
         Company savedCompany = companyRepository.save(company);
         return CompanyDTO.fromEntity(savedCompany, adminRepository);
+    }
+
+    public boolean deleteCompany(Long companyIdx, Admin admin) {
+        if (adminRepository.existsById(admin.getAdminUsername())) {
+            try {
+                companyRepository.deleteById(companyIdx);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
     }
 }
 
