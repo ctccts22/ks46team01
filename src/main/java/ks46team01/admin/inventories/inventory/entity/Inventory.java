@@ -1,4 +1,4 @@
-package ks46team01.admin.inventory.entity;
+package ks46team01.admin.inventories.inventory.entity;
 
 
 import jakarta.persistence.*;
@@ -47,9 +47,6 @@ public class Inventory {
     public int hashCode() {
         return getClass().hashCode();
     }
-
-
-
 
 
 }

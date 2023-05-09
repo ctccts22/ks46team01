@@ -3,7 +3,7 @@ package ks46team01.common.company.info.entity;
 import jakarta.persistence.*;
 import ks46team01.admin.company.entity.Company;
 import ks46team01.admin.company.unit.entity.CompanyUnit;
-import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.user.info.entity.User;
 import lombok.*;
 import org.hibernate.Hibernate;

@@ -1,13 +1,11 @@
 package ks46team01.common.company.info.repository;
 
 import ks46team01.admin.company.entity.Company;
-import ks46team01.admin.company.unit.dto.CompanyUnitDTO;
-import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.user.info.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

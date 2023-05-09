@@ -1,10 +1,10 @@
-package ks46team01.admin.inventory.service;
+package ks46team01.admin.inventories.inventory.service;
 
 import ks46team01.admin.info.entity.Admin;
 import ks46team01.admin.info.repository.AdminRepository;
-import ks46team01.admin.inventory.dto.InventoryDTO;
-import ks46team01.admin.inventory.entity.Inventory;
-import ks46team01.admin.inventory.repository.InventoryRepository;
+import ks46team01.admin.inventories.inventory.dto.InventoryDTO;
+import ks46team01.admin.inventories.inventory.entity.Inventory;
+import ks46team01.admin.inventories.inventory.repository.InventoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
