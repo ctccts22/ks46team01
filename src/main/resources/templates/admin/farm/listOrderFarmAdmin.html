@@ -3,13 +3,320 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
-        function checkAll() {
-            var checkboxes = document.querySelectorAll('#datatable-checkbox tbody input[type="checkbox"]');
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = document.getElementById('check-all').checked;
-            }
-        }
+        $(document).ready(function () {
+            let index;
+            let arr = [];
+            $('#btn-success').click(function () {
+                let contentValue = document.querySelector('input[name="approve"]');
+                let content = contentValue.value;
+                console.log(content);
+                let status = '승인';
+                let companyInfoName;
+                let orderCompostPhone;
+                let orderCompostAddress;
+                let orderCompostAmount;
+                let orderCompostDate;
+                let companyContractIdx;
+                let companyInfoIdx;
+                let inventoryIdx;
+                let orderCompostIdx;
+                let userId;
+                let formArr = [];
+                console.log(arr.length);
+                for (let i = 0; i < arr.length; i++) {
+                    companyInfoName = arr[i][0];
+                    orderCompostPhone = arr[i][1];
+                    orderCompostAddress = arr[i][2];
+                    orderCompostAmount = arr[i][3];
+                    orderCompostDate = arr[i][4];
+                    companyContractIdx = arr[i][5];
+                    companyInfoIdx = arr[i][6];
+                    inventoryIdx = arr[i][7];
+                    orderCompostIdx = arr[i][8];
+                    userId = arr[i][9];
+                    console.log(companyInfoName, orderCompostPhone, orderCompostAddress, orderCompostAmount, orderCompostDate,companyContractIdx,companyInfoIdx,inventoryIdx,orderCompostIdx,userId);
+                    formArr.push([companyInfoName, orderCompostPhone, orderCompostAddress, orderCompostAmount, orderCompostDate,companyContractIdx,companyInfoIdx,inventoryIdx,orderCompostIdx,userId]);
+                }
+                console.log(formArr, '????????');
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/compost/insertConfirmCompost");
+
+                let input_status = document.createElement("input");
+                input_status.setAttribute("type","hidden");
+                input_status.setAttribute("name","status");
+                input_status.setAttribute("value",status);
+                form.appendChild(input_status);
+
+                let input_content = document.createElement("input");
+                input_content.setAttribute("type","hidden");
+                input_content.setAttribute("name","content");
+                input_content.setAttribute("value",content);
+                form.appendChild(input_content);
+                for (let i = 0; i < formArr.length; i++) {
+
+                    let input_companyInfoName = document.createElement("input");
+                    input_companyInfoName.setAttribute("type", "hidden");
+                    input_companyInfoName.setAttribute("name", "companyInfoName");
+                    input_companyInfoName.setAttribute("value", formArr[i][0]);
+
+                    let input_orderCompostPhone = document.createElement("input");
+                    input_orderCompostPhone.setAttribute("type", "hidden");
+                    input_orderCompostPhone.setAttribute("name", "orderCompostPhone");
+                    input_orderCompostPhone.setAttribute("value", formArr[i][1]);
+
+                    let input_orderCompostAddress = document.createElement("input");
+                    input_orderCompostAddress.setAttribute("type", "hidden");
+                    input_orderCompostAddress.setAttribute("name", "orderCompostAddress");
+                    input_orderCompostAddress.setAttribute("value", formArr[i][2]);
+
+                    let input_orderCompostAmount = document.createElement("input");
+                    input_orderCompostAmount.setAttribute("type", "hidden");
+                    input_orderCompostAmount.setAttribute("name", "orderCompostAmount");
+                    input_orderCompostAmount.setAttribute("value", formArr[i][3]);
+
+                    let input_orderCompostDate = document.createElement("input");
+                    input_orderCompostDate.setAttribute("type", "hidden");
+                    input_orderCompostDate.setAttribute("name", "orderCompostDate");
+                    input_orderCompostDate.setAttribute("value", formArr[i][4]);
+
+                    let input_companyContractIdx = document.createElement("input");
+                    input_companyContractIdx.setAttribute("type", "hidden");
+                    input_companyContractIdx.setAttribute("name", "companyContractIdx");
+                    input_companyContractIdx.setAttribute("value", formArr[i][5]);
+
+                    let input_companyInfoIdx = document.createElement("input");
+                    input_companyInfoIdx.setAttribute("type", "hidden");
+                    input_companyInfoIdx.setAttribute("name", "companyInfoIdx");
+                    input_companyInfoIdx.setAttribute("value", formArr[i][6]);
+
+                    let input_inventoryIdx = document.createElement("input");
+                    input_inventoryIdx.setAttribute("type", "hidden");
+                    input_inventoryIdx.setAttribute("name", "inventoryIdx");
+                    input_inventoryIdx.setAttribute("value", formArr[i][7]);
+
+                    let input_orderCompostIdx = document.createElement("input");
+                    input_orderCompostIdx.setAttribute("type", "hidden");
+                    input_orderCompostIdx.setAttribute("name", "orderCompostIdx");
+                    input_orderCompostIdx.setAttribute("value", formArr[i][8]);
+
+                    let input_userId = document.createElement("input");
+                    input_userId.setAttribute("type", "hidden");
+                    input_userId.setAttribute("name", "userId");
+                    input_userId.setAttribute("value", formArr[i][9]);
+
+
+                    form.appendChild(input_companyInfoName);
+                    form.appendChild(input_orderCompostPhone);
+                    form.appendChild(input_orderCompostAddress);
+                    form.appendChild(input_orderCompostAmount);
+                    form.appendChild(input_orderCompostDate);
+                    form.appendChild(input_companyContractIdx);
+                    form.appendChild(input_companyInfoIdx);
+                    form.appendChild(input_inventoryIdx);
+                    form.appendChild(input_orderCompostIdx);
+                    form.appendChild(input_userId);
+
+                }
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
+            });
+            $('#btn-danger').click(function () {
+                let contentValue = document.querySelector('input[name="approve"]');
+                let content = contentValue.value;
+                console.log(content);
+                let status = '거절';
+                let companyInfoName;
+                let orderCompostPhone;
+                let orderCompostAddress;
+                let orderCompostAmount;
+                let orderCompostDate;
+                let companyContractIdx;
+                let companyInfoIdx;
+                let inventoryIdx;
+                let orderCompostIdx;
+                let userId;
+                let formArr = [];
+                console.log(arr.length);
+                for (let i = 0; i < arr.length; i++) {
+                    companyInfoName = arr[i][0];
+                    orderCompostPhone = arr[i][1];
+                    orderCompostAddress = arr[i][2];
+                    orderCompostAmount = arr[i][3];
+                    orderCompostDate = arr[i][4];
+                    companyContractIdx = arr[i][5];
+                    companyInfoIdx = arr[i][6];
+                    inventoryIdx = arr[i][7];
+                    orderCompostIdx = arr[i][8];
+                    userId = arr[i][9];
+                    console.log(companyInfoName, orderCompostPhone, orderCompostAddress, orderCompostAmount, orderCompostDate,companyContractIdx,companyInfoIdx,inventoryIdx,orderCompostIdx,userId);
+                    formArr.push([companyInfoName, orderCompostPhone, orderCompostAddress, orderCompostAmount, orderCompostDate,companyContractIdx,companyInfoIdx,inventoryIdx,orderCompostIdx,userId]);
+                }
+                console.log(formArr, '????????');
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/compost/insertConfirmCompost");
+
+                let input_status = document.createElement("input");
+                input_status.setAttribute("type","hidden");
+                input_status.setAttribute("name","status");
+                input_status.setAttribute("value",status);
+                form.appendChild(input_status);
+
+                let input_content = document.createElement("input");
+                input_content.setAttribute("type","hidden");
+                input_content.setAttribute("name","content");
+                input_content.setAttribute("value",content);
+                form.appendChild(input_content);
+                for (let i = 0; i < formArr.length; i++) {
+
+                    let input_companyInfoName = document.createElement("input");
+                    input_companyInfoName.setAttribute("type", "hidden");
+                    input_companyInfoName.setAttribute("name", "companyInfoName");
+                    input_companyInfoName.setAttribute("value", formArr[i][0]);
+
+                    let input_orderCompostPhone = document.createElement("input");
+                    input_orderCompostPhone.setAttribute("type", "hidden");
+                    input_orderCompostPhone.setAttribute("name", "orderCompostPhone");
+                    input_orderCompostPhone.setAttribute("value", formArr[i][1]);
+
+                    let input_orderCompostAddress = document.createElement("input");
+                    input_orderCompostAddress.setAttribute("type", "hidden");
+                    input_orderCompostAddress.setAttribute("name", "orderCompostAddress");
+                    input_orderCompostAddress.setAttribute("value", formArr[i][2]);
+
+                    let input_orderCompostAmount = document.createElement("input");
+                    input_orderCompostAmount.setAttribute("type", "hidden");
+                    input_orderCompostAmount.setAttribute("name", "orderCompostAmount");
+                    input_orderCompostAmount.setAttribute("value", formArr[i][3]);
+
+                    let input_orderCompostDate = document.createElement("input");
+                    input_orderCompostDate.setAttribute("type", "hidden");
+                    input_orderCompostDate.setAttribute("name", "orderCompostDate");
+                    input_orderCompostDate.setAttribute("value", formArr[i][4]);
+
+                    let input_companyContractIdx = document.createElement("input");
+                    input_companyContractIdx.setAttribute("type", "hidden");
+                    input_companyContractIdx.setAttribute("name", "companyContractIdx");
+                    input_companyContractIdx.setAttribute("value", formArr[i][5]);
+
+                    let input_companyInfoIdx = document.createElement("input");
+                    input_companyInfoIdx.setAttribute("type", "hidden");
+                    input_companyInfoIdx.setAttribute("name", "companyInfoIdx");
+                    input_companyInfoIdx.setAttribute("value", formArr[i][6]);
+
+                    let input_inventoryIdx = document.createElement("input");
+                    input_inventoryIdx.setAttribute("type", "hidden");
+                    input_inventoryIdx.setAttribute("name", "inventoryIdx");
+                    input_inventoryIdx.setAttribute("value", formArr[i][7]);
+
+                    let input_orderCompostIdx = document.createElement("input");
+                    input_orderCompostIdx.setAttribute("type", "hidden");
+                    input_orderCompostIdx.setAttribute("name", "orderCompostIdx");
+                    input_orderCompostIdx.setAttribute("value", formArr[i][8]);
+
+                    let input_userId = document.createElement("input");
+                    input_userId.setAttribute("type", "hidden");
+                    input_userId.setAttribute("name", "userId");
+                    input_userId.setAttribute("value", formArr[i][9]);
+
+
+                    form.appendChild(input_companyInfoName);
+                    form.appendChild(input_orderCompostPhone);
+                    form.appendChild(input_orderCompostAddress);
+                    form.appendChild(input_orderCompostAmount);
+                    form.appendChild(input_orderCompostDate);
+                    form.appendChild(input_companyContractIdx);
+                    form.appendChild(input_companyInfoIdx);
+                    form.appendChild(input_inventoryIdx);
+                    form.appendChild(input_orderCompostIdx);
+                    form.appendChild(input_userId);
+                }
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
+            });
+            $('input[type="checkbox"]').click(function () {
+                index = $(this).closest('tr').index() + 1;
+                indexArr = index.length;
+                console.log('체크박스 index ' + index + ' 번클릭.');
+            });
+            $("#check-all").change(function () {
+                if (this.checked) {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", true);
+                    });
+                    for (var i = 1; i <= $('input[type=checkbox][name=check-seperated]').length; i++) {
+                        const companyInfoName = $('#user_list #check-box-value:nth-child(' + i + ') #companyInfoName').text();
+                        const orderCompostPhone = $('#user_list #check-box-value:nth-child(' + i + ') #orderCompostPhone').text();
+                        const orderCompostAddress = $('#user_list #check-box-value:nth-child(' + i + ') #orderCompostAddress').text();
+                        const orderCompostAmount = $('#user_list #check-box-value:nth-child(' + i + ') #orderCompostAmount').text();
+                        const orderCompostDate = $('#user_list #check-box-value:nth-child(' + i + ') #orderCompostDate').text();
+                        const companyContractIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyContractIdx').text();
+                        const companyInfoIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoIdx').text();
+                        const inventoryIdx = $('#user_list #check-box-value:nth-child(' + index + ') #inventoryIdx').text();
+                        const orderCompostIdx = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostIdx').text();
+                        const userId = $('#user_list #check-box-value:nth-child(' + index + ') #userId').text();
+                        arr.push([companyInfoName, orderCompostPhone, orderCompostAddress, orderCompostAmount, orderCompostDate,companyContractIdx,companyInfoIdx,inventoryIdx,orderCompostIdx,userId]);
+                    }
+                    console.log(arr);
+                } else {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", false);
+                        arr = []; // clear the array
+                    });
+                    console.log(arr, 'else?');
+                }
+            });
+
+            $('input[type=checkbox][name=check-seperated]').change(function () {
+                if (this.checked) {
+                    // alert(`${this.value} is checked`);
+                    const companyInfoName = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoName').text();
+                    const orderCompostPhone = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostPhone').text();
+                    const orderCompostAddress = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostAddress').text();
+                    const orderCompostAmount = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostAmount').text();
+                    const orderCompostDate = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostDate').text();
+                    const companyContractIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyContractIdx').text();
+                    const companyInfoIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoIdx').text();
+                    const inventoryIdx = $('#user_list #check-box-value:nth-child(' + index + ') #inventoryIdx').text();
+                    const orderCompostIdx = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostIdx').text();
+                    const userId = $('#user_list #check-box-value:nth-child(' + index + ') #userId').text();
+                    arr.push([companyInfoName, orderCompostPhone, orderCompostAddress, orderCompostAmount, orderCompostDate,companyContractIdx,companyInfoIdx,inventoryIdx,orderCompostIdx,userId]); // 배열에 추가
+                    console.log(arr);
+                } else {
+                    if ($('input[type=checkbox][name=check-seperated]').length !== $('input[type=checkbox][name=check-seperated]:checked').length) {
+                        $("input:checkbox[id='check-all']").prop("checked", false);
+                    }
+                    const companyInfoName = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoName').text();
+                    const orderCompostPhone = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostPhone').text();
+                    const orderCompostAddress = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostAddress').text();
+                    const orderCompostAmount = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostAmount').text();
+                    const orderCompostDate = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostDate').text();
+                    const companyContractIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyContractIdx').text();
+                    const companyInfoIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoIdx').text();
+                    const inventoryIdx = $('#user_list #check-box-value:nth-child(' + index + ') #inventoryIdx').text();
+                    const orderCompostIdx = $('#user_list #check-box-value:nth-child(' + index + ') #orderCompostIdx').text();
+                    const userId = $('#user_list #check-box-value:nth-child(' + index + ') #userId').text();
+                    arr = arr.filter(item => (
+                        item[0] !== companyInfoName ||
+                        item[1] !== orderCompostPhone ||
+                        item[2] !== orderCompostAddress ||
+                        item[3] !== orderCompostAmount ||
+                        item[4] !== orderCompostDate ||
+                        item[5] !== companyContractIdx ||
+                        item[6] !== companyInfoIdx ||
+                        item[7] !== inventoryIdx ||
+                        item[8] !== orderCompostIdx ||
+                        item[9] !== userId
+                    ));
+                    console.log(arr);
+                }
+            });
+        });
     </script>
 </head>
 <th:block layout:fragment="customContent">
@@ -59,31 +366,37 @@
                                 <thead>
                                 <tr>
                                     <th>
-                                        전체
-                                    <th><input type="checkbox" id="check-all" onclick="checkAll()"></th>
+                                        No
                                     </th>
+                                    <th><input type="checkbox" id="check-all" name="check-all"></th>
                                     <th>농장명</th>
                                     <th>신청 담당자 번호</th>
                                     <th>농장 주소</th>
                                     <th>중량</th>
+                                    <th>승인신청 내용</th>
                                     <th>승인신청 날짜</th>
                                     <th>승인상태</th>
                                 </tr>
                                 </thead>
 
 
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        선택
-                                    <th><input type="checkbox" id="check-all" ></th>
-                                    </td>
-                                    <td>팜하니</td>
-                                    <td>010-1234-5678</td>
-                                    <td>전라남도 영암군 시종면 옥야리 549</td>
-                                    <td>25kg</td>
-                                    <td>2023/04/13</td>
-                                    <td>승인대기중</td>
+                                <tbody id="user_list">
+                                <tr id="check-box-value" th:each="compostList, compostListIndex: ${compostList}">
+                                    <th data-coffee-request-index="${compostListIndex.count}"
+                                        th:text="${compostListIndex.count}"></th>
+                                    <th><input type="checkbox" id="check-seperated" name="check-seperated"></th>
+                                    <td id="companyInfoName" th:text="${compostList.companyInfoName}"></td>
+                                    <td id="orderCompostPhone" th:text="${compostList.orderCompostPhone}"></td>
+                                    <td id="orderCompostAddress" th:text="${compostList.orderCompostAddress}"></td>
+                                    <td id="orderCompostAmount" th:text="${compostList.orderCompostAmount}+kg"></td>
+                                    <td id="orderCompostContent" th:text="${compostList.orderCompostContent}"></td>
+                                    <td id="orderCompostDate" th:text="${compostList.orderCompostDate}"></td>
+                                    <td id="orderCompostConfirmStatus" th:text="${compostList.orderCompostConfirmStatus}"></td>
+                                    <td id="companyContractIdx" th:text="${compostList.companyContractIdx}" hidden="hidden"></td>
+                                    <td id="companyInfoIdx" th:text="${compostList.companyInfoIdx}" hidden="hidden"></td>
+                                    <td id="inventoryIdx" th:text="${compostList.inventoryIdx}" hidden="hidden"></td>
+                                    <td id="orderCompostIdx" th:text="${compostList.orderCompostIdx}" hidden="hidden"></td>
+                                    <td id="userId" th:text="${compostList.userName}" hidden="hidden"></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -91,58 +404,68 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <div class="col-md-6 col-sm-6 offset-md-3">
-                                <div class="col-md-6 col-sm-6 offset-md-3">
-                                    <!--  <button type="submit" class="btn btn-success">승인</button>-->
-                                    <!-- 승인 버튼-->
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">승인</button>
-                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#approveModal">승인
+                            </button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#denyModal">
+                                거부
+                            </button>
 
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">확인</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h4>ㅁㅇㄹ</h4>
-                                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary">확인</button>
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                                </div>
-                                            </div>
+                            <!-- 모달창 -->
+                            <div class="modal fade" id="approveModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="approveModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="approveModalLabel">승인</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                        <!-- 거절 버튼 -->
-                                    </div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">거절</button>
-                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">거절</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h4>ㅁㅇㄹ</h4>
-                                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary">확인</button>
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                                </div>
-                                            </div>
+                                        <div class="modal-body">
+                                            승인의견
+                                            <label>
+                                                <input type="text" name="approve">
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-confirm" id="btn-success"
+                                                    data-dismiss="modal" data-state="승인">승인
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary" type="reset">초기화</button>
                                 </div>
                             </div>
+
+                            <div class="modal fade" id="denyModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="denyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="denyModalLabel">거부</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            거부의견
+                                            <label>
+                                                <input type="text" name="refusal">
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-confirm" id="btn-danger"
+                                                    data-dismiss="modal" data-state="거절">거부
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

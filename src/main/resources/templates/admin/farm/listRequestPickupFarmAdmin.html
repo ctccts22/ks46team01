@@ -62,25 +62,13 @@
 
 
                                 <tbody>
-                                <tr>
-                                    <td>하니팜</td>
-                                    <td>010-1234-5678</td>
-                                    <td>전라남도 영암군 시종면 옥야리 318-4</td>
-                                    <td>15kg</td>
-                                    <td>2023/04/12</td>
-                                    <td>승인대기중</td>
-                                </tr>
-                                <tr>
-                                    <td>동물농장</td>
-                                    <td>010-5789-5478</td>
-                                    <td>전라남도 영암군 시종면 옥야리 999-5</td>
-                                    <td>105kg</td>
-                                    <td>2023/04/13</td>
-                                    <td>승인대기중</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
+                                <tr th:each="confirmList, confirmListIndex : ${confirmList}">
+                                    <td th:text="${confirmList.companyInfoName}"></td>
+                                    <td th:text="${confirmList.farmPickupRequestPhone}"></td>
+                                    <td th:text="${confirmList.farmPickupRequestAddress}"></td>
+                                    <td th:text="${confirmList.farmPickupRequestAmount}+kg"></td>
+                                    <td th:text="${confirmList.farmPickupRequestDate}"></td>
+                                    <td th:text="${confirmList.farmPickupConfirmStatus}"></td>
                                 </tr>
                                 </tbody>
                             </table>

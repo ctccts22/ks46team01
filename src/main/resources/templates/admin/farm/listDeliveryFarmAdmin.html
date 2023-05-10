@@ -64,13 +64,13 @@
                                     </thead>
 
                                     <tbody>
-                                    <tr>
-                                        <td>팜하니</td>
-                                        <td>010-1234-5678</td>
-                                        <td>전라남도 영암군 시종면 옥야리 549</td>
-                                        <td>25kg</td>
-                                        <td>2023/04/13</td>
-                                        <td>배송중</td>
+                                    <tr th:each="deliveryList, deliveryListIndex: ${deliveryList}">
+                                        <td th:text="${deliveryList.companyInfoName}"></td>
+                                        <td th:text="${deliveryList.orderCompostPhone}"></td>
+                                        <td th:text="${deliveryList.orderCompostAddress}"></td>
+                                        <td th:text="${deliveryList.orderCompostAmount}"></td>
+                                        <td th:text="${deliveryList.orderCompostDate}"></td>
+                                        <td th:text="${deliveryList.orderCompostDeliveryStatus}"></td>
                                     </tr>
                                     </tbody>
                                 </table>

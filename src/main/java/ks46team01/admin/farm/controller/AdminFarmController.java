@@ -1,16 +1,30 @@
 package ks46team01.admin.farm.controller;
 
 
+import ks46team01.admin.farm.service.FarmServiceImpl;
+import ks46team01.common.farm.dto.FarmPickupConfirm;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/farm")
 public class AdminFarmController {
+    private final FarmServiceImpl farmService;
+
+    public AdminFarmController(FarmServiceImpl farmService) {
+        this.farmService = farmService;
+    }
+
     //폐배지 수거신청 관리
     @GetMapping("/listRequestPickupFarmAdmin")
-    public String adminFarmPickupRequestList() {
+    public String adminFarmPickupRequestList(Model model) {
+        List<FarmPickupConfirm> farmPickupConfirmList = farmService.farmPickupConfirmList();
+        model.addAttribute("confirmList",farmPickupConfirmList);
+
         return "admin/farm/listRequestPickupFarmAdmin";
     }
 

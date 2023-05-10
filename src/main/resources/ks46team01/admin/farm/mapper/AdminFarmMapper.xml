@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks46team01.admin.farm.mapper.AdminFarmMapper">
+    <select id="farmPickupConfirmList" resultType="ks46team01.common.farm.dto.FarmPickupConfirm">
+        SELECT
+        ci.company_info_name AS companyInfoName,
+        fpr.farm_pickup_request_phone AS farmPickupRequestPhone,
+        fpr.farm_pickup_request_address AS farmPickupRequestAddress,
+        fpr.farm_pickup_request_amount AS farmPickupRequestAmount,
+        fpr.farm_pickup_request_date AS farmPickupRequestDate,
+        fpc.farm_pickup_confirm_status AS farmPickupConfirmStatus
+        FROM
+        farm_pickup_confirm fpc
+        INNER JOIN farm_pickup_request fpr
+        ON fpc.farm_pickup_request_idx = fpr.farm_pickup_request_idx
+        LEFT JOIN company_info ci
+        ON ci.company_info_idx = fpr.company_info_idx;
+    </select>
+<!--<insert id="">-->
+<!--    INSERT INTO farm_pickup_confirm(-->
+<!--    farm_pickup_request_idx,-->
+<!--    username,-->
+<!--    company_info_idx,-->
+<!--    farm_pickup_confirm_status,-->
+<!--    farm_pickup_confirm_content,-->
+<!--    admin_username,-->
+<!--    farm_pickup_confirm_date-->
+<!--    )-->
+<!--    VALUES(1,'user2',2,'승인','승인내용 확인!','admin1',now());-->
+<!--</insert>-->
+</mapper>

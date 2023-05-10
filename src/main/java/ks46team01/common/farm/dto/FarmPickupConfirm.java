@@ -8,6 +8,7 @@ public class FarmPickupConfirm extends FarmPickupRequest{
     private Long farmPickupRequestIdx;
     private String userName;
     private Long companyInfoIdx;
+    private String companyInfoName;
     private String farmPickupConfirmStatus;
     private String farmPickupConfirmContent;
     private String adminUsername;
