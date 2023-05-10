@@ -26,11 +26,11 @@ public class AdminInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        // You can leave this method empty if you don't want to do anything after the request is handled.
+
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        // You can leave this method empty if you don't want to do anything after the request is completed.
+
     }
 }
