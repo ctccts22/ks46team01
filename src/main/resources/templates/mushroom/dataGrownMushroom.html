@@ -86,7 +86,53 @@
                 lengthChange : false
             });
         });
-        //수정화면 체크박스
+
+
+        $(document).ready(function() {
+            // 검색 버튼 클릭 시
+            $('#search-btn').click(function(e) {
+                e.preventDefault();
+                const searchType = $('select.form-select').val();
+                const searchValue = $('input.form-control').val().trim().toLowerCase();
+
+                if (searchValue === '') {
+                    // 검색어가 비어 있을 경우, 모든 행을 보여줌
+                    $('table tbody tr').show();
+                } else {
+                    // 검색어와 유사한 값을 포함하는 행을 찾아 보여줌
+                    $('table tbody tr').each(function() {
+                        let searchKey = '';
+                        switch (searchType) {
+                            case '1':
+                                searchKey = 'mushroomGrowthIdx';
+                                break;
+                            case '2':
+                                searchKey = 'username';
+                                break;
+                            case '3':
+                                searchKey = 'companyInfoIdx';
+                                break;
+                            case '4':
+                                searchKey = 'farmDataIdx';
+                                break;
+                            case '5':
+                                searchKey = 'cropIdx';
+                                break;
+                            default:
+                                break;
+                        }
+                        const columnValue = $(this).find(`td[data-key="${searchKey}"]`).text().trim().toLowerCase();
+                        if (columnValue.includes(searchValue)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+        });
+
+
     </script>
 </th:block>
 
@@ -107,12 +153,19 @@
                         <div class="col-md-6">
                             <form th:action="@{/mushroom/dataGrownMushroom}" method="get">
                                 <div class="input-group">
+                                    <select class="form-select" size="1" aria-label="size 3 select example">
+                                        <option selected>선택</option>
+                                        <option value="1">버섯생육정보 고유코드</option>
+                                        <option value="2">이용자 아이디</option>
+                                        <option value="3">사업자 정보</option>
+                                        <option value="4">농가재배정보등록고유코드</option>
+                                        <option value="5">작물</option>
+                                    </select>
                                     <input type="text" class="form-control" placeholder=" 버섯재배일지 검색" name="mushroomGrowthIdx">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit">검색</button>
+                                        <button id="search-btn" class="btn btn-outline-secondary" type="submit">검색</button>
                                         <a class="btn btn-outline-secondary" th:href="@{/mushroom/dataGrownMushroom}">초기화</a>
                                     </div>
-                                    <div th:insert="~{/mushroom/search/searchDataGrownMushroom :: searchFragment}"></div>
                                 </div>
                             </form>
                             <div style="display: flex;">

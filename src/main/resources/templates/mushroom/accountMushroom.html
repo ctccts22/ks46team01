@@ -103,6 +103,56 @@
                 lengthChange : false
             });
         });
+        //검색
+        $(document).ready(function() {
+            // 검색 버튼 클릭 시
+            $('#search-btn').click(function(e) {
+                e.preventDefault();
+                const searchType = $('select.form-select').val();
+                const searchValue = $('input.form-control').val().trim().toLowerCase();
+
+                if (searchValue === '') {
+                    // 검색어가 비어 있을 경우, 모든 행을 보여줌
+                    $('table tbody tr').show();
+                } else {
+                    // 검색어와 유사한 값을 포함하는 행을 찾아 보여줌
+                    $('table tbody tr').each(function() {
+                        let searchKey = '';
+                        switch (searchType) {
+                            case '1':
+                                searchKey = 'accountingPurchaseIdx';
+                                break;
+                            case '2':
+                                searchKey = 'username';
+                                break;
+                            case '3':
+                                searchKey = 'companyIdx';
+                                break;
+                            case '4':
+                                searchKey = 'companyInfoIdx';
+                                break;
+                            case '5':
+                                searchKey = 'inventoryIdx';
+                                break;
+                            case '6':
+                                searchKey = 'companyContractIdx';
+                                break;
+                            default:
+                                break;
+                        }
+                        const columnValue = $(this).find(`td[data-key="${searchKey}"]`).text().trim().toLowerCase();
+                        if (columnValue.includes(searchValue)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+        });
+
+
+
 
     </script>
 </th:block>
@@ -124,12 +174,20 @@
                         <div class="col-md-6">
                             <form th:action="@{/mushroom/accountMushroom}" method="get">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="검색 대상을 입력하세요" name="mushroomConditionIdx">
+                                    <select class="form-select" >
+                                        <option selected>선택</option>
+                                        <option value="1">회계관리 매입 고유번호</option>
+                                        <option value="2">이용자 이름</option>
+                                        <option value="3">사업장 고유코드</option>
+                                        <option value="4">사업장 상세정보</option>
+                                        <option value="5">재고물품고유번호</option>
+                                        <option value="6">사업자 계약관리고유번호</option>
+                                    </select>
+                                    <input type="text" class="form-control" placeholder="검색 대상을 입력하세요">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit">검색</button>
+                                        <button  id="search-btn" class="btn btn-outline-secondary" type="submit">검색</button>
                                         <a class="btn btn-outline-secondary" th:href="@{/mushroom/accountMushroom}">초기화</a>
                                     </div>
-                                    <div th:insert="~{/mushroom/search/searchAccountMushroom :: searchFragment}"></div>
                                 </div>
                             </form>
                             <div style="display: flex;">
@@ -150,6 +208,7 @@
                                             <thead>
                                             <tr role="row">
                                                 <th>회계관리 매입 고유번호</th>
+                                                <th>이용자 아이디</th>
                                                 <th>사업장 고유코드</th>
                                                 <th>사업장 상세정보</th>
                                                 <th>재고물품고유번호</th>
@@ -160,8 +219,7 @@
                                                 <th>매입거래량</th>
                                                 <th>결제유형</th>
                                                 <th>금액</th>
-                                                <th>운영자아이디</th>
-                                                <th>수정날짜</th>
+                                                <th>거래 마감코드</th>
                                                 <th>수정</th>
                                                 <th>삭제</th>
                                             </tr>

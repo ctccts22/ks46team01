@@ -117,7 +117,7 @@
                 ,@RequestParam(name="cropIdx" ,required = false)Long cropIdx
                 ,@RequestParam(name="mushroomGrowthDaily" ,required = false)int mushroomGrowthDaily
                 ,@RequestParam(name="mushroomGrowthStatus" ,required = false)String mushroomGrowthStatus
-                ,@RequestParam(name="mushroomGrowthDate" ,required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Timestamp mushroomGrowthDate
+                ,@RequestParam(name="mushroomGrowthDate" ,required = false) Timestamp mushroomGrowthDate
                 ,@RequestParam(name="mushroomGrowthContent" ,required = false)String mushroomGrowthContent){
             farmMushroomGrowthService.modifyDataGrown(mushroomGrowthIdx
                     , username

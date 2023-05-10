@@ -82,14 +82,12 @@
 
                 });
             });
-
             $('#datatable-custom').DataTable({
                 pagination: false,
                 searching: false,
                 lengthChange : false
             });
         });
-
         //수정화면 체크박스
         function handleCheckboxClick(clickedCheckbox) {
             const checkbox1 = document.getElementById("modify-pastDataUse1");
@@ -101,6 +99,51 @@
                 checkbox1.checked = false;
             }
         }
+
+
+        //검색
+        $(document).ready(function() {
+            // 검색 버튼 클릭 시
+            $('#search-btn').click(function(e) {
+                e.preventDefault();
+                const searchType = $('select.form-select').val();
+                const searchValue = $('input.form-control').val().trim().toLowerCase();
+
+                if (searchValue === '') {
+                    // 검색어가 비어 있을 경우, 모든 행을 보여줌
+                    $('table tbody tr').show();
+                } else {
+                    // 검색어와 유사한 값을 포함하는 행을 찾아 보여줌
+                    $('table tbody tr').each(function() {
+                        let searchKey = '';
+                        switch (searchType) {
+                            case '1':
+                                searchKey = 'pastDataIdx';
+                                break;
+                            case '2':
+                                searchKey = 'username';
+                                break;
+                            case '3':
+                                searchKey = 'companyInfoIdx';
+                                break;
+                            case '4':
+                                searchKey = 'cropIdx';
+                                break;
+                            default:
+                                break;
+                        }
+                        const columnValue = $(this).find(`td[data-key="${searchKey}"]`).text().trim().toLowerCase();
+                        if (columnValue.includes(searchValue)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+        });
+
+
     </script>
 </th:block>
 
@@ -109,7 +152,7 @@
         <div class="title">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2 class="my-4">버섯년별 생산량 등록 조회</h2>
+                    <h2 class="my-4">과거 년별 버섯 생산량 등록 조회</h2>
                     <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -119,14 +162,22 @@
                 <div class="x_content">
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <form th:action="@{/mushroom/conditionMushroom}" method="get">
+                            <form th:action="@{/mushroom/dataPastMushroom}" method="get">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="버섯종류 코드를 입력하세요" name="pastDataIdx">
+                                    <select class="form-select" size="1" aria-label="size 3 select example">
+                                        <option selected>선택</option>
+                                        <option value="1">과거버섯데이터 고유코드</option>
+                                        <option value="2">사용자 정보</option>
+                                        <option value="3">사업자 정보</option>
+                                        <option value="4">작물</option>
+
+                                    </select>
+                                    <input type="text" class="form-control" placeholder="검색어를 입력하세요">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit">검색</button>
-                                        <a class="btn btn-outline-secondary" th:href="@{/mushroom/dataFarmMushroom}">초기화</a>
+                                        <button id="search-btn" class="btn btn-outline-secondary" type="submit">검색</button>
+                                        <a class="btn btn-outline-secondary" th:href="@{/mushroom/dataPastMushroom}">초기화</a>
                                     </div>
-                                    <div th:insert="~{/mushroom/search/searchConditionMushroom :: searchFragment}"></div>
+
                                 </div>
                             </form>
                             <div style="display: flex;">
@@ -142,7 +193,7 @@
                                          class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
                                         <table id="datatable-custom"
                                                class="table table-striped table-bordered dataTable no-footer dtr-inline"
-                                               style="width: 100%;" role="grid"
+                                               sty  le="width: 100%;" role="grid"
                                                aria-describedby="datatable-buttons_info">
                                             <thead>
                                             <tr role="row">

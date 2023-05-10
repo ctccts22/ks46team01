@@ -47,7 +47,7 @@ public class FarmPastDataService {
         return farmPastDataMapper.addFarmPastData(farmPastData);
     }
 
-    //수정
+    //수정 대상 조회
     public FarmPastData getFarmPastDataInfoById(Long pastDataIdx
                                         , String username
                                         , Long companyInfoIdx
@@ -74,7 +74,7 @@ public class FarmPastDataService {
                                             ,  pastDataDate);
         return farmPastDataInfo;
     }
-
+    //수정
     public void modifyFarmPastData(Long pastDataIdx
             , String username
             , Long companyInfoIdx

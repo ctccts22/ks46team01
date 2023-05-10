@@ -12,6 +12,7 @@
     import org.springframework.web.bind.annotation.*;
 
     import java.sql.Timestamp;
+    import java.time.LocalDateTime;
     import java.util.List;
 
     @Controller
@@ -119,7 +120,7 @@
                 ,@RequestParam(name="pastDataYear",required = false)Integer pastDataYear
                 ,@RequestParam(name="pastDataUse",required = false)String pastDataUse
                 ,@RequestParam(name="pastDataComparison",required = false)String pastDataComparison
-                ,@RequestParam(name="pastDataDate",required = false)Timestamp pastDataDate){
+                ,@RequestParam(name="pastDataDate",required = false) String pastDataDate){
             farmPastDataService.modifyFarmPastData(pastDataIdx
                     , username
                     , companyInfoIdx
@@ -130,7 +131,7 @@
                     , pastDataYear
                     , pastDataUse
                     , pastDataComparison
-                    , pastDataDate);
+                    , Timestamp.valueOf(pastDataDate));
             return "redirect:/mushroom/dataPastMushroom";
         }
 
