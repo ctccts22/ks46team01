@@ -5,7 +5,7 @@
 	<!-- If user is logged in and not admin -->
 	<div th:if="${session.user != null and session.adminUser == null}" class="nav_menu">
 		<div class="nav toggle">
-			<a id="menu_toggle_logged_in" class="menu-toggle"><i class="fa fa-bars"></i></a>
+			<a id="menu_toggle" class="menu-toggle"><i class="fa fa-bars"></i></a>
 		</div>
 		<nav class="nav navbar-nav">
 			<ul class="navbar-right">
@@ -32,7 +32,7 @@
 	<!-- If admin is logged in -->
 	<div th:if="${session.adminUser != null}" class="nav_menu">
 		<div class="nav toggle">
-			<a id="menu_toggle_admin_logged_in" class="menu-toggle"><i class="fa fa-bars"></i></a>
+			<a id="menu_toggle" class="menu-toggle"><i class="fa fa-bars"></i></a>
 		</div>
 		<nav class="nav navbar-nav">
 			<ul class="navbar-right">
@@ -56,7 +56,7 @@
 	<!-- If user is not logged in -->
 	<div th:if="${session.user == null and session.adminUser == null}" class="nav_menu">
 		<div class="nav toggle">
-			<a id="menu_toggle_not_logged_in" class="menu-toggle"><i class="fa fa-bars"></i></a>
+			<a id="menu_toggle" class="menu-toggle"><i class="fa fa-bars"></i></a>
 		</div>
 		<nav class="nav navbar-nav">
 			<ul class="navbar-right">
