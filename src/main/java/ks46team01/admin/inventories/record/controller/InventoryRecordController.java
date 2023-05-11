@@ -20,35 +20,35 @@ public class InventoryRecordController {
     private final InventoryRecordService inventoryRecordService;
     private final AdminRepository adminRepository;
 
-    @GetMapping("/{inventoryRecordId}")
+    @GetMapping("/addInventory/{inventoryRecordId}")
     public ResponseEntity<InventoryRecord> getInventoryRecord(@PathVariable Long inventoryRecordId) {
         InventoryRecord inventoryRecord = inventoryRecordService.getInventoryRecord(inventoryRecordId);
         return new ResponseEntity<>(inventoryRecord, HttpStatus.OK);
     }
 
-    @PostMapping("/add/{companyId}/{inventoryId}/{amount}/{isExceptional}")
-    public ResponseEntity<String> addInventoryRecord(@PathVariable Long companyId, @PathVariable Long inventoryId,
+    @PostMapping("/add/{companyContractIdx}/{inventoryIdx}/{amount}/{isExceptional}")
+    public ResponseEntity<String> addInventoryRecord(@PathVariable Long companyContractIdx, @PathVariable Long inventoryIdx,
                                                @PathVariable double amount, @PathVariable boolean isExceptional,
                                                HttpSession session) {
         Admin sessionAdmin = (Admin) session.getAttribute("adminUser");
         Optional<Admin> adminOptional = adminRepository.findByAdminUsername(sessionAdmin.getAdminUsername());
         if (adminOptional.isPresent()) {
             Admin admin = adminOptional.get();
-            inventoryRecordService.addInventoryRecord(companyId, inventoryId, amount, isExceptional, admin);
+            inventoryRecordService.addInventoryRecord(companyContractIdx, inventoryIdx, amount, isExceptional, admin);
             return new ResponseEntity<>("Inventory added successfully", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Admin not found", HttpStatus.NOT_FOUND);
         }
     }
 
-    @PostMapping("/remove/{companyId}/{inventoryId}/{amount}")
-    public ResponseEntity<String> removeInventoryRecord(@PathVariable Long companyId, @PathVariable Long inventoryId,
+    @PostMapping("/remove/{companyContractIdx}/{inventoryIdx}/{amount}")
+    public ResponseEntity<String> removeInventoryRecord(@PathVariable Long companyContractIdx, @PathVariable Long inventoryIdx,
                                                   @PathVariable double amount, HttpSession session) {
         Admin sessionAdmin = (Admin) session.getAttribute("adminUser");
         Optional<Admin> adminOptional = adminRepository.findByAdminUsername(sessionAdmin.getAdminUsername());
         if (adminOptional.isPresent()) {
             Admin admin = adminOptional.get();
-            inventoryRecordService.removeInventoryRecord(companyId, inventoryId, amount, admin);
+            inventoryRecordService.removeInventoryRecord(companyContractIdx, inventoryIdx, amount, admin);
             return new ResponseEntity<>("Inventory removed successfully", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Admin not found", HttpStatus.NOT_FOUND);

@@ -134,7 +134,7 @@
     <div class="title">
       <div class="x_panel">
         <div class="x_title">
-          <h2 class="my-4">재고물품목록</h2>
+          <h2 class="my-4">재고목록</h2>
 
           <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -149,7 +149,8 @@
         </div>
 
         <div style="display: flex;">
-          <button class="btn btn-outline-secondary add-button" type="submit">재고등록</button>
+          <button class="btn btn-outline-secondary add-button" type="submit">재고품목등록</button>
+          <a class="btn btn-outline-secondary list-button" th:href="@{/admin/inventory/listInventoryDetail}">재고상세리스트</a>
         </div>
 
         <div class="x_content">
