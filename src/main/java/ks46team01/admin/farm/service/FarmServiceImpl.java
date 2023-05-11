@@ -2,6 +2,7 @@ package ks46team01.admin.farm.service;
 
 import ks46team01.admin.farm.mapper.AdminFarmMapper;
 import ks46team01.common.farm.dto.FarmPickupConfirm;
+import ks46team01.common.farm.dto.FarmPickupDelivery;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,4 +20,22 @@ public class FarmServiceImpl implements FarmService{
         List<FarmPickupConfirm> farmPickupConfirm = adminFarmMapper.farmPickupConfirmList();
         return farmPickupConfirm;
     }
+
+    @Override
+    public void farmPickupConfirmInsert(FarmPickupConfirm farmPickupConfirm) {
+        adminFarmMapper.farmPickupConfirmInsert(farmPickupConfirm);
+    }
+
+    @Override
+    public List<FarmPickupConfirm> farmPickupConfirmStatusList() {
+        List<FarmPickupConfirm> farmPickupConfirmStatusList = adminFarmMapper.farmPickupConfirmStatusList();
+        return farmPickupConfirmStatusList;
+    }
+
+    @Override
+    public List<FarmPickupDelivery> farmPickupDeliveryList() {
+        List<FarmPickupDelivery> farmPickupDeliveryList = adminFarmMapper.farmPickupDeliveryList();
+        return farmPickupDeliveryList;
+    }
+
 }

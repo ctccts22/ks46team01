@@ -2,7 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks46team01.admin.farm.mapper.AdminFarmMapper">
-    <select id="farmPickupConfirmList" resultType="ks46team01.common.farm.dto.FarmPickupConfirm">
+    <select id="farmPickupDeliveryList" resultType="ks46team01.common.farm.dto.FarmPickupDelivery">
+        SELECT
+        ci.company_info_name AS companyInfoName,
+        fpr.farm_pickup_request_phone AS farmPickupRequestPhone,
+        fpr.farm_pickup_request_address AS farmPickupRequestAddress,
+        fpr.farm_pickup_request_amount AS farmPickupRequestAmount,
+        fpr.farm_pickup_request_date AS farmPickupRequestDate,
+        fpd.farm_pickup_delivery_status AS farmPickupDeliveryStatus
+        FROM farm_pickup_delivery fpd
+        INNER JOIN farm_pickup_request fpr
+        ON fpd.farm_pickup_request_idx = fpr.farm_pickup_request_idx
+        INNER JOIN company_info ci
+        ON ci.company_info_idx = fpr.company_info_idx;
+    </select>
+    <select id="farmPickupConfirmStatusList" resultType="ks46team01.common.farm.dto.FarmPickupConfirm">
         SELECT
         ci.company_info_name AS companyInfoName,
         fpr.farm_pickup_request_phone AS farmPickupRequestPhone,
@@ -10,23 +24,41 @@
         fpr.farm_pickup_request_amount AS farmPickupRequestAmount,
         fpr.farm_pickup_request_date AS farmPickupRequestDate,
         fpc.farm_pickup_confirm_status AS farmPickupConfirmStatus
-        FROM
-        farm_pickup_confirm fpc
+        FROM farm_pickup_confirm fpc
         INNER JOIN farm_pickup_request fpr
         ON fpc.farm_pickup_request_idx = fpr.farm_pickup_request_idx
-        LEFT JOIN company_info ci
+        INNER JOIN company_info ci
         ON ci.company_info_idx = fpr.company_info_idx;
     </select>
-<!--<insert id="">-->
-<!--    INSERT INTO farm_pickup_confirm(-->
-<!--    farm_pickup_request_idx,-->
-<!--    username,-->
-<!--    company_info_idx,-->
-<!--    farm_pickup_confirm_status,-->
-<!--    farm_pickup_confirm_content,-->
-<!--    admin_username,-->
-<!--    farm_pickup_confirm_date-->
-<!--    )-->
-<!--    VALUES(1,'user2',2,'승인','승인내용 확인!','admin1',now());-->
-<!--</insert>-->
+    <select id="farmPickupConfirmList" resultType="ks46team01.common.farm.dto.FarmPickupConfirm">
+        SELECT
+        fpr.farm_pickup_request_idx as farmPickupRequestIdx,
+        fpr.username AS userName,
+        ci.company_info_idx AS companyInfoIdx,
+        ci.company_info_name AS companyInfoName,
+        fpr.farm_pickup_request_phone AS farmPickupRequestPhone,
+        fpr.farm_pickup_request_address AS farmPickupRequestAddress,
+        fpr.farm_pickup_request_amount AS farmPickupRequestAmount,
+        fpr.farm_pickup_request_date AS farmPickupRequestDate,
+        fpr.farm_pickup_request_content AS farmPickupRequestContent,
+        COALESCE(fpc.farm_pickup_confirm_status  , '대기중') AS farmPickupConfirmStatus
+        FROM farm_pickup_request fpr
+        left JOIN farm_pickup_confirm fpc
+        ON fpr.farm_pickup_request_idx = fpc.farm_pickup_request_idx
+        INNER JOIN company_info ci
+        ON fpr.company_info_idx = ci.company_info_idx
+        WHERE fpc.farm_pickup_confirm_status IS NULL;
+    </select>
+<insert id="farmPickupConfirmInsert" parameterType="ks46team01.common.farm.dto.FarmPickupConfirm">
+    INSERT INTO farm_pickup_confirm(
+    farm_pickup_request_idx,
+    username,
+    company_info_idx,
+    farm_pickup_confirm_status,
+    farm_pickup_confirm_content,
+    admin_username,
+    farm_pickup_confirm_date
+    )VALUES(
+    #{farmPickupRequestIdx},#{userName},#{companyInfoIdx},#{farmPickupConfirmStatus},#{farmPickupConfirmContent},#{adminUsername},now());
+</insert>
 </mapper>

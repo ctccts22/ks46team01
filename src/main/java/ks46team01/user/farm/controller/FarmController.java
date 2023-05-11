@@ -51,7 +51,9 @@ public class FarmController {
         map.put("phone",phone);
         map.put("message",message);
         userFarmService.farmPickupInsert(map);
-        return null;
+        List<FarmData> farmPickupList = userFarmService.listFarmPickup(userId);
+        model.addAttribute("farmPickupList",farmPickupList);
+        return "user/farm/listConfirmPickupWasted";
     }
     @GetMapping("/listConfirmPickupWasted")
     public String wastedPickupConfirmList(HttpSession session,
