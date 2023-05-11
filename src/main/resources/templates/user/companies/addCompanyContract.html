@@ -10,6 +10,20 @@
   <script>
       $(document).ready(function () {
           console.log('test');
+
+          function setCompanyContractType() {
+              const companyIdx = $('#company_idx').val();
+              const companyContractTypeInput = $('#company_contract_type');
+
+              if (companyIdx === '1') {
+                  companyContractTypeInput.val('판매');
+              } else if (companyIdx === '2' || companyIdx === '3') {
+                  companyContractTypeInput.val('구매');
+              } else {
+                  companyContractTypeInput.val('');
+              }
+          }
+
           $('body').on('click', '#fetch-data-btn', function () {
               $.ajax({
                   url: '/user/companies/getCompanyInfo',
@@ -22,10 +36,12 @@
                           $('#company_type').val(data.companyType);
                           $('#company_idx').val(data.companyIdx);
                           $('#company_info_idx').val(data.companyInfoIdx);
+                          $('#inventory_idx').val(data.inventoryType);
                           $('#company_unit_idx').val(data.companyUnitIdx);
                           $('#company_unit_year').val(data.companyUnitYear);
                           $('#company_unit_amount').val(data.companyUnitAmount);
                           $('#company_unit_price').val(data.companyUnitPrice);
+                          setCompanyContractType();
 
                           Swal.fire({
                               title: '성공',
@@ -98,6 +114,7 @@
               event.preventDefault();
               submitFormData();
           });
+
       });
   </script>
 
@@ -140,6 +157,19 @@
       <input type="hidden" id="company_unit_idx" th:field="*{companyUnitIdx}" data-key="companyUnitIdx" class="form-control">
       <input type="hidden" id="company_info_idx" th:field="*{companyInfoIdx}" data-key="companyInfoIdx" class="form-control">
 
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_unit_year">계약종류</label>
+        <div class="col-md-6 col-sm-6">
+          <input type="text" id="company_contract_type" class="form-control hidden" disabled>
+        </div>
+      </div>
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="inventory_idx">품목</label>
+        <div class="col-md-6 col-sm-6">
+          <input type="text" id="inventory_idx" th:field="*{companyInfoIdx.inventoryIdx.inventoryType}" class="form-control hidden" disabled>
+        </div>
+      </div>
 
       <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_unit_year">계약단가년도</label>

@@ -43,42 +43,13 @@
                               companyType: $('#add-companyType').val(),
                           },
                           success: function (response) {
-                              const companyList = response;
-
-                              if(companyList == null){
-                                  Swal.fire('Error!', '관리자등록에 실패했습니다.', 'error');
-                              }else{
-                                  const dataList = companyList;
-                                  const sessionId = [[${session.adminUser.adminUsername}]];
-                                  console.log(sessionId);
-                                  dataList.forEach(item => item['adminUsername']=sessionId);
-                                  console.log(dataList);
-                                  $('#datatable-custom').DataTable().destroy();
-                                  $('#datatable-custom').DataTable({
-                                      pagination: false,
-                                      searching: true,
-                                      lengthChange: false,
-                                      dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
-                                          "<'row'<'col-sm-12'tr>>" +
-                                          "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-                                      data: dataList,
-                                      columns: [
-                                          {data : 'companyIdx'},
-                                          {data : 'companyType'},
-                                          {data : 'adminUsername'},
-                                          {
-                                              data: 'companyDate',
-                                              render: function (data, type, row) {
-                                                  return formatDate(data);
-                                              }
-                                          }
-                                      ]
+                              Swal.fire('Success!', '성공적으로 수정되었습니다.', 'success')
+                                  .then(() => {
+                                      location.reload();
                                   });
-                              }
-                              Swal.fire('Success!', '관리자가 성공적으로 등록되었습니다.', 'success');
                           },
                           error: function () {
-                              Swal.fire('Error!', '관리자등록에 실패했습니다.', 'error');
+                              Swal.fire('Error!', '수정에 실패했습니다.', 'error');
                           },
                       });
                   }
