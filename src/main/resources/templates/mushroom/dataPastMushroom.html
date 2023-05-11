@@ -28,11 +28,9 @@
                 $('#add-pastDataYear').attr('min', '1990').attr('max', '2023').attr('type', 'number').val(pastDataYear);
                 $('#add-pastDataUse').val(pastDataUse);
                 $('#add-pastDataComparison').val(pastDataComparison);
-
                 // 모달 보여짐
                 $('#addDataPastMushroomModal').modal('show');
             });
-
             $('body').on('click', '.edit-button', function () {
                 const row = $(this).closest('tr');
                 const pastDataIdx = row.find('td[data-key="pastDataIdx"]').text();
@@ -45,8 +43,6 @@
                 const pastDataYear = row.find('td[data-key="pastDataYear"]').text();
                 const pastDataUse = row.find('td[data-key="pastDataUse"]').text();
                 const pastDataComparison = row.find('td[data-key="pastDataComparison"]').text();
-                const pastDataDate = row.find('td[data-key="pastDataDate"]').text();
-
 
                 $('#modify-pastDataIdx').val(pastDataIdx);
                 $('#modify-username').val(username);
@@ -58,7 +54,6 @@
                 $('#modify-pastDataYear').attr('min', '1990').attr('max', '2023').attr('type', 'number').val(pastDataYear);
                 $('#modify-pastDataUse').val(pastDataUse);
                 $('#modify-pastDataComparison').val(pastDataComparison);
-                $('#modify-pastDataDate').val(pastDataDate).prop('type', 'date');
 
                 // 모달 보여짐
                 $('#modifyDataPastMushroomModal').modal('show');
@@ -144,6 +139,7 @@
         });
 
 
+
     </script>
 </th:block>
 
@@ -207,7 +203,7 @@
                                                 <th>년도</th>
                                                 <th>사용유무</th>
                                                 <th>플랫폼사용 전 데이터</th>
-                                                <th>등록날짜</th>
+                                                <th>최종 입력 날짜</th>
                                                 <th>수정</th>
                                                 <th>삭제</th>
                                             </tr>
@@ -221,10 +217,10 @@
                                                 <td data-key="pastDataMushroomProduction" th:text="${l.pastDataMushroomProduction}"></td>
                                                 <td data-key="pastDataTotalRevenue" th:text="${l.pastDataTotalRevenue}"></td>
                                                 <td data-key="pastDataBadgeUse" th:text="${l.pastDataBadgeUse}"></td>
-                                                <td data-key="pastDataYear" th:text="${l.pastDataYear}"></td>
+                                                <td data-key="pastDataYear" th:text="${l.pastDataYear + ' 년'}"></td>
                                                 <td data-key="pastDataUse" th:text="${l.pastDataUse}"></td>
                                                 <td data-key="pastDataComparison" th:text="${l.pastDataComparison}"></td>
-                                                <td data-key="pastDataDate" th:text="${l.pastDataDate}"></td>
+                                                <td data-key="pastDataDate" th:text="${#strings.substring(l.pastDataDate, 0, 10)}"></td>
                                                 <td>
                                                     <button type="button" class="edit-button">수정</button>
                                                 </td>
@@ -362,7 +358,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-pastDataTotalRevenue">pastDataTotalRevenue</label>
-                                                                <input type="text" class="form-control" id="modify-pastDataTotalRevenue" name="pastDataTotalRevenue" placeholder="pastDataTotalRevenue 을 입력하세요"/>
+                                                                <input type="text" class="form-control" id="modify-pastDataTotalRevenue" name="pastDataTotalRevenue" placeholder="pastDataTotalRevenue 을 입력하세요" onfocus="removeMoneySymbol(this)" autofocus />
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-pastDataBadgeUse">pastDataBadgeUse</label>

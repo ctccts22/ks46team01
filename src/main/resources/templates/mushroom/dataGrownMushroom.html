@@ -54,7 +54,7 @@
                 $('#modify-cropIdx').val(cropIdx);
                 $('#modify-mushroomGrowthDaily').val(mushroomGrowthDaily);
                 $('#modify-mushroomGrowthStatus').val(mushroomGrowthStatus);
-                $('#modify-mushroomGrowthDate').val(mushroomGrowthDate);
+                $('#modify-mushroomGrowthDate').val(mushroomGrowthDate).prop('type', 'date');
                 $('#modify-mushroomGrowthContent').val(mushroomGrowthContent);
 
                 // 모달 보여짐
@@ -207,7 +207,8 @@
                                                 <td data-key="cropIdx" th:text="${l.cropIdx}"></td>
                                                 <td data-key="mushroomGrowthDaily" th:text="${l.mushroomGrowthDaily}"></td>
                                                 <td data-key="mushroomGrowthStatus" th:text="${l.mushroomGrowthStatus}"></td>
-                                                <td data-key="mushroomGrowthDate" th:text="${l.mushroomGrowthDate}"></td>
+                                                <td data-key="mushroomGrowthDate" th:text="${#dates.format(l.mushroomGrowthDate, 'yyyy-MM-dd')}"></td>
+
                                                 <td data-key="mushroomGrowthContent" th:text="${l.mushroomGrowthContent}"></td>
                                                 <td>
                                                     <button type="button" class="edit-button">수정</button>

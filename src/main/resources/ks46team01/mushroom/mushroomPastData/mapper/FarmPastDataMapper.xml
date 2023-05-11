@@ -148,7 +148,7 @@
                 past_data_total_revenue = #{pastDataTotalRevenue},
             </if>
             <if test="pastDataBadgeUse != null and pastDataBadgeUse != ''">
-                past_data_use = #{pastDataBadgeUse},
+                past_data_badge_use = #{pastDataBadgeUse},
             </if>
             <if test="pastDataYear != null and pastDataYear != ''">
                 past_data_year = #{pastDataYear},
@@ -159,11 +159,7 @@
             <if test="pastDataComparison != null and pastDataComparison != ''">
                 past_data_comparison = #{pastDataComparison},
             </if>
-            <if test="pastDataDate != null and pastDataDate != ''">
-                past_data_date = #{pastDataDate},
-            </if>
-
-
+            past_data_date=NOW()
         </trim>
         WHERE
         past_data_idx = #{pastDataIdx};

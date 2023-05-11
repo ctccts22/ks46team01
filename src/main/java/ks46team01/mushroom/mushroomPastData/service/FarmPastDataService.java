@@ -1,10 +1,10 @@
 package ks46team01.mushroom.mushroomPastData.service;
 
+import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.crop.dto.Crop;
-import ks46team01.mushroom.mushroomPastData.dto.CompanyInfo;
 import ks46team01.mushroom.mushroomPastData.dto.FarmPastData;
-import ks46team01.mushroom.mushroomPastData.dto.UsernameInfo;
 import ks46team01.mushroom.mushroomPastData.mapper.FarmPastDataMapper;
+import ks46team01.user.info.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,9 +35,10 @@ public class FarmPastDataService {
         List<CompanyInfo> companyInfo = farmPastDataMapper.getCompanyInfo();
         return companyInfo;
     }
+
     //user
-    public List<UsernameInfo> getUsernameInfo(){
-        List<UsernameInfo> usernameInfo = farmPastDataMapper.getUsernameInfo();
+    public List<User> getUsernameInfo(){
+        List<User> usernameInfo = farmPastDataMapper.getUsernameInfo();
         return usernameInfo;
     }
 

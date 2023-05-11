@@ -1,10 +1,10 @@
     package ks46team01.mushroom.mushroomFarmData.controller;
 
-    import ks46team01.mushroom.mushroomFarmData.dto.CompanyInfo;
+    import ks46team01.common.company.info.entity.CompanyInfo;
     import ks46team01.mushroom.mushroomFarmData.dto.FarmData;
-    import ks46team01.mushroom.mushroomFarmData.dto.UsernameInfo;
     import ks46team01.mushroom.mushroomFarmData.mapper.FarmDataMapper;
     import ks46team01.mushroom.mushroomFarmData.service.FarmDataService;
+    import ks46team01.user.info.entity.User;
     import lombok.AllArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
     import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@
         public String dataFarm(Model model){
             List<FarmData>  farmData = farmDataService.getListFarmData();
             List<CompanyInfo> companyInfo = farmDataService.getCompanyInfo();
-            List<UsernameInfo> usernameInfo = farmDataService.getUsernameInfo();
+            List<User> usernameInfo = farmDataService.getUsernameInfo();
             model.addAttribute("title","조회");
             model.addAttribute("farmData",farmData);
             model.addAttribute("companyInfo",companyInfo);
@@ -43,7 +43,7 @@
         @GetMapping("add/addDataFarmMushroom")
         public String showAddFarmDataForm(Model model){
             List<CompanyInfo> companyInfo = farmDataService.getCompanyInfo();
-            List<UsernameInfo> usernameInfo = farmDataService.getUsernameInfo();
+            List<User> usernameInfo = farmDataService.getUsernameInfo();
             model.addAttribute("FarmData",new FarmData());
             model.addAttribute("companyInfo",companyInfo);
             model.addAttribute("usernameInfo",usernameInfo);
@@ -82,7 +82,7 @@
                     , farmDataDate);
             List<FarmData> farmData = farmDataService.getListFarmData();
             List<CompanyInfo> companyInfo = farmDataService.getCompanyInfo();
-            List<UsernameInfo> usernameInfo = farmDataService.getUsernameInfo();
+            List<User> usernameInfo = farmDataService.getUsernameInfo();
             model.addAttribute("farmData", farmData);
             model.addAttribute("companyInfo", companyInfo);
             model.addAttribute("usernameInfo", usernameInfo);

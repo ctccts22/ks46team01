@@ -1,9 +1,8 @@
 package ks46team01.mushroom.mushroomFarmData.mapper;
 
-import ks46team01.mushroom.mushroomCondition.dto.Crop;
-import ks46team01.mushroom.mushroomFarmData.dto.CompanyInfo;
+import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.mushroom.mushroomFarmData.dto.FarmData;
-import ks46team01.mushroom.mushroomFarmData.dto.UsernameInfo;
+import ks46team01.user.info.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.sql.Date;
@@ -16,7 +15,7 @@ public interface FarmDataMapper {
     //조회
     List<FarmData> getListFarmData();
     List<CompanyInfo> getCompanyInfo();
-    List<UsernameInfo> getUsernameInfo();
+    List<User> getUsernameInfo();
 
     //입력
     int addDataFarmMushroom(FarmData farmData);

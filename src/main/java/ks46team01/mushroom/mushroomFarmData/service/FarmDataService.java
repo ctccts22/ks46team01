@@ -1,10 +1,9 @@
 package ks46team01.mushroom.mushroomFarmData.service;
 
-import ks46team01.mushroom.mushroomCondition.dto.FarmCondition;
-import ks46team01.mushroom.mushroomFarmData.dto.CompanyInfo;
+import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.mushroom.mushroomFarmData.dto.FarmData;
-import ks46team01.mushroom.mushroomFarmData.dto.UsernameInfo;
 import ks46team01.mushroom.mushroomFarmData.mapper.FarmDataMapper;
+import ks46team01.user.info.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +32,8 @@ public class FarmDataService {
         return companyInfo;
     }
 
-    public List<UsernameInfo> getUsernameInfo() {
-        List<UsernameInfo> usernameInfo = farmDataMapper.getUsernameInfo();
+    public List<User> getUsernameInfo() {
+        List<User> usernameInfo = farmDataMapper.getUsernameInfo();
         return usernameInfo;
     }
 
@@ -82,16 +81,16 @@ public class FarmDataService {
                         , Double farmDataExpectedWasted
                         , Timestamp farmDataDate){
         farmDataMapper.modifyFarmData(farmDataIdx
-                        , username
-                        , companyInfoIdx
-                        , farmDataCompost
-                        , farmDataProduction
-                        , farmDataExpectedSale
-                        , farmDataActualSale
-                        , farmDataProductionDate
-                        , farmDataOccurrenceSaleDate
-                        , farmDataExpectedWasted
-                        , farmDataDate);
+                        ,  username
+                        ,  companyInfoIdx
+                        ,  farmDataCompost
+                        ,  farmDataProduction
+                        ,  farmDataExpectedSale
+                        ,  farmDataActualSale
+                        ,  farmDataProductionDate
+                        ,  farmDataOccurrenceSaleDate
+                        ,  farmDataExpectedWasted
+                        ,  farmDataDate);
 
     }
 

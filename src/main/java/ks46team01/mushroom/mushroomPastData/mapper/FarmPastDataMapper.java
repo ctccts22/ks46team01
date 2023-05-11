@@ -1,10 +1,10 @@
 package ks46team01.mushroom.mushroomPastData.mapper;
 
 
+import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.crop.dto.Crop;
-import ks46team01.mushroom.mushroomPastData.dto.CompanyInfo;
 import ks46team01.mushroom.mushroomPastData.dto.FarmPastData;
-import ks46team01.mushroom.mushroomPastData.dto.UsernameInfo;
+import ks46team01.user.info.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.sql.Timestamp;
@@ -16,7 +16,7 @@ public interface FarmPastDataMapper {
     List<FarmPastData> getListFarmPastData();
     List<Crop> getCropIdx();
     List<CompanyInfo> getCompanyInfo();
-    List<UsernameInfo> getUsernameInfo();
+    List<User> getUsernameInfo();
 
 
     //입력
