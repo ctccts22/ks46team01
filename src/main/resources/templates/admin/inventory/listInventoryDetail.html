@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+      .dataTables_wrapper .dataTables_filter {
+          float: left;
+          text-align: left;
+      }
+  </style>
+</head>
+
+<th:block layout:fragment="customJs">
+  <script>
+
+
+          $('#datatable-custom').DataTable({
+              pagination: false,
+              searching: true,
+              lengthChange: false,
+              dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
+                  "<'row'<'col-sm-12'tr>>" +
+                  "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+      });
+  </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <div class="page-title">
+    <div class="title">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2 class="my-4">재고기록</h2>
+
+          <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+              </div>
+            </li>
+          </ul>
+
+          <div class="clearfix"></div>
+        </div>
+
+        <div style="display: flex;">
+          <a class="btn btn-outline-secondary input-button" th:href="@{/admin/inventory/listInventoryInput}">재고입고</a>
+          <a class="btn btn-outline-secondary output-button" th:href="@{/admin/inventory/listInventoryOutput}">재고출고</a>
+          <a class="btn btn-outline-secondary output-button" th:href="@{/admin/inventory/listInventory}">리스트</a>
+        </div>
+
+        <div class="x_content">
+          <div class="row mb-3">
+            <div class="col-md-6">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card-box table-responsive">
+                <div class="col-sm-12">
+                  <div class="dataTables_wrapper container-fluid dt-bootstrap no-footer"
+                       id="datatable-buttons_wrapper">
+
+
+                    <table aria-describedby="datatable-buttons_info"
+                           class="table table-striped table-bordered dataTable no-footer dtr-inline"
+                           id="datatable-custom" role="grid"
+                           style="width: 100%;">
+                      <thead class="thead-dark">
+                      <tr role="row">
+                        <th>재고기록코드</th>
+                        <th>회원아이디</th>
+                        <th>계약자사업자번호</th>
+                        <th>재고품목</th>
+                        <th>최초입고중량</th>
+                        <th>최종입고중량</th>
+                        <th>분실입고중량</th>
+                        <th>예외입고중량</th>
+                        <th>관리자아이디</th>
+                        <th>최종업데이트날짜</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr class="odd" role="row" th:each="inventoryRecordLists : ${inventoryRecordList}">
+                        <td data-key="" th:text="${inventoryRecordLists.inventoryRecordIdx}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.companyContractIdx.companyInfoIdx.username}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.companyContractIdx.companyInfoIdx.companyInfoLicenseNumber}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.inventoryIdx.inventoryType}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.initialAmount}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.finalAmount}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.lossAmount}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.exceptionalAmount}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.adminUsername.adminUsername}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.lastUpdated}"></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>
+
+
