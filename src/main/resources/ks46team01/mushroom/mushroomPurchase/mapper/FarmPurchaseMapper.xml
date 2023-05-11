@@ -22,10 +22,10 @@
     <select id="getListPurchaseAccount" resultType="ks46team01.mushroom.mushroomPurchase.dto.FarmPurchase">
         SELECT
             map.accounting_purchase_idx                 as accountingPurchaseIdx
-            , map.username                              as username
-            , map.company_info_idx                      as companyInfoIdx
-            , map.company_idx                           as companyIdx
-            , map.inventory_idx                         as inventoryIdx
+            , u.name                              as name
+            , c.company_type                           as companyType
+            , ci.company_info_license_number                      as companyInfoLicenseNumber
+            , i.inventory_type                         as inventoryType
             , map.company_contract_idx                  as companyContractIdx
             , map.accounting_purchase_date              as accountingPurchaseDate
             , map.accounting_purchase_type              as accountingPurchaseType

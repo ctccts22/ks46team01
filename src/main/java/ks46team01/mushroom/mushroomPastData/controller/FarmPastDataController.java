@@ -1,10 +1,10 @@
     package ks46team01.mushroom.mushroomPastData.controller;
 
+    import ks46team01.common.company.info.entity.CompanyInfo;
     import ks46team01.crop.dto.Crop;
-    import ks46team01.mushroom.mushroomPastData.dto.CompanyInfo;
     import ks46team01.mushroom.mushroomPastData.dto.FarmPastData;
-    import ks46team01.mushroom.mushroomPastData.dto.UsernameInfo;
     import ks46team01.mushroom.mushroomPastData.service.FarmPastDataService;
+    import ks46team01.user.info.entity.User;
     import lombok.AllArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
     import org.springframework.stereotype.Controller;
@@ -12,7 +12,6 @@
     import org.springframework.web.bind.annotation.*;
 
     import java.sql.Timestamp;
-    import java.time.LocalDateTime;
     import java.util.List;
 
     @Controller
@@ -28,7 +27,7 @@
             List<FarmPastData> fpd = farmPastDataService.getFarmPastData();
             List<CompanyInfo> companyInfoList = farmPastDataService.getCompanyInfo();
             List<Crop> cropList = farmPastDataService.getCropIdx();
-            List<UsernameInfo> usernameInfoList = farmPastDataService.getUsernameInfo();
+            List<User> usernameInfoList = farmPastDataService.getUsernameInfo();
             model.addAttribute("title", "조회");
             model.addAttribute("fpd", fpd);
             model.addAttribute("companyInfoList", companyInfoList);
@@ -42,7 +41,7 @@
         public String showAddDataPastMushroomForm(Model model) {
             List<CompanyInfo> companyInfoList = farmPastDataService.getCompanyInfo();
             List<Crop> cropList = farmPastDataService.getCropIdx();
-            List<UsernameInfo> usernameInfoList = farmPastDataService.getUsernameInfo();
+            List<User> usernameInfoList = farmPastDataService.getUsernameInfo();
             model.addAttribute("FarmPastData", new FarmPastData());
             model.addAttribute("companyInfoList", companyInfoList);
             model.addAttribute("cropList", cropList);
@@ -89,7 +88,7 @@
             List<FarmPastData> fpd = farmPastDataService.getFarmPastData();
             List<CompanyInfo> companyInfoList = farmPastDataService.getCompanyInfo();
             List<Crop> cropList = farmPastDataService.getCropIdx();
-            List<UsernameInfo> usernameInfoList = farmPastDataService.getUsernameInfo();
+            List<User> usernameInfoList = farmPastDataService.getUsernameInfo();
 
             model.addAttribute("fpd", fpd);
             model.addAttribute("companyInfoList", companyInfoList);
@@ -120,7 +119,7 @@
                 ,@RequestParam(name="pastDataYear",required = false)Integer pastDataYear
                 ,@RequestParam(name="pastDataUse",required = false)String pastDataUse
                 ,@RequestParam(name="pastDataComparison",required = false)String pastDataComparison
-                ,@RequestParam(name="pastDataDate",required = false) String pastDataDate){
+                ,@RequestParam(name="pastDataDate",required = false) Timestamp pastDataDate){
             farmPastDataService.modifyFarmPastData(pastDataIdx
                     , username
                     , companyInfoIdx
@@ -131,7 +130,7 @@
                     , pastDataYear
                     , pastDataUse
                     , pastDataComparison
-                    , Timestamp.valueOf(pastDataDate));
+                    , pastDataDate);
             return "redirect:/mushroom/dataPastMushroom";
         }
 

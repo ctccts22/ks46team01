@@ -1,5 +1,6 @@
 package ks46team01.mushroom.mushroomCondition.mapper;
 
+
 import ks46team01.crop.dto.Crop;
 import ks46team01.mushroom.mushroomCondition.dto.FarmCondition;
 import org.apache.ibatis.annotations.Mapper;

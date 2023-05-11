@@ -19,6 +19,15 @@ public class FarmPurchase {
             private String accountingPurchaseCode;
 
 
+            private String inventoryType;
+            private String companyInfoLicenseNumber;
+            private String name;
+            private String companyType;
+
+
+
+
+
 
 
 }

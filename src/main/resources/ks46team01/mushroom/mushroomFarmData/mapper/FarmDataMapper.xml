@@ -101,7 +101,7 @@
         )
     </insert>
 
-    <select id="getFarmDataInfoByIdx" parameterType="String" resultMap="farmDataResultMap">
+    <select id="getFarmDataInfoByIdx" parameterType="Long" resultMap="farmDataResultMap">
         /* 특정회원조회 */
         SELECT
             farm_data_idx
@@ -140,21 +140,24 @@
             <if test="farmDataExpectedSale != null and farmDataExpectedSale != ''">
                 farm_data_expected_sale = #{farmDataExpectedSale},
             </if>
-            <if test="farmDataProductionDate != null and farmDataProductionDate != ''">
+            <if test="farmDataActualSale != null and farmDataActualSale != ''">
+                farm_data_actual_sale = #{farmDataActualSale},
+            </if>
+            <if test="farmDataProductionDate != null">
                 farm_data_production_date = #{farmDataProductionDate},
             </if>
-            <if test="farmDataOccurrenceSaleDate != null and farmDataOccurrenceSaleDate != ''">
+            <if test="farmDataOccurrenceSaleDate != null">
                 farm_data_occurrence_sale_date = #{farmDataOccurrenceSaleDate},
             </if>
             <if test="farmDataExpectedWasted != null and farmDataExpectedWasted != ''">
                 farm_data_expected_wasted = #{farmDataExpectedWasted},
             </if>
-            <if test="farmDataDate != null and farmDataDate != ''">
-                farm_data_date = #{farmDataDate},
-            </if>
+            farm_data_date=NOW()
         </trim>
         WHERE
         farm_data_idx = #{farmDataIdx};
+
+
     </update>
 
 

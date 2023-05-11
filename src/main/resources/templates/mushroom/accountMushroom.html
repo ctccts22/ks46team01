@@ -227,10 +227,10 @@
                                             <tbody>
                                             <tr role="row" class="odd" th:each="l:${fp}" >
                                                 <td data-key="accountingPurchaseIdx" th:text="${l.accountingPurchaseIdx}"></td>
-                                                <td data-key="username" th:text="${l.username}"></td>
-                                                <td data-key="companyIdx" th:text="${l.companyIdx}"></td>
-                                                <td data-key="companyInfoIdx" th:text="${l.companyInfoIdx}"></td>
-                                                <td data-key="inventoryIdx" th:text="${l.inventoryIdx}"></td>
+                                                <td data-key="username" th:text="${l.name}"></td>
+                                                <td data-key="companyIdx" th:text="${l.companyType}"></td>
+                                                <td data-key="companyInfoIdx" th:text="${l.companyInfoLicenseNumber}"></td>
+                                                <td data-key="inventoryIdx" th:text="${l.inventoryType}"></td>
                                                 <td data-key="companyContractIdx" th:text="${l.companyContractIdx}"></td>
                                                 <td data-key="accountingPurchaseDate" th:text="${l.accountingPurchaseDate}"></td>
                                                 <td data-key="accountingPurchaseType" th:text="${l.accountingPurchaseType}"></td>
@@ -250,7 +250,7 @@
                                             </tbody>
                                         </table>
 
-                                        <!-- 회원등록 모달 -->
+                                        <!-- 등록 모달 -->
 
                                         <div class="modal fade" id="addAccountMushroomModal" tabindex="-1" role="dialog" aria-labelledby="addAccountMushroomModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -329,8 +329,16 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="add-accountingPurchasePayment">accountingPurchasePayment</label>
-                                                                <input type="text" class="form-control" id="add-accountingPurchasePayment" name="accountingPurchasePayment" placeholder="accountingPurchasePayment 를 입력하세요" required>
+                                                                <select class="form-control" id="add-accountingPurchasePayment" name="accountingPurchasePayment" required>
+                                                                    <option value="">결제 수단을 선택하세요</option>
+                                                                    <option value="카드">카드</option>
+                                                                    <option value="현금">현금</option>
+                                                                    <option value="계좌이체">계좌이체</option>
+                                                                    <option value="핸드폰결제">핸드폰결제</option>
+                                                                    <option value="기타">기타</option>
+                                                                </select>
                                                             </div>
+
                                                             <div class="form-group">
                                                                 <label for="add-accountingPurchaseSum">accountingPurchaseSum</label>
                                                                 <input type="text" class="form-control" id="add-accountingPurchaseSum" name="accountingPurchaseSum" placeholder="accountingPurchaseSum 를 입력하세요" required>
@@ -370,7 +378,7 @@
                                                                 <select class="form-control" id="modify-username" name="username"  required>
                                                                     <option value="" disabled selected>작물을 선택하세요</option>
                                                                     <th:block th:each="u : ${userList}">
-                                                                        <option th:value="${u.username}">[[${u.username}]]</option>
+                                                                        <option th:value="${u.username}">[[${u.name}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -379,7 +387,7 @@
                                                                 <select class="form-control" id="modify-companyIdx" name="companyIdx"  required>
                                                                     <option value="" disabled selected>companyList 을 선택하세요</option>
                                                                     <th:block th:each="cl : ${companyList}">
-                                                                        <option th:value="${cl.companyIdx}">[[${cl.companyIdx}]]</option>
+                                                                        <option th:value="${cl.companyIdx}">[[${cl.companyType}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -388,7 +396,7 @@
                                                                 <select class="form-control" id="modify-companyInfoIdx" name="companyInfoIdx"  required>
                                                                     <option value="" disabled selected>companyInfoList 을 선택하세요</option>
                                                                     <th:block th:each="cil : ${companyInfoList}">
-                                                                        <option th:value="${cil.companyInfoIdx}">[[${cil.companyInfoIdx}]]</option>
+                                                                        <option th:value="${cil.companyInfoIdx}">[[${cil.companyInfoLicenseNumber}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -397,7 +405,7 @@
                                                                 <select class="form-control" id="modify-inventoryIdx" name="inventoryIdx"  required>
                                                                     <option value="" disabled selected>inventoryIdx 을 선택하세요</option>
                                                                     <th:block th:each="i : ${inventoryList}">
-                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryIdx}]]</option>
+                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryType}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -430,7 +438,14 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-accountingPurchasePayment">accountingPurchasePayment</label>
-                                                                <input type="text" class="form-control" id="modify-accountingPurchasePayment" name="accountingPurchasePayment" placeholder="accountingPurchasePayment 을 입력하세요"/>
+                                                                <select class="form-control" id="modify-accountingPurchasePayment" name="accountingPurchasePayment" required>
+                                                                    <option value="">결제 수단을 선택하세요</option>
+                                                                    <option value="카드">카드</option>
+                                                                    <option value="현금">현금</option>
+                                                                    <option value="계좌이체">계좌이체</option>
+                                                                    <option value="핸드폰결제">핸드폰결제</option>
+                                                                    <option value="기타">기타</option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-accountingPurchaseSum">accountingPurchaseSum</label>

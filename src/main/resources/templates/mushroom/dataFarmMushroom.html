@@ -19,7 +19,6 @@
                 const farmDataProductionDate = row.find('td[data-key="farmDataProductionDate"]').text();
                 const farmDataOccurrenceSaleDate = row.find('td[data-key="farmDataOccurrenceSaleDate"]').text();
                 const farmDataExpectedWasted = row.find('td[data-key="farmDataExpectedWasted"]').text();
-                const farmDataDate = row.find('td[data-key="farmDataDate"]').text();
 
                 $('#add-farmDataIdx').val(farmDataIdx);
                 $('#add-username').val(username);
@@ -27,10 +26,9 @@
                 $('#add-farmDataCompost').val(farmDataCompost);
                 $('#add-farmDataProduction').val(farmDataProduction);
                 $('#add-farmDataExpectedSale').val(farmDataExpectedSale);
-                $('#add-farmDataProductionDate').val(farmDataProductionDate).prop('type', 'date');
-                $('#add-farmDataOccurrenceSaleDate').val(farmDataOccurrenceSaleDate).prop('type', 'date');
+                $('#add-farmDataProductionDate').val(farmDataProductionDate);
+                $('#add-farmDataOccurrenceSaleDate').val(farmDataOccurrenceSaleDate);
                 $('#add-farmDataExpectedWasted').val(farmDataExpectedWasted);
-                $('#add-farmDataDate').val(farmDataDate);
                 // 모달 보여짐
                 $('#addFarmDataMushroomModal').modal('show');
 
@@ -49,7 +47,6 @@
                 const farmDataProductionDate = row.find('td[data-key="farmDataProductionDate"]').text();
                 const farmDataOccurrenceSaleDate = row.find('td[data-key="farmDataOccurrenceSaleDate"]').text();
                 const farmDataExpectedWasted = row.find('td[data-key="farmDataExpectedWasted"]').text();
-                const farmDataDate = row.find('td[data-key="farmDataDate"]').text();
 
 
                 $('#modify-farmDataIdx').val(farmDataIdx);
@@ -59,10 +56,9 @@
                 $('#modify-farmDataProduction').val(farmDataProduction);
                 $('#modify-farmDataExpectedSale').val(farmDataExpectedSale);
                 $('#modify-farmDataActualSale').val(farmDataActualSale);
-                $('#modify-farmDataProductionDate').val(farmDataProductionDate).prop('type', 'date');
-                $('#modify-farmDataOccurrenceSaleDate').val(farmDataOccurrenceSaleDate).prop('type', 'date');
+                $('#modify-farmDataProductionDate').val(farmDataProductionDate);
+                $('#modify-farmDataOccurrenceSaleDate').val(farmDataOccurrenceSaleDate);
                 $('#modify-farmDataExpectedWasted').val(farmDataExpectedWasted);
-                $('#modify-farmDataDate').val(farmDataDate);
 
                 // 모달 보여짐
                 $('#modifyFarmDataMushroomModal').modal('show');
@@ -76,16 +72,20 @@
                     url: '/mushroom/delete/deleteDataFarmMushroom',
                     data: { farmDataIdx: farmDataIdx },
                     success: function (response) {
-                        alert('삭제성공');
+                        alert('삭제 성공');
                         location.href = '/mushroom/dataFarmMushroom'; // 페이지 다시 로드
                         $('button[data-farmDataIdx="' + farmDataIdx + '"]').closest('tr').remove();
                     },
-                    error: function () {
-                        alert('삭제실패');
+                    error: function (xhr, status, error) {
+                        if (xhr.status === 500 && xhr.responseText.includes('java.sql.SQLIntegrityConstraintViolationException')) {
+                            alert('SQL 무결성 제약 조건 위반');
+                        } else {
+                            alert('삭제 실패');
+                        }
                     }
-
                 });
             });
+
 
             $('#datatable-custom').DataTable({
                 pagination: false,
@@ -197,7 +197,7 @@
                                                 <th>생산 일자</th>
                                                 <th>매출 발생 일자</th>
                                                 <th>예상 폐배지 수량</th>
-                                                <th>등록일자</th>
+                                                <th>최종 입력 일자</th>
                                                 <th>수정</th>
                                                 <th>삭제</th>
                                             </tr>
@@ -214,7 +214,7 @@
                                                 <td data-key="farmDataProductionDate" th:text="${fd.farmDataProductionDate}"></td>
                                                 <td data-key="farmDataOccurrenceSaleDate" th:text="${fd.farmDataOccurrenceSaleDate}"></td>
                                                 <td data-key="farmDataExpectedWasted" th:text="${fd.farmDataExpectedWasted}"></td>
-                                                <td data-key="farmDataDate" th:text="${fd.farmDataDate}"></td>
+                                                <td data-key="pastDataDate" th:text="${#strings.substring(fd.farmDataDate, 0, 10)}"></td>
 
                                                 <td>
                                                     <button type="button" class="edit-button">수정</button>
@@ -279,11 +279,11 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="add-farmDataProductionDate">farmDataProductionDate</label>
-                                                                <input type="text" class="form-control" id="add-farmDataProductionDate" name="farmDataProductionDate" placeholder="farmDataProductionDate 를 입력하세요" required>
+                                                                <input type="date" class="form-control" id="add-farmDataProductionDate" name="farmDataProductionDate" placeholder="farmDataProductionDate 를 입력하세요" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="add-farmDataOccurrenceSaleDate">farmDataOccurrenceSaleDate</label>
-                                                                <input type="text" class="form-control" id="add-farmDataOccurrenceSaleDate" name="farmDataOccurrenceSaleDate" placeholder="farmDataOccurrenceSaleDate 를 입력하세요" required>
+                                                                <input type="date" class="form-control" id="add-farmDataOccurrenceSaleDate" name="farmDataOccurrenceSaleDate" placeholder="farmDataOccurrenceSaleDate 를 입력하세요" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="add-farmDataExpectedWasted">farmDataExpectedWasted</label>
@@ -350,20 +350,17 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-farmDataProductionDate">farmDataProductionDate</label>
-                                                                <input type="text" class="form-control" id="modify-farmDataProductionDate" name="farmDataProductionDate" placeholder="farmDataProductionDate 을 입력하세요"/>
+                                                                <input type="date" class="form-control" id="modify-farmDataProductionDate" name="farmDataProductionDate" placeholder="farmDataProductionDate 을 입력하세요"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-farmDataOccurrenceSaleDate">farmDataOccurrenceSaleDate</label>
-                                                                <input type="text" class="form-control" id="modify-farmDataOccurrenceSaleDate" name="farmDataOccurrenceSaleDate" placeholder="farmDataOccurrenceSaleDate 을 입력하세요"/>
+                                                                <input type="date" class="form-control" id="modify-farmDataOccurrenceSaleDate" name="farmDataOccurrenceSaleDate" placeholder="farmDataOccurrenceSaleDate 을 입력하세요"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-farmDataExpectedWasted">farmDataExpectedWasted</label>
                                                                 <input type="text" class="form-control" id="modify-farmDataExpectedWasted" name="farmDataExpectedWasted" placeholder="farmDataExpectedWasted 을 입력하세요"/>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="modify-farmDataDate">farmDataDate</label>
-                                                                <input type="text" class="form-control" id="modify-farmDataDate" name="farmDataDate" placeholder="farmDataDate 을 입력하세요"/>
-                                                            </div>
+
 
 
                                                             <button type="submit" class="btn btn-primary">저장</button>
