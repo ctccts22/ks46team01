@@ -20,6 +20,8 @@
 	<link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
 	<!-- Dropzone.js -->
 	<link th:href="@{/vendors/dropzone/dist/min/dropzone.min.css}" rel="stylesheet">
+	<!-- DataTables -->
+	<link th:href="@{/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
 	
 	<!-- Custom Theme Style -->
 	<link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
@@ -31,7 +33,7 @@
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
 						<a th:href="@{/}" href="index.html" class="site_title"><i class="fa fa-leaf"></i>
-							<span>Mush Cycle</span>
+							<span>친환경버섯재배</span>
 						</a>
 					</div>
 
@@ -40,7 +42,7 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_info">
-							<span style="font-size: 24px; font-weight: bold; color: #ffffff;">v9-2023-04-28</span>
+							<span style="font-size: 24px; font-weight: bold; color: #ffffff;">커피박을 이용한 친환경버섯재비 그린이코니미 플렛폼</span>
 							<h2 th:if="${user != null}" th:text="${user.name}">User Name</h2>
 							<h2 th:if="${admin != null}" th:text="${admin.adminName}">Admin Name</h2>
 						</div>
@@ -101,7 +103,7 @@
 	<script th:src="@{/vendors/sweetalert2/sweetalert2.js}"></script>
 
 	<!-- Custom Theme Scripts -->
-	<script th:src="@{/build/js/custom.min.js}"></script>
+	<script th:src="@{/build/js/custom.js}"></script>
 
 	<th:block layout:fragment="customJs"></th:block>
 

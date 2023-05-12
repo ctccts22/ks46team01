@@ -3,13 +3,179 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
-        function checkAll() {
-            var checkboxes = document.querySelectorAll('#datatable-checkbox tbody input[type="checkbox"]');
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = document.getElementById('check-all').checked;
-            }
-        }
+        $(document).ready(function () {
+            let index;
+            let arr = [];
+            $('#btn-success').click(function () {
+                let contentValue = document.querySelector('input[name="approve"]');
+                let content = contentValue.value;
+                console.log(content);
+                let status = '승인';
+                let userName;
+                let orderWastedIdx;
+                let companyInfoIdx;
+
+                let formArr = [];
+                console.log(arr.length);
+                for (let i = 0; i < arr.length; i++) {
+                    userName = arr[i][0];
+                    orderWastedIdx = arr[i][1];
+                    companyInfoIdx = arr[i][2];
+                    console.log(userName, orderWastedIdx, companyInfoIdx);
+                    formArr.push([userName, orderWastedIdx, companyInfoIdx]);
+                }
+                console.log(formArr, '????????');
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/wasted/insertConfirmOrderWastedAdmin");
+
+                let input_status = document.createElement("input");
+                input_status.setAttribute("type","hidden");
+                input_status.setAttribute("name","status");
+                input_status.setAttribute("value",status);
+                form.appendChild(input_status);
+
+                let input_content = document.createElement("input");
+                input_content.setAttribute("type","hidden");
+                input_content.setAttribute("name","content");
+                input_content.setAttribute("value",content);
+                form.appendChild(input_content);
+                for (let i = 0; i < formArr.length; i++) {
+
+                    let input_userName = document.createElement("input");
+                    input_userName.setAttribute("type", "hidden");
+                    input_userName.setAttribute("name", "userName");
+                    input_userName.setAttribute("value", formArr[i][0]);
+
+                    let input_orderWastedIdx = document.createElement("input");
+                    input_orderWastedIdx.setAttribute("type", "hidden");
+                    input_orderWastedIdx.setAttribute("name", "orderWastedIdx");
+                    input_orderWastedIdx.setAttribute("value", formArr[i][1]);
+
+                    let input_companyInfoIdx = document.createElement("input");
+                    input_companyInfoIdx.setAttribute("type", "hidden");
+                    input_companyInfoIdx.setAttribute("name", "companyInfoIdx");
+                    input_companyInfoIdx.setAttribute("value", formArr[i][2]);
+
+                    form.appendChild(input_userName);
+                    form.appendChild(input_orderWastedIdx);
+                    form.appendChild(input_companyInfoIdx);
+                }
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
+            });
+            $('#btn-danger').click(function () {
+                let contentValue = document.querySelector('input[name="refusal"]');
+                let content = contentValue.value;
+                console.log(content);
+                let status = '거부';
+                let userName;
+                let orderWastedIdx;
+                let companyInfoIdx;
+
+                let formArr = [];
+                console.log(arr.length);
+                for (let i = 0; i < arr.length; i++) {
+                    userName = arr[i][0];
+                    orderWastedIdx = arr[i][1];
+                    companyInfoIdx = arr[i][2];
+                    console.log(userName, orderWastedIdx, companyInfoIdx);
+                    formArr.push([userName, orderWastedIdx, companyInfoIdx]);
+                }
+                console.log(formArr, '????????');
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/wasted/insertConfirmOrderWastedAdmin");
+
+                let input_status = document.createElement("input");
+                input_status.setAttribute("type","hidden");
+                input_status.setAttribute("name","status");
+                input_status.setAttribute("value",status);
+                form.appendChild(input_status);
+
+                let input_content = document.createElement("input");
+                input_content.setAttribute("type","hidden");
+                input_content.setAttribute("name","content");
+                input_content.setAttribute("value",content);
+                form.appendChild(input_content);
+                for (let i = 0; i < formArr.length; i++) {
+
+                    let input_userName = document.createElement("input");
+                    input_userName.setAttribute("type", "hidden");
+                    input_userName.setAttribute("name", "userName");
+                    input_userName.setAttribute("value", formArr[i][0]);
+
+                    let input_orderWastedIdx = document.createElement("input");
+                    input_orderWastedIdx.setAttribute("type", "hidden");
+                    input_orderWastedIdx.setAttribute("name", "orderWastedIdx");
+                    input_orderWastedIdx.setAttribute("value", formArr[i][1]);
+
+                    let input_companyInfoIdx = document.createElement("input");
+                    input_companyInfoIdx.setAttribute("type", "hidden");
+                    input_companyInfoIdx.setAttribute("name", "companyInfoIdx");
+                    input_companyInfoIdx.setAttribute("value", formArr[i][2]);
+
+                    form.appendChild(input_userName);
+                    form.appendChild(input_orderWastedIdx);
+                    form.appendChild(input_companyInfoIdx);
+                }
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
+            });
+            $('input[type="checkbox"]').click(function () {
+                index = $(this).closest('tr').index() + 1;
+                indexArr = index.length;
+                console.log('체크박스 index ' + index + ' 번클릭.');
+            });
+            $("#check-all").change(function () {
+                if (this.checked) {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", true);
+                    });
+                    for (var i = 1; i <= $('input[type=checkbox][name=check-seperated]').length; i++) {
+                        const userName = $('#user_list #check-box-value:nth-child(' + i + ') #userName').text();
+                        const orderWastedIdx = $('#user_list #check-box-value:nth-child(' + i + ') #orderWastedIdx').text();
+                        const companyInfoIdx = $('#user_list #check-box-value:nth-child(' + i + ') #companyInfoIdx').text();
+                        arr.push([userName, orderWastedIdx, companyInfoIdx]); // 배열에 추가
+                    }
+                    console.log(arr);
+                } else {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", false);
+                        arr = []; // clear the array
+                    });
+                    console.log(arr, 'else?');
+                }
+            });
+
+            $('input[type=checkbox][name=check-seperated]').change(function () {
+                if (this.checked) {
+                    // alert(`${this.value} is checked`);
+                    const userName = $('#user_list #check-box-value:nth-child(' + index + ') #userName').text();
+                    const orderWastedIdx = $('#user_list #check-box-value:nth-child(' + index + ') #orderWastedIdx').text();
+                    const companyInfoIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoIdx').text();
+                    arr.push([userName, orderWastedIdx, companyInfoIdx]); // 배열에 추가
+                    console.log(arr);
+                } else {
+                    if ($('input[type=checkbox][name=check-seperated]').length !== $('input[type=checkbox][name=check-seperated]:checked').length) {
+                        $("input:checkbox[id='check-all']").prop("checked", false);
+                    }
+                    const userName = $('#user_list #check-box-value:nth-child(' + index + ') #userName').text();
+                    const orderWastedIdx = $('#user_list #check-box-value:nth-child(' + index + ') #orderWastedIdx').text();
+                    const companyInfoIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoIdx').text();
+                    arr = arr.filter(item => (
+                        item[0] !== userName ||
+                        item[1] !== orderWastedIdx ||
+                        item[2] !== companyInfoIdx
+                    ));
+                    console.log(arr);
+                }
+            });
+        });
     </script>
 </head>
 <th:block layout:fragment="customContent">
@@ -42,86 +208,97 @@
                             <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>
-                                        전체
-                                    <th><input type="checkbox" id="check-all" onclick="checkAll()"></th>
-                                    </th>
+                                    <th><input type="checkbox" id="check-all" name="check-all"></th>
                                     <th>사업자명</th>
+                                    <th>아이디</th>
                                     <th>신청 담당자 번호</th>
                                     <th>사업자 주소</th>
                                     <th>중량</th>
                                     <th>승인신청 날짜</th>
                                     <th>승인상태</th>
+                                    <th hidden="hidden"></th>
+                                    <th hidden="hidden"></th>
                                 </tr>
                                 </thead>
 
 
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        선택
-                                    <th><input type="checkbox" id="check-all" ></th>
-                                    </td>
-                                    <td>폐배지코퍼레이션</td>
-                                    <td>010-4666-7898</td>
-                                    <td>경상북도 경주시 문무대왕면 감은로 53-30</td>
-                                    <td>20kg</td>
-                                    <td>2023/04/13</td>
-                                    <td>승인요청</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
+                                <tbody id="user_list">
+                                <tr id="check-box-value" th:each="wastedList, wastedListIndex : ${wastedList}">
+                                    <th><input type="checkbox" id="check-seperated" name="check-seperated"></th>
+                                    <td id="companyInfoName" th:text="${wastedList.companyInfoName}"></td>
+                                    <td id="userName" th:text="${wastedList.userName}"></td>
+                                    <td id="orderWastedPhone" th:text="${wastedList.orderWastedPhone}"></td>
+                                    <td id="orderWastedAddress" th:text="${wastedList.orderWastedAddress}"></td>
+                                    <td id="orderWastedAmount" th:text="${wastedList.orderWastedAmount}+kg"></td>
+                                    <td id="orderWastedDate" th:text="${wastedList.orderWastedDate}"></td>
+                                    <td id="orderWastedConfirmStatus" th:text="${wastedList.orderWastedConfirmStatus}"></td>
+                                    <td id="orderWastedIdx" th:text="${wastedList.orderWastedIdx}" hidden="hidden"></td>
+                                    <td id="companyInfoIdx" th:text="${wastedList.companyInfoIdx}" hidden="hidden"></td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <div class="col-md-6 col-sm-6 offset-md-3">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">승인</button>
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
+                            <!-- 모달창-->
+                            <!-- 버튼 -->
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#approveModal">승인
+                            </button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#denyModal">
+                                거부
+                            </button>
 
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel">확인</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h4>ㅁㅇㄹ</h4>
-                                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary">확인</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                            </div>
+                            <!-- 모달창 -->
+                            <div class="modal fade" id="approveModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="approveModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="approveModalLabel">승인</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                    </div>
-                                    <!-- 거절 버튼 -->
-                                </div>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">거절</button>
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel">거절</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h4>ㅁㅇㄹ</h4>
-                                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary">확인</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                            </div>
+                                        <div class="modal-body">
+                                            승인의견
+                                            <label>
+                                                <input type="text" name="approve">
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-confirm" id="btn-success"
+                                                    data-dismiss="modal" data-state="승인">승인
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="reset">초기화</button>
+                            </div>
+
+                            <div class="modal fade" id="denyModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="denyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="denyModalLabel">거부</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            거부의견
+                                            <label>
+                                                <input type="text" name="refusal">
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-confirm" id="btn-danger"
+                                                    data-dismiss="modal" data-state="거절">거부
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

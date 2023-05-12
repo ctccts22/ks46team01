@@ -1,46 +1,206 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layout/default}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
-<head></head>
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+      .dataTables_wrapper .dataTables_filter {
+          float: left;
+          text-align: left;
+      }
+  </style>
+</head>
 
 <th:block layout:fragment="customJs">
-    <script>
+  <script>
+      const inventoryDate = new Date();
+      const formattedInventoryDate = inventoryDate.toISOString().slice(0, 19);
 
-    </script>
+      $(document).ready(function () {
+          $('body').on('click', '.add-button', function () {
+              const row = $(this).closest('tr');
+              const inventoryIdx = row.find('td[data-key="inventoryIdx"]').text();
+              const inventoryType = row.find('td[data-key="inventoryType"]').text();
+
+              Swal.fire({
+                  title: '재고품목 등록',
+                  html:
+                      `<form id="addInventoryForm">
+                <input id="add-inventoryIdx" name="inventoryIdx" type="hidden" value="${inventoryIdx}"/>
+                <div class="form-group">
+                  <label for="add-inventoryType">재고품목:</label>
+                  <input class="form-control" id="add-inventoryType"
+                         name="inventoryType" value="${inventoryType}" type="text"/>
+                </div>
+          </form>`,
+                  showCancelButton: true,
+                  confirmButtonText: '저장',
+                  cancelButtonText: '취소',
+                  preConfirm: () => {
+                      const dataToSend = {
+                          inventoryIdx: $('#add-inventoryIdx').val(),
+                          inventoryType: $('#add-inventoryType').val(),
+                          inventoryDate: formattedInventoryDate
+                      };
+
+                      console.log('Data to send: ', dataToSend);
+
+                      $.ajax({
+                          url: '/admin/inventory/addInventory',
+                          method: 'POST',
+                          data: dataToSend,
+                          success: function (response) {
+                              Swal.fire('Success!', '성공적으로 등록되었습니다.', 'success')
+                                  .then(() => {
+                                      location.reload();
+                                  });
+                          },
+                          statusCode: {
+                              400: function(response) {
+                                  console.log('400 error response: ', response);
+                                  Swal.fire('Error!', '400에러', 'error');
+                              },
+                              401: function(response) {
+                                  Swal.fire('Error!', '로그인을 해야합니다.', 'error');
+                              },
+                              500: function(response) {
+                                  Swal.fire('Error!', '서버에러', 'error');
+                              }
+                          },
+                          error: function(jqXHR, textStatus, errorThrown) {
+                              console.log('General error: ', errorThrown);
+                              Swal.fire('Error!', 'An error occurred: ' + errorThrown, 'error');
+                          },
+                      });
+                  }
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                  }
+              });
+          });
+
+          $('body').on('click', '.delete-button', function () {
+              const row = $(this).closest('tr');
+              const inventoryIdx = row.find('td[data-key="inventoryIdx"]').text();
+
+              Swal.fire({
+                  title: '삭제하시겠습니까?',
+                  text: "삭제하면 복구할수 없습니다",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '삭제',
+                  cancelButtonText: '취소',
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      $.ajax({
+                          url: '/admin/inventory/deleteInventory',
+                          method: 'POST',
+                          data: {
+                              inventoryIdx: inventoryIdx
+                          },
+                          success: function (response) {
+                              Swal.fire(
+                                  '삭제!',
+                                  '성공적으로 삭제되었습니다',
+                                  'success'
+                              ).then(() => {
+                                  location.reload();
+                              });
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                              Swal.fire('Error!', 'An error occurred: ' + errorThrown, 'error');
+                          }
+                      });
+                  }
+              });
+          });
+
+          $('#datatable-custom').DataTable({
+              pagination: false,
+              searching: true,
+              lengthChange: false,
+              dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
+                  "<'row'<'col-sm-12'tr>>" +
+                  "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+          });
+      });
+  </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="my-4">재고물품목록</h2>
-                <!--        <button id="addAdminBtn" class="btn btn-primary">운영자 정보</button>-->
-                <table class="table table-striped table-bordered table-hover">
-                    <thead class="thead-dark">
-                    <tr>
+  <div class="page-title">
+    <div class="title">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2 class="my-4">재고목록</h2>
+
+          <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+              </div>
+            </li>
+          </ul>
+
+          <div class="clearfix"></div>
+        </div>
+
+        <div style="display: flex;">
+          <button class="btn btn-outline-secondary add-button" type="submit">재고품목등록</button>
+          <a class="btn btn-outline-secondary list-button" th:href="@{/admin/inventory/listInventoryDetail}">재고상세리스트</a>
+        </div>
+
+        <div class="x_content">
+          <div class="row mb-3">
+            <div class="col-md-6">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card-box table-responsive">
+                <div class="col-sm-12">
+                  <div class="dataTables_wrapper container-fluid dt-bootstrap no-footer"
+                       id="datatable-buttons_wrapper">
+
+
+                    <table aria-describedby="datatable-buttons_info"
+                           class="table table-striped table-bordered dataTable no-footer dtr-inline"
+                           id="datatable-custom" role="grid"
+                           style="width: 100%;">
+                      <thead class="thead-dark">
+                      <tr role="row">
                         <th>재고물품고유번호</th>
                         <th>재고물품종류</th>
-                        <th>재고물품중량단위</th>
                         <th>운영자아이디</th>
                         <th>재고물품등록날짜</th>
-                        <th>재고물품수정날짜</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="inventory : ${inventoryList}">
-                        <td th:text="${inventory.inventoryIdx}"></td>
-                        <td th:text="${inventory.inventoryType}"></td>
-                        <td th:text="${inventory.inventoryAmount}"></td>
-                        <td th:text="${inventory.adminUsername.adminUsername}"></td>
-                        <td th:text="${inventory.inventoryDate}"></td>
-                        <td th:text="${inventory.inventoryUpdate}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <th>삭제</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr class="odd" role="row" th:each="inventory : ${inventoryList}">
+                        <td data-key="inventoryIdx" th:text="${inventory.inventoryIdx}"></td>
+                        <td data-key="inventoryType" th:text="${inventory.inventoryType}"></td>
+                        <td data-key="adminUsername" th:text="${inventory.adminUsername.adminUsername}"></td>
+                        <td data-key="inventoryDate" th:text="${inventory.inventoryDate}"></td>
+                        <td>
+                          <button class="delete-button">삭제</button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </th:block>
 </html>
 

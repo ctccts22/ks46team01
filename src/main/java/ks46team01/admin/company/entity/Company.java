@@ -1,11 +1,14 @@
 package ks46team01.admin.company.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import ks46team01.admin.company.unit.entity.CompanyUnit;
 import ks46team01.admin.info.entity.Admin;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,10 +29,16 @@ public class Company {
 
     @ManyToOne
     @JoinColumn(name = "admin_username", nullable = false)
+    @JsonIgnore
     private Admin adminUsername;
 
     @Column(name = "company_date", nullable = false)
     private Timestamp companyDate;
+
+    @OneToMany(mappedBy = "companyUnitIdx", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JsonIgnore
+    private List<CompanyUnit> companyUnits;
 
     @Override
     public boolean equals(Object o) {

@@ -23,6 +23,12 @@ public class AdminService {
         this.roleRepository = roleRepository;
     }
 
+    @Transactional
+    public Admin getAdminByUsername(String adminUsername) {
+        return adminRepository.findByAdminUsername(adminUsername)
+                .orElseThrow(() -> new RuntimeException("Admin not found with the given username: " + adminUsername));
+    }
+
     public List<Admin> getAllAdmins() {
         return adminRepository.findAll();
     }
@@ -37,6 +43,7 @@ public class AdminService {
         return adminRepository.findByAdminUsername(adminUsername);
     }
 
+    // login Admin 사용
     public Admin updateAdmin(Admin admin) {
         return adminRepository.save(admin);
     }

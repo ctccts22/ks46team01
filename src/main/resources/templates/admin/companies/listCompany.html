@@ -2,131 +2,183 @@
 <html layout:decorate="~{layout/default}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
-<head></head>
+<head>
+  <style>
+      .dataTables_wrapper .dataTables_filter {
+          float: left;
+          text-align: left;
+      }
+  </style>
+</head>
 
 
 <th:block layout:fragment="customJs">
-    <script>
-        $(document).ready(function () {
-            $('body').on('click', '.add-button', function () {
-                const row = $(this).closest('tr');
-                const companyType = row.find('td[data-key="companyType"]').text();
-                $('#add-companyType').val(companyType);
-                // 모달 보여짐
-                $('#addCompanyModal').modal('show');
-            });
+  <script th:inline="javascript">
+      function formatDate(timestamp) {
+          let date = new Date(timestamp);
+          return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      }
+      $(document).ready(function () {
+          console.log('test');
+          $('body').on('click', '.add-button', function () {
+              Swal.fire({
+                  title: '사업자종류등록',
+                  html:
+                      `<form id="addCompanyForm">
+                              <div class="form-group">
+                                <label for="add-companyType">사업자 종류</label>
+                                <input class="form-control" id="add-companyType" name="companyType" type="text"/>
+                               </div>
+                             </form>`,
+                  showCancelButton: true,
+                  confirmButtonText: '저장',
+                  cancelButtonText: '취소',
+                  preConfirm: () => {
+                      const form = document.getElementById('addCompanyForm');
+                      $.ajax({
+                          url: '/admin/companies/addCompany',
+                          method: 'POST',
+                          dataType: 'json',
+                          data: {
+                              companyType: $('#add-companyType').val(),
+                          },
+                          success: function (response) {
+                              Swal.fire('Success!', '성공적으로 수정되었습니다.', 'success')
+                                  .then(() => {
+                                      location.reload();
+                                  });
+                          },
+                          error: function () {
+                              Swal.fire('Error!', '수정에 실패했습니다.', 'error');
+                          },
+                      });
+                  }
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                  }
+              });
+          });
 
+          $('body').on('click', '.delete-button', function () {
+              const row = $(this).closest('tr');
+              const companyIdx = row.find('td[data-key="companyIdx"]').text();
 
-        $('#datatable-custom').DataTable({
-            pagination: false,
-            searching: true,
-            lengthChange: false,
-            dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
-        });
-    });
-    </script>
+              Swal.fire({
+                  title: '삭제하시겠습니까?',
+                  text: "삭제하면 복구할수 없습니다",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '삭제',
+                  cancelButtonText: '취소',
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      $.ajax({
+                          url: '/admin/companies/deleteCompany',
+                          method: 'POST',
+                          data: {
+                              companyIdx: companyIdx
+                          },
+                          success: function (response) {
+                              Swal.fire(
+                                  '삭제!',
+                                  '성공적으로 삭제되었습니다',
+                                  'success'
+                              ).then(() => {
+                                  location.reload();
+                              });
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                              Swal.fire('Error!', 'An error occurred: ' + errorThrown, 'error');
+                          }
+                      });
+                  }
+              });
+          });
+
+          $('#datatable-custom').DataTable({
+              pagination: false,
+              searching: true,
+              lengthChange: false,
+              dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
+                  "<'row'<'col-sm-12'tr>>" +
+                  "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+          });
+      });
+  </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
-    <div class="page-title">
-        <div class="title">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2 class="my-4">사업자코드</h2>
+  <div class="page-title">
+    <div class="title">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2 class="my-4">사업자코드</h2>
 
-                    <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li class="dropdown">
-                            <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
-                            </div>
-                        </li>
-                    </ul>
+          <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+              </div>
+            </li>
+          </ul>
 
-                    <div class="clearfix"></div>
-                </div>
-
-                <div style="display: flex;">
-                    <button class="add-button" type="submit">사업자코드등록</button>
-                </div>
-
-                <div class="x_content">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                                <div class="col-sm-12">
-                                    <div class="dataTables_wrapper container-fluid dt-bootstrap no-footer"
-                                         id="datatable-buttons_wrapper">
-
-
-                                        <table aria-describedby="datatable-buttons_info"
-                                               class="table table-striped table-bordered dataTable no-footer dtr-inline"
-                                               id="datatable-custom" role="grid"
-                                               style="width: 100%;">
-
-                                            <thead class="thead-dark">
-                                            <tr role="row">
-                                                <th>사업자 종류 고유번호</th>
-                                                <th>사업자 종류</th>
-                                                <th>운영자 아이디</th>
-                                                <th>사업자 종류 등록 날짜</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="odd" role="row" th:each="company : ${companyList}">
-                                                <td data-key="companyIdx" th:text="${company.companyIdx}"></td>
-                                                <td data-key="companyType" th:text="${company.companyType}"></td>
-                                                <td data-key="adminUsername" th:text="${company.adminUsername.adminUsername}"></td>
-                                                <td data-key="companyDate" th:text="${company.companyDate}"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <!-- 회원수정 모달 -->
-                                        <div aria-hidden="true" aria-labelledby="addCompanyModalLabel"
-                                             class="modal fade" id="addCompanyModal"
-                                             role="dialog" tabindex="-1">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="addCompanyModalLabel">사업자 종류
-                                                            수정</h5>
-                                                        <button aria-label="Close" class="close" data-dismiss="modal"
-                                                                type="button">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form method="post" th:action="@{/admin/companies/addCompany}">
-                                                            <div class="form-group">
-                                                                <label for="add-companyType">사업자 종류</label>
-                                                                <input class="form-control" id="add-companyType" name="companyType"
-                                                                       type="text"/>
-                                                            </div>
-                                                            <button class="btn btn-primary" type="submit">확인</button>
-                                                            <button class="btn btn-warning" type="reset">취소</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 회원수정 모달 -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="clearfix"></div>
         </div>
+
+        <div style="display: flex;">
+          <button class="btn btn-outline-secondary add-button" type="submit">사업자코드등록</button>
+        </div>
+
+        <div class="x_content">
+          <div class="row mb-3">
+            <div class="col-md-6">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card-box table-responsive">
+                <div class="col-sm-12">
+                  <div class="dataTables_wrapper container-fluid dt-bootstrap no-footer"
+                       id="datatable-buttons_wrapper">
+
+
+                    <table aria-describedby="datatable-buttons_info"
+                           class="table table-striped table-bordered dataTable no-footer dtr-inline"
+                           id="datatable-custom" role="grid"
+                           style="width: 100%;">
+
+                      <thead class="thead-dark">
+                      <tr role="row">
+                        <th>사업자 종류 고유번호</th>
+                        <th>사업자 종류</th>
+                        <th>운영자 아이디</th>
+                        <th>사업자 종류 등록 날짜</th>
+                        <th>삭제</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr class="odd" role="row" th:each="company : ${companyList}">
+                        <td data-key="companyIdx" th:text="${company.companyIdx}"></td>
+                        <td data-key="companyType" th:text="${company.companyType}"></td>
+                        <td data-key="adminUsername" th:text="${company.adminUsername}"></td>
+                        <td data-key="companyDate" th:text="${company.companyDate}"></td>
+                        <td><button class="delete-button">삭제</button></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </th:block>
 </html>
 

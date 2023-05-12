@@ -58,20 +58,19 @@
                     <th>신청 담당자 번호</th>
                     <th>농가 주소</th>
                     <th>신청 중량</th>
-                    <th>커피배지 신청 날짜</th>
+                    <th>배송 예정 날짜</th>
                     <th>배송상태</th>
                   </tr>
                   </thead>
 
-
                   <tbody>
-                  <tr>
-                    <td>하니팜</td>
-                    <td>010-1234-5678</td>
-                    <td>전라남도 장성군 장성읍 단풍로 72</td>
-                    <td>15kg</td>
-                    <td>2011/04/25</td>
-                    <td>배송중</td>
+                  <tr th:each="compostDeliveryList, compostDeliveryListIdx: ${compostDeliveryList}">
+                    <td th:text="${compostDeliveryList.companyInfoName}"></td>
+                    <td th:text="${compostDeliveryList.orderCompostPhone}"></td>
+                    <td th:text="${compostDeliveryList.orderCompostAddress}"></td>
+                    <td th:text="${compostDeliveryList.orderCompostAmount}+kg"></td>
+                    <td th:text="${compostDeliveryList.orderCompostDate}"></td>
+                    <td th:text="${compostDeliveryList.orderCompostDeliveryStatus}"></td>
                   </tr>
                   </tbody>
                 </table>

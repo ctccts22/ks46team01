@@ -64,13 +64,13 @@
                   </thead>
 
                   <tbody>
-                  <tr>
-                    <td>ediya</td>
-                    <td>010-1234-5678</td>
-                    <td>이디야 전주고속터미널점</td>
-                    <td>15kg</td>
-                    <td>2011/04/25</td>
-                    <td>배송중</td>
+                  <tr th:each="userDeliveryList , userconfirmListIndex : ${userDeliveryList}">
+                    <td th:text="${userDeliveryList.companyInfoName}"></td>
+                    <td th:text="${userDeliveryList.coffeeRequestPhone}"></td>
+                    <td th:text="${userDeliveryList.coffeeRequestAddress}"></td>
+                    <td th:text="${userDeliveryList.coffeeRequestAmount}+kg"></td>
+                    <td th:text="${userDeliveryList.coffeeRequestDate}"></td>
+                    <td th:text="${userDeliveryList.coffeeDeliveryStatus}"></td>
                   </tr>
                   </tbody>
                 </table>

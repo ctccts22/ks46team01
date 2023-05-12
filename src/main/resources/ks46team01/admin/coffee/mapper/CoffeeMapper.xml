@@ -14,7 +14,7 @@
         <result column="coffee_request_confirm_date" property="coffeeRequestConfirmDate"/>
     </resultMap>
     <select id="listCoffeeAdmin" resultType="ks46team01.common.coffee.dto.CoffeeRequest">
-<!--        커피가루 수거신청 확인-->
+<!--        (운영자) 커피가루 수거신청 확인-->
         SELECT
         cr.coffee_request_idx as coffeeRequestIdx,
         cr.username as userName,
@@ -23,7 +23,8 @@
         cr.coffee_request_phone as coffeeRequestPhone,
         cr.coffee_request_content as coffeeRequestContent,
         cr.coffee_request_date as coffeeRequestDate,
-        ci.company_info_name as companyInfoName
+        ci.company_info_name as companyInfoName,
+        ci.company_info_idx as companyInfoIdx
         FROM coffee_request AS cr
         INNER JOIN company_info AS ci ON cr.company_info_idx = ci.company_info_idx
         WHERE NOT EXISTS (
@@ -33,7 +34,7 @@
         );
     </select>
 <select id="listConfirmCoffee" resultMap="coffeeRequestMap">
-<!--   커피가루 컨펌확인 페이지-->
+<!--   (운영자)커피가루 컨펌확인 페이지-->
     SELECT
     ci.company_info_name as companyInfoName,
     crc.username,
@@ -50,6 +51,7 @@
     INNER JOIN coffee_request cr ON cr.coffee_request_idx = crc.coffee_request_idx;
 </select>
     <select id="listConfirmCompanyInfo" resultType="ks46team01.common.coffee.dto.CompanyInfo">
+        <!-- (운영자) 사업자 정보 확인-->
         SELECT
         ci.company_info_name as companyInfoName,
         ci.company_info_phone as companyInfoPhone,
@@ -59,7 +61,20 @@
         INNER JOIN company_info ci
         ON ci.company_info_idx = crc.company_info_idx;
     </select>
+    <insert id="insertConfirmCoffeeAdmin" parameterType="ks46team01.common.coffee.dto.CoffeeRequestConfirm">
+        <!-- (운영자) 커피가루 수거신청 승인/거절-->
+        INSERT INTO coffee_request_confirm(
+        username,
+        coffee_request_idx,
+        company_info_idx,
+        coffee_request_confirm_status,
+        coffee_request_confirm_content,
+        admin_username,
+        coffee_request_confirm_date
+        )VALUES(#{userName},#{coffeeRequestIdx},#{companyInfoIdx},#{coffeeRequestConfirmStatus},#{coffeeRequestConfirmContent},#{adminUsername},now());
+    </insert>
     <select id="listCoffeeDelivery" resultType="ks46team01.common.coffee.dto.CoffeeDelivery">
+        <!-- (운영자) 커피가루 배송상태 화인-->
         SELECT
         ci.company_info_name AS companyInfoName,
         cr.coffee_request_address AS coffeeRequestAddress,

@@ -8,9 +8,21 @@
   <script th:inline="javascript">
     $(document).ready(function() {
       let error = /*[[${error}]]*/ null;
+      let success = /*[[${success}]]*/ null;
       if (error) {
-        alert(error);
+          Swal.fire({
+              icon: 'error',
+              title: 'Fail!',
+              text: '로그인에 실패했습니다.'
+          });
       }
+        if (success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '로그인에 성공했습니다.'
+            });
+        }
     });
   </script>
 </th:block>
