@@ -3,7 +3,6 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ks46team01.mushroom.mushroomCondition.mapper.FarmConditionMapper">
-
     <resultMap id="FarmCondition"    type="ks46team01.mushroom.mushroomCondition.dto.FarmCondition">
         <id column="mushroom_condition_idx"                  property="mushroomConditionIdx" />
         <result column="crop_idx"                            property="cropIdx" />

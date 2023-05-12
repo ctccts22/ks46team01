@@ -2,7 +2,10 @@ package ks46team01.admin.accounting.purchase.controller;
 
 import ks46team01.admin.accounting.purchase.dto.AcPurchase;
 import ks46team01.admin.accounting.purchase.service.AcPurchaseService;
-import ks46team01.admin.accounting.sale.dto.AcSale;
+import ks46team01.admin.company.contract.entity.CompanyContract;
+import ks46team01.admin.company.entity.Company;
+import ks46team01.admin.info.entity.Admin;
+import ks46team01.admin.inventory.entity.Inventory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,30 +18,60 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/admin/accounting/purchase")
 public class AcPurchaseController {
-
     private final AcPurchaseService acPurchaseService;
 
+    //조회
     @GetMapping("/purchaseAccounting")
-    public String getAcPurchase(Model model) {
-        List<AcPurchase> ac = acPurchaseService.getAcPurchase();
-
-        model.addAttribute("title", "이력조회");
-        model.addAttribute("ac", ac);
-
-        return "admin/accounting/purchase/purchaseAccounting";
+    public String acPurchase(Model model) {
+        List<AcPurchase> ap = acPurchaseService.getAcPurchase();
+        List<Company> companies = acPurchaseService.getCompany();
+        List<Inventory> inventories = acPurchaseService.getInventory();
+        List<CompanyContract> companyContracts = acPurchaseService.getCompanyContract();
+        List<Admin> admins = acPurchaseService.getAdmin();
+        model.addAttribute("title", "조회");
+        model.addAttribute("ap", ap);
+        model.addAttribute("companies", companies);
+        model.addAttribute("inventories", inventories);
+        model.addAttribute("companyContracts", companyContracts);
+        model.addAttribute("admins", admins);
+        log.info("ap = {}", ap);
+        return "/admin/accounting/purchase/purchaseAccounting";
     }
 
-    @PostMapping("/admin/accounting/purchase")
-    public String addAccountingPurchase(AcPurchase acPurchase) {
-        acPurchaseService.add(acPurchase);
 
-        return "redirect:/admin/purchaseAccountingAdd";
-    }
+//입력
     @GetMapping("/purchaseAccountingAdd")
-    public String addAccountingPurchase(Model model) {
-        model.addAttribute("title", "등록");
-        model.addAttribute("acSale", new AcPurchase());
+    public String showAddPurchaseAccounting(Model model){
+        List<Company> companies = acPurchaseService.getCompany();
+        List<Inventory> inventories = acPurchaseService.getInventory();
+        List<CompanyContract> companyContracts = acPurchaseService.getCompanyContract();
+        List<Admin> admins = acPurchaseService.getAdmin();
+        model.addAttribute("AcPurchase", new AcPurchase());
+        model.addAttribute("companies", companies);
+        model.addAttribute("inventories", inventories);
+        model.addAttribute("companyContracts", companyContracts);
+        model.addAttribute("admins", admins);
+        log.info("들어오는 값 = {}" ,  new AcPurchase());
         return "/admin/accounting/purchase/purchaseAccountingAdd";
+    }
+    @PostMapping("/purchaseAccountingAdd")
+    public String addPurchaseAccounting(AcPurchase acPurchase){
+        acPurchaseService.addAcPurchase(acPurchase);
+        log.info("입력창  : {}", acPurchase);
+        return "redirect:/admin/accounting/purchase/purchaseAccounting";
+    }
+
+
+    //수정
+
+
+
+    //삭제
+    @PutMapping("/delete/purchaseAccountingDelete")
+    public String deleteAcPurchase(@RequestParam(name="accountingPurchaseAdminIdx",required = false)Long accountingPurchaseAdminIdx){
+        AcPurchase acPurchaseInfo = acPurchaseService.getAcPurchaseInfoByDeleteId(accountingPurchaseAdminIdx);
+        acPurchaseService.deleteAcPurchase(accountingPurchaseAdminIdx);
+        return "redirect:/admin/accounting/purchase/purchaseAccounting";
     }
 
 
