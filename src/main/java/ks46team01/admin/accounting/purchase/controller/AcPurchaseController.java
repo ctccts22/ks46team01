@@ -2,10 +2,13 @@ package ks46team01.admin.accounting.purchase.controller;
 
 import ks46team01.admin.accounting.purchase.dto.AcPurchase;
 import ks46team01.admin.accounting.purchase.service.AcPurchaseService;
-import ks46team01.admin.company.contract.entity.CompanyContract;
+
 import ks46team01.admin.company.entity.Company;
 import ks46team01.admin.info.entity.Admin;
-import ks46team01.admin.inventory.entity.Inventory;
+
+
+import ks46team01.common.compost.dto.CompanyContract;
+import ks46team01.common.compost.dto.Inventory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -25,14 +28,13 @@ public class AcPurchaseController {
     public String acPurchase(Model model) {
         List<AcPurchase> ap = acPurchaseService.getAcPurchase();
         List<Company> companies = acPurchaseService.getCompany();
-        List<Inventory> inventories = acPurchaseService.getInventory();
-        List<CompanyContract> companyContracts = acPurchaseService.getCompanyContract();
+
+
         List<Admin> admins = acPurchaseService.getAdmin();
         model.addAttribute("title", "조회");
         model.addAttribute("ap", ap);
         model.addAttribute("companies", companies);
-        model.addAttribute("inventories", inventories);
-        model.addAttribute("companyContracts", companyContracts);
+
         model.addAttribute("admins", admins);
         log.info("ap = {}", ap);
         return "/admin/accounting/purchase/purchaseAccounting";
@@ -43,13 +45,12 @@ public class AcPurchaseController {
     @GetMapping("/purchaseAccountingAdd")
     public String showAddPurchaseAccounting(Model model){
         List<Company> companies = acPurchaseService.getCompany();
-        List<Inventory> inventories = acPurchaseService.getInventory();
-        List<CompanyContract> companyContracts = acPurchaseService.getCompanyContract();
+
+
         List<Admin> admins = acPurchaseService.getAdmin();
         model.addAttribute("AcPurchase", new AcPurchase());
         model.addAttribute("companies", companies);
-        model.addAttribute("inventories", inventories);
-        model.addAttribute("companyContracts", companyContracts);
+
         model.addAttribute("admins", admins);
         log.info("들어오는 값 = {}" ,  new AcPurchase());
         return "/admin/accounting/purchase/purchaseAccountingAdd";

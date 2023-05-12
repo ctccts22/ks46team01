@@ -3,10 +3,10 @@ package ks46team01.admin.accounting.purchase.service;
 
 import ks46team01.admin.accounting.purchase.dto.AcPurchase;
 import ks46team01.admin.accounting.purchase.mapper.AcPurchaseMapper;
-import ks46team01.admin.company.contract.entity.CompanyContract;
 import ks46team01.admin.company.entity.Company;
 import ks46team01.admin.info.entity.Admin;
-import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.common.compost.dto.CompanyContract;
+import ks46team01.common.compost.dto.Inventory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,14 +30,7 @@ public class AcPurchaseService {
         List<Company> companies = acPurchaseMapper.getCompany();
         return companies;
     }
-    public  List<Inventory> getInventory(){
-        List<Inventory> inventories = acPurchaseMapper.getInventory();
-        return inventories;
-    }
-    public  List<CompanyContract> getCompanyContract(){
-        List<CompanyContract> companyContracts = acPurchaseMapper.getCompanyContract();
-        return companyContracts;
-    }
+
     public List<Admin> getAdmin(){
         List<Admin> admins =acPurchaseMapper.getAdmin();
         return admins;
