@@ -3,35 +3,118 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
-  <style>
-      .input-button-container {
-          display: flex;
-          align-items: center;
-      }
-      .input-button-container input {
-          margin-right: 5px;
-      }
-      .btn {
-          display: inline-block;
-          white-space: nowrap;
-      }
-      .hidden {
-          display: none;
-      }
-  </style>
+
 </head>
 
 <th:block layout:fragment="customJs">
   <script>
       $(document).ready(function () {
-          $('#company_type').on('change', function () {
-              var selectedValue = $(this).val();
-              if (selectedValue === "1" || selectedValue === "2" || selectedValue === "3") {
-                  $('#additional_info').removeClass('hidden').prop('disabled', true);
+          console.log('test');
+
+          function setCompanyContractType() {
+              const companyIdx = $('#company_idx').val();
+              const companyContractTypeInput = $('#company_contract_type');
+
+              if (companyIdx === '1') {
+                  companyContractTypeInput.val('판매');
+              } else if (companyIdx === '2' || companyIdx === '3') {
+                  companyContractTypeInput.val('구매');
               } else {
-                  $('#additional_info').addClass('hidden').prop('disabled', true);
+                  companyContractTypeInput.val('');
               }
+          }
+
+          $('body').on('click', '#fetch-data-btn', function () {
+              $.ajax({
+                  url: '/user/companies/getCompanyInfo',
+                  method: 'GET',
+                  dataType: 'json',
+                  success: function (data) {
+                      if (data.companyInfoName) {
+                          $('#company_info_name').val(data.companyInfoName);
+                          $('#company_info_license_number').val(data.companyInfoLicenseNumber);
+                          $('#company_type').val(data.companyType);
+                          $('#company_idx').val(data.companyIdx);
+                          $('#company_info_idx').val(data.companyInfoIdx);
+                          $('#inventory_idx').val(data.inventoryType);
+                          $('#company_unit_idx').val(data.companyUnitIdx);
+                          $('#company_unit_year').val(data.companyUnitYear);
+                          $('#company_unit_amount').val(data.companyUnitAmount);
+                          $('#company_unit_price').val(data.companyUnitPrice);
+                          setCompanyContractType();
+
+                          Swal.fire({
+                              title: '성공',
+                              text: '불러오기를 성공했습니다.',
+                              icon: 'success',
+                              confirmButtonText: '확인'
+                          });
+                      } else {
+                          Swal.fire({
+                              title: '오류',
+                              text: '일치하는 데이터가 없습니다.',
+                              icon: 'error',
+                              confirmButtonText: '확인'
+                          });
+                      }
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                      Swal.fire({
+                          title: '오류',
+                          text: '서버에서 오류가 발생했습니다.',
+                          icon: 'error',
+                          confirmButtonText: '확인'
+                      });
+                  }
+              });
           });
+          function submitFormData() {
+              const formData = $('#demo-form2').serialize();
+
+              $.ajax({
+                  url: '/user/companies/addCompanyContract',
+                  method: 'POST',
+                  data: formData,
+                  success: function (response) {
+                      Swal.fire({
+                          title: '성공',
+                          text: response,
+                          icon: 'success',
+                          confirmButtonText: '확인'
+                      }).then((result) => {
+                          if (result.isConfirmed) {
+                              resetForm();
+                          }
+                      });
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                      Swal.fire({
+                          title: '오류',
+                          text: '서버에서 오류가 발생했습니다.',
+                          icon: 'error',
+                          confirmButtonText: '확인'
+                      });
+                  }
+              });
+          }
+          function resetForm() {
+              $('#demo-form2').trigger('reset');
+              $('#company_info_name').val('');
+              $('#company_info_license_number').val('');
+              $('#company_type').val('');
+              $('#company_idx').val('');
+              $('#company_info_idx').val('');
+              $('#company_unit_idx').val('');
+              $('#company_unit_year').val('');
+              $('#company_unit_amount').val('');
+              $('#company_unit_price').val('');
+          }
+
+          $('body').on('click', 'button[type="submit"]', function (event) {
+              event.preventDefault();
+              submitFormData();
+          });
+
       });
   </script>
 
@@ -41,48 +124,78 @@
   <h1>사업자계약</h1>
   <div class="x_content">
     <br/>
-    <form th:object="${companyContract}" th:action="@{/user/companies/addCompanyInfo}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-
-<!--      <div class="item form-group">-->
-<!--        <label class="col-form-label col-md-3 col-sm-3 label-align" for="username">회원아이디</label>-->
-<!--        <div class="col-md-6 col-sm-6 ">-->
-<!--          <input type="text" id="username" th:field="${session.user.username}" disabled class="form-control">-->
-<!--        </div>-->
-<!--      </div>-->
-
+    <form th:object="${companyContract}" th:action="@{/user/companies/addCompanyContract}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
       <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_info_name">사업주 상호명</label>
         <div class="col-md-6 col-sm-6 input-button-container">
-          <input type="text" id="company_info_name" th:field="*{companyInfoIdx.companyInfoName}" disabled class="form-control">
-          <button class="btn btn-info">사업주확인</button>
+          <div class="row">
+            <div class="col-md-9">
+              <input type="text" id="company_info_name" th:field="*{companyInfoIdx.companyInfoName}" data-key="companyInfoName" disabled class="form-control">
+            </div>
+            <div class="col-md-3">
+              <button type="button" class="btn btn-info" id="fetch-data-btn">사업주 확인</button>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_info_license_number">사업자 번호</label>
         <div class="col-md-6 col-sm-6 ">
-          <input type="text" id="company_info_license_number" th:field="*{companyInfoIdx.companyInfoLicenseNumber}" disabled class="form-control">
+          <input type="text" id="company_info_license_number" th:field="*{companyInfoIdx.companyInfoLicenseNumber}" data-key="companyInfoLicenseNumber" disabled class="form-control">
         </div>
       </div>
 
       <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_type">사업자 종류</label>
         <div class="col-md-6 col-sm-6 ">
-          <select id="company_type" name="company_type" required="required" class="form-control">
-            <option value="">-- 선택 --</option>
-            <option value="1">1. 카페사업자</option>
-            <option value="2">2. 버섯농가사업자</option>
-            <option value="3">3. 폐배지 사업자</option>
-          </select>
-        </div>
-      </div>
-      <div class="item form-group">
-        <label class="col-form-label col-md-3 col-sm-3 label-align" for="additional_info">계약단가</label>
-        <div class="col-md-6 col-sm-6">
-          <input type="text" id="additional_info" class="form-control hidden" disabled>
+          <input type="text" id="company_type" th:field="*{companyInfoIdx.companyIdx.companyType}" data-key="companyType" disabled class="form-control">
         </div>
       </div>
 
+      <input type="hidden" id="company_idx" th:field="*{companyInfoIdx.companyIdx}" data-key="companyIdx" class="form-control">
+      <input type="hidden" id="company_unit_idx" th:field="*{companyUnitIdx}" data-key="companyUnitIdx" class="form-control">
+      <input type="hidden" id="company_info_idx" th:field="*{companyInfoIdx}" data-key="companyInfoIdx" class="form-control">
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_unit_year">계약종류</label>
+        <div class="col-md-6 col-sm-6">
+          <input type="text" id="company_contract_type" class="form-control hidden" disabled>
+        </div>
+      </div>
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="inventory_idx">품목</label>
+        <div class="col-md-6 col-sm-6">
+          <input type="text" id="inventory_idx" th:field="*{companyInfoIdx.inventoryIdx.inventoryType}" class="form-control hidden" disabled>
+        </div>
+      </div>
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_unit_year">계약단가년도</label>
+        <div class="col-md-6 col-sm-6">
+          <input type="text" id="company_unit_year" th:field="*{companyUnitIdx.companyUnitYear}" data-key="companyUnitYear" class="form-control hidden" disabled>
+        </div>
+      </div>
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_unit_amount">계약단가중량</label>
+        <div class="col-md-6 col-sm-6">
+          <input type="text" id="company_unit_amount" th:field="*{companyUnitIdx.companyUnitAmount}" data-key="companyUnitAmount" class="form-control hidden" disabled>
+        </div>
+      </div>
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_unit_price">계약단가금액</label>
+        <div class="col-md-6 col-sm-6">
+          <input type="text" id="company_unit_price" th:field="*{companyUnitIdx.companyUnitPrice}" data-key="companyUnitPrice" class="form-control hidden" disabled>
+        </div>
+      </div>
+
+      <div class="item form-group">
+        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_contract_amount">계약총중량</label>
+        <div class="col-md-6 col-sm-6 ">
+          <input type="number" id="company_contract_amount" th:field="*{companyContractAmount}" required="required" class="form-control">
+        </div>
+      </div>
 
       <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_contract_start">계약 시작일</label>
@@ -104,9 +217,6 @@
           <input type="text" id="company_contract_delivery_term" th:field="*{companyContractDeliveryTerm}" required="required" class="form-control">
         </div>
       </div>
-
-      <input type="hidden" id="company_unit_idx" th:field="*{companyUnitIdx}" required="required" class="form-control">
-      <input type="hidden" id="inventory_info_idx" th:field="*{companyInfoIdx}" required="required" class="form-control">
 
       <div class="form-group">
         <div class="col-md-6 col-sm-6 offset-md-3">

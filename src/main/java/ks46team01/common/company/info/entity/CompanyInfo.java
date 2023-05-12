@@ -3,7 +3,7 @@ package ks46team01.common.company.info.entity;
 import jakarta.persistence.*;
 import ks46team01.admin.company.entity.Company;
 import ks46team01.admin.company.unit.entity.CompanyUnit;
-import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.user.info.entity.User;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -67,6 +67,11 @@ public class CompanyInfo {
     @OneToMany(mappedBy = "companyInfoIdx", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<CompanyInfoApprove> companyInfoApprovals;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_unit_idx", nullable = false)
+    @ToString.Exclude
+    private CompanyUnit companyUnitIdx;
 
     @PrePersist
     public void setDefaultCompanyInfoIsDel() {

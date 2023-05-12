@@ -1,6 +1,7 @@
 package ks46team01.admin.company.unit.repository;
 
 import ks46team01.admin.company.unit.entity.CompanyUnit;
+import ks46team01.user.info.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,5 +21,6 @@ public interface CompanyUnitRepository extends JpaRepository<CompanyUnit, Long> 
 
 
     Optional<CompanyUnit> findByCompanyUnitIdx(Long companyUnitIdx);
+
 
 }

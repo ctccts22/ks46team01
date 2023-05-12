@@ -1,7 +1,6 @@
-package ks46team01.admin.inventory.repository;
+package ks46team01.admin.inventories.inventory.repository;
 
-import ks46team01.admin.company.entity.Company;
-import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.admin.inventories.inventory.entity.Inventory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

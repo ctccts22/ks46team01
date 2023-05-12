@@ -13,25 +13,69 @@
 
 <th:block layout:fragment="customJs">
   <script>
-    $(document).ready(function () {
-      $('body').on('click', '.edit-button', function () {
-        const row = $(this).closest('tr');
-        const companyInfoApproveIdx = row.find('td[data-key="companyInfoApproveIdx"]').text();
-        const companyInfoApproveDate = row.find('td[data-key="companyInfoApproveDate"]').text();
-        const companyInfoApproveStatus = row.find('td[data-key="companyInfoApproveStatus"]').text();
-        const companyInfoApproveContent = row.find('td[data-key="companyInfoApproveContent"]').text();
-        const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
+      $(document).ready(function () {
+          $('body').on('click', '.edit-button', function () {
+              const row = $(this).closest('tr');
 
-        $('#edit-companyInfoIdx').val(companyInfoIdx);
-        $('#edit-companyInfoApproveIdx').val(companyInfoApproveIdx);
-        $('#edit-companyInfoApproveDate').val(companyInfoApproveDate);
-        $('#edit-companyInfoApproveStatus').val(companyInfoApproveStatus);
-        $('#edit-companyInfoApproveContent').val(companyInfoApproveContent);
-        // 모달 보여짐
-        $('#editCompanyInfoApproveModal').modal('show');
-      });
+              const companyContractApproveIdx = row.find('td[data-key="companyContractApproveIdx"]').text();
+              const companyContractApproveDate = row.find('td[data-key="companyContractApproveDate"]').text();
+              const companyContractApproveStatus = row.find('td[data-key="companyContractApproveStatus"]').text();
+              const companyContractApproveContent = row.find('td[data-key="companyContractApproveContent"]').text();
+              const companyContractIdx = row.find('td[data-key="companyContractIdx"]').text();
 
-
+              Swal.fire({
+                  title: '사업자계약수정',
+                  html:
+                      `<form id="edit-companyContractApprove">
+                            <input type="hidden" id="edit-companyContractApproveIdx" name="companyContractApproveIdx" value="${companyContractApproveIdx}"/>
+                            <input type="hidden" id="edit-companyContractIdx" name="companyContractIdx" value="${companyContractIdx}"/>
+                            <div class="form-group">
+                              <label for="edit-companyContractApproveDate">승인날짜:</label>
+                              <input type="date" class="form-control" id="edit-companyContractApproveDate" name="companyContractApproveDate" value="${companyContractApproveDate}"/>
+                            </div>
+                            <div class="form-group">
+                              <label for="edit-companyContractApproveStatus">승인상태:</label>
+                              <select class="form-control" id="edit-companyContractApproveStatus" name="companyContractApproveStatus" value="${companyContractApproveStatus}"/>
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="edit-companyContractApproveContent">승인사유:</label>
+                              <input type="text" class="form-control" id="edit-companyContractApproveContent" name="companyContractApproveContent" value="${companyContractApproveContent}"/>
+                            </div>
+                          </form>`,
+                  showCancelButton: true,
+                  confirmButtonText: '수정',
+                  cancelButtonText: '최소',
+                  preConfirm: () => {
+                      const form = document.getElementById('edit-companyContractApprove');
+                      $.ajax({
+                          url: '/admin/companies/contract/updateCompanyContractApprove',
+                          method: 'POST',
+                          data: {
+                              companyContractIdx: $('#edit-companyContractIdx').val(),
+                              companyContractApproveIdx: $('#edit-companyContractApproveIdx').val(),
+                              companyContractApproveDate: $('#edit-companyContractApproveDate').val(),
+                              companyContractApproveStatus: $('#edit-companyContractApproveStatus').val(),
+                              companyContractApproveContent: $('#edit-companyContractApproveContent').val()
+                          },
+                          success: function (response) {
+                              Swal.fire('Success!', '성공적으로 수정되었습니다.', 'success')
+                                  .then(() => {
+                                      location.reload();
+                                  });
+                          },
+                          error: function () {
+                              Swal.fire('Error!', '수정에 실패했습니다.', 'error');
+                          },
+                      });
+                  }
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                  }
+              });
+          });
 
     $('#datatable-custom').DataTable({
       pagination: false,
@@ -50,7 +94,7 @@
     <div class="title">
       <div class="x_panel">
         <div class="x_title">
-          <h2 class="my-4">사업자승인관리</h2>
+          <h2 class="my-4">사업자계약관리</h2>
 
           <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -64,8 +108,8 @@
           <div class="clearfix"></div>
         </div>
 
-        <form method="get" th:action="@{/admin/companies/info/listInfoCompany}">
-          <button class="btn btn-outline-secondary" type="submit">사업자 정보 목록</button>
+        <form method="get" th:action="@{/admin/companies/contract/listContractCompany}">
+          <button class="btn btn-outline-secondary" type="submit">사업자 계약 목록</button>
         </form>
 
         <div class="x_content">
@@ -88,8 +132,8 @@
 
                     <thead class="thead-dark">
                     <tr role="row">
-            <th style="display: none">사업자승인번호</th>
-            <th style="display: none">사업자정보번호</th>
+            <th style="display: none">사업자계약승인번호</th>
+            <th style="display: none">사업자계약번호</th>
             <th>사업자아이디</th>
             <th>사업자번호</th>
             <th>운영자아이디</th>
@@ -100,15 +144,15 @@
           </tr>
           </thead>
           <tbody>
-          <tr role="row" class="odd" th:each="companyInfoWithApproval : ${companyInfoList}">
-            <td style="display: none" data-key="companyInfoApproveIdx" th:text="${companyInfoWithApproval[1] != null ? companyInfoWithApproval[1].companyInfoApproveIdx : ''}"></td>
-            <td style="display: none" data-key="companyInfoIdx" th:text="${companyInfoWithApproval[0].companyInfoIdx}"></td>
-            <td th:text="${companyInfoWithApproval[0].username.username}"></td>
-            <td th:text="${companyInfoWithApproval[0].companyInfoLicenseNumber}"></td>
-            <td th:text="${companyInfoWithApproval[1] != null && companyInfoWithApproval[1].adminUsername != null ? companyInfoWithApproval[1].adminUsername.adminUsername : ''}"></td>
-            <td data-key="companyInfoApproveDate" th:text="${companyInfoWithApproval[1] != null ? companyInfoWithApproval[1].companyInfoApproveDate : ''}"></td>
-            <td data-key="companyInfoApproveStatus" th:text="${companyInfoWithApproval[1] != null ? companyInfoWithApproval[1].companyInfoApproveStatus : ''}"></td>
-            <td data-key="companyInfoApproveContent" th:text="${companyInfoWithApproval[1] != null ? companyInfoWithApproval[1].companyInfoApproveContent : ''}"></td>
+          <tr role="row" class="odd" th:each="companyContractWithApproval : ${companyContractList}">
+            <td style="display: none" data-key="companyContractApproveIdx" th:text="${companyContractWithApproval[1] != null ? companyContractWithApproval[1].companyContractApproveIdx : ''}"></td>
+            <td style="display: none" data-key="companyContractIdx" th:text="${companyContractWithApproval[0].companyContractIdx}"></td>
+            <td th:text="${companyContractWithApproval[0].companyInfoIdx.username.username}"></td>
+            <td th:text="${companyContractWithApproval[0].companyInfoIdx.companyInfoLicenseNumber}"></td>
+            <td th:text="${companyContractWithApproval[1] != null && companyContractWithApproval[1].adminUsername != null ? companyContractWithApproval[1].adminUsername.adminUsername : ''}"></td>
+            <td data-key="companyContractApproveDate" th:text="${companyContractWithApproval[1] != null ? companyContractWithApproval[1].companyContractApproveDate : ''}"></td>
+            <td data-key="companyContractApproveStatus" th:text="${companyContractWithApproval[1] != null ? companyContractWithApproval[1].companyContractApproveStatus : ''}"></td>
+            <td data-key="companyContractApproveContent" th:text="${companyContractWithApproval[1] != null ? companyContractWithApproval[1].companyContractApproveContent : ''}"></td>
             <td>
               <button type="button" class="edit-button">허가</button>
             </td>
@@ -117,41 +161,41 @@
                   </table>
 
                   <!-- 사업자허가 모달 -->
-                  <div class="modal fade" id="editCompanyInfoApproveModal" tabindex="-1" role="dialog" aria-labelledby="editCompanyInfoApproveModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="editCompanyInfoApproveModalLabel">사업자허가</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form id="edit-companyInfoApprove-form" th:action="@{/admin/companies/info/updateCompanyInfoApprove}" method="post">
-                            <input type="hidden" id="edit-companyInfoApproveIdx" name="companyInfoApproveIdx" />
-                            <input type="hidden" id="edit-companyInfoIdx" name="companyInfoIdx" />
-                            <div class="form-group">
-                              <label for="edit-companyInfoApproveDate">승인날짜:</label>
-                              <input type="date" class="form-control" id="edit-companyInfoApproveDate" name="companyInfoApproveDate" />
-                            </div>
-                            <div class="form-group">
-                              <label for="edit-companyInfoApproveStatus">승인상태:</label>
-                              <select class="form-control" id="edit-companyInfoApproveStatus" name="companyInfoApproveStatus">
-                                <option value="Y">Y</option>
-                                <option value="N">N</option>
-                              </select>
-                            </div>
-                            <div class="form-group">
-                              <label for="edit-companyInfoApproveContent">승인사유:</label>
-                              <input type="text" class="form-control" id="edit-companyInfoApproveContent" name="companyInfoApproveContent" />
-                            </div>
-                            <button type="submit" class="btn btn-primary">수정</button>
-                            <button type="reset" class="btn btn-warning">취소</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+<!--                  <div class="modal fade" id="editCompanyInfoApproveModal" tabindex="-1" role="dialog" aria-labelledby="editCompanyInfoApproveModalLabel" aria-hidden="true">-->
+<!--                    <div class="modal-dialog" role="document">-->
+<!--                      <div class="modal-content">-->
+<!--                        <div class="modal-header">-->
+<!--                          <h5 class="modal-title" id="editCompanyInfoApproveModalLabel">사업자허가</h5>-->
+<!--                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">&times;</span>-->
+<!--                          </button>-->
+<!--                        </div>-->
+<!--                        <div class="modal-body">-->
+<!--                          <form id="edit-companyInfoApprove-form" th:action="@{/admin/companies/info/updateCompanyInfoApprove}" method="post">-->
+<!--                            <input type="hidden" id="edit-companyInfoApproveIdx" name="companyInfoApproveIdx" />-->
+<!--                            <input type="hidden" id="edit-companyInfoIdx" name="companyInfoIdx" />-->
+<!--                            <div class="form-group">-->
+<!--                              <label for="edit-companyInfoApproveDate">승인날짜:</label>-->
+<!--                              <input type="date" class="form-control" id="edit-companyInfoApproveDate" name="companyInfoApproveDate" />-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                              <label for="edit-companyInfoApproveStatus">승인상태:</label>-->
+<!--                              <select class="form-control" id="edit-companyInfoApproveStatus" name="companyInfoApproveStatus">-->
+<!--                                <option value="Y">Y</option>-->
+<!--                                <option value="N">N</option>-->
+<!--                              </select>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                              <label for="edit-companyInfoApproveContent">승인사유:</label>-->
+<!--                              <input type="text" class="form-control" id="edit-companyInfoApproveContent" name="companyInfoApproveContent" />-->
+<!--                            </div>-->
+<!--                            <button type="submit" class="btn btn-primary">수정</button>-->
+<!--                            <button type="reset" class="btn btn-warning">취소</button>-->
+<!--                          </form>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
                   <!-- 사업자허가 모달 -->
 
                 </div>

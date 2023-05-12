@@ -84,8 +84,10 @@ public class CompostController {
         System.out.println("ID:"+sessionId);
         List<OrderCompostConfirm> compostConfirmList = userCompostOrderService.compostConfirmList(sessionId);
         model.addAttribute("compostConfirmList",compostConfirmList);
+
             return "user/compost/listConfirmCompostOrder";
     }
+
 
     @GetMapping("/listDeliveryCompostOrder")
     public String orderCompostDeliveryList(HttpSession session,

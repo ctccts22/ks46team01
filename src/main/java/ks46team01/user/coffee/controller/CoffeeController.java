@@ -64,11 +64,6 @@ public class CoffeeController {
         return "user/coffee/listDeliveryCoffee";
     }
 
-    @GetMapping("/coffeeDeliveryList")
-    public String coffeeDeliveryList() {
-        return "user/coffee/listDeliveryCoffee";
-    }
-
     @PostMapping("/insertRequestCoffee")
     public String coffeeRequestInsert(
             @RequestParam(value = "r_coffee") String coffee,

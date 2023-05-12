@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import ks46team01.admin.info.util.AdminSerializer;
-import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.auth.entity.Role;
 import ks46team01.admin.company.entity.Company;
 import lombok.*;

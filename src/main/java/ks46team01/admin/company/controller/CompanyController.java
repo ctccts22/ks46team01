@@ -10,12 +10,11 @@ import ks46team01.admin.company.entity.Company;
 import ks46team01.admin.company.service.CompanyService;
 import ks46team01.admin.info.util.AdminConverter;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -35,12 +34,6 @@ public class CompanyController {
         return "admin/companies/listCompany";
     }
 
-    @GetMapping("/addCompany")
-    public String showAddCompanyForm(Model model) {
-        model.addAttribute("company", new Company());
-        return "admin/companies/addCompany";
-    }
-
     @PostMapping("/addCompany")
     @ResponseBody
     public String addCompany(CompanyDTO companyDTO, HttpSession session) throws JsonProcessingException {
@@ -57,7 +50,19 @@ public class CompanyController {
         }
         return result;
     }
-
-
+    @PostMapping("/deleteCompany")
+    @ResponseBody
+    public ResponseEntity<?> deleteCompany(@RequestParam("companyIdx") Long companyIdx, HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("adminUser");
+        if (admin != null) {
+            boolean isDeleted = companyService.deleteCompany(companyIdx, admin);
+            if (isDeleted) {
+                return new ResponseEntity<>("200성공", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("400에러", HttpStatus.BAD_REQUEST);
+            }
+        }
+        return new ResponseEntity<>("401어드민로그인에러", HttpStatus.UNAUTHORIZED);
+    }
 
 }

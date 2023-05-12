@@ -2,7 +2,6 @@ package ks46team01.common.company.contract.dto;
 
 import ks46team01.common.company.contract.entity.CompanyContract;
 import ks46team01.common.company.contract.entity.CompanyContractApprove;
-import ks46team01.common.company.info.entity.CompanyInfo;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
@@ -24,7 +23,15 @@ public class CompanyContractDTO {
     private Integer CompanyUnitPrice;
     private Long companyInfoIdx;
     private String companyInfoLicenseNumber;
+    private String companyInfoIsDel;
     private String username;
+
+    private String companyInfoName;
+    private String companyType;
+    private Long companyIdx;
+    private Integer companyUnitYear;
+    private Double companyUnitAmount;
+
     private List<CompanyContractApproveDTO> companyContractApprovals;
 
     public CompanyContract toEntity() {
@@ -42,6 +49,13 @@ public class CompanyContractDTO {
         companyContractDTO.setCompanyInfoIdx(companyContract.getCompanyInfoIdx().getCompanyInfoIdx());
         companyContractDTO.setCompanyInfoLicenseNumber(companyContract.getCompanyInfoIdx().getCompanyInfoLicenseNumber());
         companyContractDTO.setUsername(companyContract.getCompanyInfoIdx().getUsername().getUsername());
+        companyContractDTO.setCompanyInfoName(companyContract.getCompanyInfoIdx().getCompanyInfoName());
+        companyContractDTO.setCompanyInfoIsDel(companyContract.getCompanyInfoIdx().getCompanyInfoIsDel());
+        companyContractDTO.setCompanyType(companyContract.getCompanyInfoIdx().getCompanyIdx().getCompanyType());
+        companyContractDTO.setCompanyIdx(companyContract.getCompanyInfoIdx().getCompanyIdx().getCompanyIdx());
+        companyContractDTO.setCompanyUnitYear(companyContract.getCompanyUnitIdx().getCompanyUnitYear());
+        companyContractDTO.setCompanyUnitAmount(companyContract.getCompanyUnitIdx().getCompanyUnitAmount());
+
         companyContractDTO.setCompanyContractApprovals(companyContract.getCompanyContractApprovals().stream()
                 .map(CompanyContractApprove::toCompanyContractApproveDTO)
                 .collect(Collectors.toList()));

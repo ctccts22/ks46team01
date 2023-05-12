@@ -33,15 +33,6 @@ public class CompanyInfoApproveController {
     private final CompanyInfoRepository companyInfoRepository;
     private final CompanyInfoApproveService companyInfoApproveService;
 
-//    @GetMapping("/listInfoApproveCompany")
-//    public String companyInfoApproveList(Model model) {
-//        List<CompanyInfoApprove> companyInfoApproveList = companyInfoApproveRepository.findAll();
-//        model.addAttribute("title", "사업자 정보 관리");
-//        model.addAttribute("companyInfoApproveList", companyInfoApproveList);
-//        log.info("companyInfoApprove={}", companyInfoApproveList);
-//        return "admin/companies/info/listInfoApproveCompany";
-//    }
-
     @GetMapping("/listInfoApproveCompany")
     public String companyInfoApproveList(Model model) {
         List<Object[]> companyInfoList = companyInfoApproveRepository.findAllCompanyInfoWithApprovals();
