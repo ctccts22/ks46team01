@@ -75,10 +75,7 @@
                         <th>회원아이디</th>
                         <th>계약자사업자번호</th>
                         <th>재고품목</th>
-                        <th>최초입고중량</th>
                         <th>최종입고중량</th>
-                        <th>분실입고중량</th>
-                        <th>예외입고중량</th>
                         <th>관리자아이디</th>
                         <th>최종업데이트날짜</th>
                       </tr>
@@ -86,13 +83,10 @@
                       <tbody>
                       <tr class="odd" role="row" th:each="inventoryRecordLists : ${inventoryRecordList}">
                         <td data-key="" th:text="${inventoryRecordLists.inventoryRecordIdx}"></td>
-                        <td data-key="" th:text="${inventoryRecordLists.companyContractIdx.companyInfoIdx.username}"></td>
+                        <td data-key="" th:text="${inventoryRecordLists.companyContractIdx.companyInfoIdx.username.username}"></td>
                         <td data-key="" th:text="${inventoryRecordLists.companyContractIdx.companyInfoIdx.companyInfoLicenseNumber}"></td>
                         <td data-key="" th:text="${inventoryRecordLists.inventoryIdx.inventoryType}"></td>
-                        <td data-key="" th:text="${inventoryRecordLists.initialAmount}"></td>
                         <td data-key="" th:text="${inventoryRecordLists.finalAmount}"></td>
-                        <td data-key="" th:text="${inventoryRecordLists.lossAmount}"></td>
-                        <td data-key="" th:text="${inventoryRecordLists.exceptionalAmount}"></td>
                         <td data-key="" th:text="${inventoryRecordLists.adminUsername.adminUsername}"></td>
                         <td data-key="" th:text="${inventoryRecordLists.lastUpdated}"></td>
                       </tr>
