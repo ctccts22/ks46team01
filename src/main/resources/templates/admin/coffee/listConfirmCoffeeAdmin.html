@@ -3,6 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+  <th:block layout:fragment="customJs">
+  <script>
+
+  </script>
 </head>
 <th:block layout:fragment="customContent">
   <div class="col-md-12 col-sm-12 ">
@@ -43,6 +47,7 @@
                   <th>승인상태</th>
                   <th>승인내용</th>
                   <th>승인관리자</th>
+                  <th>수정</th>
                 </tr>
                 </thead>
 
@@ -58,6 +63,7 @@
                   <td th:text="${c.coffeeRequestConfirmStatus}"></td>
                   <td th:text="${c.coffeeRequestConfirmContent}"></td>
                   <td th:text="${c.adminUsername}"></td>
+                  <td><button class="edit-button" type="button">수정</button></td>
                 </tr>
 
                 <tr th:if="${coffeeConfirmList == null}">
