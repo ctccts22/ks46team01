@@ -49,7 +49,6 @@ public class AdminCoffeeController {
     public String adminCoffeeDeliveryList(Model model){
         System.out.println("/listDeliveryCoffeeAdmin 실행?");
         List<CoffeeDelivery> coffeeDelivery = coffeeService.listCoffeeDelivery();
-        System.out.println(coffeeDelivery.get(0));
         model.addAttribute("coffeeDelivery",coffeeDelivery);
         return "admin/coffee/listDeliveryCoffeeAdmin";
     }

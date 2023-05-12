@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks46team01.admin.compost.mapper.AdminCompostMapper">
+    <select id="orderCompostDeliveryList" resultType="ks46team01.common.compost.dto.OrderCompostDelivery">
+        SELECT
+        ci.company_info_name AS companyInfoName,
+        oc.order_compost_phone AS orderCompostPhone,
+        oc.order_compost_address AS orderCompostAddress,
+        oc.order_compost_amount AS orderCompostAmount,
+        oc.order_compost_date AS orderCompostDate,
+        ocd.order_compost_delivery_status  AS orderCompostDeliveryStatus
+        FROM
+        order_compost_delivery ocd
+        INNER JOIN order_compost oc
+        ON oc.order_compost_idx = ocd.order_compost_idx
+        INNER JOIN company_info ci
+        ON oc.company_info_idx = ci.company_info_idx;
+    </select>
+    <select id="orderCompostList" resultType="ks46team01.common.compost.dto.OrderCompostConfirm">
+        SELECT
+        oc.username AS userName,
+        oc.order_compost_idx AS orderCompostIdx,
+        oc.company_contract_idx AS companyContractIdx,
+        oc.company_info_idx AS companyInfoIdx,
+        oc.inventory_idx AS inventoryIdx,
+        oc.order_compost_content AS orderCompostContent,
+        ci.company_info_name as companyInfoName,
+        oc.order_compost_phone as orderCompostPhone,
+        oc.order_compost_address as orderCompostAddress,
+        oc.order_compost_amount as orderCompostAmount,
+        oc.order_compost_date as orderCompostDate,
+        COALESCE(occ.order_compost_confirm_status , '대기중') AS orderCompostConfirmStatus
+        FROM order_compost oc
+        INNER JOIN company_info ci
+        ON ci.company_info_idx = oc.company_info_idx
+        LEFT JOIN order_compost_confirm occ
+        ON occ.order_compost_idx = oc.order_compost_idx
+        WHERE occ.order_compost_confirm_status IS NULL;
+    </select>
+    <select id="orderCompostConfirmList" resultType="ks46team01.common.compost.dto.OrderCompostConfirm">
+        SELECT
+        ci.company_info_name AS companyInfoName,
+        oc.order_compost_phone AS orderCompostPhone,
+        oc.order_compost_address AS orderCompostAddress,
+        oc.order_compost_amount AS orderCompostAmount,
+        oc.order_compost_date AS orderCompostDate,
+        occ.order_compost_confirm_content AS orderCompostConfirmContent,
+        occ.order_compost_confirm_status AS orderCompostConfirmStatus
+        FROM order_compost_confirm occ
+        INNER JOIN company_info ci
+        ON ci.company_info_idx = occ.company_info_idx
+        INNER JOIN order_compost oc
+        ON oc.order_compost_idx = occ.order_compost_idx;
+    </select>
+    <insert id="orderCompostConfirmInsert" parameterType="ks46team01.common.compost.dto.OrderCompostConfirm">
+        INSERT INTO order_compost_confirm(
+        ORDER_compost_idx,
+        username,
+        company_info_idx,
+        order_compost_confirm_status,
+        order_compost_confirm_content,
+        admin_username, -- 승인 어드민 아이디
+        order_compost_confirm_date -- 승인날짜
+        )VALUES(#{orderCompostIdx},#{userName},#{companyInfoIdx},#{orderCompostConfirmStatus},#{orderCompostConfirmContent},#{adminUsername},now());
+    </insert>
+</mapper>

@@ -3,6 +3,300 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let index;
+            let arr = [];
+            $('#btn-success').click(function () {
+                let contentValue = document.querySelector('input[name="approve"]');
+                let content = contentValue.value;
+                console.log(content);
+                let status = '승인';
+                let companyInfoName;
+                let farmPickupRequestPhone;
+                let farmPickupRequestAddress;
+                let farmPickupRequestAmount;
+                let farmPickupRequestDate;
+                let farmPickupRequestConfirmStatus;
+                let farmPickupRequestIdx;
+                let companyInfoIdx;
+                let userName;
+                let formArr = [];
+                console.log(arr.length);
+                for (let i = 0; i < arr.length; i++) {
+                    companyInfoName = arr[i][0];
+                    farmPickupRequestPhone = arr[i][1];
+                    farmPickupRequestAddress = arr[i][2];
+                    farmPickupRequestAmount = arr[i][3];
+                    farmPickupRequestDate = arr[i][4];
+                    farmPickupRequestConfirmStatus = arr[i][5];
+                    farmPickupRequestIdx = arr[i][6];
+                    companyInfoIdx = arr[i][7];
+                    userName = arr[i][8];
+
+                    console.log(companyInfoName, farmPickupRequestPhone, farmPickupRequestAddress, farmPickupRequestAmount, farmPickupRequestDate, farmPickupRequestConfirmStatus, farmPickupRequestIdx, companyInfoIdx,userName);
+                    formArr.push([companyInfoName, farmPickupRequestPhone, farmPickupRequestAddress, farmPickupRequestAmount, farmPickupRequestDate, farmPickupRequestConfirmStatus, farmPickupRequestIdx, companyInfoIdx,userName]);
+                }
+                console.log(formArr, '????????');
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/farm/insertConfirmPickupFarmAdmin");
+
+                let input_status = document.createElement("input");
+                input_status.setAttribute("type","hidden");
+                input_status.setAttribute("name","status");
+                input_status.setAttribute("value",status);
+                form.appendChild(input_status);
+
+                let input_content = document.createElement("input");
+                input_content.setAttribute("type","hidden");
+                input_content.setAttribute("name","content");
+                input_content.setAttribute("value",content);
+                form.appendChild(input_content);
+                for (let i = 0; i < formArr.length; i++) {
+
+                    let input_companyInfoName = document.createElement("input");
+                    input_companyInfoName.setAttribute("type", "hidden");
+                    input_companyInfoName.setAttribute("name", "companyInfoName");
+                    input_companyInfoName.setAttribute("value", formArr[i][0]);
+
+                    let input_farmPickupRequestPhone = document.createElement("input");
+                    input_farmPickupRequestPhone.setAttribute("type", "hidden");
+                    input_farmPickupRequestPhone.setAttribute("name", "farmPickupRequestPhone");
+                    input_farmPickupRequestPhone.setAttribute("value", formArr[i][1]);
+
+                    let input_farmPickupRequestAddress= document.createElement("input");
+                    input_farmPickupRequestAddress.setAttribute("type", "hidden");
+                    input_farmPickupRequestAddress.setAttribute("name", "farmPickupRequestAddress");
+                    input_farmPickupRequestAddress.setAttribute("value", formArr[i][2]);
+
+                    let input_farmPickupRequestAmount = document.createElement("input");
+                    input_farmPickupRequestAmount.setAttribute("type", "hidden");
+                    input_farmPickupRequestAmount.setAttribute("name", "farmPickupRequestAmount");
+                    input_farmPickupRequestAmount.setAttribute("value", formArr[i][3]);
+
+                    let input_farmPickupRequestDate = document.createElement("input");
+                    input_farmPickupRequestDate.setAttribute("type", "hidden");
+                    input_farmPickupRequestDate.setAttribute("name", "farmPickupRequestDate");
+                    input_farmPickupRequestDate.setAttribute("value", formArr[i][4]);
+
+                    let input_farmPickupRequestConfirmStatus = document.createElement("input");
+                    input_farmPickupRequestConfirmStatus.setAttribute("type", "hidden");
+                    input_farmPickupRequestConfirmStatus.setAttribute("name", "farmPickupRequestConfirmStatus");
+                    input_farmPickupRequestConfirmStatus.setAttribute("value", formArr[i][5]);
+
+                    let input_farmPickupRequestIdx = document.createElement("input");
+                    input_farmPickupRequestIdx.setAttribute("type", "hidden");
+                    input_farmPickupRequestIdx.setAttribute("name", "farmPickupRequestIdx");
+                    input_farmPickupRequestIdx.setAttribute("value", formArr[i][6]);
+
+                    let input_companyInfoIdx = document.createElement("input");
+                    input_companyInfoIdx.setAttribute("type", "hidden");
+                    input_companyInfoIdx.setAttribute("name", "companyInfoIdx");
+                    input_companyInfoIdx.setAttribute("value", formArr[i][7]);
+
+                    let input_userName = document.createElement("input");
+                    input_userName.setAttribute("type", "hidden");
+                    input_userName.setAttribute("name", "userName");
+                    input_userName.setAttribute("value", formArr[i][8]);
+
+                    form.appendChild(input_companyInfoName);
+                    form.appendChild(input_farmPickupRequestPhone);
+                    form.appendChild(input_farmPickupRequestAddress);
+                    form.appendChild(input_farmPickupRequestAmount);
+                    form.appendChild(input_farmPickupRequestDate);
+                    form.appendChild(input_farmPickupRequestConfirmStatus);
+                    form.appendChild(input_farmPickupRequestIdx);
+                    form.appendChild(input_companyInfoIdx);
+                    form.appendChild(input_userName);
+                }
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
+            });
+            $('#btn-danger').click(function () {
+                let contentValue = document.querySelector('input[name="refusal"]');
+                let content = contentValue.value;
+                console.log(content);
+                let status = '거부';
+                let companyInfoName;
+                let farmPickupRequestPhone;
+                let farmPickupRequestAddress;
+                let farmPickupRequestAmount;
+                let farmPickupRequestDate;
+                let farmPickupRequestConfirmStatus;
+                let farmPickupRequestIdx;
+                let companyInfoIdx;
+                let userName;
+                let formArr = [];
+                console.log(arr.length);
+                for (let i = 0; i < arr.length; i++) {
+                    companyInfoName = arr[i][0];
+                    farmPickupRequestPhone = arr[i][1];
+                    farmPickupRequestAddress = arr[i][2];
+                    farmPickupRequestAmount = arr[i][3];
+                    farmPickupRequestDate = arr[i][4];
+                    farmPickupRequestConfirmStatus = arr[i][5];
+                    farmPickupRequestIdx = arr[i][6];
+                    companyInfoIdx = arr[i][7];
+                    userName = arr[i][8];
+
+                    console.log(companyInfoName, farmPickupRequestPhone, farmPickupRequestAddress, farmPickupRequestAmount, farmPickupRequestDate, farmPickupRequestConfirmStatus, farmPickupRequestIdx, companyInfoIdx,userName);
+                    formArr.push([companyInfoName, farmPickupRequestPhone, farmPickupRequestAddress, farmPickupRequestAmount, farmPickupRequestDate, farmPickupRequestConfirmStatus, farmPickupRequestIdx, companyInfoIdx,userName]);
+                }
+                console.log(formArr, '????????');
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/coffee/insertCoffeeAdmin");
+
+                let input_status = document.createElement("input");
+                input_status.setAttribute("type","hidden");
+                input_status.setAttribute("name","status");
+                input_status.setAttribute("value",status);
+                form.appendChild(input_status);
+
+                let input_content = document.createElement("input");
+                input_content.setAttribute("type","hidden");
+                input_content.setAttribute("name","content");
+                input_content.setAttribute("value",content);
+                form.appendChild(input_content);
+                for (let i = 0; i < formArr.length; i++) {
+
+                    let input_companyInfoName = document.createElement("input");
+                    input_companyInfoName.setAttribute("type", "hidden");
+                    input_companyInfoName.setAttribute("name", "companyInfoName");
+                    input_companyInfoName.setAttribute("value", formArr[i][0]);
+
+                    let input_farmPickupRequestPhone = document.createElement("input");
+                    input_farmPickupRequestPhone.setAttribute("type", "hidden");
+                    input_farmPickupRequestPhone.setAttribute("name", "farmPickupRequestPhone");
+                    input_farmPickupRequestPhone.setAttribute("value", formArr[i][1]);
+
+                    let input_farmPickupRequestAddress= document.createElement("input");
+                    input_farmPickupRequestAddress.setAttribute("type", "hidden");
+                    input_farmPickupRequestAddress.setAttribute("name", "farmPickupRequestAddress");
+                    input_farmPickupRequestAddress.setAttribute("value", formArr[i][2]);
+
+                    let input_farmPickupRequestAmount = document.createElement("input");
+                    input_farmPickupRequestAmount.setAttribute("type", "hidden");
+                    input_farmPickupRequestAmount.setAttribute("name", "farmPickupRequestAmount");
+                    input_farmPickupRequestAmount.setAttribute("value", formArr[i][3]);
+
+                    let input_farmPickupRequestDate = document.createElement("input");
+                    input_farmPickupRequestDate.setAttribute("type", "hidden");
+                    input_farmPickupRequestDate.setAttribute("name", "farmPickupRequestDate");
+                    input_farmPickupRequestDate.setAttribute("value", formArr[i][4]);
+
+                    let input_farmPickupRequestConfirmStatus = document.createElement("input");
+                    input_farmPickupRequestConfirmStatus.setAttribute("type", "hidden");
+                    input_farmPickupRequestConfirmStatus.setAttribute("name", "farmPickupRequestConfirmStatus");
+                    input_farmPickupRequestConfirmStatus.setAttribute("value", formArr[i][5]);
+
+                    let input_farmPickupRequestIdx = document.createElement("input");
+                    input_farmPickupRequestIdx.setAttribute("type", "hidden");
+                    input_farmPickupRequestIdx.setAttribute("name", "farmPickupRequestIdx");
+                    input_farmPickupRequestIdx.setAttribute("value", formArr[i][6]);
+
+                    let input_companyInfoIdx = document.createElement("input");
+                    input_companyInfoIdx.setAttribute("type", "hidden");
+                    input_companyInfoIdx.setAttribute("name", "companyInfoIdx");
+                    input_companyInfoIdx.setAttribute("value", formArr[i][7]);
+
+                    let input_userName = document.createElement("input");
+                    input_userName.setAttribute("type", "hidden");
+                    input_userName.setAttribute("name", "userName");
+                    input_userName.setAttribute("value", formArr[i][8]);
+
+                    form.appendChild(input_companyInfoName);
+                    form.appendChild(input_farmPickupRequestPhone);
+                    form.appendChild(input_farmPickupRequestAddress);
+                    form.appendChild(input_farmPickupRequestAmount);
+                    form.appendChild(input_farmPickupRequestDate);
+                    form.appendChild(input_farmPickupRequestConfirmStatus);
+                    form.appendChild(input_farmPickupRequestIdx);
+                    form.appendChild(input_companyInfoIdx);
+                    form.appendChild(input_userName);
+                }
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
+            });
+            $('input[type="checkbox"]').click(function () {
+                index = $(this).closest('tr').index() + 1;
+                indexArr = index.length;
+                console.log('체크박스 index ' + index + ' 번클릭.');
+            });
+            $("#check-all").change(function () {
+                if (this.checked) {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", true);
+                    });
+                    for (var i = 1; i <= $('input[type=checkbox][name=check-seperated]').length; i++) {
+                        const companyInfoName = $('#user_list #check-box-value:nth-child(' + i + ') #companyInfoName').text();
+                        const farmPickupRequestPhone = $('#user_list #check-box-value:nth-child(' + i + ') #farmPickupRequestPhone').text();
+                        const farmPickupRequestAddress = $('#user_list #check-box-value:nth-child(' + i + ') #farmPickupRequestAddress').text();
+                        const farmPickupRequestAmount = $('#user_list #check-box-value:nth-child(' + i + ') #farmPickupRequestAmount').text();
+                        const farmPickupRequestDate = $('#user_list #check-box-value:nth-child(' + i + ') #farmPickupRequestDate').text();
+                        const farmPickupRequestConfirmStatus = $('#user_list #check-box-value:nth-child(' + i + ') #farmPickupRequestConfirmStatus').text();
+                        const farmPickupRequestIdx = $('#user_list #check-box-value:nth-child(' + i + ') #farmPickupRequestIdx').text();
+                        const companyInfoIdx = $('#user_list #check-box-value:nth-child(' + i + ') #companyInfoIdx').text();
+                        const userName = $('#user_list #check-box-value:nth-child(' + i + ') #userName').text();
+                        arr.push([companyInfoName,farmPickupRequestPhone, farmPickupRequestAddress, farmPickupRequestAmount, farmPickupRequestDate, farmPickupRequestConfirmStatus, farmPickupRequestIdx, companyInfoIdx,userName]); // 배열에 추가
+                    }
+                    console.log(arr);
+                } else {
+                    $('input[type=checkbox][name=check-seperated]').each(function () {
+                        $(this).prop("checked", false);
+                        arr = []; // clear the array
+                    });
+                    console.log(arr, 'else?');
+                }
+            });
+
+            $('input[type=checkbox][name=check-seperated]').change(function () {
+                if (this.checked) {
+                    // alert(`${this.value} is checked`);
+                    const companyInfoName = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoName').text();
+                    const farmPickupRequestPhone = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestPhone').text();
+                    const farmPickupRequestAddress = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestAddress').text();
+                    const farmPickupRequestAmount = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestAmount').text();
+                    const farmPickupRequestDate = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestDate').text();
+                    const farmPickupRequestConfirmStatus = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestConfirmStatus').text();
+                    const farmPickupRequestIdx = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestIdx').text();
+                    const companyInfoIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoIdx').text();
+                    const userName = $('#user_list #check-box-value:nth-child(' + index + ') #userName').text();
+                    arr.push([companyInfoName,farmPickupRequestPhone, farmPickupRequestAddress, farmPickupRequestAmount, farmPickupRequestDate, farmPickupRequestConfirmStatus, farmPickupRequestIdx, companyInfoIdx,userName]); // 배열에 추가
+                    console.log(arr);
+                } else {
+                    if ($('input[type=checkbox][name=check-seperated]').length !== $('input[type=checkbox][name=check-seperated]:checked').length) {
+                        $("input:checkbox[id='check-all']").prop("checked", false);
+                    }
+                    const companyInfoName = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoName').text();
+                    const farmPickupRequestPhone = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestPhone').text();
+                    const farmPickupRequestAddress = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestAddress').text();
+                    const farmPickupRequestAmount = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestAmount').text();
+                    const farmPickupRequestDate = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestDate').text();
+                    const farmPickupRequestConfirmStatus = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestConfirmStatus').text();
+                    const farmPickupRequestIdx = $('#user_list #check-box-value:nth-child(' + index + ') #farmPickupRequestIdx').text();
+                    const companyInfoIdx = $('#user_list #check-box-value:nth-child(' + index + ') #companyInfoIdx').text();
+                    const userName = $('#user_list #check-box-value:nth-child(' + index + ') #userName').text();
+                    arr = arr.filter(item => (
+                        item[0] !== companyInfoName ||
+                        item[1] !== farmPickupRequestPhone ||
+                        item[2] !== farmPickupRequestAddress ||
+                        item[3] !== farmPickupRequestAmount ||
+                        item[4] !== farmPickupRequestDate ||
+                        item[5] !== farmPickupRequestConfirmStatus ||
+                        item[6] !== farmPickupRequestIdx ||
+                        item[7] !== companyInfoIdx ||
+                        item[8] !== userName
+                    ));
+                    console.log(arr);
+                }
+            });
+        });
+    </script>
 </head>
 <th:block layout:fragment="customContent">
     <div class="col-md-12 col-sm-12 ">
@@ -50,90 +344,102 @@
                             <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
                                 <thead>
                                 <tr>
-                                    </th>
+                                    <th><input type="checkbox" id="check-all" name="check-all"></th>
                                     <th>농장명</th>
                                     <th>수거 담당자 번호</th>
                                     <th>농장 주소</th>
                                     <th>중량</th>
                                     <th>승인신청 날짜</th>
                                     <th>승인상태</th>
+                                    <th hidden="hidden"></th>
+                                    <th hidden="hidden"></th>
+                                    <th hidden="hidden"></th>
+                                    <th>승인신청 내용</th>
                                 </tr>
                                 </thead>
 
 
-                                <tbody>
-                                <tr>
-                                    <td>하니팜</td>
-                                    <td>010-1234-5678</td>
-                                    <td>전라남도 영암군 시종면 옥야리 318-4</td>
-                                    <td>15kg</td>
-                                    <td>2023/04/12</td>
-                                    <td>승인대기중</td>
-                                </tr>
-                                <tr>
-                                    <td>동물농장</td>
-                                    <td>010-5789-5478</td>
-                                    <td>전라남도 영암군 시종면 옥야리 999-5</td>
-                                    <td>105kg</td>
-                                    <td>2023/04/13</td>
-                                    <td>승인대기중</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
+                                <tbody id="user_list">
+
+                                <tr id="check-box-value" th:each="confirmList, confirmListIndex : ${confirmList}">
+                                    <th><input type="checkbox" id="check-seperated" name="check-seperated"></th>
+                                    <td id="companyInfoName" th:text="${confirmList.companyInfoName}"></td>
+                                    <td id="farmPickupRequestPhone" th:text="${confirmList.farmPickupRequestPhone}"></td>
+                                    <td id="farmPickupRequestAddress" th:text="${confirmList.farmPickupRequestAddress}"></td>
+                                    <td id="farmPickupRequestAmount" th:text="${confirmList.farmPickupRequestAmount}+kg"></td>
+                                    <td id="farmPickupRequestDate" th:text="${confirmList.farmPickupRequestDate}"></td>
+                                    <td id="farmPickupConfirmStatus" th:text="${confirmList.farmPickupConfirmStatus}"></td>
+                                    <td id="farmPickupRequestIdx" th:text="${confirmList.farmPickupRequestIdx}" hidden="hidden"></td>
+                                    <td id="companyInfoIdx" th:Text="${confirmList.companyInfoIdx}" hidden="hidden"></td>
+                                    <td id="userName" th:text="${confirmList.userName}" hidden="hidden"></td>
+                                    <td th:text="${confirmList.farmPickupRequestContent}"></td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <div class="col-md-6 col-sm-6 offset-md-3">
-                                <!--  <button type="submit" class="btn btn-success">승인</button>-->
-                                <!-- 승인 버튼-->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">승인</button>
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
+                            <!-- 모달창-->
+                            <!-- 버튼 -->
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#approveModal">승인
+                            </button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#denyModal">
+                                거부
+                            </button>
 
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel">확인</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h4>ㅁㅇㄹ</h4>
-                                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary">확인</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                            </div>
+                            <!-- 모달창 -->
+                            <div class="modal fade" id="approveModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="approveModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="approveModalLabel">승인</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                    </div>
-                                    <!-- 거절 버튼 -->
-                                </div>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">거절</button>
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel">거절</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h4>ㅁㅇㄹ</h4>
-                                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary">확인</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                            </div>
+                                        <div class="modal-body">
+                                            승인의견
+                                            <label>
+                                                <input type="text" name="approve">
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-confirm" id="btn-success"
+                                                    data-dismiss="modal" data-state="승인">승인
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="reset">초기화</button>
                             </div>
+
+                            <div class="modal fade" id="denyModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="denyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="denyModalLabel">거부</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            거부의견
+                                            <label>
+                                                <input type="text" name="refusal">
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-confirm" id="btn-danger"
+                                                    data-dismiss="modal" data-state="거절">거부
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -44,9 +44,9 @@
 					<li><a><i class="fa fa-tree"></i> 농가사업자 관리(강현준!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/farm/listOrderFarmAdmin}">커피배지 신청 관리</a></li>
-							<li><a th:href="@{/admin/farm/listConfirmFarmAdmin}">커피배지 신청확인 관리</a></li>
-							<li><a th:href="@{/admin/farm/listDeliveryFarmAdmin}">커피배지 배송관리 관리</a></li>
+							<li><a th:href="@{/admin/compost/listOrderFarmAdmin}">커피배지 신청 관리</a></li>
+							<li><a th:href="@{/admin/compost/listConfirmFarmAdmin}">커피배지 신청확인 관리</a></li>
+							<li><a th:href="@{/admin/compost/listDeliveryFarmAdmin}">커피배지 배송관리 관리</a></li>
 							<li><a th:href="@{/admin/farm/listRequestPickupFarmAdmin}">폐배지 수거신청 관리</a></li>
 							<li><a th:href="@{/admin/farm/listConfirmPickupFarmAdmin}">폐배지 수거신청확인 관리</a></li>
 							<li><a th:href="@{/admin/farm/listDeliveryPickupFarmAdmin}">폐배지 수거배송관리 관리</a></li>
@@ -91,8 +91,8 @@
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a th:href="@{/user/coffee/insertRequestCoffeeForm}">커피가루 수거신청</a></li>
-					<li><a th:href="${session.user != null ? '/user/coffee/listConfirmRequestCoffee?userId=' + session.user.getUsername() : '/user/coffee/listConfirmRequestCoffee'}">커피배지 신청상태</a></li>
-					<li><a th:href="${session.user != null ? '/user/coffee/listDeliveryCoffee?userId=' + session.user.getUsername() : '/user/coffee/listConfirmRequestCoffee'}">커피가루 배송조회</a></li>
+					<li><a th:href="@{/user/coffee/listConfirmRequestCoffee}">커피배지 신청상태</a></li>
+					<li><a th:href="@{/user/coffee/listDeliveryCoffee}">커피가루 배송조회</a></li>
 				</ul></li>
 			<li><a><i class="fa fa-tree"></i> 농가사업자 관리(강현준!) <span
 					class="fa fa-chevron-down"></span></a>
@@ -100,9 +100,9 @@
 					<li><a th:href="@{/user/compost/listCompostOrder}">커피배지 신청</a></li>
 					<li><a th:href="@{/user/compost/listConfirmCompostOrder}">커피배지 신청상태</a></li>
 					<li><a th:href="@{/user/compost/listDeliveryCompostOrder}">커피배지 배송조회</a></li>
-					<li><a th:href="@{/user/wasted/listOrderPickupWasted}">폐배지 수거신청</a></li>
-					<li><a th:href="@{/user/wasted/listConfirmPickupWasted}">폐배지 수거신청상태</a></li>
-					<li><a th:href="@{/user/wasted/listDeliveryPickupWasted}">폐배지 수거배송조회</a></li>
+					<li><a th:href="@{/user/farm/listOrderPickupWasted}">폐배지 수거신청</a></li>
+					<li><a th:href="@{/user/farm/listConfirmPickupWasted}">폐배지 수거신청상태</a></li>
+					<li><a th:href="@{/user/farm/listDeliveryPickupWasted}">폐배지 수거배송조회</a></li>
 				</ul></li>
 			<li><a><i class="fa fa-trash"></i> 폐배지구매 사업자 관리(강현준!) <span
 					class="fa fa-chevron-down"></span></a>

@@ -118,7 +118,7 @@
                 console.log(content);
                 let adminIdValue = document.getElementById("adminUserName").value;
                 console.log(adminIdValue);
-                let status = '거절';
+                let status = '거부';
                 let coffeeIdx; // 커피수거신청 번호
                 let companyIdx; // 사업자번호
                 let name;   //유저네임
@@ -321,29 +321,14 @@
                             <p class="text-muted font-13 m-b-30">
                                 <code>승인신청확인 페이지</code>
                             </p>
-                            <div class="title_right">
-                                <div class="col-md-5 col-sm-5  form-group pull-right top_search">
-                                    <div class="input-group">
-                                        <select class="form-select" size="1" aria-label="size 3 select example">
-                                            <option selected>선택</option>
-                                            <option value="1">카페명</option>
-                                            <option value="2">카페주소</option>
-                                        </select>
-                                        <input type="text" class="form-control" placeholder="검색어를 입력하세요.">
-                                        <span class="input-group-btn">
-										<button class="btn btn-default" type="button">검색</button>
-									</span>
-                                    </div>
-                                </div>
-                            </div>
+
                             <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action"
                                    style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>
-                                        No
-                                    </th>
                                     <th><input type="checkbox" id="check-all" name="check-all"></th>
+                                    <th hidden="hidden"></th>
+                                    <th hidden="hidden"></th>
                                     <th>아이디</th>
                                     <th>카페명</th>
                                     <th>수거 담당자 번호</th>
@@ -354,10 +339,9 @@
                                 </tr>
                                 </thead>
                                 <tbody id="user_list">
-                                <tr id="check-box-value"
-                                    th:each="coffeeRequest, coffeeRequestIndex: ${coffeeRequestList}">
-                                    <th data-coffee-request-index="${coffeeRequestIndex.count}"
-                                        th:text="${coffeeRequestIndex.count}"></th>
+                                <tr id="check-box-value" th:each="coffeeRequest, coffeeRequestIndex: ${coffeeRequestList}">
+<!--                                    <th data-coffee-request-index="${coffeeRequestIndex.count}"-->
+<!--                                        th:text="${coffeeRequestIndex.count}"></th>-->
                                     <th><input type="checkbox" id="check-seperated" name="check-seperated"></th>
                                     <td id="coffeeIdx" th:text="${coffeeRequest.coffeeRequestIdx}" hidden="hidden"></td>
                                     <td id="companyIdx" th:text="${coffeeRequest.companyInfoIdx}" hidden="hidden"></td>
@@ -434,24 +418,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- 페이징 처리-->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                 </div>

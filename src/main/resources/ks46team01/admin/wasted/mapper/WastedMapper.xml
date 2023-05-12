@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks46team01.admin.wasted.mapper.WastedMapper">
+    <select id="wastedDeliveryList" resultType="ks46team01.common.wasted.dto.OrderWastedDelivery">
+        SELECT
+        ci.company_info_name AS companyInfoName,
+        ow.order_wasted_phone AS orderWastedPhone,
+        ow.order_wasted_address AS orderWastedAddress,
+        ow.order_wasted_amount AS orderWastedAmount,
+        ow.order_wasted_date AS orderWastedDate,
+        owd.order_wasted_delivery_status AS orderWastedDeliveryStatus
+        FROM order_wasted_delivery owd
+        INNER JOIN order_wasted ow
+        ON owd.order_wasted_idx = ow.order_wasted_idx
+        INNER JOIN company_info ci
+        ON ci.company_info_idx = owd.company_info_idx ;
+    </select>
+    <insert id="wastedConfirmInsert" parameterType="ks46team01.common.wasted.dto.OrderWastedConfirm">
+        INSERT INTO order_wasted_confirm(
+        order_wasted_idx,
+        username,
+        company_info_idx,
+        order_wasted_confirm_status,
+        order_wasted_confirm_content,
+        admin_username,
+        order_wasted_confirm_date
+        )VALUES(#{orderWastedIdx},#{userName},#{companyInfoIdx},#{orderWastedConfirmStatus},#{orderWastedConfirmContent},#{adminUsername},now());
+    </insert>
+    <select id="wastedConfirmList" resultType="ks46team01.common.wasted.dto.OrderWastedConfirm">
+        SELECT
+        ci.company_info_name AS companyInfoName,
+        ow.username AS userName,
+        ow.order_wasted_phone AS orderWastedPhone,
+        ow.order_wasted_address AS orderWastedAddress,
+        ow.order_wasted_amount AS orderWastedAmount,
+        ow.order_wasted_date AS orderWastedDate,
+        COALESCE(owc.order_wasted_confirm_status, '대기중') AS orderWastedConfirmStatus
+        FROM order_wasted ow
+        INNER JOIN company_info ci
+        ON ow.company_info_idx = ci.company_info_idx
+        LEFT JOIN order_wasted_confirm owc
+        ON ow.order_wasted_idx = owc.order_wasted_idx;
+    </select>
+<select id="wastedList" resultType="ks46team01.common.wasted.dto.OrderWastedConfirm">
+    SELECT
+    ci.company_info_name AS companyInfoName,
+    ow.username AS userName,
+    ow.order_wasted_phone AS orderWastedPhone,
+    ow.order_wasted_address AS orderWastedAddress,
+    ow.order_wasted_amount AS orderWastedAmount,
+    ow.order_wasted_date AS orderWastedDate,
+    ow.order_wasted_idx AS orderWastedIdx,
+    ci.company_info_idx AS companyInfoIdx,
+    COALESCE(owc.order_wasted_confirm_status, '대기중') AS orderWastedConfirmStatus
+    FROM order_wasted ow
+    INNER JOIN company_info ci
+    ON ow.company_info_idx = ci.company_info_idx
+    LEFT JOIN order_wasted_confirm owc
+    ON ow.order_wasted_idx = owc.order_wasted_idx
+    WHERE owc.order_wasted_confirm_status IS NULL;
+</select>
+</mapper>

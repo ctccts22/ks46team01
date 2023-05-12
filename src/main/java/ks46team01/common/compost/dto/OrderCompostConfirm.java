@@ -9,7 +9,7 @@ public class OrderCompostConfirm extends OrderCompost{
     private String userName;
     private Long  companyInfoIdx;
     private String orderCompostConfirmStatus;
-    private String getOrderCompostConfirmContent;
+    private String OrderCompostConfirmContent;
     private String adminUsername;
     private String orderCompostConfirmDate;
 
