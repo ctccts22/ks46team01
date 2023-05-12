@@ -12,7 +12,7 @@
                 let contentValue = document.querySelector('input[name="approve"]');
                 let content = contentValue.value;
                 console.log(content);
-                let status = '승인';
+                let status = 'Y';
                 let userName;
                 let orderWastedIdx;
                 let companyInfoIdx;
@@ -71,7 +71,7 @@
                 let contentValue = document.querySelector('input[name="refusal"]');
                 let content = contentValue.value;
                 console.log(content);
-                let status = '거부';
+                let status = 'N';
                 let userName;
                 let orderWastedIdx;
                 let companyInfoIdx;
@@ -206,7 +206,7 @@
                                 <code>폐배지 주문 승인신청확인 페이지</code>
                             </p>
                             <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
-                                <thead>
+                                <thead class="thead-dark">
                                 <tr>
                                     <th><input type="checkbox" id="check-all" name="check-all"></th>
                                     <th>사업자명</th>
