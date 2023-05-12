@@ -2,21 +2,24 @@ package ks46team01.mushroom.mushroomPastData.dto;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 public class FarmPastData {
-    private Long past_data_idx;
+    private Long pastDataIdx;
     private String username;
-    private Long company_info_idx;
-    private Long crop_idx;
-    private String crop_type;
-    private String past_data_mushroom_production;
-    private String past_data_total_revenue;
-    private String past_data_badge_use;
-    private String past_data_year;
-    private String past_data_use;
-    private String past_data_comparison;
-    private String past_data_date;
+    private Long companyInfoIdx;
+    private Long cropIdx;
+    private String pastDataMushroomProduction;
+    private Integer pastDataTotalRevenue;
+    private Integer pastDataBadgeUse;
+    private Integer pastDataYear;
+    private String pastDataUse;
+    private String pastDataComparison;
+    private Timestamp pastDataDate;
 
+    private String companyInfoLicenseNumber;
+    private String cropType;
 
 
 

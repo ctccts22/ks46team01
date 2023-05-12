@@ -7,17 +7,19 @@ import java.sql.Timestamp;
 
 @Data
 public class FarmData {
+
     private Long farmDataIdx;
     private String username;
     private Long companyInfoIdx;
-    private String farmDataCompost;
-    private String farmDataProduction;
-    private String farmDataExpectedSale;
-    private String farmDataActualSale;
+    private Integer farmDataCompost;
+    private Double farmDataProduction;
+    private Integer farmDataExpectedSale;
+    private Integer farmDataActualSale;
     private Date farmDataProductionDate;
     private Date farmDataOccurrenceSaleDate;
-    private String farmDataExpectedWasted;
+    private Double farmDataExpectedWasted;
     private Timestamp farmDataDate;
 
-
+    private String companyInfoLicenseNumber;
+    private String name;
 }

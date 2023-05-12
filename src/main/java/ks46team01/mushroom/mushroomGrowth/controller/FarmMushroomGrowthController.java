@@ -1,10 +1,14 @@
     package ks46team01.mushroom.mushroomGrowth.controller;
 
+    import ks46team01.common.company.info.entity.CompanyInfo;
+    import ks46team01.crop.dto.Crop;
     import ks46team01.mushroom.mushroomFarmData.dto.FarmData;
     import ks46team01.mushroom.mushroomGrowth.dto.FarmMushroomGrowth;
     import ks46team01.mushroom.mushroomGrowth.service.FarmMushroomGrowthService;
+    import ks46team01.user.info.entity.User;
     import lombok.AllArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
+    import org.springframework.format.annotation.DateTimeFormat;
     import org.springframework.stereotype.Controller;
     import org.springframework.ui.Model;
     import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +16,7 @@
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RequestParam;
 
+    import java.sql.Timestamp;
     import java.util.List;
 
     @Controller
@@ -21,34 +26,123 @@
     public class FarmMushroomGrowthController {
         private final FarmMushroomGrowthService farmMushroomGrowthService;
 
-        @PostMapping("/add/addDataGrownMushroom")
-        public String addDataGrown(FarmMushroomGrowth farmMushroomGrowth) {
-            farmMushroomGrowthService.add(farmMushroomGrowth);
-
-            return "redirect:/mushroom/addDataGrownMushroom";
-        }
-        @GetMapping("/add/addDataGrownMushroom")
-        public String addDataGrown(Model model) {
-            model.addAttribute("title", "등록");
-            model.addAttribute("farmMushroomGrowth", new FarmMushroomGrowth());
-            return "mushroom/add/addDataGrownMushroom";
-        }
-
-
         @GetMapping("/dataGrownMushroom")
-        public String farmMushroomGrowthService(Model model
-                , @RequestParam(name = "searchKey", required = false) String searchKey
-                , @RequestParam(name = "searchValue", required = false) String searchValue) {
-
-            List<FarmMushroomGrowth> fmsg = farmMushroomGrowthService.getFarmMushroomGrowth(searchKey, searchValue);
-            log.info("list로 담은 데이터 = {}", fmsg );
-
+        public String farmGrown(Model model){
+            List<FarmMushroomGrowth> fmsg = farmMushroomGrowthService.getFarmGrowth();
+            List<User> userList = farmMushroomGrowthService.getUserIdx();
+            List<FarmData> farmDataList = farmMushroomGrowthService.getFarmData();
+            List<CompanyInfo> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
+            List<Crop> cropList = farmMushroomGrowthService.getCropIdx();
             model.addAttribute("title", "조회");
             model.addAttribute("fmsg", fmsg);
-
-            return "mushroom/dataGrownMushroom";
+            model.addAttribute("userList", userList);
+            model.addAttribute("farmDataList", farmDataList);
+            model.addAttribute("companyInfoList", companyInfoList);
+            model.addAttribute("cropList", cropList);
+            log.info("fmsg = {} ", fmsg);
+            return "/mushroom/dataGrownMushroom";
         }
 
+
+        @GetMapping("/add/addDataGrownMushroom")
+        public String showAddDataGrownForm(Model model){
+            List<User> userList = farmMushroomGrowthService.getUserIdx();
+            List<FarmData> farmDataList = farmMushroomGrowthService.getFarmData();
+            List<CompanyInfo> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
+            List<Crop> cropList = farmMushroomGrowthService.getCropIdx();
+            model.addAttribute("FarmMushroomGrowth", new FarmMushroomGrowth());
+            model.addAttribute("userList", userList);
+            model.addAttribute("farmDataList", farmDataList);
+            model.addAttribute("companyInfoList", companyInfoList);
+            model.addAttribute("cropList", cropList);
+            log.info("FarmMushroomGrowth = {} ",new FarmMushroomGrowth());
+            log.info("userList = {} ",userList);
+            log.info("farmDataList = {} ", farmDataList);
+            log.info("companyInfoList = {} ", companyInfoList);
+            log.info("cropList = {} ",cropList );
+            return "/mushroom/add/addDataGrownMushroom";
+        }
+        @PostMapping("/add/addDataGrownMushroom")
+        public String addDataGrown(FarmMushroomGrowth farmMushroomGrowth){
+            farmMushroomGrowthService.addFarmGrown(farmMushroomGrowth);
+            log.info("입력창  : {}", farmMushroomGrowth);
+            return "redirect:/mushroom/dataGrownMushroom";
+        }
+
+
+        //수정
+        @GetMapping("/modify/modifyDataGrownMushroom")
+        public String modifyDataGrown(@RequestParam(name="mushroomGrowthIdx" ,required = false)Long mushroomGrowthIdx
+                                    ,@RequestParam(name="username" ,required = false)String username
+                                    ,@RequestParam(name="companyInfoIdx" ,required = false)Long companyInfoIdx
+                                    ,@RequestParam(name="farmDataIdx" ,required = false)Long farmDataIdx
+                                    ,@RequestParam(name="cropIdx" ,required = false)Long cropIdx
+                                    ,@RequestParam(name="mushroomGrowthDaily" ,required = false)int mushroomGrowthDaily
+                                    ,@RequestParam(name="mushroomGrowthStatus" ,required = false)String mushroomGrowthStatus
+                                    ,@RequestParam(name="mushroomGrowthDate" ,required = false) Timestamp mushroomGrowthDate
+                                    ,@RequestParam(name="mushroomGrowthContent" ,required = false)String mushroomGrowthContent, Model model){
+            FarmMushroomGrowth farmMushroomGrowth = farmMushroomGrowthService.getDataGrownInfoByIdx(mushroomGrowthIdx
+                    , username
+                    , companyInfoIdx
+                    , farmDataIdx
+                    , cropIdx
+                    , mushroomGrowthDaily
+                    , mushroomGrowthStatus
+                    , mushroomGrowthDate
+                    , mushroomGrowthContent);
+            List<FarmMushroomGrowth> fmsg = farmMushroomGrowthService.getFarmGrowth();
+            List<User> userList = farmMushroomGrowthService.getUserIdx();
+            List<FarmData> farmDataList = farmMushroomGrowthService.getFarmData();
+            List<CompanyInfo> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
+            List<Crop> cropList = farmMushroomGrowthService.getCropIdx();
+            model.addAttribute("fmsg", fmsg);
+            model.addAttribute("userList", userList);
+            model.addAttribute("farmDataList", farmDataList);
+            model.addAttribute("companyInfoList", companyInfoList);
+            model.addAttribute("cropList", cropList);
+            log.info("fmsg = {} ", fmsg);
+            log.info("userList = {} ",userList);
+            log.info("farmDataList = {} ", farmDataList);
+            log.info("companyInfoList = {} ", companyInfoList);
+            log.info("cropList = {} ",cropList );
+
+            return "/mushroom/modify/modifyDataGrownMushroom";
+        }
+
+        @PostMapping("/modify/modifyDataGrownMushroom")
+        public String modifyDataGrown(@RequestParam(name="mushroomGrowthIdx" ,required = false)Long mushroomGrowthIdx
+                ,@RequestParam(name="username" ,required = false)String username
+                ,@RequestParam(name="companyInfoIdx" ,required = false)Long companyInfoIdx
+                ,@RequestParam(name="farmDataIdx" ,required = false)Long farmDataIdx
+                ,@RequestParam(name="cropIdx" ,required = false)Long cropIdx
+                ,@RequestParam(name="mushroomGrowthDaily" ,required = false)int mushroomGrowthDaily
+                ,@RequestParam(name="mushroomGrowthStatus" ,required = false)String mushroomGrowthStatus
+                ,@RequestParam(name="mushroomGrowthDate" ,required = false) Timestamp mushroomGrowthDate
+                ,@RequestParam(name="mushroomGrowthContent" ,required = false)String mushroomGrowthContent){
+            farmMushroomGrowthService.modifyDataGrown(mushroomGrowthIdx
+                    , username
+                    , companyInfoIdx
+                    , farmDataIdx
+                    , cropIdx
+                    , mushroomGrowthDaily
+                    , mushroomGrowthStatus
+                    , mushroomGrowthDate
+                    , mushroomGrowthContent);
+            return "redirect:/mushroom/dataGrownMushroom";
+        }
+
+
+
+
+
+        //삭제
+        @PostMapping("delete/deleteDataGrownMushroom")
+        public String deleteDataGrownMushroom(@RequestParam(name="mushroomGrowthIdx",required = false ) Long mushroomGrowthIdx){
+
+            FarmMushroomGrowth farmMushroomGrowth = farmMushroomGrowthService.getDataGrownInfoByDeleteIdx(mushroomGrowthIdx);
+            farmMushroomGrowthService.deleteDataGrown(mushroomGrowthIdx);
+            return "redirect:/mushroom/dataGrownMushroom";
+        }
 
 
       }
