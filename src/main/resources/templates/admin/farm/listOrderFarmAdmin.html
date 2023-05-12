@@ -12,7 +12,7 @@
                 let contentValue = document.querySelector('input[name="approve"]');
                 let content = contentValue.value;
                 console.log(content);
-                let status = '승인';
+                let status = 'Y';
                 let companyInfoName;
                 let orderCompostPhone;
                 let orderCompostAddress;
@@ -128,7 +128,7 @@
                 let contentValue = document.querySelector('input[name="approve"]');
                 let content = contentValue.value;
                 console.log(content);
-                let status = '거절';
+                let status = 'N';
                 let companyInfoName;
                 let orderCompostPhone;
                 let orderCompostAddress;
@@ -347,7 +347,7 @@
                                 <code>커피배지 승인신청 확인페이지</code>
                             </p>
                             <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
-                                <thead>
+                                <thead class="thead-dark">
                                 <tr>
                                     <th>No</th>
                                     <th><input type="checkbox" id="check-all" name="check-all"></th>
