@@ -16,4 +16,5 @@ public interface CoffeeService {
     public List<CompanyInfoDTO> listConfirmCompanyInfo(); // 커피가루 승인상태조회 사업자 테이블 데이터
     public List<CoffeeDelivery> listCoffeeDelivery();
     public void insertConfirmCoffeeAdmin(CoffeeRequestConfirm confirm); // 커피가루 수거신청 승인/거절
+
 }

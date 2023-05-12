@@ -5,6 +5,7 @@ import ks46team01.admin.coffee.service.CoffeeServiceImpl;
 import ks46team01.common.coffee.dto.CoffeeDelivery;
 import ks46team01.common.coffee.dto.CoffeeRequest;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
+import ks46team01.common.company.info.dto.CompanyInfoDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class AdminCoffeeController {
     public String adminCoffeeConfirmList(Model model){
         System.out.println("/listConfirmCoffeeAdmin 실행?");
         List<CoffeeRequestConfirm> coffeeConfirmList = coffeeService.listConfirmCoffee();
-        List<CompanyInfo> companyInfoList = coffeeService.listConfirmCompanyInfo();
+        List<CompanyInfoDTO> companyInfoList = coffeeService.listConfirmCompanyInfo();
         System.out.println("null?"+companyInfoList);
         model.addAttribute("coffeeConfirmList",coffeeConfirmList);
         model.addAttribute("companyInfoList",companyInfoList);
