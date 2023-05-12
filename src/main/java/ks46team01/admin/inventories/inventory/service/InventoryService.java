@@ -27,9 +27,6 @@ import java.util.List;
 @AllArgsConstructor
 public class InventoryService {
     private final InventoryRepository inventoryRepository;
-    private final InventoryInputRepository inventoryInputRepository;
-    private final InventoryOutputRepository inventoryOutputRepository;
-    private final InventoryRecordRepository inventoryRecordRepository;
     private final AdminRepository adminRepository;
 
     public InventoryDTO addCompanyContract(Long inventoryIdx, String inventoryType, LocalDateTime inventoryDate, Admin admin) {

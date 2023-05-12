@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -36,17 +37,8 @@ public class InventoryRecord {
     @ToString.Exclude
     private Inventory inventoryIdx;
 
-    @Column(name = "initial_amount")
-    private Double initialAmount;
-
     @Column(name = "final_amount", nullable = false, columnDefinition = "DOUBLE DEFAULT 0")
     private Double finalAmount;
-
-    @Column(name = "loss_amount", nullable = false, columnDefinition = "DOUBLE DEFAULT 0")
-    private Double lossAmount;
-
-    @Column(name = "exceptional_amount", nullable = false, columnDefinition = "DOUBLE DEFAULT 0")
-    private Double exceptionalAmount;
 
     @ManyToOne
     @JoinColumn(name = "admin_username", nullable = false)
@@ -54,6 +46,7 @@ public class InventoryRecord {
     private Admin adminUsername;
 
     @Column(name = "last_updated", nullable = false, columnDefinition= "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @UpdateTimestamp
     private Timestamp lastUpdated;
 
 
