@@ -40,10 +40,17 @@ public class CoffeeServiceImpl implements CoffeeService{
         return companyInfoList;
     }
 
+
+
     @Override
     public List<CoffeeDelivery> listCoffeeDelivery() {
         List<CoffeeDelivery> deliveryList = coffeeMapper.listCoffeeDelivery();
         return deliveryList;
+    }
+
+    @Override
+    public void insertConfirmCoffeeAdmin(CoffeeRequestConfirm confirm) {
+        coffeeMapper.insertConfirmCoffeeAdmin(confirm);
     }
 
 

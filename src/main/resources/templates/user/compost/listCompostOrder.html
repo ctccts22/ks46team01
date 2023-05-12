@@ -3,41 +3,31 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+<script>
 
+</script>
 </head>
 <th:block layout:fragment="customJs">
-
 </th:block>
 
 <th:block layout:fragment="customContent">
     <div class="x_content">
-        <form class="request_form" th:action="@{/user/coffee/insertRequestCoffee}" method="get" novalidate>
-            <label class="col-form-label col-md-3 col-sm-3  label-align">버섯농가 규모<span class="required">*</span></label>
-            <div class="col-md-6 col-sm-6">
-                <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="area"
-                       placeholder="ex:200"
-                       required="required"/>
-            </div>
+        <form class="compost_order_form" th:action="@{/user/compost/insertCompostOrder}" method="get" novalidate>
+<!--            <label class="col-form-label col-md-3 col-sm-3  label-align">버섯농가 규모<span class="required">*</span></label>-->
+<!--            <div class="col-md-6 col-sm-6">-->
+<!--                <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="area"-->
+<!--                       placeholder="ex:200"-->
+<!--                       required="required"/>-->
+<!--            </div>-->
 
             <div class="field item form-group">
                 <label class="col-form-label col-md-3 col-sm-3  label-align">커피배지 신청 중량 <span class="required">*</span></label>
                 <div class="col-md-6 col-sm-6">
-                    <input class="form-control number" type="number" name="amount" data-validate-minmax="10,100"
-                           required='required'
-                           placeholder="kg"></div>
+                    <label>
+                        <input class="form-control number" type="number" name="amount" data-validate-minmax="10,100" required='required' placeholder="kg">
+                    </label></div>
             </div>
-            <div class="field item form-group">
-                <label class="col-form-label col-md-3 col-sm-3  label-align">커피배지 신청일<span
-                        class="required">*</span></label>
-                <div class="col-md-6 col-sm-6">
-                    <input class="form-control date" type="date" name="date" required='required'></div>
-            </div>
-            <div class="field item form-group">
-                <label class="col-form-label col-md-3 col-sm-3  label-align">신청 담당자 번호<span
-                        class="required">*</span></label>
-                <div class="col-md-6 col-sm-6">
-                    <input class="form-control time" type="time" name="phone" required='required'></div>
-            </div>
+
             <div class="filed item form-group">
 
             </div>
@@ -47,12 +37,12 @@
                         class="required">*</span></label>
                 <div class="col-md-6 col-sm-6">
                     <input class="form-control" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-                    <input class="form-control" type="text" id="sample4_postcode" placeholder="우편번호">
-                    <input class="form-control" type="text" id="sample4_roadAddress" placeholder="도로명주소">
-                    <input class="form-control" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+                    <input class="form-control" type="text" id="sample4_postcode" name="zonecode" placeholder="우편번호">
+                    <input class="form-control" type="text" id="sample4_roadAddress" name="roadAddress" placeholder="도로명주소">
+                    <input class="form-control" type="text" id="sample4_jibunAddress" name="jibunAddress" placeholder="지번주소">
                     <span id="guide" style="color:#999;display:none"></span>
-                    <input class="form-control" type="text" id="sample4_extraAddress" placeholder="참고항목">
-                    <input class="form-control" type="text" id="sample4_detailAddress" placeholder="상세주소">
+                    <input class="form-control" type="text" id="sample4_extraAddress" name="jibunAddress" placeholder="참고항목">
+                    <input class="form-control" type="text" id="sample4_detailAddress" name="detailAddress" placeholder="상세주소">
 
                     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                     <script>

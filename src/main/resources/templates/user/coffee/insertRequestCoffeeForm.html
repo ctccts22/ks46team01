@@ -19,7 +19,7 @@
 </th:block>
 <th:block layout:fragment="customContent">
   <div class="x_content">
-    <form class="request_form" th:action="@{/user/coffee/insertRequestCoffee}" method="get" novalidate>
+    <form class="request_form" th:action="@{/user/coffee/insertRequestCoffee}" method="post" novalidate>
 
 <!--      <p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a>-->
 <!--      </p>-->
@@ -35,16 +35,13 @@
         <div class="col-md-6 col-sm-6">
           <input class="form-control number" type="number" name="r_amount" data-validate-minmax="1,1000" required='required' placeholder="kg"></div>
       </div>
-        <th:block th:if="${session.user?.getUsername() != null}">
-            <input type="hidden" name="userId" th:value="${session.user.getUsername()}" />
-        </th:block>
-        <th:block th:unless="${session.user?.getUsername() != null}">
-            <script>
-                alert("로그인후 이용해주세요.");
-                window.stop(); // 폼 전송 중지
-                location.replace('/auth/login'); //이전페이지로 이동시키지 못하게
-            </script>
-        </th:block>
+<!--        <th:block th:unless="${session.user?.getUsername() != null}">-->
+<!--            <script>-->
+<!--                alert("로그인후 이용해주세요.");-->
+<!--                window.stop(); // 폼 전송 중지-->
+<!--                location.replace('/auth/login'); //이전페이지로 이동시키지 못하게-->
+<!--            </script>-->
+<!--        </th:block>-->
       <div class="filed item form-group">
 
       </div>

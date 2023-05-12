@@ -2,24 +2,25 @@ package ks46team01.mushroom.mushroomGrowth.dto;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 public class FarmMushroomGrowth {
-    private Long mushroom_growth_idx;
+    private Long mushroomGrowthIdx;
     private String username;
-    private Long company_info_idx;
-    private Long farm_data_idx;
-    private Long crop_idx;
-    private String mushroom_growth_daily;
-    private String mushroom_growth_status;
-    private String mushroom_growth_date;
-    private String mushroom_growth_content;
+    private Long companyInfoIdx;
+    private Long farmDataIdx;
+    private Long cropIdx;
+    private int mushroomGrowthDaily;
+    private String mushroomGrowthStatus;
+    private Timestamp mushroomGrowthDate;
+    private String mushroomGrowthContent;
 
-    public void setMushroom_growth_idx(Long mushroom_growth_idx) {
-        this.mushroom_growth_idx = mushroom_growth_idx;
+    public Long mushroomGrowthIdx() {
+        return mushroomGrowthIdx;
     }
-    public Long getMushroom_growth_idx() {
-        return mushroom_growth_idx;
-    }
+
+
 
 }
 

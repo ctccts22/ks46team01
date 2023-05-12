@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kor">
+<div th:fragment="searchFragment">
+  <form th:action="@{/mushroom/dataFarmMushroom}" method="get">
+    <label>
+      <select name="searchKey">
+        <option value="farmDataIdx">농가재배 정보 등록 고유코드</option>
+        <option value="username">회원고유번호</option>
+        <option value="companyInfoIdx">사업자 고유코드</option>
+      </select>
+    </label>
+
+    <label>
+      <input type="text" name="searchValue" placeholder="검색어를 입력해주세요" />
+    </label>
+    <button type="submit">검색</button>
+  </form>
+
+</div>
+</html>

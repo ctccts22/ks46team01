@@ -3,7 +3,7 @@ package ks46team01.common.wasted.dto;
 import lombok.Data;
 
 @Data
-public class OrderWastedDelivery {
+public class OrderWastedDelivery extends OrderWastedConfirm{
     private Long orderWastedDeliveryIdx;
     private Long orderWastedIdx;
     private String userName;

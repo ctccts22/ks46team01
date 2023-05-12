@@ -1,53 +1,85 @@
 package ks46team01.admin.farm.controller;
 
 
+import jakarta.servlet.http.HttpSession;
+import ks46team01.admin.farm.service.FarmServiceImpl;
+import ks46team01.admin.info.entity.Admin;
+import ks46team01.common.farm.dto.FarmPickupConfirm;
+import ks46team01.common.farm.dto.FarmPickupDelivery;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/farm")
 public class AdminFarmController {
-    // 커피배지 신청관리 페이지
-    @GetMapping("/listOrderFarmAdmin")
-    public String adminFarmOrderList() {
-        return "/admin/farm/listOrderFarmAdmin";
-    }
+    private final FarmServiceImpl farmService;
 
-    // 커피배지 신청확인 관리
-    @GetMapping("/listConfirmFarmAdmin")
-    public String adminFarmConfirmList() {
-        return "/admin/farm/listConfirmFarmAdmin";
-    }
-
-    // 커피배지 배송관리
-    @GetMapping("/listDeliveryFarmAdmin")
-    public String adminFarmDeliveryList() {
-        return "/admin/farm/listDeliveryFarmAdmin";
+    public AdminFarmController(FarmServiceImpl farmService) {
+        this.farmService = farmService;
     }
 
     //폐배지 수거신청 관리
     @GetMapping("/listRequestPickupFarmAdmin")
-    public String adminFarmPickupRequestList() {
-        return "/admin/farm/listRequestPickupFarmAdmin";
+    public String adminFarmPickupRequestList(Model model) {
+        List<FarmPickupConfirm> farmPickupConfirmList = farmService.farmPickupConfirmList();
+        model.addAttribute("confirmList",farmPickupConfirmList);
+
+        return "admin/farm/listRequestPickupFarmAdmin";
+    }
+    @PostMapping("/insertConfirmPickupFarmAdmin")
+    public String aminFarmPickupConfirmInsert(@RequestParam("userName") String[] userId,
+                                              @RequestParam("companyInfoIdx") Long[] companyInfoIdx,
+                                              @RequestParam("farmPickupRequestIdx") Long[] farmPickupRequestIdx,
+                                              @RequestParam("status") String status,
+                                              @RequestParam("content") String content,
+                                              HttpSession session,
+                                              Model model){
+        Admin admin = (Admin) session.getAttribute("adminUser");
+        String adminId = admin.getAdminUsername();
+        FarmPickupConfirm farmPickupConfirm = new FarmPickupConfirm();
+        farmPickupConfirm.setAdminUsername(adminId);
+        farmPickupConfirm.setFarmPickupConfirmContent(content);
+        farmPickupConfirm.setFarmPickupConfirmStatus(status);
+        for(int i = 0; i < farmPickupRequestIdx.length; i++){
+        farmPickupConfirm.setFarmPickupRequestIdx(farmPickupRequestIdx[i]);
+        farmPickupConfirm.setCompanyInfoIdx(companyInfoIdx[i]);
+        farmPickupConfirm.setUserName(userId[i]);
+        farmService.farmPickupConfirmInsert(farmPickupConfirm);
+        }
+        System.out.println(content);
+        System.out.println(status);
+        System.out.println(adminId);
+        List<FarmPickupConfirm> farmPickupConfirmList = farmService.farmPickupConfirmList();
+        model.addAttribute("confirmList",farmPickupConfirmList);
+        return "admin/farm/listRequestPickupFarmAdmin";
     }
 
     // 폐배지 수거신청확인 관리
     @GetMapping("/listConfirmPickupFarmAdmin")
-    public String adminFarmPickupConfirmList() {
-        return "/admin/farm/listConfirmPickupFarmAdmin";
+    public String adminFarmPickupConfirmList(Model model) {
+        List<FarmPickupConfirm> statusList = farmService.farmPickupConfirmStatusList();
+        model.addAttribute("statusList",statusList);
+        return "admin/farm/listConfirmPickupFarmAdmin";
     }
 
 
     // 폐배지 수거배송 관리
     @GetMapping("/listDeliveryPickupFarmAdmin")
-    public String adminFarmPickupDeliveryList() {
-        return "/admin/farm/listDeliveryPickupFarmAdmin";
+    public String adminFarmPickupDeliveryList(Model model) {
+        List<FarmPickupDelivery> deliveryList = farmService.farmPickupDeliveryList();
+        model.addAttribute("deliveryList",deliveryList);
+        return "admin/farm/listDeliveryPickupFarmAdmin";
     }
 
     // 작물 고유코드
     @GetMapping("/listCodeCrop")
     public String cropCodeList() {
-        return "/admin/farm/listCodeCrop";
+        return "admin/farm/listCodeCrop";
     }
 }

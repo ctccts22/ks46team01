@@ -10,19 +10,19 @@
 					<li><a href="#">소개(이규노#)</a></li>
 					<li><a href="#">공지사항(이규노#)</a></li>
 				</ul></li>
-<!--			<li th:if="${session.userRole == 'ROLE_ADMIN'}">-->
+			<!--			<li th:if="${session.userRole == 'ROLE_ADMIN'}">-->
 			<li>
 				<a><i class="fa fa-adn"></i> 관리자페이지
 					<span class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a><i class="fa fa-group"></i> 회원조회(이규노!) <span
-							class="fa fa-chevron-down"></span></a>
+									class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/user/listUser}" href="#"> 회원 관리</a></li>
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/listAdmin}" href="#">관리자 관리</a></li>
 						</ul></li>
 					<li><a><i class="fa fa-archive"></i> 사업자 관리(이규노!) <span
-							class="fa fa-chevron-down"></span></a>
+									class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/listCompany}">사업자 종류 코드</a></li>
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/info/listInfoCompany}">사업자 정보 조회</a></li>
@@ -30,7 +30,7 @@
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/companies/contract/listContractCompany}">사업자 계약 신청관리</a></li>
 						</ul></li>
 					<li><a><i class="fa fa-cube"></i> 재고관리(이규노!) <span
-							class="fa fa-chevron-down"></span></a>
+									class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/inventory/listInventory}">재고관리</a></li>
 						</ul></li>
@@ -44,9 +44,9 @@
 					<li><a><i class="fa fa-tree"></i> 농가사업자 관리(강현준!) <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a th:href="@{/admin/farm/listOrderFarmAdmin}">커피배지 신청 관리</a></li>
-							<li><a th:href="@{/admin/farm/listConfirmFarmAdmin}">커피배지 신청확인 관리</a></li>
-							<li><a th:href="@{/admin/farm/listDeliveryFarmAdmin}">커피배지 배송관리 관리</a></li>
+							<li><a th:href="@{/admin/compost/listOrderFarmAdmin}">커피배지 신청 관리</a></li>
+							<li><a th:href="@{/admin/compost/listConfirmFarmAdmin}">커피배지 신청확인 관리</a></li>
+							<li><a th:href="@{/admin/compost/listDeliveryFarmAdmin}">커피배지 배송관리 관리</a></li>
 							<li><a th:href="@{/admin/farm/listRequestPickupFarmAdmin}">폐배지 수거신청 관리</a></li>
 							<li><a th:href="@{/admin/farm/listConfirmPickupFarmAdmin}">폐배지 수거신청확인 관리</a></li>
 							<li><a th:href="@{/admin/farm/listDeliveryPickupFarmAdmin}">폐배지 수거배송관리 관리</a></li>
@@ -91,7 +91,7 @@
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a th:href="@{/user/coffee/insertRequestCoffeeForm}">커피가루 수거신청</a></li>
-					<li><a th:href="@{/user/coffee/listConfirmRequestCoffee}">커피가루 신청상태</a></li>
+					<li><a th:href="@{/user/coffee/listConfirmRequestCoffee}">커피배지 신청상태</a></li>
 					<li><a th:href="@{/user/coffee/listDeliveryCoffee}">커피가루 배송조회</a></li>
 				</ul></li>
 			<li><a><i class="fa fa-tree"></i> 농가사업자 관리(강현준!) <span
@@ -100,9 +100,9 @@
 					<li><a th:href="@{/user/compost/listCompostOrder}">커피배지 신청</a></li>
 					<li><a th:href="@{/user/compost/listConfirmCompostOrder}">커피배지 신청상태</a></li>
 					<li><a th:href="@{/user/compost/listDeliveryCompostOrder}">커피배지 배송조회</a></li>
-					<li><a th:href="@{/user/wasted/listOrderPickupWasted}">폐배지 수거신청</a></li>
-					<li><a th:href="@{/user/wasted/listConfirmPickupWasted}">폐배지 수거신청상태</a></li>
-					<li><a th:href="@{/user/wasted/listDeliveryPickupWasted}">폐배지 수거배송조회</a></li>
+					<li><a th:href="@{/user/farm/listOrderPickupWasted}">폐배지 수거신청</a></li>
+					<li><a th:href="@{/user/farm/listConfirmPickupWasted}">폐배지 수거신청상태</a></li>
+					<li><a th:href="@{/user/farm/listDeliveryPickupWasted}">폐배지 수거배송조회</a></li>
 				</ul></li>
 			<li><a><i class="fa fa-trash"></i> 폐배지구매 사업자 관리(강현준!) <span
 					class="fa fa-chevron-down"></span></a>

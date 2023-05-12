@@ -3,7 +3,7 @@ package ks46team01.common.farm.dto;
 import lombok.Data;
 
 @Data
-public class FarmData {
+public class FarmData extends FarmPickupDelivery{
     private Long farmDataIdx;
     private String userName;
     private Long companyInfoIdx;
@@ -15,5 +15,5 @@ public class FarmData {
     private String farmDataOccurenceSaleDate;
     private Long farmDataExpectedWasted;
     private String farmDataDate;
-
+    private String companyInfoName;
 }
