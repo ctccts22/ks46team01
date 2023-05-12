@@ -8,7 +8,6 @@
     import ks46team01.user.info.entity.User;
     import lombok.AllArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
-    import org.springframework.format.annotation.DateTimeFormat;
     import org.springframework.stereotype.Controller;
     import org.springframework.ui.Model;
     import org.springframework.web.bind.annotation.GetMapping;
@@ -90,17 +89,14 @@
                     , mushroomGrowthStatus
                     , mushroomGrowthDate
                     , mushroomGrowthContent);
-            List<FarmMushroomGrowth> fmsg = farmMushroomGrowthService.getFarmGrowth();
             List<User> userList = farmMushroomGrowthService.getUserIdx();
             List<FarmData> farmDataList = farmMushroomGrowthService.getFarmData();
             List<CompanyInfo> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
             List<Crop> cropList = farmMushroomGrowthService.getCropIdx();
-            model.addAttribute("fmsg", fmsg);
             model.addAttribute("userList", userList);
             model.addAttribute("farmDataList", farmDataList);
             model.addAttribute("companyInfoList", companyInfoList);
             model.addAttribute("cropList", cropList);
-            log.info("fmsg = {} ", fmsg);
             log.info("userList = {} ",userList);
             log.info("farmDataList = {} ", farmDataList);
             log.info("companyInfoList = {} ", companyInfoList);

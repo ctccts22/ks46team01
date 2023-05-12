@@ -1,13 +1,13 @@
     package ks46team01.mushroom.mushroomPurchase.controller;
 
 
-    import ks46team01.admin.company.contract.entity.CompanyContract;
-    import ks46team01.admin.company.entity.Company;
-    import ks46team01.admin.inventory.entity.Inventory;
-    import ks46team01.common.company.info.entity.CompanyInfo;
+    import ks46team01.admin.company.dto.CompanyDTO;
+    import ks46team01.common.company.info.dto.CompanyInfoDTO;
+    import ks46team01.common.compost.dto.CompanyContract;
+    import ks46team01.common.compost.dto.Inventory;
     import ks46team01.mushroom.mushroomPurchase.dto.FarmPurchase;
     import ks46team01.mushroom.mushroomPurchase.service.FarmPurchaseService;
-    import ks46team01.user.info.entity.User;
+    import ks46team01.user.info.dto.UserDTO;
     import lombok.AllArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
     import org.springframework.stereotype.Controller;
@@ -31,9 +31,9 @@
         @GetMapping("/accountMushroom")
         public String farmPurchaseList(Model model) {
             List<FarmPurchase> fp = farmPurchaseService.getListPurchaseAccount();
-            List<User> userList = farmPurchaseService.getUserIdx();
-            List<Company> companyList = farmPurchaseService.getCompanyIdx();
-            List<CompanyInfo> companyInfoList = farmPurchaseService.getCompanyInfoIdx();
+            List<UserDTO> userList = farmPurchaseService.getUserIdx();
+            List<CompanyDTO> companyList = farmPurchaseService.getCompanyIdx();
+            List<CompanyInfoDTO> companyInfoList = farmPurchaseService.getCompanyInfoIdx();
             List<Inventory> inventoryList = farmPurchaseService.getInventoryIdx();
             List<CompanyContract> companyContractList = farmPurchaseService.getCompanyContractIdx();
             model.addAttribute("title", "조회");
@@ -50,9 +50,9 @@
         //입력
         @GetMapping("/add/addAccountMushroom")
         public String showAddAccountPurchase(Model model) {
-            List<User> userList = farmPurchaseService.getUserIdx();
-            List<Company> companyList = farmPurchaseService.getCompanyIdx();
-            List<CompanyInfo> companyInfoList = farmPurchaseService.getCompanyInfoIdx();
+            List<UserDTO> userList = farmPurchaseService.getUserIdx();
+            List<CompanyDTO> companyList = farmPurchaseService.getCompanyIdx();
+            List<CompanyInfoDTO> companyInfoList = farmPurchaseService.getCompanyInfoIdx();
             List<Inventory> inventoryList = farmPurchaseService.getInventoryIdx();
             List<CompanyContract> companyContractList = farmPurchaseService.getCompanyContractIdx();
             model.addAttribute("FarmPurchase", new FarmPurchase());
@@ -101,9 +101,9 @@
                                    ,  accountingPurchaseSum
                                    ,  accountingPurchaseCode  );
             List<FarmPurchase> fp = farmPurchaseService.getListPurchaseAccount();
-            List<User> userList = farmPurchaseService.getUserIdx();
-            List<Company> companyList = farmPurchaseService.getCompanyIdx();
-            List<CompanyInfo> companyInfoList = farmPurchaseService.getCompanyInfoIdx();
+            List<UserDTO> userList = farmPurchaseService.getUserIdx();
+            List<CompanyDTO> companyList = farmPurchaseService.getCompanyIdx();
+            List<CompanyInfoDTO> companyInfoList = farmPurchaseService.getCompanyInfoIdx();
             List<Inventory> inventoryList = farmPurchaseService.getInventoryIdx();
             List<CompanyContract> companyContractList = farmPurchaseService.getCompanyContractIdx();
             model.addAttribute("fp", fp);

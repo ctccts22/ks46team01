@@ -26,6 +26,8 @@ public class AcPurchase {
     private String adminUsername;
     private Timestamp accountingPurchaseAdminUpdate;
 
+
+
     private String companyType;
     private String inventoryType;
     private String adminName;

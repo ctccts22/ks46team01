@@ -52,13 +52,13 @@
         FROM company
     </select>
 
-    <select id="getInventory" resultType="ks46team01.admin.inventory.entity.Inventory">
+    <select id="getInventory" resultType="ks46team01.common.compost.dto.Inventory">
         SELECT
             inventory_idx           as inventoryIdx
             , inventory_type        as inventoryType
         FROM inventory
     </select>
-    <select id="getCompanyContract" resultType="ks46team01.admin.company.contract.entity.CompanyContract">
+    <select id="getCompanyContract" resultType="ks46team01.common.company.contract.dto.CompanyContractDTO">
         SELECT
         company_contract_idx                    as companyContractIdx
         , company_contract_delivery_term        as companyContractDeliveryTerm
@@ -68,13 +68,12 @@
         FROM company_contract
     </select>
 
-    <select id="getAdmin" resultType="ks46team01.admin.info.entity.Admin">
+    <select id="getAdmin" resultType="ks46team01.admin.info.dto.AdminDTO">
         SELECT
         admin_username  as adminUsername
         , admin_name    as adminName
         FROM admin
     </select>
-
 
     <insert id="addAcPurchase" parameterType="ks46team01.admin.accounting.purchase.dto.AcPurchase">
         /* 입력 */
@@ -106,14 +105,71 @@
         )
     </insert>
 
+    <select id="getAcPurchaseInfoByModifyId" parameterType="String" resultMap="AcPurchase">
+        /* 수정대상 조회 */
+        SELECT
+            accounting_purchase_admin_idx
+            , company_idx
+            , inventory_idx
+            , company_contract_idx
+            , accounting_purchase_admin_date
+            , accounting_purchase_admin_price
+            , accounting_purchase_admin_amount
+            , accounting_purchase_admin_payment
+            , accounting_purchase_admin_sum
+            , admin_username
+            , accounting_purchase_admin_update
+        FROM
+             accounting_purchase_admin
+        WHERE
+             accounting_purchase_admin_idx = #{accountingPurchaseAdminIdx}
+    </select>
 
-
+    <update id="modifyAcPurchase" parameterType="ks46team01.admin.accounting.purchase.dto.AcPurchase">
+        /* 수정 */
+        UPDATE accounting_purchase_admin
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="companyIdx != null and companyIdx != ''">
+                company_idx = #{companyIdx},
+            </if>
+            <if test="inventoryIdx != null and inventoryIdx != ''">
+                inventory_idx = #{inventoryIdx},
+            </if>
+            <if test="companyContractIdx != null and companyContractIdx != ''">
+                company_contract_idx = #{companyContractIdx},
+            </if>
+            <if test="accountingPurchaseAdminDate != null and accountingPurchaseAdminDate != ''">
+                accounting_purchase_admin_date = #{accountingPurchaseAdminDate},
+            </if>
+            <if test="accountingPurchaseAdminPrice != null and accountingPurchaseAdminPrice != ''">
+                accounting_purchase_admin_price = #{accountingPurchaseAdminPrice},
+            </if>
+            <if test="accountingPurchaseAdminAmount != null and accountingPurchaseAdminAmount != ''">
+                accounting_purchase_admin_amount = #{accountingPurchaseAdminAmount},
+            </if>
+            <if test="accountingPurchaseAdminPayment != null and accountingPurchaseAdminPayment != ''">
+                accounting_purchase_admin_payment = #{accountingPurchaseAdminPayment},
+            </if>
+            <if test="accountingPurchaseAdminSum != null and accountingPurchaseAdminSum != ''">
+                accounting_purchase_admin_sum = #{accountingPurchaseAdminSum},
+            </if>
+            <if test="adminUsername != null and adminUsername != ''">
+                admin_username = #{adminUsername},
+            </if>
+            <if test="accountingPurchaseAdminUpdate != null and accountingPurchaseAdminUpdate != ''">
+                accounting_purchase_admin_update = #{accountingPurchaseAdminUpdate},
+            </if>
+        </trim>
+            WHERE
+            accounting_purchase_admin_idx = #{accountingPurchaseAdminIdx}
+    </update>
 
     <select id="getAcPurchaseInfoByDeleteId" parameterType="Long" resultMap="AcPurchase">
     /* 삭제 대상 회원 조회*/
     SELECT
         accounting_purchase_admin_idx
-        , company_idx, inventory_idx
+        , company_idx
+        , inventory_idx
         , company_contract_idx
         , accounting_purchase_admin_date
         , accounting_purchase_admin_price
@@ -123,16 +179,18 @@
         , admin_username
         , accounting_purchase_admin_update
     FROM
-        accounting_purchase_admin = #{accountingPurchaseAdminIdx}
+        accounting_purchase_admin
+    WHERE
+        accounting_purchase_admin_idx = #{accountingPurchaseAdminIdx}
     </select>
 
     <delete id="deleteAcPurchaseByIdx" parameterType="ks46team01.admin.accounting.purchase.dto.AcPurchase">
         /*삭제*/
         DELETE
         FROM
-            accounting_purchase_admin
+              accounting_purchase_admin
         WHERE
-            accounting_purchase_admin_idx=#{accountingPurchaseAdminIdx}
+            accounting_purchase_admin_idx = #{accountingPurchaseAdminIdx}
     </delete>
 
 

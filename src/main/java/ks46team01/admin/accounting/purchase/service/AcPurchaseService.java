@@ -3,13 +3,15 @@ package ks46team01.admin.accounting.purchase.service;
 
 import ks46team01.admin.accounting.purchase.dto.AcPurchase;
 import ks46team01.admin.accounting.purchase.mapper.AcPurchaseMapper;
-import ks46team01.admin.company.contract.entity.CompanyContract;
-import ks46team01.admin.company.entity.Company;
-import ks46team01.admin.info.entity.Admin;
-import ks46team01.admin.inventory.entity.Inventory;
+import ks46team01.admin.company.dto.CompanyDTO;
+import ks46team01.admin.info.dto.AdminDTO;
+import ks46team01.admin.inventories.inventory.dto.InventoryDTO;
+import ks46team01.common.company.contract.dto.CompanyContractDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,20 +28,20 @@ public class AcPurchaseService {
         return acPurchases;
     }
     //관련테이블 조회
-    public  List<Company> getCompany(){
-        List<Company> companies = acPurchaseMapper.getCompany();
+    public  List<CompanyDTO> getCompany(){
+        List<CompanyDTO> companies = acPurchaseMapper.getCompany();
         return companies;
     }
-    public  List<Inventory> getInventory(){
-        List<Inventory> inventories = acPurchaseMapper.getInventory();
+    public  List<InventoryDTO> getInventory(){
+        List<InventoryDTO> inventories = acPurchaseMapper.getInventory();
         return inventories;
     }
-    public  List<CompanyContract> getCompanyContract(){
-        List<CompanyContract> companyContracts = acPurchaseMapper.getCompanyContract();
+    public  List<CompanyContractDTO> getCompanyContract(){
+        List<CompanyContractDTO> companyContracts = acPurchaseMapper.getCompanyContract();
         return companyContracts;
     }
-    public List<Admin> getAdmin(){
-        List<Admin> admins =acPurchaseMapper.getAdmin();
+    public List<AdminDTO> getAdmin(){
+        List<AdminDTO> admins =acPurchaseMapper.getAdmin();
         return admins;
     }
 
@@ -49,6 +51,59 @@ public class AcPurchaseService {
     }
 
 
+
+    //수정
+    public AcPurchase getAcPurchaseInfoByModifyId( Long accountingPurchaseAdminIdx
+            , Long companyIdx
+            , Long inventoryIdx
+            , Long companyContractIdx
+            , String accountingPurchaseAdminDateS
+            , Date accountingPurchaseAdminDate
+            , int accountingPurchaseAdminPrice
+            , double accountingPurchaseAdminAmount
+            , String accountingPurchaseAdminPayment
+            , int accountingPurchaseAdminSum
+            , String adminUsername
+            , Timestamp accountingPurchaseAdminUpdate){
+        AcPurchase acPurchaseInfo = acPurchaseMapper.getAcPurchaseInfoByModifyId(accountingPurchaseAdminIdx
+                                        ,  companyIdx
+                                        ,  inventoryIdx
+                                        ,  companyContractIdx
+                                        ,  accountingPurchaseAdminDateS
+                                        ,  accountingPurchaseAdminDate
+                                        ,  accountingPurchaseAdminPrice
+                                        ,  accountingPurchaseAdminAmount
+                                        ,  accountingPurchaseAdminPayment
+                                        ,  accountingPurchaseAdminSum
+                                        ,  adminUsername
+                                        ,  accountingPurchaseAdminUpdate);
+        return acPurchaseInfo;
+    }
+    public void modifyAcPurchase(Long accountingPurchaseAdminIdx
+            , Long companyIdx
+            , Long inventoryIdx
+            , Long companyContractIdx
+            , String accountingPurchaseAdminDateS
+            , Date accountingPurchaseAdminDate
+            , int accountingPurchaseAdminPrice
+            , double accountingPurchaseAdminAmount
+            , String accountingPurchaseAdminPayment
+            , int accountingPurchaseAdminSum
+            , String adminUsername
+            , Timestamp accountingPurchaseAdminUpdate){
+        acPurchaseMapper.modifyAcPurchase(accountingPurchaseAdminIdx
+                                ,  companyIdx
+                                ,  inventoryIdx
+                                ,  companyContractIdx
+                                ,  accountingPurchaseAdminDateS
+                                ,  accountingPurchaseAdminDate
+                                ,  accountingPurchaseAdminPrice
+                                ,  accountingPurchaseAdminAmount
+                                ,  accountingPurchaseAdminPayment
+                                ,  accountingPurchaseAdminSum
+                                ,  adminUsername
+                                ,  accountingPurchaseAdminUpdate);
+    }
 
 
 
