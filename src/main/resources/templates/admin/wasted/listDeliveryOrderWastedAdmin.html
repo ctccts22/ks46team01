@@ -48,13 +48,13 @@
                                     </thead>
 
                                     <tbody>
-                                    <tr>
-                                        <td>애플</td>
-                                        <td>010-1648-4695</td>
-                                        <td>미국</td>
-                                        <td>15kg</td>
-                                        <td>2023/04/13</td>
-                                        <td>배송중</td>
+                                    <tr th:each="deliveryList, deliveryListIndex : ${deliveryList}">
+                                        <td th:text="${deliveryList.companyInfoName}"></td>
+                                        <td th:text="${deliveryList.orderWastedPhone}"></td>
+                                        <td th:text="${deliveryList.orderWastedAddress}"></td>
+                                        <td th:text="${deliveryList.orderWastedAmount}"></td>
+                                        <td th:text="${deliveryList.orderWastedDate}"></td>
+                                        <td th:text="${deliveryList.orderWastedDeliveryStatus}"></td>
                                     </tr>
                                     </tbody>
                                 </table>

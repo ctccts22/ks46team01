@@ -62,25 +62,13 @@
 
 
                                 <tbody>
-                                <tr>
-                                    <td>팜하니</td>
-                                    <td>010-1234-5678</td>
-                                    <td>전라남도 영암군 시종면 옥야리 549</td>
-                                    <td>25kg</td>
-                                    <td>2023/04/12</td>
-                                    <td>승인확인</td>
-                                </tr>
-                                <tr>
-                                    <td>버섯농장</td>
-                                    <td>010-5789-5478</td>
-                                    <td>전라남도 영암군 시종면 옥야리 123</td>
-                                    <td>1005kg</td>
-                                    <td>2023/04/13</td>
-                                    <td>승인거절</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
+                                <tr th:each="confirmList, confirmListIndex: ${confirmList}">
+                                    <td th:text="${confirmList.companyInfoName}"></td>
+                                    <td th:text="${confirmList.orderCompostPhone}"></td>
+                                    <td th:text="${confirmList.orderCompostAddress}"></td>
+                                    <td th:text="${confirmList.orderCompostAmount}"></td>
+                                    <td th:text="${confirmList.orderCompostDate}"></td>
+                                    <td th:text="${confirmList.orderCompostConfirmStatus}"></td>
                                 </tr>
                                 </tbody>
                             </table>

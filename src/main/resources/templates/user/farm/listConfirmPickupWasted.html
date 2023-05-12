@@ -50,12 +50,8 @@
                             <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>
-                                        전체
-                                    <th><input type="checkbox" id="check-all" ></th>
-                                    </th>
                                     <th>폐배지 농장명</th>
-                                    <th>신청 담당자 번호</th>
+                                    <th>수거 담당자 번호</th>
                                     <th>폐배지수거 주소</th>
                                     <th>중량</th>
                                     <th>승인신청 날짜</th>
@@ -65,21 +61,13 @@
 
 
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        개별
-                                    <th><input type="checkbox" id="check-all" ></th>
-                                    </td>
-                                    <td>삼성</td>
-                                    <td>010-1234-5678</td>
-                                    <td>경기도 파주시 월롱산로 15 </td>
-                                    <td>100kg</td>
-                                    <td>2023/04/25</td>
-                                    <td>승인확인</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
+                                <tr th:each="farmPickupList, farmPickupListIndex: ${farmPickupList}">
+                                    <td th:text="${farmPickupList.companyInfoName}"></td>
+                                    <td th:text="${farmPickupList.farmPickupRequestPhone}"></td>
+                                    <td th:text="${farmPickupList.farmPickupRequestAddress}"></td>
+                                    <td th:text="${farmPickupList.farmPickupRequestAmount}"></td>
+                                    <td th:text="${farmPickupList.farmPickupRequestDate}"></td>
+                                    <td th:text="${farmPickupList.farmPickupConfirmStatus}"></td>
                                 </tr>
                                 </tbody>
                             </table>

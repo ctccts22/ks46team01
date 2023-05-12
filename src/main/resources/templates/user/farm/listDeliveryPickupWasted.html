@@ -63,15 +63,14 @@
                                     </tr>
                                     </thead>
 
-
                                     <tbody>
-                                    <tr>
-                                        <td>팜하니</td>
-                                        <td>010-1234-5678</td>
-                                        <td>경기도 파주시 월롱산로 15 </td>
-                                        <td>100kg</td>
-                                        <td>2011/04/25</td>
-                                        <td>배송중</td>
+                                    <tr th:each="DeliveryList, DeliveryListIndex: ${DeliveryList}">
+                                        <td th:text="${DeliveryList.companyInfoName}"></td>
+                                        <td th:text="${DeliveryList.farmPickupRequestPhone}"></td>
+                                        <td th:text="${DeliveryList.farmPickupRequestAddress}"></td>
+                                        <td th:text="${DeliveryList.farmPickupRequestAmount}"></td>
+                                        <td th:text="${DeliveryList.farmPickupRequestDate}"}></td>
+                                        <td th:text="${DeliveryList.farmPickupDeliveryStatus}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
