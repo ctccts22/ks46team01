@@ -2,7 +2,7 @@ package ks46team01.user.coffee.service;
 
 import ks46team01.common.coffee.dto.CoffeeDelivery;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
-import ks46team01.common.coffee.dto.CompanyInfo;
+import ks46team01.common.company.info.dto.CompanyInfoDTO;
 import ks46team01.user.coffee.mapper.UserCoffeeMapper;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +25,8 @@ public class UserCoffeeServiceImpl implements UserCoffeeService {
     }
 
     @Override //사업자 조회
-    public CompanyInfo listCompanyCode(String userId) {
-        CompanyInfo ci = userCoffeeMapper.listCompanyCode(userId);
+    public CompanyInfoDTO listCompanyCode(String userId) {
+        CompanyInfoDTO ci = userCoffeeMapper.listCompanyCode(userId);
         return ci;
     }
 

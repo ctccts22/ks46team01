@@ -50,7 +50,7 @@
     INNER JOIN company_info ci ON ci.company_info_idx = crc.company_info_idx
     INNER JOIN coffee_request cr ON cr.coffee_request_idx = crc.coffee_request_idx;
 </select>
-    <select id="listConfirmCompanyInfo" resultType="ks46team01.common.coffee.dto.CompanyInfo">
+    <select id="listConfirmCompanyInfo" resultType="ks46team01.common.company.info.dto.CompanyInfoDTO">
         <!-- (운영자) 사업자 정보 확인-->
         SELECT
         ci.company_info_name as companyInfoName,

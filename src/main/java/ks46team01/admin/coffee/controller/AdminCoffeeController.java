@@ -5,7 +5,6 @@ import ks46team01.admin.coffee.service.CoffeeServiceImpl;
 import ks46team01.common.coffee.dto.CoffeeDelivery;
 import ks46team01.common.coffee.dto.CoffeeRequest;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
-import ks46team01.common.coffee.dto.CompanyInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -3,7 +3,7 @@ package ks46team01.user.coffee.controller;
 import jakarta.servlet.http.HttpSession;
 import ks46team01.common.coffee.dto.CoffeeDelivery;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
-import ks46team01.common.coffee.dto.CompanyInfo;
+import ks46team01.common.company.info.dto.CompanyInfoDTO;
 import ks46team01.user.coffee.service.UserCoffeeServiceImpl;
 import ks46team01.user.info.entity.User;
 import lombok.extern.slf4j.Slf4j;
@@ -81,7 +81,7 @@ public class CoffeeController {
         User user = (User) session.getAttribute("user");
         String userId = user.getUsername();
         System.out.println("아이디:" + userId);
-        CompanyInfo ci = coffeeService.listCompanyCode(userId);
+        CompanyInfoDTO ci = coffeeService.listCompanyCode(userId);
         System.out.println(ci.getCompanyInfoIdx());
         Long companyInfoIdx = ci.getCompanyInfoIdx();
         HashMap<String, Object> map = new HashMap<>();

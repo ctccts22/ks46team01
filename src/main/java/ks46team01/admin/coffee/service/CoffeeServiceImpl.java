@@ -4,7 +4,7 @@ import ks46team01.admin.coffee.mapper.CoffeeMapper;
 import ks46team01.common.coffee.dto.CoffeeDelivery;
 import ks46team01.common.coffee.dto.CoffeeRequest;
 import ks46team01.common.coffee.dto.CoffeeRequestConfirm;
-import ks46team01.common.coffee.dto.CompanyInfo;
+import ks46team01.common.company.info.dto.CompanyInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +35,8 @@ public class CoffeeServiceImpl implements CoffeeService{
     }
 
     @Override
-    public List<CompanyInfo> listConfirmCompanyInfo() {
-        List<CompanyInfo> companyInfoList = coffeeMapper.listConfirmCompanyInfo();
+    public List<CompanyInfoDTO> listConfirmCompanyInfo() {
+        List<CompanyInfoDTO> companyInfoList = coffeeMapper.listConfirmCompanyInfo();
         return companyInfoList;
     }
 
