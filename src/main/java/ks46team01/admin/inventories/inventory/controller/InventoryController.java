@@ -3,16 +3,10 @@ package ks46team01.admin.inventories.inventory.controller;
 
 import jakarta.servlet.http.HttpSession;
 import ks46team01.admin.info.entity.Admin;
-import ks46team01.admin.inventories.input.entity.InventoryInput;
-import ks46team01.admin.inventories.input.repository.InventoryInputRepository;
 import ks46team01.admin.inventories.inventory.dto.InventoryDTO;
 import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.admin.inventories.inventory.repository.InventoryRepository;
 import ks46team01.admin.inventories.inventory.service.InventoryService;
-import ks46team01.admin.inventories.output.entity.InventoryOutput;
-import ks46team01.admin.inventories.output.repository.InventoryOutputRepository;
-import ks46team01.admin.inventories.record.entity.InventoryRecord;
-import ks46team01.admin.inventories.record.repository.InventoryRecordRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,9 +24,6 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/admin/inventory")
 public class InventoryController {
-    private final InventoryOutputRepository inventoryOutputRepository;
-    private final InventoryInputRepository inventoryInputRepository;
-    private final InventoryRecordRepository inventoryRecordRepository;
 
     private final InventoryRepository inventoryRepository;
     private final InventoryService inventoryService;
@@ -46,41 +37,20 @@ public class InventoryController {
         return "admin/inventory/listInventory";
     }
 
-    @GetMapping("/listInventoryDetail")
-    public String inventoryListDetail(Model model) {
-        List<InventoryRecord> inventoryRecordList = inventoryRecordRepository.findAll();
-        model.addAttribute("title", "재고기록관리");
-        model.addAttribute("inventoryRecordList", inventoryRecordList);
-        log.info("inventoryRecordList={}", inventoryRecordList);
-        return "admin/inventory/listInventoryDetail";
-    }
-    @GetMapping("/listInventoryInput")
-    public String inventoryListInput(Model model) {
-        List<InventoryInput> inventoryInputList = inventoryInputRepository.findAll();
-        model.addAttribute("title", "재고입고");
-        model.addAttribute("inventoryInputList", inventoryInputList);
-        log.info("inventoryInputList={}", inventoryInputList);
-        return "admin/inventory/listInventoryInput";
-    }
-    @GetMapping("/listInventoryOutput")
-    public String inventoryListOutput(Model model) {
-        List<InventoryOutput> inventoryOutputList = inventoryOutputRepository.findAll();
-        model.addAttribute("title", "재고출고");
-        model.addAttribute("inventoryOutputList", inventoryOutputList);
-        log.info("inventoryOutputList={}", inventoryOutputList);
-        return "admin/inventory/listInventoryOutput";
-    }
-
     @PostMapping("/addInventory")
     @ResponseBody
     public ResponseEntity<?> addInventory(@RequestParam(name = "inventoryIdx", required = false) Long inventoryIdx,
                                           @RequestParam(name = "inventoryType", required = false) String inventoryType,
+                                          @RequestParam(name = "inventorySum", required = false) Double inventorySum,
                                           @RequestParam(value = "inventoryDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime inventoryDate,
                                           HttpSession session) {
 
         Admin admin = (Admin) session.getAttribute("adminUser");
         if (admin != null) {
-            InventoryDTO addedInventoryDTO = inventoryService.addCompanyContract(inventoryIdx, inventoryType, inventoryDate, admin);
+            if (inventorySum == null) {
+                inventorySum = 0.0;
+            }
+            InventoryDTO addedInventoryDTO = inventoryService.addCompanyContract(inventoryIdx, inventoryType, inventorySum, inventoryDate, admin);
             if (addedInventoryDTO == null) {
                 return new ResponseEntity<>("400에러", HttpStatus.BAD_REQUEST);
             } else {
