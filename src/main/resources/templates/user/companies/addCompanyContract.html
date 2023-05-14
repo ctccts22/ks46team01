@@ -11,18 +11,18 @@
       $(document).ready(function () {
           console.log('test');
 
-          function setCompanyContractType() {
-              const companyIdx = $('#company_idx').val();
-              const companyContractTypeInput = $('#company_contract_type');
-
-              if (companyIdx === '1') {
-                  companyContractTypeInput.val('판매');
-              } else if (companyIdx === '2' || companyIdx === '3') {
-                  companyContractTypeInput.val('구매');
-              } else {
-                  companyContractTypeInput.val('');
-              }
-          }
+          // function setCompanyContractType() {
+          //     const companyIdx = $('#company_idx').val();
+          //     const companyContractTypeInput = $('#company_contract_type');
+          //
+          //     if (companyIdx === '1') {
+          //         companyContractTypeInput.val('판매');
+          //     } else if (companyIdx === '2' || companyIdx === '3') {
+          //         companyContractTypeInput.val('구매');
+          //     } else {
+          //         companyContractTypeInput.val('');
+          //     }
+          // }
 
           $('body').on('click', '#fetch-data-btn', function () {
               $.ajax({
@@ -157,12 +157,12 @@
       <input type="hidden" id="company_unit_idx" th:field="*{companyUnitIdx}" data-key="companyUnitIdx" class="form-control">
       <input type="hidden" id="company_info_idx" th:field="*{companyInfoIdx}" data-key="companyInfoIdx" class="form-control">
 
-      <div class="item form-group">
-        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_unit_year">계약종류</label>
-        <div class="col-md-6 col-sm-6">
-          <input type="text" id="company_contract_type" class="form-control hidden" disabled>
-        </div>
-      </div>
+<!--      <div class="item form-group">-->
+<!--        <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_contract_type">계약종류</label>-->
+<!--        <div class="col-md-6 col-sm-6">-->
+<!--          <input type="text" id="company_contract_type" class="form-control hidden" disabled>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="inventory_idx">품목</label>

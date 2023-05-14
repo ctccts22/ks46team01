@@ -6,7 +6,7 @@ import ks46team01.common.coffee.dto.CoffeeRequest;
 
 
 import ks46team01.common.coffee.dto.CompanyInfo;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface CoffeeMapper {
     public void insertConfirmCoffeeAdmin(CoffeeRequestConfirm confirm); // 커피가루 수거신청 승인/거절
     public List<CoffeeRequestConfirm> listConfirmCoffee(); //
     public List<CompanyInfo> listConfirmCompanyInfo(); //
-    
     public List<CoffeeDelivery> listCoffeeDelivery(); // 커피가루 배송리스트
+
 
 }

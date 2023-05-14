@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head>
+  <style>
+      .metadata {
+          position: absolute;
+          right: 0;
+          top: 0;
+      }
+  </style>
+</head>
+
+<th:block layout:fragment="customJs">
+
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <a href="/user/freeBoard" class="text-decoration-none text-dark">
+          <h2 class="mb-0" th:text="${board.freeBoardTitle}">Board Title</h2>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <small class="text-muted">
+            <span th:text="${board.username.username}"></span> |
+            <span th:text="${board.freeBoardDate}"></span> |
+            <span>조회수: </span><span th:text="${board.freeBoardView}"></span>
+          </small>
+        </div>
+        <p th:text="${board.freeBoardContent}"></p>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>

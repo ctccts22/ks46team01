@@ -14,7 +14,6 @@
 <th:block layout:fragment="customJs">
   <script>
 
-
           $('#datatable-custom').DataTable({
               pagination: false,
               searching: true,
@@ -22,7 +21,7 @@
               dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
                   "<'row'<'col-sm-12'tr>>" +
                   "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
-      });
+          });
   </script>
 </th:block>
 
@@ -31,7 +30,7 @@
     <div class="title">
       <div class="x_panel">
         <div class="x_title">
-          <h2 class="my-4">재고기록</h2>
+          <h2 class="my-4">재고입출고리스트</h2>
 
           <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -46,7 +45,7 @@
         </div>
 
         <div style="display: flex;">
-          <a class="btn btn-outline-secondary input-button" th:href="@{/admin/inventory/listInventoryDetail}">리스트</a>
+
         </div>
 
         <div class="x_content">
@@ -69,21 +68,30 @@
                            style="width: 100%;">
                       <thead class="thead-dark">
                       <tr role="row">
-                        <th>입고코드</th>
-                        <th>입고품목</th>
-                        <th>입고날짜</th>
-                        <th>예외발생</th>
+                        <th>재고기록번호</th>
+                        <th>재고종류</th>
+                        <th>사업자이름</th>
+                        <th>사업자번호</th>
+                        <th>중량</th>
+                        <th>입출고</th>
+                        <th>입출고날짜</th>
                         <th>관리자아이디</th>
+                        <th>삭제</th>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr class="odd" role="row" th:each="inventoryInputLists : ${inventoryInputList}">
-                        <td data-key="" th:text="${inventoryInputLists.inputIdx}"></td>
-                        <td data-key="" th:text="${inventoryInputLists.inventoryRecordIdx.inventoryIdx.inventoryType}"></td>
-                        <td data-key="" th:text="${inventoryInputLists.inputAmount}"></td>
-                        <td data-key="" th:text="${inventoryInputLists.inputDate}"></td>
-                        <td data-key="" th:text="${inventoryInputLists.isExceptional}"></td>
-                        <td data-key="" th:text="${inventoryInputLists.adminUsername.adminUsername}"></td>
+                      <tr class="odd" role="row" th:each="inventoryLogList : ${inventoryLogList}">
+                        <td data-key="inventoryIdx" th:text="${inventoryLogList.inventoryLogIdx}"></td>
+                        <td data-key="inventoryType" th:text="${inventoryLogList.inventoryType}"></td>
+                        <td data-key="inventoryType" th:text="${inventoryLogList.companyInfoName}"></td>
+                        <td data-key="inventoryType" th:text="${inventoryLogList.companyInfoLicenseNumber}"></td>
+                        <td data-key="inventoryDate" th:text="${inventoryLogList.amount}"></td>
+                        <td data-key="inventoryDate" th:text="${inventoryLogList.transactionType}"></td>
+                        <td data-key="inventoryDate" th:text="${inventoryLogList.transactionDate}"></td>
+                        <td data-key="adminUsername" th:text="${inventoryLogList.adminUsername}"></td>
+                        <td>
+                          <button class="delete-button">삭제</button>
+                        </td>
                       </tr>
                       </tbody>
                     </table>
