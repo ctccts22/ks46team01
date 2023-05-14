@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks46team01.admin.inventories.log.mapper.InventoryLogMapper">
+    <select id="listInventoryLog" resultType="ks46team01.admin.inventories.log.dto.InventoryLogDTO">
+        select
+            li.inventory_log_idx as inventoryLogIdx,
+            l.inventory_type as inventoryType,
+            li.company_info_idx as companyInfoIdx,
+            ci.company_info_name as companyInfoName,
+            ci.company_info_license_number as companyInfoLicenseNumber,
+            li.amount,
+            li.transaction_type as transactionType,
+            li.transaction_date as transactionDate,
+            li.admin_username as adminUsername
+            from inventory_log as li
+            inner join inventory as l
+            on li.inventory_idx = l.inventory_idx
+            inner join company_info as ci
+            on li.company_info_idx = ci.company_info_idx
+    </select>
+</mapper>
