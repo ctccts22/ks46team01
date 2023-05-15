@@ -17,7 +17,7 @@
 <!--        (운영자) 커피가루 수거신청 확인-->
         SELECT
         cr.coffee_request_idx as coffeeRequestIdx,
-        cr.username as userName,
+        cr.username as username,
         cr.coffee_request_amount as coffeeRequestAmount,
         cr.coffee_request_address as coffeeRequestAddress,
         cr.coffee_request_phone as coffeeRequestPhone,
@@ -30,7 +30,7 @@
         WHERE NOT EXISTS (
         SELECT 1
         FROM coffee_request_confirm AS crc
-        WHERE cr.coffee_request_idx = crc.coffee_request_confirm_idx
+        WHERE cr.coffee_request_idx = crc.coffee_request_idx
         );
     </select>
 <select id="listConfirmCoffee" resultMap="coffeeRequestMap">
@@ -50,7 +50,7 @@
     INNER JOIN company_info ci ON ci.company_info_idx = crc.company_info_idx
     INNER JOIN coffee_request cr ON cr.coffee_request_idx = crc.coffee_request_idx;
 </select>
-    <select id="listConfirmCompanyInfo" resultType="ks46team01.common.coffee.dto.CompanyInfo">
+    <select id="listConfirmCompanyInfo" resultType="ks46team01.common.company.info.dto.CompanyInfoDTO">
         <!-- (운영자) 사업자 정보 확인-->
         SELECT
         ci.company_info_name as companyInfoName,
