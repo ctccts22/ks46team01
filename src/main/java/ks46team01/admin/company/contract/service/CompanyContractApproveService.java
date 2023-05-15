@@ -8,11 +8,15 @@ import ks46team01.common.company.contract.repository.CompanyContractApproveRepos
 import ks46team01.common.company.contract.repository.CompanyContractRepository;
 import ks46team01.common.company.info.entity.CompanyInfo;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,16 +26,20 @@ public class CompanyContractApproveService {
     private final CompanyContractRepository companyContractRepository;
     private final CompanyContractApproveRepository companyContractApproveRepository;
     private final InventoryService inventoryService;
-    public CompanyContractApprove updateCompanyContractApprove(Long companyContractApproveIdx, LocalDate companyContractApproveDate, String companyContractApproveStatus, String companyContractApproveContent, Admin admin, Long companyContractIdx) {
+
+    public CompanyContractApprove updateCompanyContractApprove(Long companyContractApproveIdx,
+                                                               LocalDate companyContractApproveDate,
+                                                               String companyContractApproveStatus,
+                                                               String companyContractApproveContent,
+                                                               Admin admin,
+                                                               Long companyContractIdx) {
         CompanyContractApprove exCompanyContractApprove;
-//        String previousStatus = null;
 
         if (companyContractApproveIdx != null) {
             Optional<CompanyContractApprove> exCompanyContractApproveOptional = companyContractApproveRepository.findWithCompanyContractAndAdminByUsername(companyContractApproveIdx);
 
             if (exCompanyContractApproveOptional.isPresent()) {
                 exCompanyContractApprove = exCompanyContractApproveOptional.get();
-//                previousStatus = exCompanyContractApprove.getCompanyContractApproveStatus();
             } else {
                 exCompanyContractApprove = new CompanyContractApprove();
                 exCompanyContractApprove.setCompanyContractApproveIdx(companyContractApproveIdx);
@@ -39,7 +47,6 @@ public class CompanyContractApproveService {
         } else {
             exCompanyContractApprove = new CompanyContractApprove();
         }
-
         Optional<CompanyContract> companyContractOptional = companyContractRepository.findByCompanyContractIdx(companyContractIdx);
         if (companyContractOptional.isPresent()) {
             CompanyContract companyContract = companyContractOptional.get();
@@ -55,26 +62,6 @@ public class CompanyContractApproveService {
         exCompanyContractApprove.setCompanyContractApproveContent(companyContractApproveContent);
         exCompanyContractApprove.setAdminUsername(admin);
 
-//        if (!"Y".equals(previousStatus) && "Y".equals(companyContractApproveStatus)) {
-//            CompanyContract contract = exCompanyContractApprove.getCompanyContractIdx();
-//            if (contract != null) {
-//                CompanyInfo companyInfo = contract.getCompanyInfoIdx();
-//                if (companyInfo != null) {
-//                    Long companyIdx = companyInfo.getCompanyIdx().getCompanyIdx();
-//                    if (companyIdx != null) {
-//                        if (1L == companyIdx) {
-//                            inventoryService.inputInventory(contract);
-//                        } else if (2L == companyIdx || 3L == companyIdx) {
-//                            inventoryService.outputInventory(contract);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
         return companyContractApproveRepository.save(exCompanyContractApprove);
     }
 }
-
-
-

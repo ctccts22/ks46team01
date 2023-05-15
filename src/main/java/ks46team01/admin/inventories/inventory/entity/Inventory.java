@@ -26,6 +26,9 @@ public class Inventory {
     @Column(name = "inventory_type", length = 20, nullable = false)
     private String inventoryType;
 
+    @Column(name = "inventory_sum", nullable = false, columnDefinition = "double default '0'")
+    private Double inventorySum;
+
     @ManyToOne
     @JoinColumn(name = "admin_username", nullable = false)
     @ToString.Exclude

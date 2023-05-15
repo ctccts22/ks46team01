@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 public class InventoryDTO {
     private Long inventoryIdx;
     private String inventoryType;
+    private Double inventorySum;
     private String adminUsername;
     private Timestamp inventoryDate;
 

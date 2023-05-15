@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<th:block layout:fragment="customJs">
+
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>게시판등록</h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <form th:object="${freeBoard}" th:action="@{/user/addFreeBoard}" th:method="post">
+        <div class="form-group">
+          <label for="title">제목</label>
+          <input type="text" th:field="*{freeBoardTitle}" class="form-control" id="title" placeholder="제목을 입력하세요">
+        </div>
+        <div class="form-group">
+          <label for="content">내용</label>
+          <textarea th:field="*{freeBoardContent}" class="form-control" id="content" rows="3" placeholder="내용을 입력하세요"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">등록</button>
+      </form>
+    </div>
+  </div>
+</th:block>
+</html>
