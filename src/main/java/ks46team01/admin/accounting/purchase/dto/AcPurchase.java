@@ -19,10 +19,10 @@ public class AcPurchase {
 
     private String accountingPurchaseAdminDateS;
     private Date accountingPurchaseAdminDate;
-    private int accountingPurchaseAdminPrice;
-    private double accountingPurchaseAdminAmount;
+    private Integer accountingPurchaseAdminPrice;
+    private Double accountingPurchaseAdminAmount;
     private String accountingPurchaseAdminPayment;
-    private int accountingPurchaseAdminSum;
+    private Integer accountingPurchaseAdminSum;
     private String adminUsername;
     private Timestamp accountingPurchaseAdminUpdate;
 
@@ -81,19 +81,19 @@ public class AcPurchase {
         this.accountingPurchaseAdminDate = accountingPurchaseAdminDate;
     }
 
-    public int getAccountingPurchaseAdminPrice() {
+    public Integer getAccountingPurchaseAdminPrice() {
         return accountingPurchaseAdminPrice;
     }
 
-    public void setAccountingPurchaseAdminPrice(int accountingPurchaseAdminPrice) {
+    public void setAccountingPurchaseAdminPrice(Integer accountingPurchaseAdminPrice) {
         this.accountingPurchaseAdminPrice = accountingPurchaseAdminPrice;
     }
 
-    public double getAccountingPurchaseAdminAmount() {
+    public Double getAccountingPurchaseAdminAmount() {
         return accountingPurchaseAdminAmount;
     }
 
-    public void setAccountingPurchaseAdminAmount(double accountingPurchaseAdminAmount) {
+    public void setAccountingPurchaseAdminAmount(Double accountingPurchaseAdminAmount) {
         this.accountingPurchaseAdminAmount = accountingPurchaseAdminAmount;
     }
 
@@ -105,11 +105,11 @@ public class AcPurchase {
         this.accountingPurchaseAdminPayment = accountingPurchaseAdminPayment;
     }
 
-    public int getAccountingPurchaseAdminSum() {
+    public Integer getAccountingPurchaseAdminSum() {
         return accountingPurchaseAdminSum;
     }
 
-    public void setAccountingPurchaseAdminSum(int accountingPurchaseAdminSum) {
+    public void setAccountingPurchaseAdminSum(Integer accountingPurchaseAdminSum) {
         this.accountingPurchaseAdminSum = accountingPurchaseAdminSum;
     }
 

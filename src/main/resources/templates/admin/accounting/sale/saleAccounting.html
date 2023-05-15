@@ -6,66 +6,426 @@
 
 <th:block layout:fragment="customJs">
     <script>
-        document.getElementById("addBtn1").addEventListener("click", function() {
-            window.location.href = "/mushroom/add/addAccountMushroom";
+        $(document).ready(function () {
+            $('body').on('click', '.add-button', function () {
+                const row= $(this).closest('tr');
+                const accountingSalesAdminIdx = row.find('td[data-key="accountingSalesAdminIdx"]').text();
+                const companyIdx = row.find('td[data-key="companyIdx"]').text();
+                const inventoryIdx = row.find('td[data-key="inventoryIdx"]').text();
+                const companyContractIdx = row.find('td[data-key="companyContractIdx"]').text();
+                const accountingSalesAdminDate = row.find('td[data-key="accountingSalesAdminDate"]').text();
+                const accountingSalesAdminType = row.find('td[data-key="accountingSalesAdminType"]').text();
+                const accountingSalesAdminPayment = row.find('td[data-key="accountingSalesAdminPayment"]').text();
+                const accountingSalesAdminSum = row.find('td[data-key="accountingSalesAdminSum"]').text();
+                const adminUsername = row.find('td[data-key="adminUsername"]').text();
+
+                const accountingSalesAdminFinishUpdate = row.find('td[data-key="accountingSalesAdminFinishUpdate"]').text();
+
+
+                $('#add-accountingSalesAdminIdx').val(accountingSalesAdminIdx);
+                $('#add-companyIdx').val(companyIdx);
+                $('#add-inventoryIdx').val(inventoryIdx);
+                $('#add-companyContractIdx').val(companyContractIdx);
+                $('#add-accountingSalesAdminDate').val(accountingSalesAdminDate);
+                $('#add-accountingSalesAdminType').val(accountingSalesAdminType);
+                $('#add-accountingSalesAdminPayment').val(accountingSalesAdminPayment);
+                $('#add-accountingSalesAdminSum').val(accountingSalesAdminSum);
+                $('#add-adminUsername').val(adminUsername);
+
+                $('#add-accountingSalesAdminFinishUpdate').val(accountingSalesAdminFinishUpdate);
+
+                // 모달 보여짐
+                $('#addAcSaleModal').modal('show');
+            });
+
+            $('body').on('click', '.edit-button', function () {
+                const row= $(this).closest('tr');
+                const accountingSalesAdminIdx = row.find('td[data-key="accountingSalesAdminIdx"]').text();
+                const companyIdx = row.find('td[data-key="companyIdx"]').text();
+                const inventoryIdx = row.find('td[data-key="inventoryIdx"]').text();
+                const companyContractIdx = row.find('td[data-key="companyContractIdx"]').text();
+                const accountingSalesAdminDate = row.find('td[data-key="accountingSalesAdminDate"]').text();
+                const accountingSalesAdminType = row.find('td[data-key="accountingSalesAdminType"]').text();
+                const accountingSalesAdminPayment = row.find('td[data-key="accountingSalesAdminPayment"]').text();
+                const accountingSalesAdminSum = row.find('td[data-key="accountingSalesAdminSum"]').text();
+                const adminUsername = row.find('td[data-key="adminUsername"]').text();
+
+                const accountingSalesAdminFinishUpdate = row.find('td[data-key="accountingSalesAdminFinishUpdate"]').text();
+
+
+                $('#modify-accountingSalesAdminIdx').val(accountingSalesAdminIdx);
+                $('#modify-companyIdx').val(companyIdx);
+                $('#modify-inventoryIdx').val(inventoryIdx);
+                $('#modify-companyContractIdx').val(companyContractIdx);
+                $('#modify-accountingSalesAdminDate').val(accountingSalesAdminDate);
+                $('#modify-accountingSalesAdminType').val(accountingSalesAdminType);
+                $('#modify-accountingSalesAdminPayment').val(accountingSalesAdminPayment);
+                $('#modify-accountingSalesAdminSum').val(accountingSalesAdminSum);
+                $('#modify-adminUsername').val(adminUsername);
+
+                $('#modify-accountingSalesAdminFinishUpdate').val(accountingSalesAdminFinishUpdate);
+
+                // 모달 보여짐
+                $('#modifyAcSaleModal').modal('show');
+            });
+
+            $('body').on('click', '.delete-button', function () {
+                const accountingSalesAdminIdx = $(this).closest('tr').find('td[data-key="accountingSalesAdminIdx"]').text();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/accounting/sale/delete/saleAccountingDelete',
+                    data: { accountingSalesAdminIdx: accountingSalesAdminIdx },
+                    success: function (response) {
+                        alert('삭제성공');
+                        location.href = '/admin/accounting/sale/saleAccounting'; // 페이지 다시 로드
+                        $('button[data-accountingSalesAdminIdx="' + accountingSalesAdminIdx + '"]').closest('tr').remove();
+                    },
+                    error: function () {
+                        alert('삭제실패');
+
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#datatable-custom').DataTable({
+                pagination: false,
+                searching: false,
+                lengthChange: false
+            });
+
+        });
+        //검색
+        $(document).ready(function() {
+            // 검색 버튼 클릭 시
+            $('#search-btn').click(function(e) {
+                e.preventDefault();
+                const searchType = $('select.form-select').val();
+                const searchValue = $('input.form-control').val().trim().toLowerCase();
+
+                if (searchValue === '') {
+                    // 검색어가 비어 있을 경우, 모든 행을 보여줌
+                    $('table tbody tr').show();
+                } else {
+                    // 검색어와 유사한 값을 포함하는 행을 찾아 보여줌
+                    $('table tbody tr').each(function() {
+                        let searchKey = '';
+                        switch (searchType) {
+                            case '1':
+                                searchKey = 'accountingSalesAdminIdx';
+                                break;
+                            case '2':
+                                searchKey = 'companyIdx';
+                                break;
+                            case '3':
+                                searchKey = 'inventoryIdx';
+                                break;
+                            case '4':
+                                searchKey = 'companyContractIdx';
+                                break;
+                            case '5':
+                                searchKey = 'adminUsername';
+                                break;
+                            default:
+                                break;
+                        }
+                        const columnValue = $(this).find(`td[data-key="${searchKey}"]`).text().trim().toLowerCase();
+                        if (columnValue.includes(searchValue)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
         });
     </script>
+
 </th:block>
 
 <th:block layout:fragment="customContent">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="my-4">관리자 회계 매출 자료</h2>
-                <button id="addBtn1" th:href="@{/admin/accounting/sale/saleAccountingAdd}" class="btn btn-primary"> 등록 </button>
-                <button id="addBtn2" th:href="@{/admin/accounting/sale/saleAccountingAdd}" class="btn btn-primary"> 수정 </button>
-                <button id="addBtn3" th:href="@{/admin/accounting/sale/saleAccountingAdd}" class="btn btn-primary"> 삭제 </button>
-                <button id="addBtn4" th:href="@{/admin/accounting/sale/saleAccountingAdd}" class="btn btn-primary"> 검색기능? </button>
-                <button id="addBtn5" th:href="@{/admin/accounting/sale/saleAccountingAdd}" class="btn btn-primary"> 추가 할거 생각해보기 </button>
+    <div class="page-title">
+        <div class="title">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 class="my-4">관리자 회계 매출 자료 </h2>
+                    <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row mb-3">
 
-                <!--        <button id="addAdminBtn" class="btn btn-primary">운영자 정보</button>-->
-                <table class="table table-striped table-bordered table-hover">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>회계관리 매출 고유번호</th>
-                        <th>사업장 고유번호</th>
-                        <th>재고물품고유번호</th>
-                        <th>사업자 계약신청관리</th>
-                        <th>거래일자</th>
-                        <th>거래유형</th>
-                        <th>결제유형</th>
-                        <th>매출액</th>
-                        <th>운영자아이디</th>
-                        <th>수정날짜</th>
-                        <th>매출 마감 그룹코드</th>
+                        <div class="col-md-6" >
+                            <form id="search-form"  th:action="@{/admin/accounting/sale/saleAccounting}" method="get">
+                                <div class="input-group">
+                                    <select class="form-select" size="1" aria-label="size 3 select example">
+                                        <option selected>선택</option>
+                                        <option value="1">회계관리 매출 고유번호</option>
+                                        <option value="2">사업장 고유코드</option>
+                                        <option value="3">재고물품고유번호</option>
+                                        <option value="4">사업자 계약 신청관리</option>
+                                        <option value="5">운영자 아이디</option>
+                                    </select>
+                                    <input type="text" class="form-control" placeholder="검색어를 입력하세요" name="accountingSalesAdminIdx">
+                                    <div class="input-group-append">
+                                        <button  id="search-btn" class="btn btn-outline-secondary" type="submit">검색</button>
+                                        <a class="btn btn-outline-secondary" id="clean-btn" th:href="@{/admin/accounting/sale/saleAccounting}">초기화</a>
+                                    </div>
+                                </div>
+                            </form>
+                            <div style="display: flex;">
+                                <button class="add-button" type="submit">등록</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <div class="col-sm-12">
+                                    <div id="datatable-buttons_wrapper"
+                                         class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
+                                        <table id="datatable-custom"
+                                               class="table table-striped table-bordered dataTable no-footer dtr-inline"
+                                               style="width: 100%; " role="grid">
+                                            <thead>
+                                            <tr role="row">
+                                                <th>회계관리 매출 고유번호</th>
+                                                <th>사업장 고유번호</th>
+                                                <th>재고물품고유번호</th>
+                                                <th>사업자 계약신청관리</th>
+                                                <th>거래일자</th>
+                                                <th>거래유형</th>
+                                                <th>결제유형</th>
+                                                <th>매출액</th>
+                                                <th>운영자아이디</th>
+                                                <th>수정날짜</th>
+                                                <th>매출 마감 그룹코드</th>
+                                                <th>수정</th>
+                                                <th>삭제</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr role="row" class="odd" th:each="l:${as}" >
+                                                <td data-key="accountingSalesAdminIdx" th:text="${l.accountingSalesAdminIdx}"></td>
+                                                <td data-key="companyIdx" th:text="${l.companyIdx}"></td>
+                                                <td data-key="inventoryIdx" th:text="${l.inventoryIdx}"></td>
+                                                <td data-key="companyContractIdx" th:text="${l.companyContractIdx}"></td>
+                                                <td data-key="accountingSalesAdminDate" th:text="${#dates.format(l.accountingSalesAdminDate, 'yyyy-MM-dd')}"></td>
+                                                <td data-key="accountingSalesAdminType" th:text="${l.accountingSalesAdminType}"></td>
+                                                <td data-key="accountingSalesAdminPayment" th:text="${l.accountingSalesAdminPayment}"></td>
+                                                <td data-key="accountingSalesAdminSum" th:text="${l.accountingSalesAdminSum}"></td>
+                                                <td data-key="adminUsername" th:text="${l.adminUsername}"></td>
+                                                <td data-key="accountingSalesAdminUpdate" th:text="${#dates.format(l.accountingSalesAdminUpdate, 'yyyy-MM-dd')}"></td>
+                                                <td data-key="accountingSalesAdminFinishUpdate" th:text="${l.accountingSalesAdminFinishUpdate}"></td>
 
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:unless="${as ==null}" th:each="l:${as}">
 
-                        <td th:text="${l.accounting_sales_admin_idx}"></td>
-                        <td th:text="${l.company_idx}"></td>
-                        <td th:text="${l.inventory_idx}"></td>
-                        <td th:text="${l.company_contract_idx}"></td>
-                        <td th:text="${l.accounting_sales_admin_date}"></td>
-                        <td th:text="${l.accounting_sales_admin_type}"></td>
-                        <td th:text="${l.accounting_sales_admin_payment}"></td>
-                        <td th:text="${l.accounting_sales_admin_sum}"></td>
-                        <td th:text="${l.admin_username}"></td>
-                        <td th:text="${l.accounting_sales_admin_update}"></td>
-                        <td th:text="${l.accounting_sales_admin_finish_update}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                                                <td>
+                                                    <button type="button" class="edit-button">수정</button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="delete-button">삭제</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <!-- 회원등록 모달 -->
+
+                                        <div class="modal fade" id="addAcSaleModal" tabindex="-1" role="dialog" aria-labelledby="addAcSaleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addAcSaleModalLabel">등록</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/admin/accounting/sale/saleAccountingAdd}" method="post">
+                                                            <input type="hidden" id="add-accountingSalesAdminIdx" name="accountingSalesAdminIdx">
+
+                                                            <div class="form-group">
+                                                                <label for="add-companyIdx">companyIdx</label>
+                                                                <select class="form-control" id="add-companyIdx" name="companyIdx"  required>
+                                                                    <option value="" disabled selected>companyIdx 을 선택하세요</option>
+                                                                    <th:block th:each="c : ${companyDTOList}">
+                                                                        <option th:value="${c.companyIdx}">[[${c.companyIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-inventoryIdx">inventoryIdx</label>
+                                                                <select class="form-control" id="add-inventoryIdx" name="inventoryIdx"  required>
+                                                                    <option value="" disabled selected>inventoryIdx 을 선택하세요</option>
+                                                                    <th:block th:each="i : ${inventories}">
+                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-companyContractIdx">companyContractIdx</label>
+                                                                <select class="form-control" id="add-companyContractIdx" name="companyContractIdx"  required>
+                                                                    <option value="" disabled selected>companyContractIdx 을 선택하세요</option>
+                                                                    <th:block th:each="cc : ${companyContractDTOS}">
+                                                                        <option th:value="${cc.companyContractIdx}">[[${cc.companyContractIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="add-accountingSalesAdminDate">accountingSalesAdminDate</label>
+                                                                <input type="date" class="form-control" id="add-accountingSalesAdminDate" name="accountingSalesAdminDateS" placeholder="accountingSalesAdminDate 를 입력하세요" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-accountingSalesAdminType">accountingSalesAdminType</label>
+                                                                <input type="number" class="form-control" id="add-accountingSalesAdminType" name="accountingSalesAdminType" placeholder="accountingSalesAdminType 를 입력하세요" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-accountingSalesAdminPayment">accountingSalesAdminPayment</label>
+                                                                <select class="form-control" id="add-accountingSalesAdminPayment" name="accountingSalesAdminPayment" required>
+                                                                    <option value="">결제 수단을 선택하세요</option>
+                                                                    <option value="카드">카드</option>
+                                                                    <option value="현금">현금</option>
+                                                                    <option value="계좌이체">계좌이체</option>
+                                                                    <option value="핸드폰결제">핸드폰결제</option>
+                                                                    <option value="기타">기타</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-accountingSalesAdminSum">accountingSalesAdminSum</label>
+                                                                <input type="number" class="form-control" id="add-accountingSalesAdminSum" name="accountingSalesAdminSum" placeholder="accountingSalesAdminSum 를 입력하세요" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="add-adminUsername">adminUsername</label>
+                                                                <select class="form-control" id="add-adminUsername" name="adminUsername"  required>
+                                                                    <option value="" disabled selected>adminUsername 을 선택하세요</option>
+                                                                    <th:block th:each="a : ${adminDTOS}">
+                                                                        <option th:value="${a.adminUsername}">[[${a.adminUsername}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="add-accountingSalesAdminFinishUpdate">accountingSalesAdminFinishUpdate</label>
+                                                                <input type="number" class="form-control" id="add-accountingSalesAdminFinishUpdate" name="accountingSalesAdminFinishUpdate" placeholder="accountingSalesAdminFinishUpdate 를 입력하세요" required>
+                                                            </div>
+
+
+                                                            <button type="submit" class="btn btn-primary">등록</button>
+                                                            <button type="reset" class="btn btn-warning">취소</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 회원등록 모달 -->
+
+                                        <!-- 회원수정 모달 -->
+                                        <div class="modal fade" id="modifyAcSaleModal" tabindex="-1" role="dialog" aria-labelledby="modifyAcSaleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modifyAcSaleModalLabel">수정</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/admin/accounting/sale/saleAccountingModify}" method="post">
+                                                            <input type="hidden" id="modify-accountingSalesAdminIdx" name="accountingSalesAdminIdx">
+
+                                                            <div class="form-group">
+                                                                <label for="modify-companyIdx">companyIdx 고유코드</label>
+                                                                <select class="form-control" id="modify-companyIdx" name="companyIdx"  required>
+                                                                    <option value="companyIdx" disabled selected>companyIdx 선택하세요</option>
+                                                                    <th:block th:each="c : ${companyDTOList}">
+                                                                        <option th:value="${c.companyIdx}">[[${c.companyIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-inventoryIdx">inventoryIdx 고유코드</label>
+                                                                <select class="form-control" id="modify-inventoryIdx" name="inventoryIdx"  required>
+                                                                    <option value="inventoryIdx" disabled selected>inventoryIdx 선택하세요</option>
+                                                                    <th:block th:each="i : ${inventories}">
+                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-companyContractIdx">companyContractIdx 고유코드</label>
+                                                                <select class="form-control" id="modify-companyContractIdx" name="companyContractIdx"  required>
+                                                                    <option value="companyContractIdx" disabled selected>companyContractIdx 선택하세요</option>
+                                                                    <th:block th:each="cc : ${companyContractDTOS}">
+                                                                        <option th:value="${cc.companyContractIdx}">[[${cc.companyContractIdx}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="modify-accountingSalesAdminDate">accountingSalesAdminDate</label>
+                                                                <input type="date" class="form-control" id="modify-accountingSalesAdminDate" name="accountingSalesAdminDateS" placeholder="accountingSalesAdminDate 을 입력하세요"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-accountingSalesAdminType">accountingSalesAdminType</label>
+                                                                <input type="number" class="form-control" id="modify-accountingSalesAdminType" name="accountingSalesAdminType" placeholder="accountingSalesAdminType 을 입력하세요"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-accountingSalesAdminPayment">accountingSalesAdminPayment</label>
+                                                                <select class="form-control" id="modify-accountingSalesAdminPayment" name="accountingSalesAdminPayment" required>
+                                                                    <option value="">결제 수단을 선택하세요</option>
+                                                                    <option value="카드">카드</option>
+                                                                    <option value="현금">현금</option>
+                                                                    <option value="계좌이체">계좌이체</option>
+                                                                    <option value="핸드폰결제">핸드폰결제</option>
+                                                                    <option value="기타">기타</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-accountingSalesAdminSum">accountingSalesAdminSum</label>
+                                                                <input type="number" class="form-control" id="modify-accountingSalesAdminSum" name="accountingSalesAdminSum" placeholder="accountingSalesAdminSum 을 입력하세요"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modify-adminUsername">adminUsername 고유코드</label>
+                                                                <select class="form-control" id="modify-adminUsername" name="adminUsername"  required>
+                                                                    <option value="adminUsername" disabled selected>adminUsername 선택하세요</option>
+                                                                    <th:block th:each="a : ${adminDTOS}">
+                                                                        <option th:value="${a.adminUsername}">[[${a.adminUsername}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="modify-accountingSalesAdminFinishUpdate">accountingSalesAdminFinishUpdate</label>
+                                                                <input type="number" class="form-control" id="modify-accountingSalesAdminFinishUpdate" name="accountingSalesAdminFinishUpdate" placeholder="accountingSalesAdminFinishUpdate 을 입력하세요"/>
+                                                            </div>
+
+
+                                                            <button type="submit" class="btn btn-primary">저장</button>
+                                                            <button type="reset" class="btn btn-warning">취소</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 회원수정 모달 -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </th:block>
 </html>
-
-
 
 
 

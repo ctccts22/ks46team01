@@ -156,9 +156,9 @@
             <if test="mushroomGrowthStatus != null and mushroomGrowthStatus != ''">
                 mushroom_growth_status = #{mushroomGrowthStatus},
             </if>
-            <if test="mushroomGrowthDate != null and mushroomGrowthDate != ''">
-                mushroom_growth_date = #{mushroomGrowthDate},
-            </if>
+
+                mushroom_growth_date = now() ,
+
             <if test="mushroomGrowthContent != null and mushroomGrowthContent != ''">
                 mushroom_growth_content = #{mushroomGrowthContent},
             </if>

@@ -23,8 +23,8 @@
        /* 조회*/
         SELECT
                 mf.farm_data_idx                        as farmDataIdx
-                , mf.username                           as username
-                , mf.company_info_idx                   as companyInfoIdx
+                , u. name                                as name
+                , ci.company_info_license_number          as companyInfoLicenseNumber
                 , mf.farm_data_compost                  as farmDataCompost
                 , mf.farm_data_production               as farmDataProduction
                 , mf.farm_data_expected_sale            as farmDataExpectedSale
@@ -165,17 +165,17 @@
     <select id="getFarmDataInfoByDeleteIdx" parameterType="Long" resultMap="farmDataResultMap">
         /* 특정회원조회 */
         SELECT
-        farm_data_idx
-        , username
-        , company_info_idx
-        , farm_data_compost
-        , farm_data_production
-        , farm_data_expected_sale
-        , farm_data_actual_sale
-        , farm_data_production_date
-        , farm_data_occurrence_sale_date
-        , farm_data_expected_wasted
-        , farm_data_date
+            farm_data_idx
+            , username
+            , company_info_idx
+            , farm_data_compost
+            , farm_data_production
+            , farm_data_expected_sale
+            , farm_data_actual_sale
+            , farm_data_production_date
+            , farm_data_occurrence_sale_date
+            , farm_data_expected_wasted
+            , farm_data_date
         FROM
         mushroom_farm_data
         WHERE

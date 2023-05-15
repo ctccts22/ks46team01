@@ -73,10 +73,10 @@ public class AcPurchaseController {
             ,@RequestParam(name="companyContractIdx",required = false)Long companyContractIdx
             ,@RequestParam(name="accountingPurchaseAdminDateS",required = false)String accountingPurchaseAdminDateS
             ,@RequestParam(name="accountingPurchaseAdminDate",required = false)Date accountingPurchaseAdminDate
-            ,@RequestParam(name="accountingPurchaseAdminPrice",required = false)int accountingPurchaseAdminPrice
-            ,@RequestParam(name="accountingPurchaseAdminAmount",required = false)double accountingPurchaseAdminAmount
+            ,@RequestParam(name="accountingPurchaseAdminPrice",required = false)Integer accountingPurchaseAdminPrice
+            ,@RequestParam(name="accountingPurchaseAdminAmount",required = false)Double accountingPurchaseAdminAmount
             ,@RequestParam(name="accountingPurchaseAdminPayment",required = false)String accountingPurchaseAdminPayment
-            ,@RequestParam(name="accountingPurchaseAdminSum",required = false)int accountingPurchaseAdminSum
+            ,@RequestParam(name="accountingPurchaseAdminSum",required = false)Integer accountingPurchaseAdminSum
             ,@RequestParam(name="adminUsername",required = false)String adminUsername
             ,@RequestParam(name="accountingPurchaseAdminUpdate",required = false)Timestamp accountingPurchaseAdminUpdate, Model model){
         AcPurchase acPurchaseInfo = acPurchaseService.getAcPurchaseInfoByModifyId(accountingPurchaseAdminIdx
@@ -108,10 +108,10 @@ public class AcPurchaseController {
             ,@RequestParam(name="companyContractIdx",required = false)Long companyContractIdx
             ,@RequestParam(name="accountingPurchaseAdminDateS",required = false)String accountingPurchaseAdminDateS
             ,@RequestParam(name="accountingPurchaseAdminDate",required = false)Date accountingPurchaseAdminDate
-            ,@RequestParam(name="accountingPurchaseAdminPrice",required = false)int accountingPurchaseAdminPrice
-            ,@RequestParam(name="accountingPurchaseAdminAmount",required = false)double accountingPurchaseAdminAmount
+            ,@RequestParam(name="accountingPurchaseAdminPrice",required = false)Integer accountingPurchaseAdminPrice
+            ,@RequestParam(name="accountingPurchaseAdminAmount",required = false)Double accountingPurchaseAdminAmount
             ,@RequestParam(name="accountingPurchaseAdminPayment",required = false)String accountingPurchaseAdminPayment
-            ,@RequestParam(name="accountingPurchaseAdminSum",required = false)int accountingPurchaseAdminSum
+            ,@RequestParam(name="accountingPurchaseAdminSum",required = false)Integer accountingPurchaseAdminSum
             ,@RequestParam(name="adminUsername",required = false)String adminUsername
             ,@RequestParam(name="accountingPurchaseAdminUpdate",required = false)Timestamp accountingPurchaseAdminUpdate){
         acPurchaseService.modifyAcPurchase(accountingPurchaseAdminIdx
@@ -126,7 +126,7 @@ public class AcPurchaseController {
                                 ,  accountingPurchaseAdminSum
                                 ,  adminUsername
                                 ,  accountingPurchaseAdminUpdate);
-        return "redirect:/admin/accounting/purchase/purchaseAccountingModify";
+        return "redirect:/admin/accounting/purchase/purchaseAccounting";
     }
 
 

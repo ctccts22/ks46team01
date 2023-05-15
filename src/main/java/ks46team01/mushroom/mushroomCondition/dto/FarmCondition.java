@@ -2,6 +2,8 @@ package ks46team01.mushroom.mushroomCondition.dto;
 
 import lombok.*;
 
+import java.sql.Timestamp;
+
 
 @Data
 public class FarmCondition {
@@ -14,7 +16,7 @@ public class FarmCondition {
     private String mushroomConditionIlluminance;
     private String mushroomConditionPh;
     private String mushroomConditionUse;
-    private int mushroomConditionYear;
+    private Timestamp mushroomConditionYear;
 
     private String cropContent;
 

@@ -125,9 +125,7 @@
             <if test="mushroomConditionUse != null and mushroomConditionUse != ''">
                 mushroom_condition_use = #{mushroomConditionUse},
             </if>
-            <if test="mushroomConditionYear != null and mushroomConditionYear != ''">
-                mushroom_condition_year = #{mushroomConditionYear},
-            </if>
+            mushroom_condition_year = now()
 
         </trim>
         WHERE

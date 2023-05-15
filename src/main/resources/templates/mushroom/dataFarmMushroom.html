@@ -192,8 +192,8 @@
                                                 <th>사업자 고유번호</th>
                                                 <th>재배규모(배지기준)</th>
                                                 <th>일 버섯 생산량</th>
-                                                <th>매출 예상치</th>
-                                                <th>실 발생 매출</th>
+                                                <th>매출 예상치 (₩)</th>
+                                                <th>실 발생 매출 (₩)</th>
                                                 <th>생산 일자</th>
                                                 <th>매출 발생 일자</th>
                                                 <th>예상 폐배지 수량</th>
@@ -205,8 +205,8 @@
                                             <tbody>
                                             <tr role="row" class="odd" th:each="fd:${farmData}" >
                                                 <td data-key="farmDataIdx" th:text="${fd.farmDataIdx}"></td>
-                                                <td data-key="username" th:text="${fd.username}"></td>
-                                                <td data-key="companyInfoIdx" th:text="${fd.companyInfoIdx}"></td>
+                                                <td data-key="username" th:text="${fd.name}"></td>
+                                                <td data-key="companyInfoIdx" th:text="${fd.companyInfoLicenseNumber}"></td>
                                                 <td data-key="farmDataCompost" th:text="${fd.farmDataCompost}"></td>
                                                 <td data-key="farmDataProduction" th:text="${fd.farmDataProduction}"></td>
                                                 <td data-key="farmDataExpectedSale" th:text="${fd.farmDataExpectedSale}"></td>

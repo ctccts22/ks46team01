@@ -59,10 +59,10 @@ public class AcPurchaseService {
             , Long companyContractIdx
             , String accountingPurchaseAdminDateS
             , Date accountingPurchaseAdminDate
-            , int accountingPurchaseAdminPrice
-            , double accountingPurchaseAdminAmount
+            , Integer accountingPurchaseAdminPrice
+            , Double accountingPurchaseAdminAmount
             , String accountingPurchaseAdminPayment
-            , int accountingPurchaseAdminSum
+            , Integer accountingPurchaseAdminSum
             , String adminUsername
             , Timestamp accountingPurchaseAdminUpdate){
         AcPurchase acPurchaseInfo = acPurchaseMapper.getAcPurchaseInfoByModifyId(accountingPurchaseAdminIdx
@@ -85,10 +85,10 @@ public class AcPurchaseService {
             , Long companyContractIdx
             , String accountingPurchaseAdminDateS
             , Date accountingPurchaseAdminDate
-            , int accountingPurchaseAdminPrice
-            , double accountingPurchaseAdminAmount
+            , Integer accountingPurchaseAdminPrice
+            , Double accountingPurchaseAdminAmount
             , String accountingPurchaseAdminPayment
-            , int accountingPurchaseAdminSum
+            , Integer accountingPurchaseAdminSum
             , String adminUsername
             , Timestamp accountingPurchaseAdminUpdate){
         acPurchaseMapper.modifyAcPurchase(accountingPurchaseAdminIdx

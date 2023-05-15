@@ -5,6 +5,7 @@ import ks46team01.crop.dto.Crop;
 import ks46team01.mushroom.mushroomCondition.dto.FarmCondition;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Mapper
@@ -20,15 +21,15 @@ public interface FarmConditionMapper{
 
     //특정회원조회
     FarmCondition getFarmConditionInfoById(Long mushroomConditionIdx
-                                    ,Long cropIdx
-                                    ,String mushroomConditionTemperature
-                                    ,String mushroomConditionHumidity
-                                    ,String mushroomConditionOxygen
-                                    ,String mushroomConditionIlluminance
-                                    ,String mushroomConditionCo2
-                                    ,String mushroomConditionPh
-                                    ,String mushroomConditionUse
-                                    ,Integer mushroomConditionYear);
+                                    , Long cropIdx
+                                    , String mushroomConditionTemperature
+                                    , String mushroomConditionHumidity
+                                    , String mushroomConditionOxygen
+                                    , String mushroomConditionIlluminance
+                                    , String mushroomConditionCo2
+                                    , String mushroomConditionPh
+                                    , String mushroomConditionUse
+                                    , Timestamp mushroomConditionYear);
     // 수정
     void modifyFarmCondition(Long mushroomConditionIdx
                             ,Long cropIdx
@@ -39,7 +40,7 @@ public interface FarmConditionMapper{
                             ,String mushroomConditionIlluminance
                             ,String mushroomConditionPh
                             ,String mushroomConditionUse
-                            ,Integer mushroomConditionYear
+                            ,Timestamp mushroomConditionYear
                             );
 
 

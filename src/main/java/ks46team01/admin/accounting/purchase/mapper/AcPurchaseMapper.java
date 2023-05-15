@@ -33,10 +33,10 @@ public interface AcPurchaseMapper {
                                 , Long companyContractIdx
                                 , String accountingPurchaseAdminDateS
                                 , Date accountingPurchaseAdminDate
-                                , int accountingPurchaseAdminPrice
-                                , double accountingPurchaseAdminAmount
+                                , Integer accountingPurchaseAdminPrice
+                                , Double accountingPurchaseAdminAmount
                                 , String accountingPurchaseAdminPayment
-                                , int accountingPurchaseAdminSum
+                                , Integer accountingPurchaseAdminSum
                                 , String adminUsername
                                 , Timestamp accountingPurchaseAdminUpdate
     );
@@ -47,10 +47,10 @@ public interface AcPurchaseMapper {
             , Long companyContractIdx
             , String accountingPurchaseAdminDateS
             , Date accountingPurchaseAdminDate
-            , int accountingPurchaseAdminPrice
-            , double accountingPurchaseAdminAmount
+            , Integer accountingPurchaseAdminPrice
+            , Double accountingPurchaseAdminAmount
             , String accountingPurchaseAdminPayment
-            , int accountingPurchaseAdminSum
+            , Integer accountingPurchaseAdminSum
             , String adminUsername
             , Timestamp accountingPurchaseAdminUpdate
     );

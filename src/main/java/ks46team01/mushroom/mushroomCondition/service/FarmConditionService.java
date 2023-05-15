@@ -7,6 +7,7 @@ import ks46team01.mushroom.mushroomCondition.mapper.FarmConditionMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -42,7 +43,7 @@ public class FarmConditionService {
                                                 , String mushroomConditionCo2
                                                 , String mushroomConditionPh
                                                 , String mushroomConditionUse
-                                                , int mushroomConditionYear){
+                                                , Timestamp mushroomConditionYear){
         FarmCondition farmConditionInfo = farmConditionMapper.getFarmConditionInfoById(
                                             mushroomConditionIdx
                                             ,cropIdx
@@ -66,7 +67,7 @@ public class FarmConditionService {
                                     ,String mushroomConditionCo2
                                     ,String mushroomConditionPh
                                     ,String mushroomConditionUse
-                                    ,int mushroomConditionYear){
+                                    ,Timestamp mushroomConditionYear){
         farmConditionMapper.modifyFarmCondition(mushroomConditionIdx
                                                 ,cropIdx
                                                 ,mushroomConditionTemperature

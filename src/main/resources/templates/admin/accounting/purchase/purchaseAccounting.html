@@ -214,13 +214,14 @@
                                                 <td data-key="companyIdx" th:text="${l.companyIdx}"></td>
                                                 <td data-key="inventoryIdx" th:text="${l.inventoryIdx}"></td>
                                                 <td data-key="companyContractIdx" th:text="${l.companyContractIdx}"></td>
-                                                <td data-key="accountingPurchaseAdminDate" th:text="${l.accountingPurchaseAdminDate}"></td>
+                                                <td data-key="accountingPurchaseAdminDate" th:text="${#dates.format(l.accountingPurchaseAdminDate,'yyyy-MM-dd')}"></td>
                                                 <td data-key="accountingPurchaseAdminPrice" th:text="${l.accountingPurchaseAdminPrice}"></td>
                                                 <td data-key="accountingPurchaseAdminAmount" th:text="${l.accountingPurchaseAdminAmount}"></td>
                                                 <td data-key="accountingPurchaseAdminPayment" th:text="${l.accountingPurchaseAdminPayment}"></td>
                                                 <td data-key="accountingPurchaseAdminSum" th:text="${l.accountingPurchaseAdminSum}"></td>
                                                 <td data-key="adminUsername" th:text="${l.adminUsername}"></td>
-                                                <td data-key="accountingPurchaseAdminUpdate" th:text="${l.accountingPurchaseAdminUpdate}"></td>
+                                                <td data-key="accountingPurchaseAdminUpdate" th:text="${#dates.format(l.accountingPurchaseAdminUpdate,'yyyy-MM-dd')}"></td>
+
 
                                                 <td>
                                                     <button type="button" class="edit-button">수정</button>
