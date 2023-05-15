@@ -33,6 +33,12 @@ public class CoffeeServiceImpl implements CoffeeService{
         System.out.println("mapper 실행?");
         return coffeeConfirmList;
     }
+
+    @Override
+    public void updateDelivery(Long coffeeDeliveryIdx) {
+        coffeeMapper.updateDelivery(coffeeDeliveryIdx);
+    }
+
     // 커피가루 배달상태 조회
     @Override
     public List<CoffeeDelivery> listDeliveryCoffee() {

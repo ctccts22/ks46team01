@@ -54,7 +54,7 @@
                 <tbody>
                 <tr th:unless="coffeeConfirmList == null" th:each="c : ${coffeeConfirmList}">
                   <td th:text="${c.companyInfoName}"></td>
-                  <td th:text="${c.userName}"></td>
+                  <td th:text="${c.username}"></td>
                   <td th:text="${c.coffeeRequestPhone}"></td>
                   <td th:text="${c.coffeeRequestAddress}"></td>
                   <td th:text="${c.coffeeRequestAmount}+kg"></td>

@@ -34,6 +34,16 @@ public class AdminCoffeeController {
 
         return "admin/coffee/listCoffeeAdmin";
     }
+    @PostMapping("/updateDelivery")
+    public String adminUpdateDelivery(@RequestParam("coffeeDeliveryIdx") Long coffeeDeliveryIdx,
+                                      Model model){
+        coffeeService.updateDelivery(coffeeDeliveryIdx);
+
+        List<CoffeeDelivery> coffeeDelivery = coffeeService.listCoffeeDelivery();
+        model.addAttribute("coffeeDelivery",coffeeDelivery);
+
+        return "admin/coffee/listDeliveryCoffeeAdmin";
+    }
     @GetMapping("/listConfirmCoffeeAdmin")
     public String adminCoffeeConfirmList(Model model){
         System.out.println("/listConfirmCoffeeAdmin 실행?");

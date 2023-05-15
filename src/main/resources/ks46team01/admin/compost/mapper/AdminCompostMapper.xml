@@ -19,7 +19,7 @@
     </select>
     <select id="orderCompostList" resultType="ks46team01.common.compost.dto.OrderCompostConfirm">
         SELECT
-        oc.username AS userName,
+        oc.username AS username,
         oc.order_compost_idx AS orderCompostIdx,
         oc.company_contract_idx AS companyContractIdx,
         oc.company_info_idx AS companyInfoIdx,
@@ -38,20 +38,44 @@
         ON occ.order_compost_idx = oc.order_compost_idx
         WHERE occ.order_compost_confirm_status IS NULL;
     </select>
-    <select id="orderCompostConfirmList" resultType="ks46team01.common.compost.dto.OrderCompostConfirm">
-        SELECT
+
+    <insert id="orderCompostDeliveryInsert" parameterType="ks46team01.common.compost.dto.OrderCompostDelivery">
+        INSERT INTO order_compost_delivery(
+        order_compost_idx,
+        username,
+        company_info_idx,
+        order_compost_delivery_track, -- 운송장번호
+        order_compost_delivery_status, -- 배송 상태
+        order_compost_delivery_company, -- 택배회사
+        order_compost_delivery_complete -- 배송 예정날짜
+        )VALUES(#{orderCompostIdx},#{username},#{companyInfoIdx},#{orderCompostDeliveryTrack},'P',#{orderCompostDeliveryCompany},now());
+    </insert>
+
+    <select id="orderCompostConfirmList" resultType="ks46team01.common.compost.dto.OrderCompostDelivery">
+        SELECT DISTINCT
+        oc.order_compost_idx AS orderCompostIdx,
+        oc.username as username,
+        oc.company_info_idx AS companyInfoIdx,
         ci.company_info_name AS companyInfoName,
         oc.order_compost_phone AS orderCompostPhone,
         oc.order_compost_address AS orderCompostAddress,
         oc.order_compost_amount AS orderCompostAmount,
         oc.order_compost_date AS orderCompostDate,
         occ.order_compost_confirm_content AS orderCompostConfirmContent,
-        occ.order_compost_confirm_status AS orderCompostConfirmStatus
+        occ.order_compost_confirm_status AS orderCompostConfirmStatus,
+        CASE
+        WHEN ocd.order_compost_delivery_status IS NULL THEN 'O'
+        WHEN ocd.order_compost_delivery_status = 'P' THEN 'P'
+        WHEN ocd.order_compost_delivery_status = 'Y' THEN 'Y'
+        ELSE ocd.order_compost_delivery_status
+        END AS orderCompostDeliveryStatus
         FROM order_compost_confirm occ
         INNER JOIN company_info ci
         ON ci.company_info_idx = occ.company_info_idx
         INNER JOIN order_compost oc
-        ON oc.order_compost_idx = occ.order_compost_idx;
+        ON oc.order_compost_idx = occ.order_compost_idx
+        LEFT JOIN order_compost_delivery ocd
+        ON oc.order_compost_idx = ocd.order_compost_idx;
     </select>
     <insert id="orderCompostConfirmInsert" parameterType="ks46team01.common.compost.dto.OrderCompostConfirm">
         INSERT INTO order_compost_confirm(
