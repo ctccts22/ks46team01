@@ -345,12 +345,13 @@
                                     <th><input type="checkbox" id="check-seperated" name="check-seperated"></th>
                                     <td id="coffeeIdx" th:text="${coffeeRequest.coffeeRequestIdx}" hidden="hidden"></td>
                                     <td id="companyIdx" th:text="${coffeeRequest.companyInfoIdx}" hidden="hidden"></td>
-                                    <td id="user_name" th:text="${coffeeRequest.userName}"></td>
+                                    <td id="user_name" th:text="${coffeeRequest.username}"></td>
                                     <td id="cafe_name" th:text="${coffeeRequest.companyInfoName}"></td>
                                     <td id="cafe_phone" th:text="${coffeeRequest.coffeeRequestPhone}"></td>
                                     <td id="cafe_address" th:text="${coffeeRequest.coffeeRequestAddress}"></td>
                                     <td id="coffee_amount" th:text="${coffeeRequest.coffeeRequestAmount}+kg"></td>
                                     <td id="coffee_date" th:text="${coffeeRequest.coffeeRequestDate}"></td>
+
                                     <td>대기중</td>
                                 </tr>
                                 </tbody>

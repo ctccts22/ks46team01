@@ -38,7 +38,7 @@
         WHERE cr.username = #{userId}
         ORDER BY cr.coffee_request_date DESC;
     </select>
-    <select id="listCompanyCode" parameterType="String" resultType="ks46team01.common.coffee.dto.CompanyInfo">
+    <select id="listCompanyCode" parameterType="String" resultType="ks46team01.common.company.info.dto.CompanyInfoDTO">
         <!-- 사업자 idx 조회-->
         SELECT company_info_idx as companyInfoIdx FROM company_info WHERE username = #{userId};
     </select>
