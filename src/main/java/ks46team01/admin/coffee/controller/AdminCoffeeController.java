@@ -66,31 +66,10 @@ public class AdminCoffeeController {
                                            @RequestParam("content") String content,
                                            Model model){
         CoffeeRequestConfirm confirm = new CoffeeRequestConfirm(); // CoffeeRequestConfirm dto 객체생성
-//        System.out.println("insertCoffeeAdmin 실행?");
-//        System.out.println("coffeeRequestIdx Size:"+coffeeIdx.length);
-//        System.out.println("companyIdx Size:"+companyIdx.length);
-//        System.out.println("유저네임 size:"+name.length);
-//        System.out.println("카페명 size:"+cafeName.length);
-//        System.out.println("카페번호 size:"+cafePhone.length);
-//        System.out.println("카페주소 size:"+cafeAddress.length);
-//        System.out.println("커피찌꺼기중량 size:"+coffeeAmount.length);
-//        System.out.println("커피수거신청날짜 size:"+coffeeDate.length);
-        if(status.equals("승인")){
+        if(status.equals("Y")){
             for(int i = 0; i < coffeeIdx.length; i++){
                 Long lCoffeeIdx = Long.parseLong(coffeeIdx[i]);
                 Long lCompanyIdx = Long.parseLong(companyIdx[i]);
-//                System.out.println(i+1+"번폼");
-//                System.out.println("coffeeRequestIdx:"+coffeeIdx[i]);
-//                System.out.println("companyIdx:"+companyIdx[i]);
-//                System.out.println("유저 이름:"+name[i]);
-//                System.out.println("카페명:"+cafeName[i]);
-//                System.out.println("카페번호:"+cafePhone[i]);
-//                System.out.println("카페주소:"+cafeAddress[i]);
-//                System.out.println("커피찌꺼기중량:"+coffeeAmount[i]);
-//                System.out.println("커피수거신청날짜:"+coffeeDate[i]);
-//                System.out.println("admin:"+adminId);
-//                System.out.println("status:"+status);
-//                System.out.println("content:"+content);
                 confirm.setCoffeeRequestIdx(lCoffeeIdx);
                 confirm.setCompanyInfoIdx(lCompanyIdx);
                 confirm.setUserName(name[i]);
@@ -99,22 +78,10 @@ public class AdminCoffeeController {
                 confirm.setAdminUsername(adminId);
                 coffeeService.insertConfirmCoffeeAdmin(confirm);
             }
-        }else if(status.equals("거절")){
+        }else if(status.equals("N")){
             for(int i = 0; i < coffeeIdx.length; i++){
                 Long lCoffeeIdx = Long.parseLong(coffeeIdx[i]);
                 Long lCompanyIdx = Long.parseLong(companyIdx[i]);
-//                System.out.println(i+1+"번폼");
-//                System.out.println("coffeeRequestIdx:"+coffeeIdx[i]);
-//                System.out.println("companyIdx:"+companyIdx[i]);
-//                System.out.println("유저 이름:"+name[i]);
-//                System.out.println("카페명:"+cafeName[i]);
-//                System.out.println("카페번호:"+cafePhone[i]);
-//                System.out.println("카페주소:"+cafeAddress[i]);
-//                System.out.println("커피찌꺼기중량:"+coffeeAmount[i]);
-//                System.out.println("커피수거신청날짜:"+coffeeDate[i]);
-//                System.out.println("admin:"+adminId);
-//                System.out.println("status:"+status);
-//                System.out.println("content:"+content);
                 confirm.setCoffeeRequestIdx(lCoffeeIdx);
                 confirm.setCompanyInfoIdx(lCompanyIdx);
                 confirm.setUserName(name[i]);

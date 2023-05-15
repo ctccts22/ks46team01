@@ -17,7 +17,7 @@
 <!--        (운영자) 커피가루 수거신청 확인-->
         SELECT
         cr.coffee_request_idx as coffeeRequestIdx,
-        cr.username as userName,
+        cr.username as username,
         cr.coffee_request_amount as coffeeRequestAmount,
         cr.coffee_request_address as coffeeRequestAddress,
         cr.coffee_request_phone as coffeeRequestPhone,
@@ -30,7 +30,7 @@
         WHERE NOT EXISTS (
         SELECT 1
         FROM coffee_request_confirm AS crc
-        WHERE cr.coffee_request_idx = crc.coffee_request_confirm_idx
+        WHERE cr.coffee_request_idx = crc.coffee_request_idx
         );
     </select>
 <select id="listConfirmCoffee" resultMap="coffeeRequestMap">
