@@ -54,10 +54,6 @@
             <span>조회수: </span><span th:text="${board.freeBoardView}"></span>
           </div>
           <div class="board-item-content" th:text="${board.freeBoardContent}"></div>
-          <div class="board-item-actions">
-            <a th:href="@{'/edit/' + ${board.freeBoardIdx}}">수정</a> |
-            <a th:href="@{'/delete/' + ${board.freeBoardIdx}}">삭제</a>
-          </div>
         </div>
         <!-- Add the pagination section below the board-item loop -->
         <div class="pagination-wrapper">

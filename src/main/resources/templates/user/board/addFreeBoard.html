@@ -5,8 +5,30 @@
 <head></head>
 
 <th:block layout:fragment="customJs">
-
+  <script th:inline="javascript">
+      $(document).ready(function() {
+          let error = /*[[${session.error}]]*/ 'default';
+          let success = /*[[${session.success}]]*/ 'default';
+          if (error !== 'default') {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Fail!',
+                  text: '로그인에 실패했습니다.'
+              });
+              [[${session.removeAttribute('error')}]];
+          }
+          if (success !== 'default') {
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Success!',
+                  text: '로그인에 성공했습니다.'
+              });
+              [[${session.removeAttribute('success')}]];
+          }
+      });
+  </script>
 </th:block>
+
 
 <th:block layout:fragment="customContent">
   <div class="x_panel">
@@ -18,11 +40,11 @@
       <form th:object="${freeBoard}" th:action="@{/user/addFreeBoard}" th:method="post">
         <div class="form-group">
           <label for="title">제목</label>
-          <input type="text" th:field="*{freeBoardTitle}" class="form-control" id="title" placeholder="제목을 입력하세요">
+          <input type="text" th:field="*{freeBoardTitle}" class="form-control" id="title" placeholder="제목을 입력하세요" required>
         </div>
         <div class="form-group">
           <label for="content">내용</label>
-          <textarea th:field="*{freeBoardContent}" class="form-control" id="content" rows="3" placeholder="내용을 입력하세요"></textarea>
+          <textarea th:field="*{freeBoardContent}" class="form-control" id="content" rows="3" placeholder="내용을 입력하세요" required></textarea>
         </div>
         <button type="submit" class="btn btn-primary">등록</button>
       </form>

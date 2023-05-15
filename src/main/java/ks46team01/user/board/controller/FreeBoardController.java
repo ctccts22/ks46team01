@@ -1,7 +1,7 @@
 package ks46team01.user.board.controller;
 
 import jakarta.servlet.http.HttpSession;
-import ks46team01.user.board.Repository.FreeBoardRepository;
+import ks46team01.user.board.dto.FreeBoardDTO;
 import ks46team01.user.board.entity.FreeBoard;
 import ks46team01.user.board.service.FreeBoardService;
 import ks46team01.user.info.entity.User;
@@ -9,15 +9,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.time.LocalDateTime;
 
 
 @Controller
@@ -43,6 +41,7 @@ public class FreeBoardController {
         freeBoardService.increaseFreeBoardView(freeBoardIdx);
         FreeBoard freeBoard = freeBoardService.getFreeBoardById(freeBoardIdx);
         model.addAttribute("board", freeBoard);
+        log.info("board:{}", freeBoard);
         return "user/board/freeBoardContent";
     }
 
@@ -57,24 +56,70 @@ public class FreeBoardController {
             @RequestParam("freeBoardTitle") String freeBoardTitle,
             @RequestParam("freeBoardContent") String freeBoardContent,
             HttpSession session,
-            Model model) {
+            RedirectAttributes redirectAttributes) {
 
         User user = (User) session.getAttribute("user");
         log.info("user: {}", user);
 
         if (user == null) {
-            model.addAttribute("errorMessage", "로그인 하십시오");
-            return "user/board/addFreeBoard";
+            session.setAttribute("error", "error");
+            return "redirect:/user/board/addFreeBoard";
         }
 
         FreeBoard newFreeBoard = freeBoardService.createFreeBoard(freeBoardTitle, freeBoardContent, user);
 
         if (newFreeBoard == null) {
-            model.addAttribute("errorMessage", "등록실패");
-            return "user/board/addFreeBoard";
+            session.setAttribute("error", "error");
+            return "redirect:/user/board/addFreeBoard";
         }
-
+        session.setAttribute("success", "success");
         return "redirect:/user/freeBoard";
     }
 
+    @PostMapping("/updateFreeBoard/{freeBoardIdx}")
+    public ResponseEntity<?> editFreeBoard(@PathVariable("freeBoardIdx") Long freeBoardIdx,
+                                           @RequestBody FreeBoard newPostData,
+                                           HttpSession session) {
+
+        Object loggedInUser = session.getAttribute("user");
+        Object loggedInAdmin = session.getAttribute("adminUser");
+        if (loggedInUser == null && loggedInAdmin == null) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+        FreeBoard post = freeBoardService.getFreeBoardById(freeBoardIdx);
+        if (post == null) {
+            return new ResponseEntity<>("Post not found", HttpStatus.NOT_FOUND);
+        }
+        if (loggedInUser != null && !post.getUsername().getUsername().equals(((User) loggedInUser).getUsername())) {
+            return new ResponseEntity<>("You do not have permission to edit this post", HttpStatus.FORBIDDEN);
+        }
+        FreeBoard updatedPost = freeBoardService.updateFreeBoard(freeBoardIdx, newPostData);
+        if (updatedPost == null) {
+            return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("Board Updated", HttpStatus.OK);
+    }
+
+    @PostMapping("/deleteFreeBoard/{freeBoardIdx}")
+    public ResponseEntity<?> deleteFreeBoard(@PathVariable("freeBoardIdx") Long freeBoardIdx,
+                                             HttpSession session) {
+
+        Object loggedInUser = session.getAttribute("user");
+        Object loggedInAdmin = session.getAttribute("adminUser");
+        if (loggedInUser == null && loggedInAdmin == null) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+        FreeBoard post = freeBoardService.getFreeBoardById(freeBoardIdx);
+        if (post == null) {
+            return new ResponseEntity<>("Post not found", HttpStatus.NOT_FOUND);
+        }
+        if (loggedInUser != null && !post.getUsername().getUsername().equals(((User) loggedInUser).getUsername())) {
+            return new ResponseEntity<>("You do not have permission to delete this post", HttpStatus.FORBIDDEN);
+        }
+        boolean deleteSuccess = freeBoardService.deleteFreeBoard(freeBoardIdx);
+        if (!deleteSuccess) {
+            return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("Board Deleted", HttpStatus.OK);
+    }
 }
