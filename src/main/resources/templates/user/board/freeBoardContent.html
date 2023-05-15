@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layout/default}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
   <style>
       .metadata {
@@ -13,15 +13,167 @@
 </head>
 
 <th:block layout:fragment="customJs">
+  <script th:inline="javascript">
+      $(document).ready(function () {
 
+          /*<![CDATA[*/
+          const freeBoardIdx = /*[[${board.freeBoardIdx}]]*/ 'default';
+          /*]]>*/
+
+          $("form#replyForm").submit(function(e) {
+              e.preventDefault();
+              const replyContent = $('#replyContent').val();
+              const url = "/user/freeBoard/" + freeBoardIdx + "/addReply";
+              $.ajax({
+                  url: url,
+                  type: 'POST',
+                  data: JSON.stringify({
+                      "freeBoardReplyContent": replyContent
+                  }),
+                  contentType: "application/json; charset=utf-8",
+                  success: function () {
+                      // handle success
+                  },
+                  error: function (err) {
+                      // handle error
+                  }
+              });
+          });
+          $('.edit-button').click(function () {
+              let freeBoardIdx = $(this).data("idx");
+              const row = $(this).closest('tr');
+              const freeBoardTitle = row.find('td[data-key="freeBoardTitle"]').text();
+              const freeBoardContent = row.find('td[data-key="freeBoardContent"]').text();
+
+              $.ajax({
+                  url: "/user/freeBoardContent/" + freeBoardIdx,
+                  type: 'GET',
+                  success: function (data) {
+                      console.log(data);
+                      Swal.fire({
+                          title: '게시판수정',
+                          html: `
+                  <div class="form-group">
+                  <label for="freeBoardTitle">제목:</label>
+                  <input class="form-control" id="freeBoardTitle"
+                         name="freeBoardTitle" value="${freeBoardTitle}" type="text"/>
+                  </div>
+                  <div class="form-group">
+                  <label for="freeBoardContent">내용:</label>
+                  <input class="form-control" id="freeBoardContent"
+                         name="freeBoardContent" value="${freeBoardContent}" type="text"/>
+                  </div>`,
+                          showCancelButton: true,
+                          confirmButtonText: '수정',
+                          cancelButtonText: '취소',
+                          preConfirm: function () {
+                              return new Promise(function (resolve) {
+                                  resolve({
+                                      freeBoardTitle: $('#freeBoardTitle').val(),
+                                      freeBoardContent: $('#freeBoardContent').val()
+                                  })
+                              })
+                          },
+                      }).then((result) => {
+                          if (result.isConfirmed) {
+                              $.ajax({
+                                  url: "/user/updateFreeBoard/" + freeBoardIdx,
+                                  type: 'POST',
+                                  data: JSON.stringify(result.value),
+                                  contentType: "application/json; charset=utf-8",
+                                  success: function () {
+                                      Swal.fire({
+                                          title: '성공!',
+                                          text: '게시판 수정이 완료되었습니다.',
+                                          icon: 'success'
+                                      }).then((result) => {
+                                          if (result.isConfirmed) {
+                                              location.reload();
+                                          }
+                                      })
+                                  },
+                                  error: function (err) {
+                                      if (err.status == 403) {
+                                          Swal.fire(
+                                              'Error!',
+                                              '수정권한이 없습니다.',
+                                              'error'
+                                          )
+                                      } else {
+                                          Swal.fire(
+                                              'Error!',
+                                              '에러발생: ' + err.status,
+                                              'error'
+                                          )
+                                      }
+                                  }
+                              });
+                          }
+                      });
+                  },
+                  error: function (err) {
+                      Swal.fire(
+                          'Error!',
+                          '에러발생: ' + err.status,
+                          'error'
+                      )
+                  }
+              });
+          });
+
+          $('.delete-button').click(function () {
+              let freeBoardIdx = $(this).data("idx");
+              Swal.fire({
+                  title: '게시판을 삭제하시겠습니까?',
+                  text: "삭제",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '삭제',
+                  cancelButtonText: '취소'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      $.ajax({
+                          url: "/user/deleteFreeBoard/" + freeBoardIdx,
+                          type: 'POST',
+                          success: function () {
+                              Swal.fire(
+                                  '삭제!',
+                                  '삭제되었습니다.',
+                                  'success'
+                              ).then((result) => {
+                                  if (result.isConfirmed) {
+                                      location.href = '/user/freeBoard';
+                                  }
+                              });
+                          },
+                          error: function (err) {
+                              if (err.status == 403) {
+                                  Swal.fire(
+                                      'Error!',
+                                      '삭제권한이 없습니다.',
+                                      'error'
+                                  )
+                              } else {
+                                  // handle other errors
+                              }
+                          }
+                      });
+                  }
+              });
+          });
+      });
+
+  </script>
 </th:block>
 
 <th:block layout:fragment="customContent">
   <div class="container mt-5">
     <div class="card">
       <div class="card-header">
-        <a href="/user/freeBoard" class="text-decoration-none text-dark">
-          <h2 class="mb-0" th:text="${board.freeBoardTitle}">Board Title</h2>
+        <a class="text-decoration-none text-dark" href="/user/freeBoard">
+          <h2 class="mb-0" data-key="freeBoardTitle" th:text="${board.freeBoardTitle}">Board Title</h2>
         </a>
       </div>
       <div class="card-body">
@@ -32,9 +184,40 @@
             <span>조회수: </span><span th:text="${board.freeBoardView}"></span>
           </small>
         </div>
-        <p th:text="${board.freeBoardContent}"></p>
+        <p data-key="freeBoardContent" th:text="${board.freeBoardContent}"></p>
+        <button class="btn btn-info edit-button" th:data-idx="${board.freeBoardIdx}" type="submit">수정</button>
+        <button class="btn btn-danger delete-button" th:data-idx="${board.freeBoardIdx}">삭제</button>
+
+
+        <div class="container mt-5">
+          <div th:each="reply : ${replies}">
+            <div class="card mt-2">
+              <div class="card-body">
+                <small class="text-muted">
+                  <span th:text="${reply.username.username}"></span> |
+                  <span th:text="${reply.freeBoardReplyDate}"></span>
+                </small>
+                <p th:text="${reply.freeBoardReplyContent}"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <form action="/user/freeBoard/${board.freeBoardIdx}/addReply" method="post">
+              <div class="form-group">
+                <label for="replyContent">댓글:</label>
+                <textarea class="form-control" id="replyContent" name="freeBoardReplyContent"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">등록</button>
+            </form>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
+
+
 </th:block>
 </html>

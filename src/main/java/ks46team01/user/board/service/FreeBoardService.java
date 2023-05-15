@@ -2,9 +2,11 @@ package ks46team01.user.board.service;
 
 import ks46team01.user.board.Repository.FreeBoardReplyRepository;
 import ks46team01.user.board.Repository.FreeBoardRepository;
+import ks46team01.user.board.dto.FreeBoardDTO;
 import ks46team01.user.board.entity.FreeBoard;
 import ks46team01.user.board.entity.FreeBoardReply;
 import ks46team01.user.info.entity.User;
+import ks46team01.user.info.repository.UserRepository;
 import ks46team01.user.info.service.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import java.util.NoSuchElementException;
 @Slf4j
 @AllArgsConstructor
 public class FreeBoardService {
+    private final UserRepository userRepository;
     private final FreeBoardRepository freeBoardRepository;
     private final FreeBoardReplyRepository freeBoardReplyRepository;
 
@@ -56,5 +59,36 @@ public class FreeBoardService {
             return null;
         }
     }
+    public FreeBoard updateFreeBoard(Long freeBoardIdx, FreeBoard newPostData) {
+        try {
+            FreeBoard freeBoard = getFreeBoardById(freeBoardIdx);
+
+            if (freeBoard != null) {
+                freeBoard.setFreeBoardTitle(newPostData.getFreeBoardTitle());
+                freeBoard.setFreeBoardContent(newPostData.getFreeBoardContent());
+
+                return freeBoardRepository.save(freeBoard);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            log.error("Error occurred", e);
+            return null;
+        }
+    }
+
+
+    public boolean deleteFreeBoard(Long freeBoardIdx) {
+        try {
+            freeBoardRepository.deleteById(freeBoardIdx);
+            return true;
+        } catch (Exception e) {
+            log.error("Error occurred", e);
+            return false;
+        }
+    }
+
+
+
 }
 
