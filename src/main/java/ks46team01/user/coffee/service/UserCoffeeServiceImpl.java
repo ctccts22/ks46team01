@@ -42,6 +42,11 @@ public class UserCoffeeServiceImpl implements UserCoffeeService {
         return result;
     }
 
+    @Override
+    public void deliveryInsert(CoffeeDelivery cd) {
+        userCoffeeMapper.deliveryInsert(cd);
+    }
+
 //    @Override // 커피 수거신청
 //    public int insertCoffeeRequest(String coffee, String userId, String amount, String address, String requestDate, String phone, String message) {
 ////        int result = userCoffeeMapper.insertCoffeeRequest(coffee,userId,amount,address,requestDate,phone,message);

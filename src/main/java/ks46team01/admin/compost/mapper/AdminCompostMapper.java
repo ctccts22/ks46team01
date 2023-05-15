@@ -13,4 +13,5 @@ public interface AdminCompostMapper {
     public void orderCompostConfirmInsert(OrderCompostConfirm occ); //커피배지 수거신청 승인/거절 insert
     public List<OrderCompostConfirm> orderCompostConfirmList(); // 커피배지 수거신청 승인/거절 List
     public List<OrderCompostDelivery> orderCompostDeliveryList(); // 커피배지 배송조회
+    public void orderCompostDeliveryInsert(OrderCompostDelivery ocd);
 }

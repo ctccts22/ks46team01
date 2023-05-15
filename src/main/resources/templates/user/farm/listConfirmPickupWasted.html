@@ -3,6 +3,27 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.update-button').click(function() {
+                let orderCompostIdx = $(this).closest('tr').find('td:eq(0)').text();
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/user/compost/updateDelivery");
+
+                let input_orderCompostIdx = document.createElement("input");
+                input_orderCompostIdx.setAttribute("type","hidden");
+                input_orderCompostIdx.setAttribute("name","orderCompostIdx");
+                input_orderCompostIdx.setAttribute("value",orderCompostIdx);
+                form.appendChild(input_orderCompostIdx);
+
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
+            });
+        });
+    </script>
 </head>
 <th:block layout:fragment="customContent">
     <div class="col-md-12 col-sm-12 ">
@@ -40,6 +61,7 @@
                                     <th>중량</th>
                                     <th>승인신청 날짜</th>
                                     <th>승인상태</th>
+                                    <th>배송상태</th>
                                 </tr>
                                 </thead>
 
@@ -51,7 +73,9 @@
                                     <td th:text="${farmPickupList.farmPickupRequestAddress}"></td>
                                     <td th:text="${farmPickupList.farmPickupRequestAmount}"></td>
                                     <td th:text="${farmPickupList.farmPickupRequestDate}"></td>
-                                    <td th:text="${farmPickupList.farmPickupConfirmStatus}"></td>
+                                    <td th:if="${#strings.equals(farmPickupList.farmPickupConfirmStatus, 'Y')}">승인확인</td>
+                                    <td th:if="${#strings.equals(farmPickupList.farmPickupConfirmStatus, 'Y')}"><button class="update-button" type="button">발송</button></td>
+                                    <td th:if="${#strings.equals(farmPickupList.farmPickupConfirmStatus, '대기중')}">발송불가</td>
                                 </tr>
                                 </tbody>
                             </table>

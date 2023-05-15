@@ -4,14 +4,6 @@
       layout:decorate="~{layout/default}">
 <head>
   <script> <!-- 버튼클릭시 테이블 전체선택 -->
-  const checkAll = document.getElementById("check-all");
-  const checkboxes = document.querySelectorAll("#datatable-checkbox tbody input[type='checkbox']");
-
-  checkAll.addEventListener("click", () => {
-    checkboxes.forEach(checkbox => {
-      checkbox.checked = checkAll.checked;
-    });
-  });
   </script>
 </head>
 <th:block layout:fragment="customContent">
@@ -62,7 +54,8 @@
                   <td th:text="${compostConfirmList.orderCompostAddress}"></td>
                   <td th:text="${compostConfirmList.orderCompostAmount}+kg"></td>
                   <td th:text="${compostConfirmList.orderCompostDate}"></td>
-                  <td th:text="${compostConfirmList.orderCompostConfirmStatus}"></td>
+                  <td th:if="${#strings.equals(compostConfirmList.orderCompostConfirmStatus, '대기중')}">승인대기</td>
+                  <td th:if="${#strings.equals(compostConfirmList.orderCompostConfirmStatus, 'Y')}">승인확인</td>
                 </tr>
                 </tbody>
               </table>

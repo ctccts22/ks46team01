@@ -22,20 +22,26 @@
     </select>
     <select id="listCoffeeConfirm" parameterType="String" resultType="ks46team01.common.coffee.dto.CoffeeRequestConfirm">
         <!-- user 커피가루수거 신청상태 조회-->
-        SELECT
-        cr.username AS userName,
+        SELECT DISTINCT
+        cr.coffee_request_idx as coffeeRequestIdx,
+        ci.company_info_idx as companyInfoIdx,
+        cr.username AS username,
         cr.coffee_request_phone AS coffeeRequestPhone,
         cr.coffee_request_address AS coffeeRequestAddress,
         cr.coffee_request_amount AS coffeeRequestAmount,
         cr.coffee_request_date AS coffeeRequestDate,
-        COALESCE(ci.company_info_name,(SELECT ci.company_info_name  FROM company_info ci WHERE ci.username = #{userId})) AS companyInfoName,
+        cd.coffee_delivery_status AS coffeeDeliveryStatus,
+        COALESCE(ci.company_info_name, (SELECT ci.company_info_name FROM company_info ci WHERE ci.username = #{userId})) AS companyInfoName,
         COALESCE(crc.coffee_request_confirm_status, '대기중') AS coffeeRequestConfirmStatus
         FROM coffee_request cr
         LEFT JOIN coffee_request_confirm crc
         ON crc.coffee_request_idx = cr.coffee_request_idx
-        LEFT  JOIN company_info ci
+        LEFT JOIN company_info ci
         ON ci.company_info_idx = crc.company_info_idx
+        LEFT JOIN coffee_delivery cd
+        ON cr.coffee_request_idx = cd.coffee_request_idx
         WHERE cr.username = #{userId}
+        AND (cd.coffee_delivery_status = 'Y' OR cd.coffee_delivery_status IS NULL)
         ORDER BY cr.coffee_request_date DESC;
     </select>
     <select id="listCompanyCode" parameterType="String" resultType="ks46team01.common.company.info.dto.CompanyInfoDTO">
@@ -56,4 +62,20 @@
         coffee_request_date
         )VALUES(#{userId},1,#{companyInfoIdx},1,#{amount},#{address},#{phone},#{message},now());
     </insert>
+    <insert id="deliveryInsert" parameterType="ks46team01.common.coffee.dto.CoffeeDelivery">
+        INSERT INTO coffee_delivery(
+        coffee_request_idx,
+        username,
+        company_info_idx,
+        coffee_delivery_track,
+        coffee_delivery_status,
+        coffee_delivery_company,
+        coffee_delivery_complete
+        )VALUES(#{coffeeRequestIdx},#{username},#{companyInfoIdx},#{coffeeDeliveryTrack},'P',#{coffeeDeliveryCompany},now());
+    </insert>
+    <update id="userCompostDeliveryUpdate" parameterType="ks46team01.common.compost.dto.OrderCompostDelivery">
+        UPDATE order_compost_delivery
+        SET order_compost_delivery_status = 'Y'
+        WHERE order_compost_idx = #{orderCompostIdx};
+    </update>
 </mapper>

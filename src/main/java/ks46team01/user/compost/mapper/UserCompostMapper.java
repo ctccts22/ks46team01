@@ -14,5 +14,6 @@ public interface UserCompostMapper {
     public List<CompanyContract> userCompanyInfo(String userId); // 유저 사업자 정보
     public List<OrderCompostConfirm> userConfirmList(String userId); // 유저 승인상태 확인
 
+    public void userCompostDeliveryUpdate(OrderCompostDelivery ocd);
     public List<OrderCompostDelivery> userCompostDeliveryList(String userId); // 유저 배송상태 조회
 }

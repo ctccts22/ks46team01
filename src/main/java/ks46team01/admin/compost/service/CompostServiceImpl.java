@@ -39,4 +39,9 @@ public class CompostServiceImpl implements CompostService{
         return deliveryList;
     }
 
+    @Override
+    public void orderCompostDeliveryInsert(OrderCompostDelivery ocd) {
+        compostMapper.orderCompostDeliveryInsert(ocd);
+    }
+
 }
