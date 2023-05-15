@@ -77,6 +77,7 @@ public class AdminCoffeeController {
                 confirm.setCoffeeRequestConfirmContent(content);
                 confirm.setAdminUsername(adminId);
                 coffeeService.insertConfirmCoffeeAdmin(confirm);
+
             }
         }else if(status.equals("N")){
             for(int i = 0; i < coffeeIdx.length; i++){

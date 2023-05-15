@@ -60,6 +60,7 @@
                                         <td th:text="${coffeeDelivery.coffeeDeliveryTrack}"></td>
                                         <td th:if="${#strings.equals(coffeeDelivery.coffeeDeliveryStatus, 'N')}"><button class="edit-button" type="button">배송전</button></td>
                                         <td th:if="${#strings.equals(coffeeDelivery.coffeeDeliveryStatus, 'Y')}"><button class="edit-button" type="button">배송완</button></td>
+
                                     </tr>
                                     </tbody>
                                 </table>
