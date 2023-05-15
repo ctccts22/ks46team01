@@ -3,6 +3,50 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.delivery-button').click(function() {
+                let orderCompostIdx = $(this).closest('tr').find('td:eq(0)').text();
+                let companyInfoIdx = $(this).closest('tr').find('td:eq(1)').text();
+                let username = $(this).closest('tr').find('td:eq(2)').text();
+                let orderCompostConfirmStatus = $(this).closest('tr').find('td:eq(7)').text();
+
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/compost/deliveryCompostInsert");
+
+                let input_orderCompostIdx = document.createElement("input");
+                input_orderCompostIdx.setAttribute("type","hidden");
+                input_orderCompostIdx.setAttribute("name","orderCompostIdx");
+                input_orderCompostIdx.setAttribute("value",orderCompostIdx);
+                form.appendChild(input_orderCompostIdx);
+
+                let input_username = document.createElement("input");
+                input_username.setAttribute("type","hidden");
+                input_username.setAttribute("name","username");
+                input_username.setAttribute("value",username);
+                form.appendChild(input_username);
+
+                let input_companyInfoIdx = document.createElement("input");
+                input_companyInfoIdx.setAttribute("type","hidden");
+                input_companyInfoIdx.setAttribute("name","companyInfoIdx");
+                input_companyInfoIdx.setAttribute("value",companyInfoIdx);
+                form.appendChild(input_companyInfoIdx);
+
+
+                let input_orderCompostConfirmStatus = document.createElement("input");
+                input_orderCompostConfirmStatus.setAttribute("type","hidden");
+                input_orderCompostConfirmStatus.setAttribute("name","orderCompostConfirmStatus");
+                input_orderCompostConfirmStatus.setAttribute("value",orderCompostConfirmStatus);
+                form.appendChild(input_orderCompostConfirmStatus);
+
+
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
+            });
+        });
+    </script>
 </head>
 <th:block layout:fragment="customContent">
     <div class="col-md-12 col-sm-12 ">
@@ -35,24 +79,35 @@
                                 <thead class="thead-dark">
                                 <tr>
                                     </th>
+                                    <th hidden="hidden"></th>
+                                    <th hidden="hidden"></th>
+                                    <th hidden="hidden"></th>
                                     <th>농장명</th>
                                     <th>신청 담당자 번호</th>
                                     <th>농장 주소</th>
                                     <th>중량</th>
                                     <th>승인신청 날짜</th>
                                     <th>승인상태</th>
+                                    <th>배송상태</th>
                                 </tr>
                                 </thead>
 
 
                                 <tbody>
                                 <tr th:each="confirmList, confirmListIndex: ${confirmList}">
+                                    <td hidden="hidden" th:text="${confirmList.orderCompostIdx}"></td>
+                                    <td hidden="hidden" th:text="${confirmList.companyInfoIdx}"></td>
+                                    <td hidden="hidden" th:text="${confirmList.username}"></td>
                                     <td th:text="${confirmList.companyInfoName}"></td>
                                     <td th:text="${confirmList.orderCompostPhone}"></td>
                                     <td th:text="${confirmList.orderCompostAddress}"></td>
                                     <td th:text="${confirmList.orderCompostAmount}"></td>
                                     <td th:text="${confirmList.orderCompostDate}"></td>
                                     <td th:text="${confirmList.orderCompostConfirmStatus}"></td>
+                                    <td th:if="${#strings.equals(confirmList.orderCompostDeliveryStatus, 'Y')}">배송완료</td>
+                                    <td th:if="${#strings.equals(confirmList.orderCompostConfirmStatus, 'N')}">발송불가</td>
+                                    <td th:if="${#strings.equals(confirmList.orderCompostDeliveryStatus, 'P')}">배송중</td>
+                                    <td th:if="${#strings.equals(confirmList.orderCompostDeliveryStatus, 'O')}"><button type="button" class="delivery-button">배송신청</button></td>
                                 </tr>
                                 </tbody>
                             </table>

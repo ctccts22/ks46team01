@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @Slf4j
@@ -49,7 +50,6 @@ public class CoffeeController {
     }
 
     @GetMapping("/listDeliveryCoffee")
-
     public String coffeeDeliveryList(Model model,
                                      HttpSession session) {
         System.out.println("/listDeliveryCoffee 실행?");
@@ -63,7 +63,56 @@ public class CoffeeController {
 
         return "user/coffee/listDeliveryCoffee";
     }
+    @PostMapping("/deliveryInsert")
+    public String coffeeDeliveryInsert(Model model,
+                                       HttpSession session,
+                                       Random random,
+                                       @RequestParam("coffeeRequestIdx") Long coffeeRequestIdx,
+                                       @RequestParam("companyInfoIdx") Long companyInfoIdx,
+                                       @RequestParam("coffeeRequestConfirmStatus") char coffeeRequestConfirmStatus){
+        User user = (User) session.getAttribute("user");
+        String userId = user.getUsername();
+        String shippingNumber = "";
+        // 첫 글자를 대문자로 설정
+        shippingNumber += (char)(random.nextInt(26) + 'A');
+        // 두 번째부터 열 세 자리는 0~9 사이의 숫자로 설정
+        for (int i = 0; i < 3; i++) {
+            shippingNumber += random.nextInt(10);
+        }
+        // 네 번째부터 열 두 자리는 0~25 사이의 알파벳 대문자로 설정
+        for (int i = 0; i < 2; i++) {
+            shippingNumber += (char)(random.nextInt(26) + 'A');
+        }
+        // 마지막 열 여섯 자리는 0~9 사이의 숫자로 설정
+        for (int i = 0; i < 6; i++) {
+            shippingNumber += random.nextInt(10);
+        }
+        String[] shippingCompanies = {"CJ대한통운", "롯데택배", "우체국택배", "로젠택배", "한진택배",
+                "CU 편의점택배", "EMS 택배", "경동택배", "대신택배", "DHL 택배",
+                "하이택배", "CVSnet 편의점택배", "합동택배", "천일택배", "APEX 택배",
+                "세방 택배", "KGB택배", "SLX 택배", "일양로지스", "홈픽택배"};
+        int index = random.nextInt(shippingCompanies.length);
 
+        String selectedCompany = shippingCompanies[index];
+
+        System.out.println(selectedCompany);
+        System.out.println(shippingNumber);
+        System.out.println(userId);
+        System.out.println(coffeeRequestIdx);
+        System.out.println(companyInfoIdx);
+        System.out.println(coffeeRequestConfirmStatus);
+        CoffeeDelivery cd = new CoffeeDelivery();
+
+        cd.setUsername(userId);
+        cd.setCoffeeRequestIdx(coffeeRequestIdx);
+        cd.setCompanyInfoIdx(companyInfoIdx);
+        cd.setCoffeeDeliveryTrack(shippingNumber);
+        cd.setCoffeeDeliveryCompany(selectedCompany);
+        coffeeService.deliveryInsert(cd);
+        List<CoffeeDelivery> userDeliveryList = coffeeService.listCoffeeDelivery(userId);
+        model.addAttribute("userDeliveryList", userDeliveryList);
+        return "user/coffee/listDeliveryCoffee";
+    }
     @PostMapping("/insertRequestCoffee")
     public String coffeeRequestInsert(
             @RequestParam(value = "r_coffee") String coffee,

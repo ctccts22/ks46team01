@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks46team01.user.compost.mapper.UserCompostMapper">
+    <update id="userCompostDeliveryUpdate" parameterType="ks46team01.common.compost.dto.OrderCompostDelivery">
+        UPDATE order_compost_delivery
+        SET order_compost_delivery_status = 'Y'
+        WHERE order_compost_idx = ${orderCompostIdx};
+    </update>
     <insert id="insertOrderCompost" parameterType="hashmap">
         <!-- 커피배지 수거신청-->
         INSERT INTO order_compost(
@@ -45,7 +50,9 @@
         ON ci.company_idx = oc.company_info_idx WHERE ci.username  = #{userId};
     </select>
     <select id="userCompostDeliveryList" parameterType="String" resultType="ks46team01.common.compost.dto.OrderCompostDelivery">
-        SELECT
+        SELECT DISTINCT
+        oc.order_compost_idx AS orderCompostIdx,
+        oc.company_info_idx as companyInfoIdx,
         ci.company_info_name AS companyInfoName,
         oc.order_compost_phone AS orderCompostPhone,
         oc.order_compost_address AS orderCompostAddress,

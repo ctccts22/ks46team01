@@ -9,6 +9,7 @@ import ks46team01.user.info.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,6 +29,20 @@ public class CompostController {
     public String orderCompostList() {
         // 커피 배지 주문신청
         return "user/compost/listCompostOrder";
+    }
+    @PostMapping("/updateDelivery")
+    public String orderCompostUpdateDelivery(Model model,
+                                             HttpSession session,
+                                             @RequestParam("orderCompostIdx") Long orderCompostIdx){
+        OrderCompostDelivery ocd = new OrderCompostDelivery();
+        ocd.setOrderCompostIdx(orderCompostIdx);
+        userCompostOrderService.userCompostDeliveryUpdate(ocd);
+        User user = (User) session.getAttribute("user");
+        String sessionId = user.getUsername(); //접속해있는 아이디
+        List<OrderCompostDelivery> compostDeliveryList = userCompostOrderService.compostDeliveryList(sessionId);
+        System.out.println("length");
+        model.addAttribute("compostDeliveryList",compostDeliveryList);
+        return "user/compost/listDeliveryCompostOrder";
     }
     @GetMapping("/insertCompostOrder")
     public String insertCompostList(Model model,
