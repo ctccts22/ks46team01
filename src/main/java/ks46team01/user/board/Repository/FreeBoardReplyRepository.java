@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface FreeBoardReplyRepository extends JpaRepository<FreeBoardReply, Long> {
 
+    List<FreeBoardReply> findAllByFreeBoard_FreeBoardIdx(Long freeBoardIdx);
+
 }
