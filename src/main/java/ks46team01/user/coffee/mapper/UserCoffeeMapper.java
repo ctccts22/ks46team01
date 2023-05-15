@@ -14,4 +14,5 @@ public interface UserCoffeeMapper {
     public int insertCoffeeRequest(HashMap<String,Object> map); //커피 수거신청
     public CompanyInfoDTO listCompanyCode(String userId); //사업자 정보확인
     public List<CoffeeDelivery> listCoffeeDelivery(String userId); // 커피가루 배송상태 조회
+    public void deliveryInsert(CoffeeDelivery cd); // 카페회원 커피가루 배송
 }

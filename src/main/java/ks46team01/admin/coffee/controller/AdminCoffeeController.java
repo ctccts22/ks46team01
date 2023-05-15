@@ -34,6 +34,16 @@ public class AdminCoffeeController {
 
         return "admin/coffee/listCoffeeAdmin";
     }
+    @PostMapping("/updateDelivery")
+    public String adminUpdateDelivery(@RequestParam("coffeeDeliveryIdx") Long coffeeDeliveryIdx,
+                                      Model model){
+        coffeeService.updateDelivery(coffeeDeliveryIdx);
+
+        List<CoffeeDelivery> coffeeDelivery = coffeeService.listCoffeeDelivery();
+        model.addAttribute("coffeeDelivery",coffeeDelivery);
+
+        return "admin/coffee/listDeliveryCoffeeAdmin";
+    }
     @GetMapping("/listConfirmCoffeeAdmin")
     public String adminCoffeeConfirmList(Model model){
         System.out.println("/listConfirmCoffeeAdmin 실행?");
@@ -48,6 +58,7 @@ public class AdminCoffeeController {
     @GetMapping("/listDeliveryCoffeeAdmin")
     public String adminCoffeeDeliveryList(Model model){
         System.out.println("/listDeliveryCoffeeAdmin 실행?");
+
         List<CoffeeDelivery> coffeeDelivery = coffeeService.listCoffeeDelivery();
         model.addAttribute("coffeeDelivery",coffeeDelivery);
         return "admin/coffee/listDeliveryCoffeeAdmin";

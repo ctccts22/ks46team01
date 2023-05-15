@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class OrderCompost extends CompanyContract{
     private Long orderCompostIdx;
-    private String userName;
+    private String username;
     private Long companyContractIdx;
     private Long companyInfoIdx;
     private Long inventoryIdx;

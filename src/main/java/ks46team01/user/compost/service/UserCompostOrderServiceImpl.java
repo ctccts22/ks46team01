@@ -36,6 +36,11 @@ public class UserCompostOrderServiceImpl implements UserCompostOrderService {
     }
 
     @Override
+    public void userCompostDeliveryUpdate(OrderCompostDelivery ocd) {
+        userCompostMapper.userCompostDeliveryUpdate(ocd);
+    }
+
+    @Override
     public List<OrderCompostDelivery> compostDeliveryList(String userId) {
         List<OrderCompostDelivery> userCompostDeliveryList = userCompostMapper.userCompostDeliveryList(userId);
         return userCompostDeliveryList;

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CompanyInfo extends Inventory{
     private Long companyInfoIdx;
-    private String userName;
+    private String username;
     private Long companyIdx;
     private String companyInfoName;
     private Long inventoryIdx;

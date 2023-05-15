@@ -5,7 +5,7 @@
 <mapper namespace="ks46team01.admin.coffee.mapper.CoffeeMapper">
     <resultMap id="coffeeRequestMap" type="ks46team01.common.coffee.dto.CoffeeRequestConfirm">
         <id column="coffee_request_confirm_idx" property="coffeeRequestConfirmIdx"/>
-        <result column="username" property="userName"/>
+        <result column="username" property="username"/>
         <result column="coffee_request_idx" property="coffeeRequestIdx"/>
         <result column="company_info_idx" property="companyInfoIdx"/>
         <result column="coffee_request_confirm_status" property="coffeeRequestConfirmStatus"/>
@@ -13,6 +13,11 @@
         <result column="admin_username" property="adminUsername"/>
         <result column="coffee_request_confirm_date" property="coffeeRequestConfirmDate"/>
     </resultMap>
+    <update id="updateDelivery" parameterType="Long">
+        UPDATE coffee_delivery
+        SET coffee_delivery_status = 'Y'
+        WHERE coffee_delivery_idx = #{coffeeDeliveryIdx};
+    </update>
     <select id="listCoffeeAdmin" resultType="ks46team01.common.coffee.dto.CoffeeRequest">
 <!--        (운영자) 커피가루 수거신청 확인-->
         SELECT
@@ -85,7 +90,7 @@
         cd.coffee_delivery_idx AS coffeeDeliveryIdx,
         cd.coffee_request_idx AS coffeeRequestIdx,
         ci.company_info_idx AS companyInfoIdx,
-        cd.username AS userName,
+        cd.username AS username,
         cd.coffee_delivery_track AS coffeeDeliveryTrack,
         cd.coffee_delivery_status AS coffeeDeliveryStatus,
         cd.coffee_delivery_company AS coffeeDeliveryCompany,

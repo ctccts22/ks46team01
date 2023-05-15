@@ -13,4 +13,5 @@ public interface UserCoffeeService {
     public CompanyInfoDTO listCompanyCode(String userId); // 사업자 확인
     public List<CoffeeRequestConfirm> listCoffeeConfirm(String userId); // 커피가루 수거신청 승인상태확인
     public int insertCoffeeRequest(HashMap<String,Object> map); //커피가루 수거신청
+    public void deliveryInsert(CoffeeDelivery cd);
 }

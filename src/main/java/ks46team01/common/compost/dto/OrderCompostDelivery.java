@@ -6,7 +6,7 @@ import lombok.Data;
 public class OrderCompostDelivery extends OrderCompostConfirm{
     private Long orderCompostDeliveryIdx;
     private Long orderCompostIdx;
-    private String userName;
+    private String username;
     private Long companyInfoIdx;
     private String orderCompostDeliveryTrack;
     private String orderCompostDeliveryStatus;

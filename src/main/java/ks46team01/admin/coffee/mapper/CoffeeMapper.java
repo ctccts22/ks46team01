@@ -19,7 +19,7 @@ public interface CoffeeMapper {
 
     public List<CompanyInfoDTO> listConfirmCompanyInfo(); //
     
-
+    public void updateDelivery(Long coffeeDeliveryIdx);// 배송중인 상품 배송완료로 변경
     public List<CoffeeDelivery> listCoffeeDelivery(); // 커피가루 배송리스트
 
 

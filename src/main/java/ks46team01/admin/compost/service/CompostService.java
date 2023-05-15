@@ -11,4 +11,5 @@ public interface CompostService {
     public void orderCompostConfirmInsert(OrderCompostConfirm occ);
     public List<OrderCompostConfirm> orderCompostConfirmList();
     public List<OrderCompostDelivery> orderCompostDeliveryList();
+    public void orderCompostDeliveryInsert(OrderCompostDelivery ocd);
 }
