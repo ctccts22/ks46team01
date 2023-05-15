@@ -58,6 +58,7 @@ public class AdminCoffeeController {
     @GetMapping("/listDeliveryCoffeeAdmin")
     public String adminCoffeeDeliveryList(Model model){
         System.out.println("/listDeliveryCoffeeAdmin 실행?");
+
         List<CoffeeDelivery> coffeeDelivery = coffeeService.listCoffeeDelivery();
         model.addAttribute("coffeeDelivery",coffeeDelivery);
         return "admin/coffee/listDeliveryCoffeeAdmin";

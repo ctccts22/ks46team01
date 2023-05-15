@@ -77,6 +77,7 @@
                     <td th:text="${compostDeliveryList.orderCompostAmount}+kg"></td>
                     <td th:text="${compostDeliveryList.orderCompostDate}"></td>
                     <td th:text="${compostDeliveryList.orderCompostDeliveryStatus}"></td>
+                    <td th:text="${compostDeliveryList.orderCompostDeliveryStatus}"></td>
                     <td th:if="${#strings.equals(compostDeliveryList.orderCompostDeliveryStatus, 'P')}"><button class="update-button" type="button">배송확인</button></td>
                     <td th:if="${#strings.equals(compostDeliveryList.orderCompostDeliveryStatus, 'Y')}">배송완료</td>
                   </tr>
