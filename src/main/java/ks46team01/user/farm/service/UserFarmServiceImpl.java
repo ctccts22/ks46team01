@@ -1,6 +1,7 @@
 package ks46team01.user.farm.service;
 
 import ks46team01.common.farm.dto.FarmData;
+import ks46team01.common.farm.dto.FarmPickupDelivery;
 import ks46team01.user.farm.mapper.UserFarmMapper;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,10 @@ public class UserFarmServiceImpl implements UserFarmService{
     public List<FarmData> listFarmDelivery(String id) {
         List<FarmData> farmPickupList = userFarmMapper.listFarmDelivery(id);
         return farmPickupList;
+    }
+
+    @Override
+    public void insertDelivery(FarmPickupDelivery fpd) {
+        userFarmMapper.insertDelivery(fpd);
     }
 }

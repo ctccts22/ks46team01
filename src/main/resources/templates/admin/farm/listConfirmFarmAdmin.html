@@ -88,7 +88,6 @@
                                     <th>중량</th>
                                     <th>승인신청 날짜</th>
                                     <th>승인상태</th>
-                                    <th>배송상태</th>
                                 </tr>
                                 </thead>
 
@@ -104,10 +103,6 @@
                                     <td th:text="${confirmList.orderCompostAmount}"></td>
                                     <td th:text="${confirmList.orderCompostDate}"></td>
                                     <td th:text="${confirmList.orderCompostConfirmStatus}"></td>
-                                    <td th:if="${#strings.equals(confirmList.orderCompostDeliveryStatus, 'Y')}">배송완료</td>
-                                    <td th:if="${#strings.equals(confirmList.orderCompostConfirmStatus, 'N')}">발송불가</td>
-                                    <td th:if="${#strings.equals(confirmList.orderCompostDeliveryStatus, 'P')}">배송중</td>
-                                    <td th:if="${#strings.equals(confirmList.orderCompostDeliveryStatus, 'O')}"><button type="button" class="delivery-button">배송신청</button></td>
                                 </tr>
                                 </tbody>
                             </table>

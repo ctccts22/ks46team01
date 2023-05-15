@@ -8,6 +8,8 @@ import java.util.List;
 public interface FarmService {
     public List<FarmPickupConfirm> farmPickupConfirmList();
     public void farmPickupConfirmInsert(FarmPickupConfirm farmPickupConfirm);
-    public List<FarmPickupConfirm> farmPickupConfirmStatusList();
+    public List<FarmPickupDelivery> farmPickupConfirmStatusList();
     public List<FarmPickupDelivery> farmPickupDeliveryList();
+
+    public void updateDelivery(Long farmPickupRequestIdx);
 }

@@ -3,13 +3,13 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks46team01.user.farm.mapper.UserFarmMapper">
     <select id="listFarmDelivery" resultType="ks46team01.common.farm.dto.FarmData" parameterType="String">
-        SELECT
+        SELECT DISTINCT
         ci.company_info_name AS companyInfoName,
         fpr.farm_pickup_request_phone AS farmPickupRequestPhone,
         fpr.farm_pickup_request_address AS farmPickupRequestAddress,
         fpr.farm_pickup_request_amount AS farmPickupRequestAmount,
         fpr.farm_pickup_request_date AS farmPickupRequestDate,
-        COALESCE(fpd.farm_pickup_delivery_status , '대기중') AS farmPickupDeliveryStatus
+        COALESCE(fpd.farm_pickup_delivery_status , 'Y') AS farmPickupDeliveryStatus
         FROM
         farm_pickup_request fpr
         INNER JOIN company_info ci
@@ -18,19 +18,35 @@
         ON fpd.farm_pickup_request_idx = fpr.farm_pickup_request_idx
         WHERE fpr.username = #{userId};
     </select>
+    <insert id="insertDelivery" parameterType="ks46team01.common.farm.dto.FarmPickupDelivery">
+        insert into farm_pickup_delivery (
+        farm_pickup_request_idx,
+        username,
+        company_info_idx,
+        farm_pickup_delivery_status,
+        farm_pickup_delivery_track,
+        farm_pickup_delivery_company,
+        farm_pickup_delivery_complete
+        )values(#{farmPickupRequestIdx},#{username},#{companyInfoIdx},'P',#{farmPickupDeliveryTrack},#{farmPickupDeliveryCompany},now());
+    </insert>
     <select id="listFarmPickup" resultType="ks46team01.common.farm.dto.FarmData" parameterType="String">
-        SELECT
+        SELECT DISTINCT
+        ci.company_info_idx as companyInfoIdx,
+        fpr.farm_pickup_request_idx as farmPickupRequestIdx,
         ci.company_info_name AS companyInfoName,
         fpr.farm_pickup_request_phone AS farmPickupRequestPhone,
         fpr.farm_pickup_request_address AS farmPickupRequestAddress,
         fpr.farm_pickup_request_amount AS farmPickupRequestAmount,
         fpr.farm_pickup_request_date AS farmPickupRequestDate,
+        COALESCE(fpd.farm_pickup_delivery_status , 'N') AS farmPickupDeliveryStatus,
         COALESCE(fpc.farm_pickup_confirm_status , '대기중') AS farmPickupConfirmStatus
         FROM farm_pickup_request fpr
         LEFT JOIN farm_pickup_confirm fpc
         ON fpr.farm_pickup_request_idx = fpc.farm_pickup_request_idx
         INNER JOIN company_info ci
         ON ci.company_info_idx = fpr.company_info_idx
+        left join farm_pickup_delivery fpd ON
+        fpr.farm_pickup_request_idx = fpd.farm_pickup_request_idx
         WHERE fpr.username = #{userId};
     </select>
     <select id="farmInfo" resultType="ks46team01.common.farm.dto.FarmData" parameterType="String">
@@ -54,6 +70,5 @@
         farm_pickup_request_content,
         farm_pickup_request_date
         )VALUES(#{farmDataIdx},#{userId},#{companyInfoIdx},#{amount},#{phone},#{address},#{message},now());
-
     </insert>
 </mapper>
