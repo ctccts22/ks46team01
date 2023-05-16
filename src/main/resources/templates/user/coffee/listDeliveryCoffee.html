@@ -54,7 +54,10 @@
                     <td th:text="${userDeliveryList.coffeeRequestAddress}"></td>
                     <td th:text="${userDeliveryList.coffeeRequestAmount}+kg"></td>
                     <td th:text="${userDeliveryList.coffeeRequestDate}"></td>
-                    <td th:text="${userDeliveryList.coffeeDeliveryStatus}"></td>
+                    <td th:if="${#strings.equals(userDeliveryList.coffeeDeliveryStatus, 'Y')}">배송완료</td>
+                    <td th:if="${#strings.equals(userDeliveryList.coffeeDeliveryStatus, 'N')}">배송대기</td>
+                    <td th:if="${#strings.equals(userDeliveryList.coffeeDeliveryStatus, 'P')}">배송중</td>
+
                   </tr>
                   </tbody>
                 </table>

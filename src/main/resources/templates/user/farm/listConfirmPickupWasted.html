@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.update-button').click(function() {
@@ -88,6 +88,7 @@
                                     <td th:if="${#strings.equals(farmPickupList.farmPickupDeliveryStatus, 'N')}"><button class="update-button" type="button">발송</button></td>
                                     <td th:if="${#strings.equals(farmPickupList.farmPickupDeliveryStatus, 'Y')}">배송완료</td>
                                     <td th:if="${#strings.equals(farmPickupList.farmPickupDeliveryStatus, 'P')}">배송중</td>
+                                    <td th:if="${#strings.equals(farmPickupList.farmPickupConfirmStatus, '대기중')}">배송불가</td>
                                 </tr>
                                 </tbody>
                             </table>

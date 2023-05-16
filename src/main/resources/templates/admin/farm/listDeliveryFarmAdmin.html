@@ -3,7 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
-
 </head>
 <th:block layout:fragment="customContent">
     <div class="clearfix"></div>
@@ -54,7 +53,8 @@
                                         <td th:text="${deliveryList.orderCompostAddress}"></td>
                                         <td th:text="${deliveryList.orderCompostAmount}+kg"></td>
                                         <td th:text="${deliveryList.orderCompostDate}"></td>
-                                        <td th:text="${deliveryList.orderCompostDeliveryStatus}"></td>
+                                        <td th:if="${#strings.equals(deliveryList.orderCompostDeliveryStatus,'Y')}">배송완료</td>
+                                        <td th:if="${#strings.equals(deliveryList.orderCompostDeliveryStatus,'P')}">배송중</td>
                                     </tr>
                                     </tbody>
                                 </table>

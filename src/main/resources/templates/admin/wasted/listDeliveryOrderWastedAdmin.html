@@ -52,9 +52,10 @@
                                         <td th:text="${deliveryList.companyInfoName}"></td>
                                         <td th:text="${deliveryList.orderWastedPhone}"></td>
                                         <td th:text="${deliveryList.orderWastedAddress}"></td>
-                                        <td th:text="${deliveryList.orderWastedAmount}"></td>
+                                        <td th:text="${deliveryList.orderWastedAmount}+kg"></td>
                                         <td th:text="${deliveryList.orderWastedDate}"></td>
-                                        <td th:text="${deliveryList.orderWastedDeliveryStatus}"></td>
+                                        <td th:if="${#strings.equals(deliveryList.orderWastedDeliveryStatus,'Y')}">배송완료</td>
+                                        <td th:if="${#strings.equals(deliveryList.orderWastedDeliveryStatus,'P')}">배송중</td>
                                     </tr>
                                     </tbody>
                                 </table>

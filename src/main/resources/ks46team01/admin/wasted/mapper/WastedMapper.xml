@@ -3,7 +3,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks46team01.admin.wasted.mapper.WastedMapper">
     <select id="wastedDeliveryList" resultType="ks46team01.common.wasted.dto.OrderWastedDelivery">
-        SELECT
+        SELECT DISTINCT
         ci.company_info_name AS companyInfoName,
         ow.order_wasted_phone AS orderWastedPhone,
         ow.order_wasted_address AS orderWastedAddress,
@@ -14,7 +14,7 @@
         INNER JOIN order_wasted ow
         ON owd.order_wasted_idx = ow.order_wasted_idx
         INNER JOIN company_info ci
-        ON ci.company_info_idx = owd.company_info_idx ;
+        ON ci.company_info_idx = owd.company_info_idx;
     </select>
     <insert id="wastedConfirmInsert" parameterType="ks46team01.common.wasted.dto.OrderWastedConfirm">
         INSERT INTO order_wasted_confirm(
@@ -28,7 +28,7 @@
         )VALUES(#{orderWastedIdx},#{userName},#{companyInfoIdx},#{orderWastedConfirmStatus},#{orderWastedConfirmContent},#{adminUsername},now());
     </insert>
     <select id="wastedConfirmList" resultType="ks46team01.common.wasted.dto.OrderWastedConfirm">
-        SELECT
+        SELECT DISTINCT
         ci.company_info_name AS companyInfoName,
         ow.username AS userName,
         ow.order_wasted_phone AS orderWastedPhone,

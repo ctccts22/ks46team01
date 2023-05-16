@@ -37,7 +37,7 @@
     <select id="farmPickupConfirmList" resultType="ks46team01.common.farm.dto.FarmPickupConfirm">
         SELECT
         fpr.farm_pickup_request_idx as farmPickupRequestIdx,
-        fpr.username AS userName,
+        fpr.username AS username,
         ci.company_info_idx AS companyInfoIdx,
         ci.company_info_name AS companyInfoName,
         fpr.farm_pickup_request_phone AS farmPickupRequestPhone,
@@ -63,7 +63,7 @@
     admin_username,
     farm_pickup_confirm_date
     )VALUES(
-    #{farmPickupRequestIdx},#{userName},#{companyInfoIdx},#{farmPickupConfirmStatus},#{farmPickupConfirmContent},#{adminUsername},now());
+    #{farmPickupRequestIdx},#{username},#{companyInfoIdx},#{farmPickupConfirmStatus},#{farmPickupConfirmContent},#{adminUsername},now());
 </insert>
     <update id="updateDelivery" parameterType="Long">
         UPDATE farm_pickup_delivery
