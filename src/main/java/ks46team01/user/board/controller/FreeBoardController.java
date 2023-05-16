@@ -1,8 +1,10 @@
 package ks46team01.user.board.controller;
 
 import jakarta.servlet.http.HttpSession;
+import ks46team01.user.board.Repository.FreeBoardReplyRepository;
 import ks46team01.user.board.dto.FreeBoardDTO;
 import ks46team01.user.board.entity.FreeBoard;
+import ks46team01.user.board.entity.FreeBoardReply;
 import ks46team01.user.board.service.FreeBoardService;
 import ks46team01.user.info.entity.User;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 
 @Controller
 @Slf4j
@@ -25,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
+    private final FreeBoardReplyRepository freeBoardReplyRepository;
 
     @GetMapping("/freeBoard")
     public String showFreeBoardForm(Model model, @RequestParam(required = false, defaultValue = "0") int page) {
@@ -37,10 +42,16 @@ public class FreeBoardController {
     }
 
     @GetMapping("/freeBoardContent/{freeBoardIdx}")
-    public String getFreeBoardContent(@PathVariable("freeBoardIdx") Long freeBoardIdx, Model model) {
+    public String getFreeBoardContent(@PathVariable("freeBoardIdx") Long freeBoardIdx,
+                                      @RequestParam(required = false, defaultValue = "0") int page,
+                                      Model model) {
         freeBoardService.increaseFreeBoardView(freeBoardIdx);
         FreeBoard freeBoard = freeBoardService.getFreeBoardById(freeBoardIdx);
+        PageRequest pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "freeBoardReplyIdx"));
+        Page<FreeBoardReply> replies = freeBoardReplyRepository.findByFreeBoard(freeBoard, pageable);
+        model.addAttribute("replies", replies);
         model.addAttribute("board", freeBoard);
+        model.addAttribute("pageable", pageable);
         log.info("board:{}", freeBoard);
         return "user/board/freeBoardContent";
     }

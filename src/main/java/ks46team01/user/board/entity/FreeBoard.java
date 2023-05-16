@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import ks46team01.user.info.entity.User;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -36,6 +39,11 @@ public class FreeBoard {
 
     @Column(name = "free_board_view", nullable = false)
     private Integer freeBoardView;
+
+    @OneToMany(mappedBy = "freeBoard", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<FreeBoardReply> freeBoardReplies;
+
 
 
     @Override
