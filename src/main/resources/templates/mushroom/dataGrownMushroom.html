@@ -37,10 +37,10 @@
             $('body').on('click', '.edit-button', function () {
                 const row = $(this).closest('tr');
                 const mushroomGrowthIdx = row.find('td[data-key="mushroomGrowthIdx"]').text();
-                const username = row.find('td[data-key="username"]').text();
-                const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
+                const name = row.find('td[data-key="username"]').text();
+                const companyInfoName = row.find('td[data-key="companyInfoName"]').text();
                 const farmDataIdx = row.find('td[data-key="farmDataIdx"]').text();
-                const cropIdx = row.find('td[data-key="cropIdx"]').text();
+                const cropType = row.find('td[data-key="cropType"]').text();
                 const mushroomGrowthDaily = row.find('td[data-key="mushroomGrowthDaily"]').text();
                 const mushroomGrowthStatus = row.find('td[data-key="mushroomGrowthStatus"]').text();
                 const mushroomGrowthDate = row.find('td[data-key="mushroomGrowthDate"]').text();
@@ -48,10 +48,10 @@
 
 
                 $('#modify-mushroomGrowthIdx').val(mushroomGrowthIdx);
-                $('#modify-username').val(username);
-                $('#modify-companyInfoIdx').val(companyInfoIdx);
+                $('#modify-name').val(name);
+                $('#modify-companyInfoName').val(companyInfoName);
                 $('#modify-farmDataIdx').val(farmDataIdx);
-                $('#modify-cropIdx').val(cropIdx);
+                $('#modify-cropType').val(cropType);
                 $('#modify-mushroomGrowthDaily').val(mushroomGrowthDaily);
                 $('#modify-mushroomGrowthStatus').val(mushroomGrowthStatus);
                 $('#modify-mushroomGrowthDate').val(mushroomGrowthDate).prop('type', 'date');
@@ -201,10 +201,10 @@
                                             <tbody>
                                             <tr role="row" class="odd" th:each="l:${fmsg}" >
                                                 <td data-key="mushroomGrowthIdx" th:text="${l.mushroomGrowthIdx}"></td>
-                                                <td data-key="username" th:text="${l.username}"></td>
-                                                <td data-key="companyInfoIdx" th:text="${l.companyInfoIdx}"></td>
+                                                <td data-key="username" th:text="${l.name}"></td>
+                                                <td data-key="companyInfoIdx" th:text="${l.companyInfoName}"></td>
                                                 <td data-key="farmDataIdx" th:text="${l.farmDataIdx}"></td>
-                                                <td data-key="cropIdx" th:text="${l.cropIdx}"></td>
+                                                <td data-key="cropIdx" th:text="${l.cropType}"></td>
                                                 <td data-key="mushroomGrowthDaily" th:text="${l.mushroomGrowthDaily}"></td>
                                                 <td data-key="mushroomGrowthStatus" th:text="${l.mushroomGrowthStatus}"></td>
                                                 <td data-key="mushroomGrowthDate" th:text="${#dates.format(l.mushroomGrowthDate, 'yyyy-MM-dd')}"></td>
@@ -245,11 +245,11 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="add-companyInfoIdx">사업자정보 </label>
+                                                                <label for="add-companyInfoIdx">사업자 정보 (이름) </label>
                                                                 <select class="form-control" id="add-companyInfoIdx" name="companyInfoIdx"  required>
-                                                                    <option value="" disabled selected>사업자 번호를 선택하세요</option>
+                                                                    <option value="" disabled selected>사업자 정보 (이름) 를 선택하세요</option>
                                                                     <th:block th:each="ci : ${companyInfoList}">
-                                                                        <option th:value="${ci.companyInfoIdx}">[[${ci.companyInfoLicenseNumber}]]</option>
+                                                                        <option th:value="${ci.companyInfoIdx}">[[${ci.companyInfoName}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -269,7 +269,7 @@
                                                                 <select class="form-control" id="add-cropIdx" name="cropIdx"  required>
                                                                     <option value="" disabled selected>작물을 선택하세요</option>
                                                                     <th:block th:each="c : ${cropList}">
-                                                                        <option th:value="${c.cropIdx}">[[${c.cropContent}]]</option>
+                                                                        <option th:value="${c.cropIdx}">[[${c.cropType}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -321,6 +321,17 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
+                                                                <label for="modify-companyInfoIdx">companyInfoIdx</label>
+                                                                <select class="form-control" id="modify-companyInfoIdx" name="companyInfoIdx"  required>
+                                                                    <option value="" disabled selected>companyInfoList 선택하세요</option>
+                                                                    <th:block th:each="ci : ${companyInfoList}">
+                                                                        <option th:value="${ci.companyInfoIdx}">[[${ci.companyInfoName}]]</option>
+                                                                    </th:block>
+                                                                </select>
+                                                            </div>
+
+
+                                                            <div class="form-group">
                                                                 <label for="modify-farmDataIdx">farmDataIdx 고유코드</label>
                                                                 <select class="form-control" id="modify-farmDataIdx" name="farmDataIdx"  required>
                                                                     <option value="" disabled selected>farmDataIdx 을 선택하세요</option>
@@ -330,20 +341,11 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="modify-companyInfoIdx">companyInfoIdx</label>
-                                                                <select class="form-control" id="modify-companyInfoIdx" name="companyInfoIdx"  required>
-                                                                    <option value="" disabled selected>companyInfoList 선택하세요</option>
-                                                                    <th:block th:each="ci : ${companyInfoList}">
-                                                                        <option th:value="${ci.companyInfoIdx}">[[${ci.companyInfoIdx}]]</option>
-                                                                    </th:block>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <label for="modify-cropIdx">작물 고유코드</label>
                                                                 <select class="form-control" id="modify-cropIdx" name="cropIdx"  required>
-                                                                    <option value="" disabled selected>작물을 선택하세요</option>
+                                                                    <option value="" disabled selected> 작물을 선택하세요</option>
                                                                     <th:block th:each="c : ${cropList}">
-                                                                        <option th:value="${c.cropIdx}">[[${c.cropContent}]]</option>
+                                                                        <option th:value="${c.cropIdx}">[[${c.cropType}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -356,10 +358,7 @@
                                                                 <label for="modify-mushroomGrowthStatus">mushroomGrowthStatus</label>
                                                                 <input type="text" class="form-control" id="modify-mushroomGrowthStatus" name="mushroomGrowthStatus" placeholder="mushroomGrowthStatus 을 입력하세요"/>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="modify-mushroomGrowthDate">mushroomGrowthDate</label>
-                                                                <input type="datetime-local" class="form-control" id="modify-mushroomGrowthDate" name="mushroomGrowthDate" placeholder="mushroomGrowthDate 를 입력하세요"/>
-                                                            </div>
+
                                                             <div class="form-group">
                                                                 <label for="modify-mushroomGrowthContent">mushroomGrowthContent</label>
                                                                 <input type="text" class="form-control"  id="modify-mushroomGrowthContent" name="mushroomGrowthContent" placeholder="mushroomGrowthContent을 입력하세요"/>

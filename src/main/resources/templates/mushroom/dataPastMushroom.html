@@ -25,7 +25,8 @@
                 $('#add-pastDataMushroomProduction').attr('type', 'number').val(pastDataMushroomProduction);
                 $('#add-pastDataTotalRevenue').attr('type', 'number').val(pastDataTotalRevenue);
                 $('#add-pastDataBadgeUse').attr('type', 'number').val(pastDataBadgeUse);
-                $('#add-pastDataYear').attr('min', '1990').attr('max', '2023').attr('type', 'number').val(pastDataYear);
+                $('#add-pastDataYear').attr('min', '1990').attr('max', '2023').attr('typ' +
+                    'e', 'number').val(pastDataYear);
                 $('#add-pastDataUse').val(pastDataUse);
                 $('#add-pastDataComparison').val(pastDataComparison);
                 // 모달 보여짐
@@ -34,9 +35,9 @@
             $('body').on('click', '.edit-button', function () {
                 const row = $(this).closest('tr');
                 const pastDataIdx = row.find('td[data-key="pastDataIdx"]').text();
-                const username = row.find('td[data-key="username"]').text();
-                const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
-                const cropIdx = row.find('td[data-key="cropIdx"]').text();
+                const name = row.find('td[data-key="username"]').text();
+                const companyInfoLicenseNumber = row.find('td[data-key="companyInfoIdx"]').text();
+                const cropContent = row.find('td[data-key="cropIdx"]').text();
                 const pastDataMushroomProduction = row.find('td[data-key="pastDataMushroomProduction"]').text();
                 const pastDataTotalRevenue = row.find('td[data-key="pastDataTotalRevenue"]').text();
                 const pastDataBadgeUse = row.find('td[data-key="pastDataBadgeUse"]').text();
@@ -45,9 +46,9 @@
                 const pastDataComparison = row.find('td[data-key="pastDataComparison"]').text();
 
                 $('#modify-pastDataIdx').val(pastDataIdx);
-                $('#modify-username').val(username);
-                $('#modify-companyInfoIdx').val(companyInfoIdx);
-                $('#modify-cropIdx').val(cropIdx);
+                $('#modify-name').val(name);
+                $('#modify-companyInfoLicenseNumber').val(companyInfoLicenseNumber);
+                $('#modify-cropContent').val(cropContent);
                 $('#modify-pastDataMushroomProduction').val(pastDataMushroomProduction);
                 $('#modify-pastDataTotalRevenue').val(pastDataTotalRevenue);
                 $('#modify-pastDataBadgeUse').val(pastDataBadgeUse);
@@ -57,6 +58,9 @@
 
                 // 모달 보여짐
                 $('#modifyDataPastMushroomModal').modal('show');
+
+                removeMoneySymbol($('#modify-pastDataTotalRevenue')[0]);
+                removeMoneySymbol($('#modify-pastDataBadgeUse')[0]);
             });
 
             $('body').on('click', '.delete-button', function () {
@@ -137,7 +141,11 @@
                 }
             });
         });
-
+        function removeMoneySymbol(input) {
+            var value = input.value;
+            value = value.replace("(₩) ", "");
+            input.value = value;
+        }
 
 
     </script>
@@ -198,8 +206,8 @@
                                                 <th>사업자 정보</th>
                                                 <th>작물고유코드</th>
                                                 <th>생산량 </th>
-                                                <th>매출합계</th>
-                                                <th>배지사용비용</th>
+                                                <th>매출합계 (₩)</th>
+                                                <th>배지사용비용  (₩)</th>
                                                 <th>년도</th>
                                                 <th>사용유무</th>
                                                 <th>플랫폼사용 전 데이터</th>
@@ -215,8 +223,8 @@
                                                 <td data-key="companyInfoIdx" th:text="${l.companyInfoLicenseNumber}"></td>
                                                 <td data-key="cropIdx" th:text="${l.cropType}"></td>
                                                 <td data-key="pastDataMushroomProduction" th:text="${l.pastDataMushroomProduction}"></td>
-                                                <td data-key="pastDataTotalRevenue" th:text="${l.pastDataTotalRevenue}"></td>
-                                                <td data-key="pastDataBadgeUse" th:text="${l.pastDataBadgeUse}"></td>
+                                                <td data-key="pastDataTotalRevenue" th:utext="${'(₩)  '+ l.pastDataTotalRevenue}"></td>
+                                                <td data-key="pastDataBadgeUse" th:utext="${'(₩)  '+ l.pastDataBadgeUse}"></td>
                                                 <td data-key="pastDataYear" th:text="${l.pastDataYear + ' 년'}"></td>
                                                 <td data-key="pastDataUse" th:text="${l.pastDataUse}"></td>
                                                 <td data-key="pastDataComparison" th:text="${l.pastDataComparison}"></td>
@@ -283,11 +291,11 @@
                                                                 <input type="text" class="form-control" id="add-pastDataMushroomProduction" name="pastDataMushroomProduction" placeholder="pastDataMushroomProduction 를 입력하세요" required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="add-pastDataTotalRevenue">pastDataTotalRevenue</label>
+                                                                <label for="add-pastDataTotalRevenue">pastDataTotalRevenue (₩) </label>
                                                                 <input type="text" class="form-control" id="add-pastDataTotalRevenue" name="pastDataTotalRevenue" placeholder="pastDataTotalRevenue 를 입력하세요" required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="add-pastDataBadgeUse">pastDataBadgeUse</label>
+                                                                <label for="add-pastDataBadgeUse">pastDataBadgeUse (₩) </label>
                                                                 <input type="text" class="form-control" id="add-pastDataBadgeUse" name="pastDataBadgeUse" placeholder="pastDataBadgeUse 를 입력하세요" required>
                                                             </div>
                                                             <div class="form-group">
@@ -327,9 +335,9 @@
                                                             <div class="form-group">
                                                                 <label for="modify-username">사용자 이름</label>
                                                                 <select class="form-control" id="modify-username" name="username"  required>
-                                                                    <option value="" disabled selected>작사용자 이름을 선택하세요</option>
+                                                                    <option value="" disabled selected>사용자 이름을 선택하세요</option>
                                                                     <th:block th:each="user : ${usernameInfoList}">
-                                                                        <option th:value="${user.username}">[[${user.username}]]</option>
+                                                                        <option th:value="${user.username}">[[${user.name}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -362,7 +370,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-pastDataBadgeUse">pastDataBadgeUse</label>
-                                                                <input type="text" class="form-control" id="modify-pastDataBadgeUse" name="pastDataBadgeUse" placeholder="pastDataBadgeUse 을 입력하세요"/>
+                                                                <input type="text" class="form-control" id="modify-pastDataBadgeUse" name="pastDataBadgeUse" placeholder="pastDataBadgeUse 을 입력하세요"  onfocus="removeMoneySymbol(this)" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-pastDataYear">pastDataYear</label>

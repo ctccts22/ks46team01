@@ -20,7 +20,6 @@ public interface InventoryLogMapper {
     void addInventorySumFromCoffeeRequest(@Param("coffeeRequestIdx") Long coffeeRequestIdx);
 
 
-
     @Insert("INSERT INTO inventory_log (inventory_idx, company_info_idx, amount, transaction_type, admin_username) VALUES (#{inventoryIdx}, #{companyInfoIdx}, #{amount}, #{transactionType}, #{adminUsername})")
     void insertInventoryLog(InventoryLogDTO inventoryLogDTO);
 
