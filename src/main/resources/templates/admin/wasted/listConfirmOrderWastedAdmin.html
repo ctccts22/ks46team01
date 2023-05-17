@@ -3,6 +3,40 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.insert-button').click(function() {
+                let orderWastedIdx = $(this).closest('tr').find('td:eq(0)').text();
+                let companyInfoIdx = $(this).closest('tr').find('td:eq(1)').text();
+                let username = $(this).closest('tr').find('td:eq(3)').text();
+                let form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/admin/wasted/InsertDelivery");
+
+                let input_orderWastedIdx = document.createElement("input");
+                input_orderWastedIdx.setAttribute("type","hidden");
+                input_orderWastedIdx.setAttribute("name","orderWastedIdx");
+                input_orderWastedIdx.setAttribute("value",orderWastedIdx);
+                form.appendChild(input_orderWastedIdx);
+
+                let input_companyInfoIdx = document.createElement("input");
+                input_companyInfoIdx.setAttribute("type","hidden");
+                input_companyInfoIdx.setAttribute("name","companyInfoIdx");
+                input_companyInfoIdx.setAttribute("value",companyInfoIdx);
+                form.appendChild(input_companyInfoIdx);
+
+                let input_username = document.createElement("input");
+                input_username.setAttribute("type","hidden");
+                input_username.setAttribute("name","username");
+                input_username.setAttribute("value",username);
+                form.appendChild(input_username);
+
+                document.body.appendChild(form); //form 태그 문서에 추가
+                form.submit();
+            });
+        });
+    </script>
 </head>
 <th:block layout:fragment="customContent">
     <div class="col-md-12 col-sm-12 ">
@@ -35,6 +69,8 @@
                                 <thead class="thead-dark">
                                 <tr>
                                     </th>
+                                    <th hidden="hidden">orderWastedIdx</th>
+                                    <th hidden="hidden">comapnyInfoIdx</th>
                                     <th>사업자명</th>
                                     <th>아이디</th>
                                     <th>신청 담당자 번호</th>
@@ -42,10 +78,13 @@
                                     <th>중량</th>
                                     <th>승인신청 날짜</th>
                                     <th>승인상태</th>
+                                    <th>배송여부</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="wastedList,wastedListIdx : ${wastedList}">
+                                    <td hidden="hidden" th:text="${wastedList.orderWastedIdx}"></td>
+                                    <td hidden="hidden" th:text="${wastedList.companyInfoIdx}"></td>
                                     <td th:text="${wastedList.companyInfoName}"></td>
                                     <td th:text="${wastedList.userName}"></td>
                                     <td th:text="${wastedList.orderWastedPhone}"></td>
@@ -55,6 +94,10 @@
                                     <td th:if="${#strings.equals(wastedList.orderWastedConfirmStatus, 'Y')}">승인확인</td>
                                     <td th:if="${#strings.equals(wastedList.orderWastedConfirmStatus, 'N')}">승인거부</td>
                                     <td th:if="${#strings.equals(wastedList.orderWastedConfirmStatus,'대기중')}">승인대기</td>
+                                    <td th:if="${#strings.equals(wastedList.orderWastedConfirmStatus, 'Y')}"><button class="insert-button" type="button">배송가능</button></td>
+                                    <td th:if="${#strings.equals(wastedList.orderWastedConfirmStatus, 'N')}">배송불가</td>
+                                    <td th:if="${#strings.equals(wastedList.orderWastedConfirmStatus,'대기중')}">승인대기</td>
+
                                 </tr>
                                 </tbody>
                             </table>

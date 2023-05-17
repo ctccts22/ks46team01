@@ -62,7 +62,20 @@ public class WastedController {
         model.addAttribute("wastedList", wastedList);
         return "user/wasted/listConfirmWasted";
     }
+    @PostMapping("/updateDelivery")
+    public String wastedDeliveryUpdate(@RequestParam("orderWastedDeliveryIdx") Long orderWastedDeliveryIdx,
+                                       Model model,
+                                       HttpSession session){
+        userWastedService.wastedDeliveryUpdate(orderWastedDeliveryIdx);
 
+        User user = (User) session.getAttribute("user");
+        String sessionId = user.getUsername(); //접속해있는 아이디
+
+        List<CompanyDTO> wastedDeliveryList = userWastedService.listDelivery(sessionId);
+
+        model.addAttribute("DeliveryList", wastedDeliveryList);
+        return "user/wasted/listDeliveryWasted";
+    }
     @GetMapping("/listConfirmWasted")
     public String wastedConfirmList(HttpSession session,
                                     Model model) {

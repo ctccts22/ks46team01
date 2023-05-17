@@ -12,4 +12,5 @@ public interface WastedMapper {
     public void wastedConfirmInsert(OrderWastedConfirm wastedConfirm);
     public List<OrderWastedConfirm> wastedConfirmList();
     public List<OrderWastedDelivery> wastedDeliveryList();
+    public void wastedDeliveryInsert(OrderWastedDelivery owd);
 }
