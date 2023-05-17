@@ -6,9 +6,10 @@ import lombok.Data;
 public class FarmPickupDelivery extends FarmPickupConfirm{
     private Long farmPickupDeliveryIdx;
     private Long farmPickupRequestIdx;
-    private String userName;
+    private String username;
     private Long companyInfoIdx;
     private String farmPickupDeliveryStatus;
     private String farmPickupDeliveryCompany;
     private String farmPickupDeliveryComplete;
+    private String farmPickupDeliveryTrack;
 }

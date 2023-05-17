@@ -14,4 +14,5 @@ public interface UserWastedMapper {
     public List<CompanyDTO> listWasted(String userId); // 폐배지 구매신청리스트 사업자 회원
     public List<CompanyDTO> listDeliveryWasted(String userId); //폐배지 배송정보 사업자 회원
 
+    public void wastedDeliveryUpdate(Long orderWastedDeliveryIdx);
 }

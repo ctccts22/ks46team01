@@ -90,9 +90,12 @@
                   <td th:text="${userconfirmList.coffeeRequestAddress}"></td>
                   <td th:text="${userconfirmList.coffeeRequestAmount}+kg"></td>
                   <td th:text="${userconfirmList.coffeeRequestDate}"></td>
-                  <td th:text="${userconfirmList.coffeeRequestConfirmStatus}"></td>
-                  <td th:if="${#strings.equals(userconfirmList.coffeeRequestConfirmStatus, 'Y')}"><button class="delivery-button" type="button">발송</button></td>
-                  <td th:if="${#strings.equals(userconfirmList.coffeeRequestConfirmStatus, 'N')}"><button class="edit-button" type="button">불가</button></td>
+                  <td th:if="${#strings.equals(userconfirmList.coffeeRequestConfirmStatus, 'Y')}">승인확인</td>
+                  <td th:if="${#strings.equals(userconfirmList.coffeeRequestConfirmStatus, 'N')}">승인거절</td>
+                  <td th:if="${#strings.equals(userconfirmList.coffeeRequestConfirmStatus, '대기중')}">승인대기</td>
+                  <td th:if="${#strings.equals(userconfirmList.coffeeRequestConfirmStatus, 'Y')}"><button class="delivery-button" type="button">배송가능</button></td>
+                  <td th:if="${#strings.equals(userconfirmList.coffeeRequestConfirmStatus, '대기중')}"><button type="button">배송불가</button></td>
+                  <td th:if="${#strings.equals(userconfirmList.coffeeRequestConfirmStatus, 'N')}"><button type="button">배숭불가</button></td>
                 </tr>
                 </tbody>
               </table>

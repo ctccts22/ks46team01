@@ -21,15 +21,15 @@
         <form class="wastedForm" action="/user/wasted/insertWasted" method="post" novalidate>
             <p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a>
             </p>
-            <span class="section">폐배지 수거신청</span>
+            <span class="section">폐배지 주문신청</span>
             <div class="field item form-group">
-                <label class="col-form-label col-md-3 col-sm-3  label-align">농장명<span class="required">*</span></label>
+                <label class="col-form-label col-md-3 col-sm-3  label-align">사업자명<span class="required">*</span></label>
                 <div class="col-md-6 col-sm-6">
-                    <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="farmName" placeholder="농장명" required="required" />
+                    <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="farmName" placeholder="사업자명" required="required" />
                 </div>
             </div>
             <div class="field item form-group">
-                <label class="col-form-label col-md-3 col-sm-3  label-align">폐배지 수거중량 <span class="required">*</span></label>
+                <label class="col-form-label col-md-3 col-sm-3  label-align">폐배지 신청중량 <span class="required">*</span></label>
                 <div class="col-md-6 col-sm-6">
                     <input class="form-control number" type="number" name="amount" data-validate-minmax="10,100" required='required' placeholder="kg"></div>
             </div>
@@ -126,7 +126,7 @@
                     <input class="form-control tel" type="tel" name="phone" required='required' data-validate-length-range="8,20" /></div>
             </div>
             <div class="field item form-group">
-                <label class="col-form-label col-md-3 col-sm-3  label-align">폐배지 수거 내용<span class="required">*</span></label>
+                <label class="col-form-label col-md-3 col-sm-3  label-align">폐배지 신청 내용<span class="required">*</span></label>
                 <div class="col-md-6 col-sm-6">
                     <textarea required="required" name='message'></textarea></div>
             </div>

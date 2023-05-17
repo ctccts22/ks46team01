@@ -42,7 +42,6 @@ public class CoffeeController {
 
         User user = (User) session.getAttribute("user");
         String userId = user.getUsername();
-        System.out.println("userId:" + userId);
             List<CoffeeRequestConfirm> userConfirmList = coffeeService.listCoffeeConfirm(userId);
             model.addAttribute("userConfirmList", userConfirmList);
 
@@ -52,14 +51,11 @@ public class CoffeeController {
     @GetMapping("/listDeliveryCoffee")
     public String coffeeDeliveryList(Model model,
                                      HttpSession session) {
-        System.out.println("/listDeliveryCoffee 실행?");
         User user = (User) session.getAttribute("user");
         String userId = user.getUsername();
-        System.out.println(userId);
 
             List<CoffeeDelivery> userDeliveryList = coffeeService.listCoffeeDelivery(userId);
             model.addAttribute("userDeliveryList", userDeliveryList);
-            System.out.println("실행????????");
 
         return "user/coffee/listDeliveryCoffee";
     }
@@ -69,7 +65,7 @@ public class CoffeeController {
                                        Random random,
                                        @RequestParam("coffeeRequestIdx") Long coffeeRequestIdx,
                                        @RequestParam("companyInfoIdx") Long companyInfoIdx,
-                                       @RequestParam("coffeeRequestConfirmStatus") char coffeeRequestConfirmStatus){
+                                       @RequestParam("coffeeRequestConfirmStatus") String coffeeRequestConfirmStatus){
         User user = (User) session.getAttribute("user");
         String userId = user.getUsername();
         String shippingNumber = "";
@@ -94,13 +90,6 @@ public class CoffeeController {
         int index = random.nextInt(shippingCompanies.length);
 
         String selectedCompany = shippingCompanies[index];
-
-        System.out.println(selectedCompany);
-        System.out.println(shippingNumber);
-        System.out.println(userId);
-        System.out.println(coffeeRequestIdx);
-        System.out.println(companyInfoIdx);
-        System.out.println(coffeeRequestConfirmStatus);
         CoffeeDelivery cd = new CoffeeDelivery();
 
         cd.setUsername(userId);
@@ -129,9 +118,7 @@ public class CoffeeController {
         String address = zonecode + roadAddress + jibunAddress + detailAddress;
         User user = (User) session.getAttribute("user");
         String userId = user.getUsername();
-        System.out.println("아이디:" + userId);
         CompanyInfoDTO ci = coffeeService.listCompanyCode(userId);
-        System.out.println(ci.getCompanyInfoIdx());
         Long companyInfoIdx = ci.getCompanyInfoIdx();
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId", userId);
@@ -141,7 +128,6 @@ public class CoffeeController {
         map.put("message", message);
         map.put("companyInfoIdx", companyInfoIdx);
         int result = coffeeService.insertCoffeeRequest(map);
-        System.out.println(result + "쿼리결과확인");
         List<CoffeeRequestConfirm> userConfirmList = coffeeService.listCoffeeConfirm(userId);
         model.addAttribute("userConfirmList", userConfirmList);
 

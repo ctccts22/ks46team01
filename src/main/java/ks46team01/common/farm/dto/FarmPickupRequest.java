@@ -6,7 +6,7 @@ import lombok.Data;
 public class FarmPickupRequest {
     private Long farmPickupRequestIdx;
     private Long farmDataIdx;
-    private String userName;
+    private String username;
     private Long companyInfoIdx;
     private Long farmPickupRequestAmount;
     private String farmPickupRequestPhone;

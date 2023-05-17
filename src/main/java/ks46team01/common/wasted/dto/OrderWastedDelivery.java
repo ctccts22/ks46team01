@@ -11,4 +11,5 @@ public class OrderWastedDelivery extends OrderWastedConfirm{
     private String orderWastedDeliveryStatus;
     private String orderWastedDeliveryCompany;
     private String orderWastedDeliveryComplete;
+    private String orderWastedDeliveryTrack;
 }
