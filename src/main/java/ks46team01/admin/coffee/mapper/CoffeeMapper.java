@@ -23,6 +23,4 @@ public interface CoffeeMapper {
     public List<CoffeeDelivery> listCoffeeDelivery(); // 커피가루 배송리스트
 
 
-    public CoffeeDelivery getCoffeeRequestById(Long coffeeRequestIdx);
-
 }
