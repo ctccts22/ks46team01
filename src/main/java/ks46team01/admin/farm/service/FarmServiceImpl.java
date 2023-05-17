@@ -27,8 +27,8 @@ public class FarmServiceImpl implements FarmService{
     }
 
     @Override
-    public List<FarmPickupConfirm> farmPickupConfirmStatusList() {
-        List<FarmPickupConfirm> farmPickupConfirmStatusList = adminFarmMapper.farmPickupConfirmStatusList();
+    public List<FarmPickupDelivery> farmPickupConfirmStatusList() {
+        List<FarmPickupDelivery> farmPickupConfirmStatusList = adminFarmMapper.farmPickupConfirmStatusList();
         return farmPickupConfirmStatusList;
     }
 
@@ -36,6 +36,11 @@ public class FarmServiceImpl implements FarmService{
     public List<FarmPickupDelivery> farmPickupDeliveryList() {
         List<FarmPickupDelivery> farmPickupDeliveryList = adminFarmMapper.farmPickupDeliveryList();
         return farmPickupDeliveryList;
+    }
+
+    @Override
+    public void updateDelivery(Long farmPickupRequestIdx) {
+        adminFarmMapper.updateDelivery(farmPickupRequestIdx);
     }
 
 }

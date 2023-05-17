@@ -32,6 +32,16 @@ public class AdminFarmController {
 
         return "admin/farm/listRequestPickupFarmAdmin";
     }
+    @PostMapping("/updateDelivery")
+    public String adminUpdateDelivery(@RequestParam("farmPickupRequestIdx") Long farmPickupRequestIdx,
+                                      Model model){
+        farmService.updateDelivery(farmPickupRequestIdx);
+
+        List<FarmPickupDelivery> statusList = farmService.farmPickupConfirmStatusList();
+        model.addAttribute("statusList",statusList);
+        return "admin/farm/listConfirmPickupFarmAdmin";
+
+    }
     @PostMapping("/insertConfirmPickupFarmAdmin")
     public String aminFarmPickupConfirmInsert(@RequestParam("userName") String[] userId,
                                               @RequestParam("companyInfoIdx") Long[] companyInfoIdx,
@@ -49,7 +59,7 @@ public class AdminFarmController {
         for(int i = 0; i < farmPickupRequestIdx.length; i++){
         farmPickupConfirm.setFarmPickupRequestIdx(farmPickupRequestIdx[i]);
         farmPickupConfirm.setCompanyInfoIdx(companyInfoIdx[i]);
-        farmPickupConfirm.setUserName(userId[i]);
+        farmPickupConfirm.setUsername(userId[i]);
         farmService.farmPickupConfirmInsert(farmPickupConfirm);
         }
         System.out.println(content);
@@ -63,7 +73,7 @@ public class AdminFarmController {
     // 폐배지 수거신청확인 관리
     @GetMapping("/listConfirmPickupFarmAdmin")
     public String adminFarmPickupConfirmList(Model model) {
-        List<FarmPickupConfirm> statusList = farmService.farmPickupConfirmStatusList();
+        List<FarmPickupDelivery> statusList = farmService.farmPickupConfirmStatusList();
         model.addAttribute("statusList",statusList);
         return "admin/farm/listConfirmPickupFarmAdmin";
     }
