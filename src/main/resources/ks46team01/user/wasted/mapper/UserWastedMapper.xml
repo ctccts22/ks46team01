@@ -2,8 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks46team01.user.wasted.mapper.UserWastedMapper">
+    <update id="wastedDeliveryUpdate" parameterType="Long">
+        UPDATE order_wasted_delivery
+        SET order_wasted_delivery_status = 'Y'
+        WHERE order_wasted_delivery_idx = #{orderWastedDeliveryIdx};
+    </update>
     <select id="listDeliveryWasted" resultType="ks46team01.common.wasted.dto.CompanyDTO" parameterType="String">
-        SELECT
+        SELECT DISTINCT
+        owd.order_wasted_delivery_idx AS orderWastedDeliveryIdx,
         ci.company_info_name AS companyInfoName,
         ow.order_wasted_phone AS orderWastedPhone,
         ow.order_wasted_address AS orderWastedAddress,
@@ -14,7 +20,10 @@
         INNER JOIN company_info ci
         ON owd.company_info_idx = ci.company_info_idx
         INNER JOIN order_wasted ow
-        ON ow.order_wasted_idx = owd.order_wasted_idx WHERE ow.username = #{userId};
+        ON ow.order_wasted_idx = owd.order_wasted_idx
+        INNER JOIN order_wasted_confirm owc
+        ON ow.order_wasted_idx = owc.order_wasted_idx
+        WHERE ow.username = 'user3' AND owc.order_wasted_confirm_status = 'Y';
     </select>
     <select id="listWasted" resultType="ks46team01.common.wasted.dto.CompanyDTO">
         SELECT

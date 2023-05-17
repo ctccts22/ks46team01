@@ -37,4 +37,9 @@ public class UserWastedServiceImpl implements UserWastedService {
         List<CompanyDTO> cd = userWastedMapper.listDeliveryWasted(userId);
         return cd;
     }
+
+    @Override
+    public void wastedDeliveryUpdate(Long orderWastedDeliveryIdx) {
+        userWastedMapper.wastedDeliveryUpdate(orderWastedDeliveryIdx);
+    }
 }

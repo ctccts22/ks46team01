@@ -84,8 +84,8 @@
         company_info_idx,
         order_compost_confirm_status,
         order_compost_confirm_content,
-        admin_username, -- 승인 어드민 아이디
-        order_compost_confirm_date -- 승인날짜
-        )VALUES(#{orderCompostIdx},#{userName},#{companyInfoIdx},#{orderCompostConfirmStatus},#{orderCompostConfirmContent},#{adminUsername},now());
+        admin_username,
+        order_compost_confirm_date
+        )VALUES(#{orderCompostIdx},#{username},#{companyInfoIdx},#{orderCompostConfirmStatus},#{orderCompostConfirmContent},#{adminUsername},now());
     </insert>
 </mapper>

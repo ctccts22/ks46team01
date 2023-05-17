@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class FarmData extends FarmPickupDelivery{
     private Long farmDataIdx;
-    private String userName;
+    private String username;
     private Long companyInfoIdx;
     private Long farmDataCompost;
     private Long farmDataProduction;

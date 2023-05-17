@@ -38,4 +38,9 @@ public class WastedServiceImpl implements WastedService{
         List<OrderWastedDelivery> wastedDeliveryList = wastedMapper.wastedDeliveryList();
         return wastedDeliveryList;
     }
+
+    @Override
+    public void wastedDeliveryInsert(OrderWastedDelivery owd) {
+        wastedMapper.wastedDeliveryInsert(owd);
+    }
 }

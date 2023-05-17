@@ -54,7 +54,8 @@
                                         <td th:text="${DeliveryList.farmPickupRequestAddress}"></td>
                                         <td th:text="${DeliveryList.farmPickupRequestAmount}"></td>
                                         <td th:text="${DeliveryList.farmPickupRequestDate}"}></td>
-                                        <td th:text="${DeliveryList.farmPickupDeliveryStatus}"></td>
+                                        <td th:if="${#strings.equals(DeliveryList.farmPickupDeliveryStatus,'Y')}">배송완료</td>
+                                        <td th:if="${#strings.equals(DeliveryList.farmPickupDeliveryStatus,'P')}">배송중</td>
                                     </tr>
                                     </tbody>
                                 </table>

@@ -10,4 +10,5 @@ public interface UserWastedService {
     public void insertWasted(HashMap<String,Object> map);
     public List<CompanyDTO> listWasted(String userId);
     public List<CompanyDTO> listDelivery(String userId);
+    public void wastedDeliveryUpdate(Long orderWastedDeliveryIdx);
 }
