@@ -38,8 +38,8 @@
             $('body').on('click', '.edit-button', function () {
                 const row = $(this).closest('tr');
                 const farmDataIdx = row.find('td[data-key="farmDataIdx"]').text();
-                const username = row.find('td[data-key="username"]').text();
-                const companyInfoIdx = row.find('td[data-key="companyInfoIdx"]').text();
+                const name = row.find('td[data-key="username"]').text();
+                const companyInfoLicenseNumber = row.find('td[data-key="companyInfoIdx"]').text();
                 const farmDataCompost = row.find('td[data-key="farmDataCompost"]').text();
                 const farmDataProduction = row.find('td[data-key="farmDataProduction"]').text();
                 const farmDataExpectedSale = row.find('td[data-key="farmDataExpectedSale"]').text();
@@ -50,8 +50,8 @@
 
 
                 $('#modify-farmDataIdx').val(farmDataIdx);
-                $('#modify-username').val(username);
-                $('#modify-companyInfoIdx').val(companyInfoIdx);
+                $('#modify-name').val(name);
+                $('#modify-companyInfoLicenseNumber').val(companyInfoLicenseNumber);
                 $('#modify-farmDataCompost').val(farmDataCompost);
                 $('#modify-farmDataProduction').val(farmDataProduction);
                 $('#modify-farmDataExpectedSale').val(farmDataExpectedSale);
@@ -192,8 +192,8 @@
                                                 <th>사업자 고유번호</th>
                                                 <th>재배규모(배지기준)</th>
                                                 <th>일 버섯 생산량</th>
-                                                <th>매출 예상치</th>
-                                                <th>실 발생 매출</th>
+                                                <th>매출 예상치 (₩)</th>
+                                                <th>실 발생 매출 (₩)</th>
                                                 <th>생산 일자</th>
                                                 <th>매출 발생 일자</th>
                                                 <th>예상 폐배지 수량</th>
@@ -205,8 +205,8 @@
                                             <tbody>
                                             <tr role="row" class="odd" th:each="fd:${farmData}" >
                                                 <td data-key="farmDataIdx" th:text="${fd.farmDataIdx}"></td>
-                                                <td data-key="username" th:text="${fd.username}"></td>
-                                                <td data-key="companyInfoIdx" th:text="${fd.companyInfoIdx}"></td>
+                                                <td data-key="username" th:text="${fd.name}"></td>
+                                                <td data-key="companyInfoIdx" th:text="${fd.companyInfoLicenseNumber}"></td>
                                                 <td data-key="farmDataCompost" th:text="${fd.farmDataCompost}"></td>
                                                 <td data-key="farmDataProduction" th:text="${fd.farmDataProduction}"></td>
                                                 <td data-key="farmDataExpectedSale" th:text="${fd.farmDataExpectedSale}"></td>
@@ -318,7 +318,7 @@
                                                                 <select class="form-control" id="modify-username" name="username"  required>
                                                                     <option value="" disabled selected>usernameInfo 을 선택하세요</option>
                                                                     <th:block th:each="u : ${usernameInfo}">
-                                                                        <option th:value="${u.username}">[[${u.username}]]</option>
+                                                                        <option th:value="${u.username}">[[${u.name}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -331,6 +331,7 @@
                                                                     </th:block>
                                                                 </select>
                                                             </div>
+
 
                                                             <div class="form-group">
                                                                 <label for="modify-farmDataCompost">farmDataCompost</label>

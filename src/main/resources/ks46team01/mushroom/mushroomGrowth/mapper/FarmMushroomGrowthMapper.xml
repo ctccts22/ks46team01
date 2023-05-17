@@ -19,10 +19,10 @@
         /* 조회*/
         SELECT
         mg.mushroom_growth_idx          as mushroomGrowthIdx
-        , mg.username                   as username
-        , mg.company_info_idx           as companyInfoIdx
+        , u.name                        as name
+        , ci.company_info_name          as companyInfoName
         , mg.farm_data_idx              as farmDataIdx
-        , mg.crop_idx                   as cropIdx
+        , c.crop_type                   as cropType
         , mg.mushroom_growth_daily      as mushroomGrowthDaily
         , mg.mushroom_growth_status     as mushroomGrowthStatus
         , mg.mushroom_growth_date       as mushroomGrowthDate
@@ -31,7 +31,8 @@
         FROM mushroom_growth mg
         INNER JOIN
         user u
-        ON mg.username = u.username
+        ON
+            mg.username = u.username
         INNER JOIN
         company_info ci
         ON mg.company_info_idx = ci.company_info_idx
@@ -43,7 +44,7 @@
         ON mg.crop_idx = c.crop_idx;
     </select>
 
-    <select id="getUserIdx" resultType="ks46team01.user.info.entity.User">
+    <select id="getUserIdx" resultType="ks46team01.user.info.dto.UserDTO">
         /* User 테이블 조회*/
         SELECT
             username
@@ -72,7 +73,7 @@
         FROM
             mushroom_farm_data
     </select>
-    <select id="getCompanyInfo" resultType="ks46team01.common.company.info.entity.CompanyInfo">
+    <select id="getCompanyInfo" resultType="ks46team01.common.company.info.dto.CompanyInfoDTO">
         /* CompanyInfo 테이블 조회*/
         SELECT
         company_info_idx                as companyInfoIdx
@@ -88,6 +89,7 @@
         /* crop 테이블 조회*/
         SELECT
         crop_idx        as cropIdx
+        ,crop_type    as cropType
         ,crop_content   as cropContent
         FROM
         crop
@@ -156,9 +158,9 @@
             <if test="mushroomGrowthStatus != null and mushroomGrowthStatus != ''">
                 mushroom_growth_status = #{mushroomGrowthStatus},
             </if>
-            <if test="mushroomGrowthDate != null and mushroomGrowthDate != ''">
-                mushroom_growth_date = #{mushroomGrowthDate},
-            </if>
+
+                mushroom_growth_date = now() ,
+
             <if test="mushroomGrowthContent != null and mushroomGrowthContent != ''">
                 mushroom_growth_content = #{mushroomGrowthContent},
             </if>

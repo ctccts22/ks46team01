@@ -40,7 +40,7 @@
         INNER JOIN user u ON m.username = u.username
 
     </select>
-    <select id="getUsernameInfo" resultType="ks46team01.mushroom.mushroomPastData.dto.UsernameInfo">
+    <select id="getUsernameInfo" resultType="ks46team01.user.info.dto.UserDTO">
         /* user 테이블 조회 */
         SELECT
             username
@@ -61,7 +61,7 @@
         FROM
             crop
     </select>
-    <select id="getCompanyInfo" resultType="ks46team01.mushroom.mushroomPastData.dto.CompanyInfo">
+    <select id="getCompanyInfo" resultType="ks46team01.common.company.info.dto.CompanyInfoDTO">
         /* CompanyInfo 테이블 조회*/
     SELECT
         company_info_idx                as companyInfoIdx
