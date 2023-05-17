@@ -101,19 +101,4 @@
         INNER JOIN coffee_request AS cr
         ON cr.coffee_request_idx = cd.coffee_request_idx;
     </select>
-    <select id="getCoffeeRequestById" parameterType="Long" resultType="ks46team01.common.coffee.dto.CoffeeRequest">
-        SELECT
-        cr.coffee_request_idx as coffeeRequestIdx,
-        cr.username as username,
-        cr.coffee_request_amount as coffeeRequestAmount,
-        cr.coffee_request_address as coffeeRequestAddress,
-        cr.coffee_request_phone as coffeeRequestPhone,
-        cr.coffee_request_content as coffeeRequestContent,
-        cr.coffee_request_date as coffeeRequestDate,
-        ci.company_info_name as companyInfoName,
-        ci.company_info_idx as companyInfoIdx
-        FROM coffee_request AS cr
-        INNER JOIN company_info AS ci ON cr.company_info_idx = ci.company_info_idx
-        WHERE cr.coffee_request_idx = #{coffeeRequestId};
-    </select>
 </mapper>
