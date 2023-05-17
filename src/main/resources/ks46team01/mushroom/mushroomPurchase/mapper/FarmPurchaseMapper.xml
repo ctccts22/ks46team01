@@ -47,7 +47,7 @@
         INNER JOIN
             company_contract AS cc ON map.company_contract_idx = cc.company_contract_idx;
     </select>
-    <select id="getUserIdx" resultType="ks46team01.user.info.entity.User">
+    <select id="getUserIdx" resultType="ks46team01.user.info.dto.UserDTO">
         /* 이용자 조회*/
         SELECT
         username
@@ -60,7 +60,7 @@
 
     </select>
 
-    <select id="getCompanyIdx" resultType="ks46team01.admin.company.entity.Company">
+    <select id="getCompanyIdx" resultType="ks46team01.admin.company.dto.CompanyDTO">
         /* 사업장 고유 코드 조회*/
         SELECT
         company_idx     as companyIdx
@@ -69,7 +69,7 @@
             company
     </select>
 
-    <select id="getCompanyInfoIdx" resultType="ks46team01.common.company.info.entity.CompanyInfo">
+    <select id="getCompanyInfoIdx" resultType="ks46team01.common.company.info.dto.CompanyInfoDTO">
         /* 사업장 상세 정보 조회*/
         SELECT
         company_info_idx                as companyInfoIdx
@@ -81,7 +81,7 @@
             company_info
 
     </select>
-    <select id="getInventoryIdx" resultType="ks46team01.admin.inventory.entity.Inventory">
+    <select id="getInventoryIdx" resultType="ks46team01.admin.inventories.inventory.dto.InventoryDTO">
         /*재고물품 수량조회  */
         SELECT
         inventory_idx       as inventoryIdx
@@ -89,7 +89,7 @@
         FROM
             inventory
     </select>
-    <select id="getCompanyContractIdx" resultType="ks46team01.admin.company.contract.entity.CompanyContract">
+    <select id="getCompanyContractIdx" resultType="ks46team01.common.company.contract.dto.CompanyContractDTO">
         /* 사업자 계약서 상세내용 조회*/
         SELECT
         company_contract_idx                as companyContractIdx

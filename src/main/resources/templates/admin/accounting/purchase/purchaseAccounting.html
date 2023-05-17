@@ -41,28 +41,28 @@
             $('body').on('click', '.edit-button', function () {
                 const row= $(this).closest('tr');
                 const accountingPurchaseAdminIdx = row.find('td[data-key="accountingPurchaseAdminIdx"]').text();
-                const companyIdx = row.find('td[data-key="companyIdx"]').text();
-                const inventoryIdx = row.find('td[data-key="inventoryIdx"]').text();
+                const companyType = row.find('td[data-key="companyIdx"]').text();
+                const inventoryType = row.find('td[data-key="inventoryIdx"]').text();
                 const companyContractIdx = row.find('td[data-key="companyContractIdx"]').text();
                 const accountingPurchaseAdminDate = row.find('td[data-key="accountingPurchaseAdminDate"]').text();
                 const accountingPurchaseAdminPrice = row.find('td[data-key="accountingPurchaseAdminPrice"]').text();
                 const accountingPurchaseAdminAmount = row.find('td[data-key="accountingPurchaseAdminAmount"]').text();
                 const accountingPurchaseAdminPayment = row.find('td[data-key="accountingPurchaseAdminPayment"]').text();
                 const accountingPurchaseAdminSum = row.find('td[data-key="accountingPurchaseAdminSum"]').text();
-                const adminUsername = row.find('td[data-key="adminUsername"]').text();
+                const adminName = row.find('td[data-key="adminUsername"]').text();
                 const accountingPurchaseAdminUpdate = row.find('td[data-key="accountingPurchaseAdminUpdate"]').text();
 
 
                 $('#modify-accountingPurchaseAdminIdx').val(accountingPurchaseAdminIdx);
-                $('#modify-companyIdx').val(companyIdx);
-                $('#modify-inventoryIdx').val(inventoryIdx);
+                $('#modify-companyType').val(companyType);
+                $('#modify-inventoryType').val(inventoryType);
                 $('#modify-companyContractIdx').val(companyContractIdx);
                 $('#modify-accountingPurchaseAdminDate').val(accountingPurchaseAdminDate);
                 $('#modify-accountingPurchaseAdminPrice').val(accountingPurchaseAdminPrice);
                 $('#modify-accountingPurchaseAdminAmount').val(accountingPurchaseAdminAmount);
                 $('#modify-accountingPurchaseAdminPayment').val(accountingPurchaseAdminPayment);
                 $('#modify-accountingPurchaseAdminSum').val(accountingPurchaseAdminSum);
-                $('#modify-adminUsername').val(adminUsername);
+                $('#modify-adminName').val(adminName);
                 $('#modify-accountingPurchaseAdminUpdate').val(accountingPurchaseAdminUpdate);
 
                 // 모달 보여짐
@@ -74,7 +74,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/delete/purchaseAccountingDelete',
+                    url: '/admin/accounting/purchase/delete/purchaseAccountingDelete',
                     data: { accountingPurchaseAdminIdx: accountingPurchaseAdminIdx },
                     success: function (response) {
                         alert('삭제성공');
@@ -83,6 +83,7 @@
                     },
                     error: function () {
                         alert('삭제실패');
+
                     }
                 });
             });
@@ -116,6 +117,15 @@
                                 break;
                             case '2':
                                 searchKey = 'companyIdx';
+                                break;
+                            case '3':
+                                searchKey = 'inventoryIdx';
+                                break;
+                            case '4':
+                                searchKey = 'companyContractIdx';
+                                break;
+                            case '5':
+                                searchKey = 'adminUsername';
                                 break;
                             default:
                                 break;
@@ -154,10 +164,13 @@
                                 <div class="input-group">
                                     <select class="form-select" size="1" aria-label="size 3 select example">
                                         <option selected>선택</option>
-                                        <option value="1">코드</option>
-                                        <option value="2">회사</option>
+                                        <option value="1">회계관리 매입 고유번호</option>
+                                        <option value="2">사업장 고유코드</option>
+                                        <option value="3">재고물품고유번호</option>
+                                        <option value="4">사업자 계약 신청관리</option>
+                                        <option value="5">운영자 아이디</option>
                                     </select>
-                                    <input type="text" class="form-control" placeholder="검색어를 입력하세요">
+                                    <input type="text" class="form-control" placeholder="검색어를 입력하세요" name="accountingPurchaseAdminIdx">
                                     <div class="input-group-append">
                                         <button  id="search-btn" class="btn btn-outline-secondary" type="submit">검색</button>
                                         <a class="btn btn-outline-secondary" id="clean-btn" th:href="@{/admin/accounting/purchase/purchaseAccounting}">초기화</a>
@@ -191,22 +204,24 @@
                                                 <th>매입액</th>
                                                 <th>운영자아이디</th>
                                                 <th>수정날짜</th>
-
+                                                <th>수정</th>
+                                                <th>삭제</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr role="row" class="odd" th:each="l:${ap}" >
-                                                <td th:text="${l.accountingPurchaseAdminIdx}"></td>
-                                                <td th:text="${l.companyIdx}"></td>
-                                                <td th:text="${l.inventoryIdx}"></td>
-                                                <td th:text="${l.companyContractIdx}"></td>
-                                                <td th:text="${l.accountingPurchaseAdminDate}"></td>
-                                                <td th:text="${l.accountingPurchaseAdminPrice}"></td>
-                                                <td th:text="${l.accountingPurchaseAdminAmount}"></td>
-                                                <td th:text="${l.accountingPurchaseAdminPayment}"></td>
-                                                <td th:text="${l.accountingPurchaseAdminSum}"></td>
-                                                <td th:text="${l.adminUsername}"></td>
-                                                <td th:text="${l.accountingPurchaseAdminUpdate}"></td>
+                                                <td data-key="accountingPurchaseAdminIdx" th:text="${l.accountingPurchaseAdminIdx}"></td>
+                                                <td data-key="companyIdx" th:text="${l.companyType}"></td>
+                                                <td data-key="inventoryIdx" th:text="${l.inventoryType}"></td>
+                                                <td data-key="companyContractIdx" th:text="${l.companyContractIdx}"></td>
+                                                <td data-key="accountingPurchaseAdminDate" th:text="${#dates.format(l.accountingPurchaseAdminDate,'yyyy-MM-dd')}"></td>
+                                                <td data-key="accountingPurchaseAdminPrice" th:text="${l.accountingPurchaseAdminPrice}"></td>
+                                                <td data-key="accountingPurchaseAdminAmount" th:text="${l.accountingPurchaseAdminAmount}"></td>
+                                                <td data-key="accountingPurchaseAdminPayment" th:text="${l.accountingPurchaseAdminPayment}"></td>
+                                                <td data-key="accountingPurchaseAdminSum" th:text="${l.accountingPurchaseAdminSum}"></td>
+                                                <td data-key="adminUsername" th:text="${l.adminName}"></td>
+                                                <td data-key="accountingPurchaseAdminUpdate" th:text="${#dates.format(l.accountingPurchaseAdminUpdate,'yyyy-MM-dd')}"></td>
+
 
                                                 <td>
                                                     <button type="button" class="edit-button">수정</button>
@@ -238,7 +253,7 @@
                                                                 <select class="form-control" id="add-companyIdx" name="companyIdx"  required>
                                                                     <option value="" disabled selected>companyIdx 을 선택하세요</option>
                                                                     <th:block th:each="c : ${companies}">
-                                                                        <option th:value="${c.companyIdx}">[[${c.companyIdx}]]</option>
+                                                                        <option th:value="${c.companyIdx}">[[${c.companyType}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -247,7 +262,7 @@
                                                                 <select class="form-control" id="add-inventoryIdx" name="inventoryIdx"  required>
                                                                     <option value="" disabled selected>inventoryIdx 을 선택하세요</option>
                                                                     <th:block th:each="i : ${inventories}">
-                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryIdx}]]</option>
+                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryType}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -286,7 +301,7 @@
                                                                 <select class="form-control" id="add-adminUsername" name="adminUsername"  required>
                                                                     <option value="" disabled selected>adminUsername 을 선택하세요</option>
                                                                     <th:block th:each="a : ${admins}">
-                                                                        <option th:value="${a.adminUsername}">[[${a.adminUsername}]]</option>
+                                                                        <option th:value="${a.adminUsername}">[[${a.adminName}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -312,14 +327,14 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form th:action="@{/admin/accounting/purchase/modifypurchaseAccounting}" method="post">
+                                                        <form th:action="@{/admin/accounting/purchase/purchaseAccountingModify}" method="post">
                                                             <input type="hidden" id="modify-accountingPurchaseAdminIdx" name="accountingPurchaseAdminIdx">
                                                             <div class="form-group">
                                                                 <label for="modify-companyIdx">companyIdx 고유코드</label>
                                                                 <select class="form-control" id="modify-companyIdx" name="companyIdx"  required>
                                                                     <option value="companyIdx" disabled selected>companyIdx을 선택하세요</option>
                                                                     <th:block th:each="c : ${companies}">
-                                                                        <option th:value="${c.companyIdx}">[[${c.companyIdx}]]</option>
+                                                                        <option th:value="${c.companyIdx}">[[${c.companyType}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -328,7 +343,7 @@
                                                                 <select class="form-control" id="modify-inventoryIdx" name="inventoryIdx"  required>
                                                                     <option value="inventoryIdx" disabled selected>inventoryIdx 을 선택하세요</option>
                                                                     <th:block th:each="i : ${inventories}">
-                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryIdx}]]</option>
+                                                                        <option th:value="${i.inventoryIdx}">[[${i.inventoryType}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
@@ -347,7 +362,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-accountingPurchaseAdminPrice">accountingPurchaseAdminPrice</label>
-                                                                <input type="text" class="form-control" id="modify-accountingPurchaseAdminPrice" name="accountingPurchaseAdminPrice" placeholder="accountingPurchaseAdminPrice 을 입력하세요"/>
+                                                                <input type="number" class="form-control" id="modify-accountingPurchaseAdminPrice" name="accountingPurchaseAdminPrice" placeholder="accountingPurchaseAdminPrice 을 입력하세요"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-accountingPurchaseAdminAmount">accountingPurchaseAdminAmount</label>
@@ -359,21 +374,18 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-accountingPurchaseAdminSum">accountingPurchaseAdminSum</label>
-                                                                <input type="text" class="form-control" id="modify-accountingPurchaseAdminSum" name="accountingPurchaseAdminSum" placeholder="accountingPurchaseAdminSum 을 입력하세요"/>
+                                                                <input type="number" class="form-control" id="modify-accountingPurchaseAdminSum" name="accountingPurchaseAdminSum" placeholder="accountingPurchaseAdminSum 을 입력하세요"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modify-adminUsername">adminUsername 고유코드</label>
                                                                 <select class="form-control" id="modify-adminUsername" name="adminUsername"  required>
                                                                     <option value="adminUsername" disabled selected> adminUsername 을 선택하세요</option>
                                                                     <th:block th:each="a : ${admins}">
-                                                                        <option th:value="${a.adminUsername}">[[${a.adminUsername}]]</option>
+                                                                        <option th:value="${a.adminUsername}">[[${a.adminName}]]</option>
                                                                     </th:block>
                                                                 </select>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="modify-accountingPurchaseAdminUpdate">accountingPurchaseAdminUpdate</label>
-                                                                <input type="text" class="form-control" id="modify-accountingPurchaseAdminUpdate" name="accountingPurchaseAdminUpdate" placeholder="accountingPurchaseAdminUpdate 을 입력하세요"/>
-                                                            </div>
+
 
 
 

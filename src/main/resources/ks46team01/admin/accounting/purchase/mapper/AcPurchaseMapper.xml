@@ -44,7 +44,7 @@
             ON apa.admin_username = a.admin_username
     </select>
 
-    <select id="getCompany" resultType="ks46team01.admin.company.entity.Company">
+    <select id="getCompany" resultType="ks46team01.admin.company.dto.CompanyDTO">
         SELECT
             company_idx         as companyIdx
             , company_type      as companyType
@@ -52,13 +52,13 @@
         FROM company
     </select>
 
-    <select id="getInventory" resultType="ks46team01.admin.inventory.entity.Inventory">
+    <select id="getInventory" resultType="ks46team01.admin.inventories.inventory.dto.InventoryDTO">
         SELECT
             inventory_idx           as inventoryIdx
             , inventory_type        as inventoryType
         FROM inventory
     </select>
-    <select id="getCompanyContract" resultType="ks46team01.admin.company.contract.entity.CompanyContract">
+    <select id="getCompanyContract" resultType="ks46team01.common.company.contract.dto.CompanyContractDTO">
         SELECT
         company_contract_idx                    as companyContractIdx
         , company_contract_delivery_term        as companyContractDeliveryTerm
@@ -68,7 +68,7 @@
         FROM company_contract
     </select>
 
-    <select id="getAdmin" resultType="ks46team01.admin.info.entity.Admin">
+    <select id="getAdmin" resultType="ks46team01.admin.info.dto.AdminDTO">
         SELECT
         admin_username  as adminUsername
         , admin_name    as adminName
