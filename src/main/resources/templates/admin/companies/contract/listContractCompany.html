@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+      .dataTables_wrapper .dataTables_filter {
+          float: left;
+          text-align: left;
+      }
+  </style>
+</head>
+
+<th:block layout:fragment="customJs">
+  <script>
+      $(document).ready(function () {
+          $('body').on('click', '.edit-button', function () {
+              const row = $(this).closest('tr');
+
+              const companyContractIdx = row.find('td[data-key="companyContractIdx"]').text();
+              const companyContractStart = row.find('td[data-key="companyContractStart"]').text();
+              const companyContractEnd = row.find('td[data-key="companyContractEnd"]').text();
+              const companyContractDeliveryTerm = row.find('td[data-key="companyContractDeliveryTerm"]').text();
+              const companyContractAmount = row.find('td[data-key="companyContractAmount"]').text();
+
+              Swal.fire({
+                  title: '사업자계약수정',
+                  html:
+                      `<form id="edit-companyContract">
+                      <input  type="hidden" id="edit-companyContractIdx" name="companyContractIdx" value="${companyContractIdx}"/>
+                      <div class="form-group">
+                          <label for="edit-companyContractStart">사업자계약시작:</label>
+                          <input class="form-control" id="edit-companyContractStart"
+                                 name="companyContractStart" value="${companyContractStart}"
+                                 type="date" required/>
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-companyContractEnd">사업자계약종료:</label>
+                          <input class="form-control" id="edit-companyContractEnd"
+                                 name="companyContractEnd" value="${companyContractEnd}"
+                                 type="date" required/>
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-companyContractDeliveryTerm">배송기준텀:</label>
+                          <input class="form-control" id="edit-companyContractDeliveryTerm"
+                                 name="companyContractDeliveryTerm" value="${companyContractDeliveryTerm}"
+                                 type="text" required/>
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-companyContractAmount">계약요구중량:</label>
+                          <input class="form-control" id="edit-companyContractAmount"
+                                 name="companyContractAmount" value="${companyContractAmount}"
+                                 type="number" required/>
+                      </div>
+                  </form>`,
+                  showCancelButton: true,
+                  confirmButtonText: '수정',
+                  cancelButtonText: '최소',
+                  preConfirm: () => {
+                      const form = document.getElementById('edit-companyContract');
+                      $.ajax({
+                          url: '/admin/companies/contract/updateCompanyContract',
+                          method: 'POST',
+                          data: {
+                              companyContractIdx: $('#edit-companyContractIdx').val(),
+                              companyContractStart: $('#edit-companyContractStart').val(),
+                              companyContractEnd: $('#edit-companyContractEnd').val(),
+                              companyContractDeliveryTerm: $('#edit-companyContractDeliveryTerm').val(),
+                              companyContractAmount: $('#edit-companyContractAmount').val(),
+                          },
+                          success: function (response) {
+                              Swal.fire('Success!', '성공적으로 수정되었습니다.', 'success')
+                                  .then(() => {
+                                      location.reload();
+                                  });
+                          },
+                          error: function () {
+                              Swal.fire('Error!', '수정에 실패했습니다.', 'error');
+                          },
+                      });
+                  }
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                  }
+              });
+          });
+      $('#datatable-custom').DataTable({
+          pagination: false,
+          searching: true,
+          lengthChange: false,
+          dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
+              "<'row'<'col-sm-12'tr>>" +
+              "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+      });
+  });
+  </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <div class="page-title">
+    <div class="title">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2 class="my-4">사업자계약관리</h2>
+
+
+          <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+              </div>
+            </li>
+          </ul>
+
+          <div class="clearfix"></div>
+        </div>
+
+        <form method="get" th:action="@{/admin/companies/contract/listContractApproveCompany}">
+          <button class="btn btn-outline-secondary" type="submit">사업자계약 승인관리</button>
+        </form>
+
+        <div class="x_content">
+          <div class="row mb-3">
+            <div class="col-md-6">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card-box table-responsive">
+                <div class="col-sm-12">
+                  <div class="dataTables_wrapper container-fluid dt-bootstrap no-footer"
+                       id="datatable-buttons_wrapper">
+
+
+                    <table aria-describedby="datatable-buttons_info"
+                           class="table table-striped table-bordered dataTable no-footer dtr-inline"
+                           id="datatable-custom" role="grid"
+                           style="width: 100%;">
+                      <thead class="thead-dark">
+                      <tr role="row">
+                        <th>사업자계약관리고유번호</th>
+                        <th>사업자번호</th>
+                        <th>사업자배송기준텀</th>
+                        <th>사업자계약시작일</th>
+                        <th>사업자계약종료일</th>
+                        <th>사업자계약기간</th>
+                        <th>사업자계약요구중량</th>
+                        <th>사업자계약단가(1kg)</th>
+                        <th>사업자탈퇴유무</th>
+                        <th>사업자계약승인</th>
+                        <th>수정</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr class="odd" role="row" th:each="companyContract : ${companyContractList}">
+                        <td data-key="companyContractIdx" th:text="${companyContract.companyContractIdx}"></td>
+                        <td th:text="${companyContract.companyInfoLicenseNumber}"></td>
+                        <td data-key="companyContractDeliveryTerm" th:text="${companyContract.companyContractDeliveryTerm}"></td>
+                        <td data-key="companyContractStart" th:text="${companyContract.companyContractStart}"></td>
+                        <td data-key="companyContractEnd" th:text="${companyContract.companyContractEnd}"></td>
+                        <td th:text="${companyContract.contractDuration}+일"></td>
+                        <td data-key="companyContractAmount" th:text="${companyContract.companyContractAmount}+kg"></td>
+                        <td th:text="${companyContract.companyUnitPrice}+원"></td>
+                        <td th:text="${companyContract.companyInfoIsDel}"></td>
+                        <td>
+                        <span th:each="approval : ${companyContract.companyContractApprovals}"
+                              th:text="${approval.companyContractApproveStatus}"></span>
+                        </td>
+                        <td>
+                          <button class="edit-button" type="button">수정</button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>
+
+
+

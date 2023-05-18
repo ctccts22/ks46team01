@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head></head>
+
+<th:block layout:fragment="customJs">
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            let error = /*[[${error}]]*/ null;
+            if (error) {
+                alert(error);
+            }
+        });
+    </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form th:action="@{/auth/loginAdmin}" method="post">
+                        <div id="error-alert" class="alert alert-danger" style="display: none;">
+                            <p></p>
+                        </div>
+                        <h1>운영자 로그인</h1>
+                        <div>
+                            <input type="text" class="form-control" placeholder="아이디" required="" name="username" value="admin1"/>
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="비밀번호" required="" name="password" value="admin1"/>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary w-100">로그인</button>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <p class="change_link">환영합니다 운영자님</p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1><i class="fa fa-leaf"></i> Mush Cycle</h1>
+                                <p>©2023 친환경 그린 이코노미 플렛폼 Mush Cycle</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</html>

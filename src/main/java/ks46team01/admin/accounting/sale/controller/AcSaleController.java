@@ -46,7 +46,7 @@ public class AcSaleController {
 
     //입력
     @GetMapping("/saleAccountingAdd")
-    public String showAddSaleAccounting(Model model){
+    public String showAddSaleAcounting(Model model){
         List<CompanyDTO> companyDTOList = acSaleService.getCompany();
         List<Inventory> inventories = acSaleService.getInventory();
         List<CompanyContractDTO> companyContractDTOS = acSaleService.getCompanyContract();
@@ -136,7 +136,7 @@ public class AcSaleController {
 
     //삭제
     @PostMapping("/delete/saleAccountingDelete")
-    public String deleteAcSale(@RequestParam(name="accountingSalesAdminIdx",required = false)Long accountingSalesAdminIdx){
+    public String delteAcSale(@RequestParam(name="accountingSalesAdminIdx",required = false)Long accountingSalesAdminIdx){
         AcSale acSaleInfo = acSaleService.getAcSaleInfoByDeleteId(accountingSalesAdminIdx);
         acSaleService.deleteAcSale(accountingSalesAdminIdx);
         return "redirect:/admin/accounting/sale/saleAccounting";

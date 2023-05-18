@@ -14,7 +14,6 @@ import java.util.List;
 @Mapper
 public interface AcSaleMapper {
 
-
     //조회
     List<AcSale> getAcSale();
     List<CompanyDTO> getCompany();
