@@ -105,7 +105,7 @@ public class FarmDataService {
 
         farmDataMapper.deleteFarmDataByIdx(farmDataIdx);
     }
-    // 사용 중인 데이터인지 검사
+
 
 
 }

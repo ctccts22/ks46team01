@@ -176,4 +176,8 @@ public class AcPurchase {
                 ", adminName='" + adminName + '\'' +
                 '}';
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ab3d1e (5월19일 추가)
 }
