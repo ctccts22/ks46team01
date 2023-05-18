@@ -22,10 +22,10 @@
     <select id="getListPurchaseAccount" resultType="ks46team01.mushroom.mushroomPurchase.dto.FarmPurchase">
         SELECT
             map.accounting_purchase_idx                 as accountingPurchaseIdx
-            , u.name                              as name
-            , c.company_type                           as companyType
-            , ci.company_info_license_number                      as companyInfoLicenseNumber
-            , i.inventory_type                         as inventoryType
+            , u.name                                    as name
+            , c.company_type                            as companyType
+            , ci.company_info_license_number            as companyInfoLicenseNumber
+            , i.inventory_type                          as inventoryType
             , map.company_contract_idx                  as companyContractIdx
             , map.accounting_purchase_date              as accountingPurchaseDate
             , map.accounting_purchase_type              as accountingPurchaseType
@@ -134,7 +134,7 @@
         )
     </insert>
 
-    <select id="getPurchaseAccountInfoByIdx" parameterType="String" resultMap="PurchaseAccount">
+    <select id="getPurchaseAccountInfoByIdx" parameterType="Long" resultMap="PurchaseAccount">
         /* 대상 조회 */
         SELECT
         accounting_purchase_idx
@@ -157,6 +157,7 @@
     </select>
 
     <update id="modifyPurchaseAccount" parameterType="ks46team01.mushroom.mushroomPurchase.dto.FarmPurchase">
+        /*정보수정*/
         UPDATE mushroom_accounting_purchase
         <trim prefix="SET" suffixOverrides=",">
             <if test="username != null and username != ''">
@@ -200,8 +201,6 @@
         WHERE
         accounting_purchase_idx = #{accountingPurchaseIdx}
     </update>
-
-
     <select id="getPurchaseAccountDeleteInfoByIdx" parameterType="Long" resultMap="PurchaseAccount">
         /*삭제 대상 조회 */
         SELECT
@@ -231,9 +230,4 @@
         WHERE
         accounting_purchase_idx=#{accountingPurchaseIdx}
     </delete>
-
-
-
-
-
 </mapper>
