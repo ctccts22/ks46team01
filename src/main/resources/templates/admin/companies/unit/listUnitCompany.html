@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+      .dataTables_wrapper .dataTables_filter {
+          float: left;
+          text-align: left;
+      }
+  </style>
+</head>
+
+<th:block layout:fragment="customJs">
+  <script>
+      $(document).ready(function () {
+          $('body').on('click', '.add-button', function () {
+              const row = $(this).closest('tr');
+              const companyUnitIdx = row.find('td[data-key="companyUnitIdx"]').text();
+              const companyUnitYear = row.find('td[data-key="companyUnitYear"]').text();
+              const companyUnitAmount = row.find('td[data-key="companyUnitAmount"]').text();
+              const companyUnitPrice = row.find('td[data-key="companyUnitPrice"]').text();
+
+              Swal.fire({
+                  title: '사업자단가등록',
+                  html:
+                      `<form id="add-companyUnit">
+                <input id="add-companyUnitIdx" name="companyUnitIdx" type="hidden" value="${companyUnitIdx}"/>
+                <div class="form-group">
+                  <label for="add-companyIdx">사업자종류:</label>
+                  <select class="form-control" id="add-companyIdx" name="companyIdx">
+                    <option value="1">카페회원</option>
+                    <option value="2">농가회원</option>
+                    <option value="3">폐배지회원</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="add-companyUnitYear">단가년도</label>
+                  <input class="form-control" id="add-companyUnitYear"
+                         max="2199"
+                         min="1900" name="companyUnitYear" value="${companyUnitYear}" type="number"/>
+                </div>
+               목
+                <div class="form-group">
+                  <label for="add-companyUnitPrice">단가금액:</label>
+                  <input class="form-control" id="add-companyUnitPrice"
+                         name="companyUnitPrice" value="${companyUnitPrice}" type="text"/>
+                </div>
+              </form>`,
+                  showCancelButton: true,
+                  confirmButtonText: '등록',
+                  cancelButtonText: '최소',
+                  preConfirm: () => {
+                      const form = document.getElementById('add-companyUnit');
+                      $.ajax({
+                          url: '/admin/companies/unit/addCompanyUnit',
+                          method: 'POST',
+                          data: {
+                              companyUnitIdx: $('#add-companyUnitIdx').val(),
+                              companyIdx: $('#add-companyIdx').val(),
+                              companyUnitYear: $('#add-companyUnitYear').val(),
+                              companyUnitAmount: $('#add-companyUnitAmount').val(),
+                              companyUnitPrice: $('#add-companyUnitPrice').val()
+                          },
+                          success: function (response) {
+                              Swal.fire('Success!', '성공적으로 등록되었습니다.', 'success')
+                                  .then(() => {
+                                      location.reload();
+                                  });
+                          },
+                          error: function () {
+                              Swal.fire('Error!', '등록에 실패했습니다.', 'error');
+                          },
+                      });
+                  }
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                  }
+              });
+          });
+
+              $('body').on('click', '.edit-button', function () {
+                  const row = $(this).closest('tr');
+
+                  const companyUnitIdx = row.find('td[data-key="companyUnitIdx"]').text();
+                  const companyUnitYear = row.find('td[data-key="companyUnitYear"]').text();
+                  const companyUnitAmount = row.find('td[data-key="companyUnitAmount"]').text();
+                  const companyUnitPrice = row.find('td[data-key="companyUnitPrice"]').text();
+
+                  Swal.fire({
+                      title: '사업자단가수정',
+                      html:
+                          `<form id="edit-companyUnit">
+                              <input id="edit-companyUnitIdx" name="companyUnitIdx" type="hidden" value="${companyUnitIdx}"/>
+                              <div class="form-group">
+                                <label for="edit-companyIdx">사업자종류:</label>
+                                <select class="form-control" id="edit-companyIdx" name="companyIdx" >
+                                  <option value="1">카페회원</option>
+                                  <option value="2">농가회원</option>
+                                  <option value="3">폐배지회원</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="edit-companyUnitYear">단가년도</label>
+                                <input class="form-control" id="edit-companyUnitYear"
+                                       max="2199"
+                                       min="1900" name="companyUnitYear" value="${companyUnitYear}" type="number"/>
+                              </div>
+                              <div class="form-group">
+                                <label for="edit-companyUnitAmount">단가중량:</label>
+                                <input class="form-control" id="edit-companyUnitAmount"
+                                       name="companyUnitAmount" value="${companyUnitAmount}"
+                                       type="text"/>
+                              </div>
+                              <div class="form-group">
+                                <label for="edit-companyUnitPrice">단가금액:</label>
+                                <input class="form-control" id="edit-companyUnitPrice"
+                                       name="companyUnitPrice" value="${companyUnitPrice}"
+                                       type="text"/>
+                              </div>
+                            </form>`,
+                      showCancelButton: true,
+                      confirmButtonText: '등록',
+                      cancelButtonText: '최소',
+                      preConfirm: () => {
+                          const form = document.getElementById('edit-companyUnit');
+                          $.ajax({
+                              url: '/admin/companies/unit/updateCompanyUnit',
+                              method: 'POST',
+                              data: {
+                                  companyUnitIdx: $('#edit-companyUnitIdx').val(),
+                                  companyIdx: $('#edit-companyIdx').val(),
+                                  companyUnitYear: $('#edit-companyUnitYear').val(),
+                                  companyUnitAmount: $('#edit-companyUnitAmount').val(),
+                                  companyUnitPrice: $('#edit-companyUnitPrice').val()
+                              },
+                              success: function (response) {
+                                  Swal.fire('Success!', '성공적으로 수정되었습니다.', 'success')
+                                      .then(() => {
+                                          location.reload();
+                                      });
+                              },
+                              error: function () {
+                                  Swal.fire('Error!', '등록에 수정했습니다.', 'error');
+                              },
+                          });
+                      }
+                  }).then((result) => {
+                      if (result.isConfirmed) {
+                      }
+                  });
+              });
+              $('body').on('click', '.delete-button', function () {
+                  const companyUnitIdx = $(this).closest('tr').find('td[data-key="companyUnitIdx"]').text();
+
+                  Swal.fire({
+                      title: '삭제하겠습니까?',
+                      text: "삭제후 되돌릴수 없습니다.",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: '삭제',
+                      cancelButtonText: '취소'
+                  }).then((result) => {
+                      if (result.isConfirmed) {
+                          $.ajax({
+                              type: 'POST',
+                              url: '/admin/companies/unit/delete/' + companyUnitIdx,
+                              success: function (response) {
+                                  Swal.fire(
+                                      '삭제!',
+                                      '삭제되었습니다.',
+                                      'success'
+                                  ).then(() => {
+                                      location.reload();
+                                  });
+                                  $('button[data-companyUnitIdx="' + companyUnitIdx + '"]').closest('tr').remove();
+                              },
+                              error: function () {
+                                  Swal.fire(
+                                      '실패!',
+                                      'FK 제약조건으로 실패.',
+                                      'error'
+                                  );
+                              },
+                          });
+                      }
+                  });
+              });
+              $('#datatable-custom').DataTable({
+                  pagination: false,
+                  searching: true,
+                  lengthChange: false,
+                  dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
+                      "<'row'<'col-sm-12'tr>>" +
+                      "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+              });
+          });
+  </script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+  <div class="page-title">
+    <div class="title">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2 class="my-4">사업자 단가관리</h2>
+
+          <ul class="nav navbar-right panel_toolbox" style="flex-direction: row-reverse">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+              </div>
+            </li>
+          </ul>
+
+          <div class="clearfix"></div>
+        </div>
+
+        <div style="display: flex;">
+          <button class="btn btn-outline-secondary add-button" type="submit">사업자코드등록</button>
+        </div>
+
+        <div class="x_content">
+          <div class="row mb-3">
+            <div class="col-md-6">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card-box table-responsive">
+                <div class="col-sm-12">
+                  <div class="dataTables_wrapper container-fluid dt-bootstrap no-footer"
+                       id="datatable-buttons_wrapper">
+
+                    <table aria-describedby="datatable-buttons_info"
+                           class="table table-striped table-bordered dataTable no-footer dtr-inline"
+                           id="datatable-custom" role="grid"
+                           style="width: 100%;">
+                      <thead class="thead-dark">
+                      <tr role="row">
+                        <th style="display: none">사업자계약단가코드</th>
+                        <th>사업자종류</th>
+                        <th>단가년도</th>
+                        <th>단가중량(kg)</th>
+                        <th>단가금액(원)</th>
+                        <th>운영자아이디</th>
+                        <th>운영자등록/수정날짜</th>
+                        <th>수정</th>
+                        <th>삭제</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr th:each="companyUnit : ${companyUnitList}">
+                        <td class="odd" data-key="companyUnitIdx" role="row" style="display: none"
+                            th:text="${companyUnit[0]}"></td>
+                        <td data-key="companyType" th:text="${companyUnit[7]}"></td>
+                        <td data-key="companyUnitYear" th:text="${companyUnit[4]}"></td>
+                        <td data-key="companyUnitAmount" th:text="${companyUnit[2]}"></td>
+                        <td data-key="companyUnitPrice" th:text="${companyUnit[3]}"></td>
+                        <td data-key="adminUsername" th:text="${companyUnit[5].adminUsername}"></td>
+                        <td data-key="companyUnitDate" th:text="${companyUnit[6]}"></td>
+                        <td>
+                          <button class="edit-button" type="button">수정</button>
+                        </td>
+                        <td>
+                          <button class="delete-button" type="button">삭제</button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>
+
+
+

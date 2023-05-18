@@ -1,11 +1,11 @@
 package ks46team01.mushroom.mushroomGrowth.service;
 
-import ks46team01.common.company.info.dto.CompanyInfoDTO;
+import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.crop.dto.Crop;
 import ks46team01.mushroom.mushroomFarmData.dto.FarmData;
 import ks46team01.mushroom.mushroomGrowth.dto.FarmMushroomGrowth;
 import ks46team01.mushroom.mushroomGrowth.mapper.FarmMushroomGrowthMapper;
-import ks46team01.user.info.dto.UserDTO;
+import ks46team01.user.info.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,16 +25,16 @@ public class FarmMushroomGrowthService {
         List<FarmMushroomGrowth> farmMushroomGrowthList = farmMushroomGrowthMapper.getFarmGrowth();
         return farmMushroomGrowthList;
     }
-    public  List<UserDTO> getUserIdx(){
-        List<UserDTO> userList = farmMushroomGrowthMapper.getUserIdx();
+    public  List<User> getUserIdx(){
+        List<User> userList = farmMushroomGrowthMapper.getUserIdx();
         return userList;
     }
     public  List<FarmData> getFarmData(){
         List<FarmData> farmDataList = farmMushroomGrowthMapper.getFarmData();
         return farmDataList;
     }
-    public  List<CompanyInfoDTO> getCompanyInfo(){
-        List<CompanyInfoDTO> companyInfoList = farmMushroomGrowthMapper.getCompanyInfo();
+    public  List<CompanyInfo> getCompanyInfo(){
+        List<CompanyInfo> companyInfoList = farmMushroomGrowthMapper.getCompanyInfo();
         return companyInfoList;
     }
     public  List<Crop> getCropIdx(){

@@ -17,9 +17,8 @@ public class FarmMushroomGrowth {
         private String mushroomGrowthContent;
 
 
-        private String cropType;
-        private String name;
-        private String companyInfoName;
+        private String cropContent;
+
 }
 
 
