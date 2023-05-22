@@ -34,7 +34,7 @@
             model.addAttribute("cropList", cropList);
             model.addAttribute("usernameInfoList", usernameInfoList);
             log.info("fpd={}",fpd);
-            return "/mushroom/dataPastMushroom";
+            return "mushroom/dataPastMushroom";
         }
         //입력
         @GetMapping("/add/addDataPastMushroom")
@@ -50,7 +50,7 @@
             log.info("들어오는값= {}" ,companyInfoList);
             log.info("들어오는값= {}" ,cropList);
             log.info("들어오는값= {}" ,usernameInfoList);
-            return "/mushroom/add/addDataPastMushroom";
+            return "mushroom/add/addDataPastMushroom";
         }
         @PostMapping("/add/addDataPastMushroom")
         public String addFarmCondition(FarmPastData farmPastData) {

@@ -39,7 +39,7 @@
             model.addAttribute("companyInfoList", companyInfoList);
             model.addAttribute("cropList", cropList);
             log.info("fmsg = {} ", fmsg);
-            return "/mushroom/dataGrownMushroom";
+            return "mushroom/dataGrownMushroom";
         }
 
 
@@ -59,7 +59,7 @@
             log.info("farmDataList = {} ", farmDataList);
             log.info("companyInfoList = {} ", companyInfoList);
             log.info("cropList = {} ",cropList );
-            return "/mushroom/add/addDataGrownMushroom";
+            return "mushroom/add/addDataGrownMushroom";
         }
         @PostMapping("/add/addDataGrownMushroom")
         public String addDataGrown(FarmMushroomGrowth farmMushroomGrowth){
@@ -102,7 +102,7 @@
             log.info("companyInfoList = {} ", companyInfoList);
             log.info("cropList = {} ",cropList );
 
-            return "/mushroom/modify/modifyDataGrownMushroom";
+            return "mushroom/modify/modifyDataGrownMushroom";
         }
 
         @PostMapping("/modify/modifyDataGrownMushroom")

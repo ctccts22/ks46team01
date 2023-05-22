@@ -36,7 +36,7 @@
             log.info("farmData={} ",farmData);
             log.info("companyInfo={} ",companyInfo);
             log.info("usernameInfo={} ",usernameInfo);
-            return "/mushroom/dataFarmMushroom";
+            return "mushroom/dataFarmMushroom";
         }
 
         //입력
@@ -47,7 +47,7 @@
             model.addAttribute("FarmData",new FarmData());
             model.addAttribute("companyInfo",companyInfo);
             model.addAttribute("usernameInfo",usernameInfo);
-            return "/mushroom/add/addDataFarmMushroom";
+            return "mushroom/add/addDataFarmMushroom";
         }
         @PostMapping("add/addDataFarmMushroom")
         public String addFarmData(FarmData farmData){
