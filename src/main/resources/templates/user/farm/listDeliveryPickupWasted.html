@@ -48,7 +48,10 @@
                                     </thead>
 
                                     <tbody>
-                                    <tr th:each="DeliveryList, DeliveryListIndex: ${DeliveryList}">
+                                    <tr th:if="${DeliveryList == null}">
+                                        <td colspan="8">데이터가 없습니다.</td>
+                                    </tr>
+                                    <tr th:if="${DeliveryList != null}" th:each="DeliveryList, DeliveryListIndex: ${DeliveryList}">
                                         <td th:text="${DeliveryList.companyInfoName}"></td>
                                         <td th:text="${DeliveryList.farmPickupRequestPhone}"></td>
                                         <td th:text="${DeliveryList.farmPickupRequestAddress}"></td>

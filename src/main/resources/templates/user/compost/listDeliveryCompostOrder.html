@@ -69,7 +69,10 @@
                   </thead>
 
                   <tbody>
-                  <tr th:each="compostDeliveryList, compostDeliveryListIdx: ${compostDeliveryList}">
+                  <tr th:if="${compostDeliveryList == null}">
+                    <td colspan="8">데이터가 없습니다.</td>
+                  </tr>
+                  <tr th:if="${compostDeliveryList != null}" th:each="compostDeliveryList, compostDeliveryListIdx: ${compostDeliveryList}">
                     <td hidden="hidden" th:text="${compostDeliveryList.orderCompostIdx}"></td>
                     <td th:text="${compostDeliveryList.companyInfoName}"></td>
                     <td th:text="${compostDeliveryList.orderCompostPhone}"></td>
