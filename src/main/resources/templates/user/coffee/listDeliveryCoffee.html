@@ -48,16 +48,18 @@
                   </thead>
 
                   <tbody>
-                  <tr th:each="userDeliveryList , userconfirmListIndex : ${userDeliveryList}">
-                    <td th:text="${userDeliveryList.companyInfoName}"></td>
-                    <td th:text="${userDeliveryList.coffeeRequestPhone}"></td>
-                    <td th:text="${userDeliveryList.coffeeRequestAddress}"></td>
-                    <td th:text="${userDeliveryList.coffeeRequestAmount}+kg"></td>
-                    <td th:text="${userDeliveryList.coffeeRequestDate}"></td>
-                    <td th:if="${#strings.equals(userDeliveryList.coffeeDeliveryStatus, 'Y')}">배송완료</td>
-                    <td th:if="${#strings.equals(userDeliveryList.coffeeDeliveryStatus, 'N')}">배송대기</td>
-                    <td th:if="${#strings.equals(userDeliveryList.coffeeDeliveryStatus, 'P')}">배송중</td>
-
+                  <tr th:if="${userDeliveryList == null}">
+                    <td colspan="8">데이터가 없습니다.</td>
+                  </tr>
+                  <tr th:if="${userDeliveryList != null}" th:each="deliveryItem : ${userDeliveryList}">
+                    <td th:text="${deliveryItem.companyInfoName}"></td>
+                    <td th:text="${deliveryItem.coffeeRequestPhone}"></td>
+                    <td th:text="${deliveryItem.coffeeRequestAddress}"></td>
+                    <td th:text="${deliveryItem.coffeeRequestAmount}+kg"></td>
+                    <td th:text="${deliveryItem.coffeeRequestDate}"></td>
+                    <td th:if="${#strings.equals(deliveryItem.coffeeDeliveryStatus, 'Y')}">배송완료</td>
+                    <td th:if="${#strings.equals(deliveryItem.coffeeDeliveryStatus, 'N')}">배송대기</td>
+                    <td th:if="${#strings.equals(deliveryItem.coffeeDeliveryStatus, 'P')}">배송중</td>
                   </tr>
                   </tbody>
                 </table>
