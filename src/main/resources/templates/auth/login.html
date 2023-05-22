@@ -1,29 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layout/default}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+      xmlns:th="http://www.thymeleaf.org">
 <head></head>
 
 <th:block layout:fragment="customJs">
   <script th:inline="javascript">
-    $(document).ready(function() {
-      let error = /*[[${error}]]*/ null;
-      let success = /*[[${success}]]*/ null;
-      if (error) {
-          Swal.fire({
-              icon: 'error',
-              title: 'Fail!',
-              text: '로그인에 실패했습니다.'
-          });
-      }
-        if (success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: '로그인에 성공했습니다.'
-            });
-        }
-    });
+      $(document).ready(function () {
+          let error = /*[[${error}]]*/ null;
+          if (error) {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Fail!',
+                  text: '로그인에 실패했습니다.'
+              });
+          }
+      });
   </script>
 </th:block>
 
@@ -35,19 +27,20 @@
     <div class="login_wrapper">
       <div class="animate form login_form">
         <section class="login_content">
-          <form th:action="@{/auth/login}" method="post">
-            <div id="error-alert" class="alert alert-danger" style="display: none;">
+          <form method="post" th:action="@{/auth/login}">
+            <div class="alert alert-danger" id="error-alert" style="display: none;">
               <p></p>
             </div>
             <h1>로그인</h1>
             <div>
-              <input type="text" class="form-control" placeholder="아이디" required="" name="username" value="user1"/>
+              <input class="form-control" name="username" placeholder="아이디" required="" type="text" value="user1"/>
             </div>
             <div>
-              <input type="password" class="form-control" placeholder="비밀번호" required="" name="password" value="password1"/>
+              <input class="form-control" name="password" placeholder="비밀번호" required="" type="password"
+                     value="password1"/>
             </div>
             <div>
-              <button type="submit" class="btn btn-primary w-100">로그인</button>
+              <button class="btn btn-primary w-100" type="submit">로그인</button>
             </div>
             <div class="mt-2">
               <a class="btn btn-primary w-100" th:href="@{/user/findPasswordUser}">비밀번호 찾기</a>
@@ -58,11 +51,11 @@
 
             <div class="separator">
               <p class="change_link">처음 방문이십니까?
-                <a class="to_register" th:href="@{/user/addUser}" href="#signup"> 회원가입 </a>
+                <a class="to_register" href="#signup" th:href="@{/user/addUser}"> 회원가입 </a>
               </p>
 
               <div class="clearfix"></div>
-              <br />
+              <br/>
 
               <div>
                 <h1><i class="fa fa-leaf"></i> Mush Cycle</h1>

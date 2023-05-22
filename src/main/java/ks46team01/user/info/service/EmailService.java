@@ -18,7 +18,7 @@ public class EmailService {
 
     public void sendTemporaryPassword(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("ks46team01email@naver.com");
+        message.setFrom("emailformycode@gmail.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
