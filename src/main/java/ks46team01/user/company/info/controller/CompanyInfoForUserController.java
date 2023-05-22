@@ -2,6 +2,8 @@ package ks46team01.user.company.info.controller;
 
 import jakarta.servlet.http.HttpSession;
 import ks46team01.admin.company.entity.Company;
+import ks46team01.admin.company.unit.entity.CompanyUnit;
+import ks46team01.admin.company.unit.repository.CompanyUnitRepository;
 import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.common.company.info.repository.CompanyInfoRepository;
 import ks46team01.admin.company.repository.CompanyRepository;
@@ -24,6 +26,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/user")
 public class CompanyInfoForUserController {
     private final CompanyInfoForUserService companyInfoForUserService;
+    private final CompanyUnitRepository companyUnitRepository;
     private final CompanyInfoRepository companyInfoRepository;
     private final CompanyRepository companyRepository;
     private final InventoryRepository inventoryRepository;
@@ -67,7 +70,10 @@ public class CompanyInfoForUserController {
                 .orElseThrow(() -> new NoSuchElementException("Company not found with id: " + companyType));
         Inventory inventory = inventoryRepository.findById(companyType)
                 .orElseThrow(() -> new NoSuchElementException("Inventory not found with id: " + companyType));
+        CompanyUnit companyUnit = companyUnitRepository.findById(companyType)
+                .orElseThrow(() -> new NoSuchElementException("Company Unit not found with id: " + companyType));
 
+        companyInfo.setCompanyUnitIdx(companyUnit);
         companyInfo.setCompanyIdx(company);
         companyInfo.setInventoryIdx(inventory);
 
