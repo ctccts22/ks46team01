@@ -39,11 +39,12 @@ public class CoffeeController {
     public String coffeeRequestConfirmList(Model model,
                                            HttpSession session) {
         log.info("/coffeeRequestConfirm 실행?");
-
         User user = (User) session.getAttribute("user");
-        String userId = user.getUsername();
+        if(user != null){
+            String userId = user.getUsername();
             List<CoffeeRequestConfirm> userConfirmList = coffeeService.listCoffeeConfirm(userId);
             model.addAttribute("userConfirmList", userConfirmList);
+        }
 
         return "user/coffee/listConfirmRequestCoffee";
     }
@@ -52,10 +53,11 @@ public class CoffeeController {
     public String coffeeDeliveryList(Model model,
                                      HttpSession session) {
         User user = (User) session.getAttribute("user");
-        String userId = user.getUsername();
-
+        if(user!=null){
+            String userId = user.getUsername();
             List<CoffeeDelivery> userDeliveryList = coffeeService.listCoffeeDelivery(userId);
             model.addAttribute("userDeliveryList", userDeliveryList);
+        }
 
         return "user/coffee/listDeliveryCoffee";
     }

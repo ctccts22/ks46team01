@@ -82,7 +82,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="userconfirmList, userconfirmListIndex: ${userConfirmList}">
+                <tr th:if="${userconfirmList == null}">
+                  <td colspan="8">데이터가 없습니다.</td>
+                </tr>
+                <tr th:if="${userconfirmList != null}" th:each="userconfirmList, userconfirmListIndex: ${userConfirmList}">
                   <td hidden="hidden" th:text="${userconfirmList.coffeeRequestIdx}"></td>
                   <td hidden="hidden" th:text="${userconfirmList.companyInfoIdx}"></td>
                   <td th:text="${userconfirmList.companyInfoName}"></td>

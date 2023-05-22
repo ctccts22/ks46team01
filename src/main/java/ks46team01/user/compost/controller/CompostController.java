@@ -38,10 +38,12 @@ public class CompostController {
         ocd.setOrderCompostIdx(orderCompostIdx);
         userCompostOrderService.userCompostDeliveryUpdate(ocd);
         User user = (User) session.getAttribute("user");
-        String sessionId = user.getUsername(); //접속해있는 아이디
-        List<OrderCompostDelivery> compostDeliveryList = userCompostOrderService.compostDeliveryList(sessionId);
-        System.out.println("length");
-        model.addAttribute("compostDeliveryList",compostDeliveryList);
+        if(user != null){
+            String sessionId = user.getUsername(); //접속해있는 아이디
+            List<OrderCompostDelivery> compostDeliveryList = userCompostOrderService.compostDeliveryList(sessionId);
+            System.out.println("length");
+            model.addAttribute("compostDeliveryList",compostDeliveryList);
+        }
         return "user/compost/listDeliveryCompostOrder";
     }
     @GetMapping("/insertCompostOrder")
@@ -95,11 +97,12 @@ public class CompostController {
                                           Model model){
         // 유저 커피배지 승인상태
         User user = (User) session.getAttribute("user");
-        String sessionId = user.getUsername(); //접속해있는 아이디
-        System.out.println("ID:"+sessionId);
-        List<OrderCompostConfirm> compostConfirmList = userCompostOrderService.compostConfirmList(sessionId);
-        model.addAttribute("compostConfirmList",compostConfirmList);
-
+        if(user != null){
+            String sessionId = user.getUsername(); //접속해있는 아이디
+            System.out.println("ID:"+sessionId);
+            List<OrderCompostConfirm> compostConfirmList = userCompostOrderService.compostConfirmList(sessionId);
+            model.addAttribute("compostConfirmList",compostConfirmList);
+        }
             return "user/compost/listConfirmCompostOrder";
     }
 
@@ -108,12 +111,13 @@ public class CompostController {
     public String orderCompostDeliveryList(HttpSession session,
                                            Model model){
         // 커피배송 조회
-
         User user = (User) session.getAttribute("user");
+        if(user != null){
         String sessionId = user.getUsername(); //접속해있는 아이디
         List<OrderCompostDelivery> compostDeliveryList = userCompostOrderService.compostDeliveryList(sessionId);
         System.out.println("length");
         model.addAttribute("compostDeliveryList",compostDeliveryList);
+        }
         return "user/compost/listDeliveryCompostOrder";
     }
 
