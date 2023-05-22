@@ -11,11 +11,9 @@
 			<ul class="navbar-right">
 				<li class="nav-item dropdown open" style="padding-left: 15px;">
 					<a href="javascript:" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-						<img th:src="@{/images/img.jpg}" alt="">
 						<span th:text="${session.user.username}"></span>
 					</a>
 					<div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" th:href="@{/user/companies/listCompanyContract}"> 사업자계약정보(이규노#)</a>
 						<a class="dropdown-item" th:href="@{/user/profileUser}"> 회원정보</a>
 						<a class="dropdown-item" th:href="@{/user/deleteUser/{username}(username=${session.user.username})}"> 회원탈퇴</a>
 						<a class="dropdown-item" th:href="@{/user/modifyUser/{username}(username=${session.user.username})}"> 회원정보수정</a>
@@ -38,7 +36,6 @@
 			<ul class="navbar-right">
 				<li class="nav-item dropdown open" style="padding-left: 15px;">
 					<a href="javascript:" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdownAdmin" data-toggle="dropdown" aria-expanded="false">
-						<img th:src="@{/images/img.jpg}" alt="">
 						<span th:text="${session.adminUser.adminUsername}"></span>
 					</a>
 					<div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
