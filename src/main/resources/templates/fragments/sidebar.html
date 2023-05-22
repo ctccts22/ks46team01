@@ -4,13 +4,12 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:fragment="sidebarFragment">
 	<div class="menu_section">
 		<ul class="nav side-menu">
-			<li><a><i class="fa fa-home"></i> Home(이규노#) <span
+			<li><a><i class="fa fa-home"></i> Home <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a href="#">소개(이규노#)</a></li>
-					<li><a href="#">공지사항(이규노#)</a></li>
+					<li><a href="#">소개</a></li>
+					<li><a th:href="@{/user/freeBoard}">자유게시판</a></li>
 				</ul></li>
-			<!--			<li th:if="${session.userRole == 'ROLE_ADMIN'}">-->
 			<li>
 				<a><i class="fa fa-adn"></i> 관리자페이지
 					<span class="fa fa-chevron-down"></span></a>
@@ -75,11 +74,6 @@
 							<li th:if="${session.userRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/accounting/purchase/purchaseAccounting}">관리자 회계 매입자료</a></li>
 						</ul></li>
 				</ul></li>
-			<li><a><i class="fa fa-mortar-board"></i> 게시판(이규노!) <span
-					class="fa fa-chevron-down"></span></a>
-				<ul class="nav child_menu">
-					<li><a th:href="@{/user/freeBoard}">자유게시판(이규노!)</a></li>
-				</ul></li>
 			<li><a><i class="fa fa-edit"></i> 사업자 관리(이규노!) <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
@@ -119,11 +113,6 @@
 					<li><a th:href="@{/mushroom/dataFarmMushroom}">버섯재배 생산량 상세 등록조회</a></li>
 					<li><a th:href="@{/mushroom/accountMushroom}">플렛폼 일일매출 조회</a></li>
 					<li><a th:href="@{/mushroom/dataGrownMushroom}">버섯 재배일지 조회</a></li>
-				</ul></li>
-			<li><a><i class="fa fa-question"></i> FAQ(이규노#) <span
-					class="fa fa-chevron-down"></span></a>
-				<ul class="nav child_menu">
-					<li><a href="#">고객센터</a></li>
 				</ul></li>
 		</ul>
 	</div>

@@ -10,20 +10,6 @@
   <script>
       $(document).ready(function () {
           console.log('test');
-
-          // function setCompanyContractType() {
-          //     const companyIdx = $('#company_idx').val();
-          //     const companyContractTypeInput = $('#company_contract_type');
-          //
-          //     if (companyIdx === '1') {
-          //         companyContractTypeInput.val('판매');
-          //     } else if (companyIdx === '2' || companyIdx === '3') {
-          //         companyContractTypeInput.val('구매');
-          //     } else {
-          //         companyContractTypeInput.val('');
-          //     }
-          // }
-
           $('body').on('click', '#fetch-data-btn', function () {
               $.ajax({
                   url: '/user/companies/getCompanyInfo',

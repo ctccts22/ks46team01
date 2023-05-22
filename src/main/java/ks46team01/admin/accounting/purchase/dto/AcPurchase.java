@@ -30,7 +30,6 @@ public class AcPurchase {
     private Timestamp accountingPurchaseAdminUpdate;
 
 
-
     private String companyType;
     private String inventoryType;
     private String adminName;
@@ -71,7 +70,7 @@ public class AcPurchase {
         return accountingPurchaseAdminDateS;
     }
 
-    public void setAccountingPurchaseAdminDateS(String accountingPurchaseAdminDateS) throws Exception{
+    public void setAccountingPurchaseAdminDateS(String accountingPurchaseAdminDateS) throws Exception {
         this.accountingPurchaseAdminDateS = accountingPurchaseAdminDateS;
         this.accountingPurchaseAdminDate = dateFormat.parse(accountingPurchaseAdminDateS);
     }
@@ -177,3 +176,5 @@ public class AcPurchase {
                 '}';
     }
 }
+
+

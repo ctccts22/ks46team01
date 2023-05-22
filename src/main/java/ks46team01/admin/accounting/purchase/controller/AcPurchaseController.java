@@ -38,7 +38,7 @@ public class AcPurchaseController {
         model.addAttribute("companyContracts", companyContracts);
         model.addAttribute("admins", admins);
         log.info("ap = {}", ap);
-        return "/admin/accounting/purchase/purchaseAccounting";
+        return "admin/accounting/purchase/purchaseAccounting";
     }
 
 
@@ -55,7 +55,7 @@ public class AcPurchaseController {
         model.addAttribute("companyContracts", companyContracts);
         model.addAttribute("admins", admins);
         log.info("들어오는 값 = {}" ,  new AcPurchase());
-        return "/admin/accounting/purchase/purchaseAccountingAdd";
+        return "admin/accounting/purchase/purchaseAccountingAdd";
     }
     @PostMapping("/purchaseAccountingAdd")
     public String addPurchaseAccounting(AcPurchase acPurchase){
@@ -99,7 +99,7 @@ public class AcPurchaseController {
             model.addAttribute("inventories", inventories);
             model.addAttribute("companyContracts", companyContracts);
             model.addAttribute("admins", admins);
-        return "/admin/accounting/purchase/purchaseAccountingModify";
+        return "admin/accounting/purchase/purchaseAccountingModify";
     }
     @PostMapping("/purchaseAccountingModify")
     public String modifyAcPurchase(@RequestParam(name="accountingPurchaseAdminIdx",required = false)Long accountingPurchaseAdminIdx

@@ -1,11 +1,11 @@
     package ks46team01.mushroom.mushroomGrowth.controller;
 
-    import ks46team01.common.company.info.entity.CompanyInfo;
+    import ks46team01.common.company.info.dto.CompanyInfoDTO;
     import ks46team01.crop.dto.Crop;
     import ks46team01.mushroom.mushroomFarmData.dto.FarmData;
     import ks46team01.mushroom.mushroomGrowth.dto.FarmMushroomGrowth;
     import ks46team01.mushroom.mushroomGrowth.service.FarmMushroomGrowthService;
-    import ks46team01.user.info.entity.User;
+    import ks46team01.user.info.dto.UserDTO;
     import lombok.AllArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
     import org.springframework.stereotype.Controller;
@@ -28,9 +28,9 @@
         @GetMapping("/dataGrownMushroom")
         public String farmGrown(Model model){
             List<FarmMushroomGrowth> fmsg = farmMushroomGrowthService.getFarmGrowth();
-            List<User> userList = farmMushroomGrowthService.getUserIdx();
+            List<UserDTO> userList = farmMushroomGrowthService.getUserIdx();
             List<FarmData> farmDataList = farmMushroomGrowthService.getFarmData();
-            List<CompanyInfo> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
+            List<CompanyInfoDTO> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
             List<Crop> cropList = farmMushroomGrowthService.getCropIdx();
             model.addAttribute("title", "조회");
             model.addAttribute("fmsg", fmsg);
@@ -39,15 +39,15 @@
             model.addAttribute("companyInfoList", companyInfoList);
             model.addAttribute("cropList", cropList);
             log.info("fmsg = {} ", fmsg);
-            return "/mushroom/dataGrownMushroom";
+            return "mushroom/dataGrownMushroom";
         }
 
 
         @GetMapping("/add/addDataGrownMushroom")
         public String showAddDataGrownForm(Model model){
-            List<User> userList = farmMushroomGrowthService.getUserIdx();
+            List<UserDTO> userList = farmMushroomGrowthService.getUserIdx();
             List<FarmData> farmDataList = farmMushroomGrowthService.getFarmData();
-            List<CompanyInfo> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
+            List<CompanyInfoDTO> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
             List<Crop> cropList = farmMushroomGrowthService.getCropIdx();
             model.addAttribute("FarmMushroomGrowth", new FarmMushroomGrowth());
             model.addAttribute("userList", userList);
@@ -59,7 +59,7 @@
             log.info("farmDataList = {} ", farmDataList);
             log.info("companyInfoList = {} ", companyInfoList);
             log.info("cropList = {} ",cropList );
-            return "/mushroom/add/addDataGrownMushroom";
+            return "mushroom/add/addDataGrownMushroom";
         }
         @PostMapping("/add/addDataGrownMushroom")
         public String addDataGrown(FarmMushroomGrowth farmMushroomGrowth){
@@ -89,9 +89,9 @@
                     , mushroomGrowthStatus
                     , mushroomGrowthDate
                     , mushroomGrowthContent);
-            List<User> userList = farmMushroomGrowthService.getUserIdx();
+            List<UserDTO> userList = farmMushroomGrowthService.getUserIdx();
             List<FarmData> farmDataList = farmMushroomGrowthService.getFarmData();
-            List<CompanyInfo> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
+            List<CompanyInfoDTO> companyInfoList = farmMushroomGrowthService.getCompanyInfo();
             List<Crop> cropList = farmMushroomGrowthService.getCropIdx();
             model.addAttribute("userList", userList);
             model.addAttribute("farmDataList", farmDataList);
@@ -102,7 +102,7 @@
             log.info("companyInfoList = {} ", companyInfoList);
             log.info("cropList = {} ",cropList );
 
-            return "/mushroom/modify/modifyDataGrownMushroom";
+            return "mushroom/modify/modifyDataGrownMushroom";
         }
 
         @PostMapping("/modify/modifyDataGrownMushroom")
