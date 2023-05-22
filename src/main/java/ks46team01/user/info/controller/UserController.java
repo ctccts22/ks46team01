@@ -2,6 +2,8 @@ package ks46team01.user.info.controller;
 
 import jakarta.servlet.http.HttpSession;
 import ks46team01.auth.security.BcryptHashing;
+import ks46team01.common.company.contract.entity.CompanyContractApprove;
+import ks46team01.common.company.contract.repository.CompanyContractApproveRepository;
 import ks46team01.user.info.entity.User;
 import ks46team01.user.info.service.UserService;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping("/user")
 public class UserController {
+    private final CompanyContractApproveRepository companyContractApproveRepository;
     private final UserService userService;
 
         @PostMapping("/findPasswordUser")
@@ -108,10 +111,12 @@ public class UserController {
 
         @GetMapping("/profileUser")
         public String userProfile(HttpSession session, Model model) {
+            List<CompanyContractApprove> companyContractApproves = companyContractApproveRepository.findAll();
             User user = (User) session.getAttribute("user");
             log.info("사용자에 대한 사용자 프로필 표시: {}", user);
             if (user != null) {
                 model.addAttribute("user", user);
+                model.addAttribute("companyContractApproves", companyContractApproves);
                 return "user/profileUser";
             } else {
                 log.warn("세션에서 사용자를 찾을 수 없음");

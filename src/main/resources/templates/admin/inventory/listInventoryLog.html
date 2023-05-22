@@ -5,62 +5,77 @@
 <head></head>
 
 <th:block layout:fragment="customJs">
-  <script>
+  <script th:inline="javascript">
       $(document).ready(function () {
+          const inventoryTypes = [[${inventoryTypes}]];
+          const companyInfoNames = [[${companyInfoNames}]];
           $('body').on('click', '.add-button', function () {
               const row = $(this).closest('tr');
+              const inventoryLogIdx = row.find('td[data-key="inventoryLogIdx"]').text();
+              const amount = row.find('td[data-key="amount"]').text();
 
-              const inventoryIdx = row.find('td[data-key="companyId"]').text();
-              const companyName = row.find('td[data-key="companyName"]').text();
-              const companyLicense = row.find('td[data-key="companyLicense"]').text();
-              const companyAddress = row.find('td[data-key="companyAddress"]').text();
+              let inventoryOptions = '';
+              for (let i = 0; i < inventoryTypes.length; i++) {
+                  inventoryOptions += `<option value="${inventoryTypes[i]}">${inventoryTypes[i]}</option>`;
+              }
+
+              let companyInfoOptions = '';
+              for (let i = 0; i < companyInfoNames.length; i++) {
+                  companyInfoOptions += `<option value="${companyInfoNames[i]}">${companyInfoNames[i]}</option>`;
+              }
 
               Swal.fire({
-                  title: '사업자등록',
+                  title: 'Inventory Log',
                   html:
-                      `<form id="add-company-form">
-                      <input  type="hidden" id="add-companyId" name="companyId" value="${companyId}"/>
-                      <div class="form-group">
-                          <label for="add-companyName">사업자상호명:</label>
-                          <input class="form-control" id="add-companyName"
-                                 name="companyName" value="${companyName}"
-                                 type="text"/>
-                      </div>
-                      <div class="form-group">
-                          <label for="add-companyLicense">사업자번호:</label>
-                          <input class="form-control" id="add-companyLicense"
-                                 name="companyLicense" value="${companyLicense}"
-                                 type="text"/>
-                      </div>
-                      <div class="form-group">
-                          <label for="add-companyAddress">사업자주소:</label>
-                          <input class="form-control" id="add-companyAddress"
-                                 name="companyAddress" value="${companyAddress}"
-                                 type="text"/>
-                      </div>
-                  </form>`,
+                      `<form id="add-inventory-log-form">
+                    <input type="hidden" id="add-inventoryLogIdx" name="inventoryLogIdx" value="${inventoryLogIdx}" />
+                    <div class="form-group">
+                        <label for="add-inventoryType">Inventory Type:</label>
+                        <select class="form-control" id="add-inventoryType" name="inventoryType">
+                            ${inventoryOptions}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-companyInfoName">Company Info:</label>
+                        <select class="form-control" id="add-companyInfoName" name="companyInfoName">
+                            ${companyInfoOptions}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-amount">Amount:</label>
+                        <input class="form-control" id="add-amount" name="amount" value="${amount}" type="number"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-transactionType">Transaction Type:</label>
+                        <select class="form-control" id="add-transactionType" name="transactionType">
+                            <option value="I">Input</option>
+                            <option value="O">Output</option>
+                        </select>
+                    </div>
+                </form>`,
                   showCancelButton: true,
-                  confirmButtonText: '등록',
-                  cancelButtonText: '최소',
+                  confirmButtonText: 'Save',
+                  cancelButtonText: 'Cancel',
                   preConfirm: () => {
-                      const form = document.getElementById('add-company-form');
+                      const form = document.getElementById('add-inventory-log-form');
                       $.ajax({
-                          url: '/company/addCompanyView',
+                          url: '/admin/inventory/addInventoryLog',
                           method: 'POST',
                           data: {
-                              companyId: $('#add-companyId').val(),
-                              companyName: $('#add-companyName').val(),
-                              companyLicense: $('#add-companyLicense').val(),
-                              companyAddress: $('#add-companyAddress').val(),
+                              inventoryLogIdx: $('#add-inventoryLogIdx').val(),
+                              inventoryType: $('#add-inventoryType').val(),
+                              companyInfoName: $('#add-companyInfoName').val(),
+                              amount: $('#add-amount').val(),
+                              transactionType: $('#add-transactionType').val()
                           },
                           success: function (response) {
-                              Swal.fire('Success!', '성공적으로 등록되었습니다.', 'success')
+                              Swal.fire('Success!', '성공적으로 등록했습니다.', 'success')
                                   .then(() => {
                                       location.reload();
                                   });
                           },
                           error: function () {
-                              Swal.fire('Error!', '수정에 등록했습니다.', 'error');
+                              Swal.fire('Error!', '에러입니다', 'error');
                           },
                       });
                   }
@@ -69,8 +84,8 @@
                   }
               });
           });
+          $('#datatable-custom').DataTable({});
       });
-      $('#datatable-custom').DataTable({});
   </script>
 </th:block>
 
@@ -95,6 +110,7 @@
 
         <div style="display: flex;">
           <button class="btn btn-outline-secondary add-button" type="submit">재고입출고등록</button>
+          <a class="btn btn-outline-secondary" th:href="@{/admin/inventory/listInventory}" type="submit">재고품목리스트</a>
         </div>
 
         <div class="x_content">
@@ -125,22 +141,18 @@
                         <th>입출고</th>
                         <th>입출고날짜</th>
                         <th>관리자아이디</th>
-                        <th>삭제</th>
                       </tr>
                       </thead>
                       <tbody>
                       <tr class="odd" role="row" th:each="inventoryLogList : ${inventoryLogList}">
                         <td data-key="inventoryLogIdx" th:text="${inventoryLogList.inventoryLogIdx}"></td>
-                        <td data-key="inventoryType" th:text="${inventoryLogList.inventoryType}"></td>
-                        <td data-key="companyInfoName" th:text="${inventoryLogList.companyInfoName}"></td>
-                        <td data-key="companyInfoLicenseNumber" th:text="${inventoryLogList.companyInfoLicenseNumber}"></td>
+                        <td data-key="inventoryType" th:text="${inventoryLogList.inventoryIdx.inventoryType}"></td>
+                        <td data-key="companyInfoName" th:text="${inventoryLogList.companyInfoIdx.companyInfoName}"></td>
+                        <td data-key="companyInfoLicenseNumber" th:text="${inventoryLogList.companyInfoIdx.companyInfoLicenseNumber}"></td>
                         <td data-key="amount" th:text="${inventoryLogList.amount}"></td>
                         <td data-key="transactionType" th:text="${inventoryLogList.transactionType}"></td>
                         <td data-key="transactionDate" th:text="${inventoryLogList.transactionDate}"></td>
-                        <td data-key="adminUsername" th:text="${inventoryLogList.adminUsername}"></td>
-                        <td>
-                          <button class="delete-button">삭제</button>
-                        </td>
+                        <td data-key="adminUsername" th:text="${inventoryLogList.adminUsername.adminUsername}"></td>
                       </tr>
                       </tbody>
                     </table>

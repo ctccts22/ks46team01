@@ -5,9 +5,7 @@ import ks46team01.admin.info.repository.AdminRepository;
 import ks46team01.admin.inventories.inventory.dto.InventoryDTO;
 import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.admin.inventories.inventory.repository.InventoryRepository;
-import ks46team01.admin.inventories.log.mapper.InventoryLogMapper;
-import ks46team01.common.company.contract.entity.CompanyContract;
-import ks46team01.common.company.contract.entity.CompanyContractApprove;
+import ks46team01.admin.inventories.log.repository.InventoryLogRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +19,7 @@ import java.time.LocalDateTime;
 public class InventoryService {
     private final InventoryRepository inventoryRepository;
     private final AdminRepository adminRepository;
-    private final InventoryLogMapper inventoryLogMapper;
+    private final InventoryLogRepository inventoryLogMapper;
 
     public InventoryDTO addCompanyContract(Long inventoryIdx, String inventoryType, Double inventorySum, LocalDateTime inventoryDate, Admin admin) {
         if (adminRepository.existsById(admin.getAdminUsername())) {

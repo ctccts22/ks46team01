@@ -1,6 +1,7 @@
 package ks46team01.common.company.info.repository;
 
 import ks46team01.admin.company.entity.Company;
+import ks46team01.admin.company.unit.entity.CompanyUnit;
 import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.common.company.info.entity.CompanyInfo;
 import ks46team01.user.info.entity.User;
@@ -26,7 +27,8 @@ public interface CompanyInfoRepository
 
     Optional<CompanyInfo> findByCompanyInfoIdx(Long companyInfoIdx);
 
+    CompanyInfo findByCompanyInfoName(String companyInfoName);
 
-
+    List<CompanyInfo> findByCompanyUnitIdx(CompanyUnit companyUnit);
 
 }

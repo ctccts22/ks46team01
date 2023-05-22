@@ -2,6 +2,7 @@ package ks46team01.user.company.info.service;
 
 
 import ks46team01.admin.company.entity.Company;
+import ks46team01.admin.company.unit.entity.CompanyUnit;
 import ks46team01.admin.inventories.inventory.entity.Inventory;
 import ks46team01.common.company.info.repository.CompanyInfoRepository;
 import ks46team01.common.company.info.entity.CompanyInfo;
@@ -19,14 +20,19 @@ public class CompanyInfoForUserService {
     private final CompanyInfoRepository companyInfoRepository;
 
     public CompanyInfo createCompanyInfo(CompanyInfo companyInfo) {
+
         Company company = companyInfo.getCompanyIdx();
         Inventory inventory = companyInfo.getInventoryIdx();
+        CompanyUnit companyUnit = companyInfo.getCompanyUnitIdx();
 
+        List<CompanyInfo> companyUnitList = companyInfoRepository.findByCompanyUnitIdx(companyUnit);
         List<CompanyInfo> companyList = companyInfoRepository.findByCompanyIdx(company);
         List<CompanyInfo> inventoryList = companyInfoRepository.findByInventoryIdx(inventory);
 
         companyInfo.setCompanyInfoDate(new Timestamp(System.currentTimeMillis()));
 
+
         return companyInfoRepository.save(companyInfo);
     }
+
 }
