@@ -41,12 +41,12 @@ public class AcSaleController {
         model.addAttribute("companyContractDTOS", companyContractDTOS);
         model.addAttribute("adminDTOS", adminDTOS);
         log.info("as = {}", as);
-        return "/admin/accounting/sale/saleAccounting";
+        return "admin/accounting/sale/saleAccounting";
     }
 
     //입력
     @GetMapping("/saleAccountingAdd")
-    public String showAddSaleAcounting(Model model){
+    public String showAddSaleAccounting(Model model){
         List<CompanyDTO> companyDTOList = acSaleService.getCompany();
         List<Inventory> inventories = acSaleService.getInventory();
         List<CompanyContractDTO> companyContractDTOS = acSaleService.getCompanyContract();
@@ -57,7 +57,7 @@ public class AcSaleController {
         model.addAttribute("companyContractDTOS", companyContractDTOS);
         model.addAttribute("adminDTOS", adminDTOS);
         log.info("들어오는값={}", new AcSale());
-        return "/admon/accounting/sale/saleAccountingAdd";
+        return "admon/accounting/sale/saleAccountingAdd";
     }
     @PostMapping("/saleAccountingAdd")
     public String addSaleAccounting(AcSale acSale){
@@ -101,7 +101,7 @@ public class AcSaleController {
         model.addAttribute("inventories", inventories);
         model.addAttribute("companyContractDTOS", companyContractDTOS);
         model.addAttribute("adminDTOS", adminDTOS);
-        return "/admin/accountg/sale/saleAccountingModify";
+        return "admin/accountg/sale/saleAccountingModify";
     }
     @PostMapping("/saleAccountingModify")
     public String modifyAcSale(@RequestParam(name="accountingSalesAdminIdx",required = false)Long accountingSalesAdminIdx
@@ -136,7 +136,7 @@ public class AcSaleController {
 
     //삭제
     @PostMapping("/delete/saleAccountingDelete")
-    public String delteAcSale(@RequestParam(name="accountingSalesAdminIdx",required = false)Long accountingSalesAdminIdx){
+    public String deleteAcSale(@RequestParam(name="accountingSalesAdminIdx",required = false)Long accountingSalesAdminIdx){
         AcSale acSaleInfo = acSaleService.getAcSaleInfoByDeleteId(accountingSalesAdminIdx);
         acSaleService.deleteAcSale(accountingSalesAdminIdx);
         return "redirect:/admin/accounting/sale/saleAccounting";
