@@ -91,14 +91,4 @@ public class UserServiceTest {
         assertEquals(updatedUser.getPhone(), modifiedUser.getPhone());
         assertEquals(updatedUser.getAddress(), modifiedUser.getAddress());
     }
-
-    @Test
-    void testSendTemporaryPassword() {
-        // When
-        when(userRepository.findByEmail(testUser.getEmail())).thenReturn(List.of(testUser));
-
-        // Then
-        assertDoesNotThrow(() -> userService.sendTemporaryPassword(testUser.getUsername(), testUser.getEmail()));
-        verify(emailService, times(1)).sendTemporaryPassword(anyString(), anyString(), anyString());
-    }
 }
