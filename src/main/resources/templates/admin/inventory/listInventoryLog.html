@@ -2,26 +2,75 @@
 <html layout:decorate="~{layout/default}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-  <style>
-      .dataTables_wrapper .dataTables_filter {
-          float: left;
-          text-align: left;
-      }
-  </style>
-</head>
+<head></head>
 
 <th:block layout:fragment="customJs">
   <script>
+      $(document).ready(function () {
+          $('body').on('click', '.add-button', function () {
+              const row = $(this).closest('tr');
 
-          $('#datatable-custom').DataTable({
-              pagination: false,
-              searching: true,
-              lengthChange: false,
-              dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
-                  "<'row'<'col-sm-12'tr>>" +
-                  "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+              const inventoryIdx = row.find('td[data-key="companyId"]').text();
+              const companyName = row.find('td[data-key="companyName"]').text();
+              const companyLicense = row.find('td[data-key="companyLicense"]').text();
+              const companyAddress = row.find('td[data-key="companyAddress"]').text();
+
+              Swal.fire({
+                  title: '사업자등록',
+                  html:
+                      `<form id="add-company-form">
+                      <input  type="hidden" id="add-companyId" name="companyId" value="${companyId}"/>
+                      <div class="form-group">
+                          <label for="add-companyName">사업자상호명:</label>
+                          <input class="form-control" id="add-companyName"
+                                 name="companyName" value="${companyName}"
+                                 type="text"/>
+                      </div>
+                      <div class="form-group">
+                          <label for="add-companyLicense">사업자번호:</label>
+                          <input class="form-control" id="add-companyLicense"
+                                 name="companyLicense" value="${companyLicense}"
+                                 type="text"/>
+                      </div>
+                      <div class="form-group">
+                          <label for="add-companyAddress">사업자주소:</label>
+                          <input class="form-control" id="add-companyAddress"
+                                 name="companyAddress" value="${companyAddress}"
+                                 type="text"/>
+                      </div>
+                  </form>`,
+                  showCancelButton: true,
+                  confirmButtonText: '등록',
+                  cancelButtonText: '최소',
+                  preConfirm: () => {
+                      const form = document.getElementById('add-company-form');
+                      $.ajax({
+                          url: '/company/addCompanyView',
+                          method: 'POST',
+                          data: {
+                              companyId: $('#add-companyId').val(),
+                              companyName: $('#add-companyName').val(),
+                              companyLicense: $('#add-companyLicense').val(),
+                              companyAddress: $('#add-companyAddress').val(),
+                          },
+                          success: function (response) {
+                              Swal.fire('Success!', '성공적으로 등록되었습니다.', 'success')
+                                  .then(() => {
+                                      location.reload();
+                                  });
+                          },
+                          error: function () {
+                              Swal.fire('Error!', '수정에 등록했습니다.', 'error');
+                          },
+                      });
+                  }
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                  }
+              });
           });
+      });
+      $('#datatable-custom').DataTable({});
   </script>
 </th:block>
 
@@ -45,7 +94,7 @@
         </div>
 
         <div style="display: flex;">
-
+          <button class="btn btn-outline-secondary add-button" type="submit">재고입출고등록</button>
         </div>
 
         <div class="x_content">
@@ -81,13 +130,13 @@
                       </thead>
                       <tbody>
                       <tr class="odd" role="row" th:each="inventoryLogList : ${inventoryLogList}">
-                        <td data-key="inventoryIdx" th:text="${inventoryLogList.inventoryLogIdx}"></td>
+                        <td data-key="inventoryLogIdx" th:text="${inventoryLogList.inventoryLogIdx}"></td>
                         <td data-key="inventoryType" th:text="${inventoryLogList.inventoryType}"></td>
-                        <td data-key="inventoryType" th:text="${inventoryLogList.companyInfoName}"></td>
-                        <td data-key="inventoryType" th:text="${inventoryLogList.companyInfoLicenseNumber}"></td>
-                        <td data-key="inventoryDate" th:text="${inventoryLogList.amount}"></td>
-                        <td data-key="inventoryDate" th:text="${inventoryLogList.transactionType}"></td>
-                        <td data-key="inventoryDate" th:text="${inventoryLogList.transactionDate}"></td>
+                        <td data-key="companyInfoName" th:text="${inventoryLogList.companyInfoName}"></td>
+                        <td data-key="companyInfoLicenseNumber" th:text="${inventoryLogList.companyInfoLicenseNumber}"></td>
+                        <td data-key="amount" th:text="${inventoryLogList.amount}"></td>
+                        <td data-key="transactionType" th:text="${inventoryLogList.transactionType}"></td>
+                        <td data-key="transactionDate" th:text="${inventoryLogList.transactionDate}"></td>
                         <td data-key="adminUsername" th:text="${inventoryLogList.adminUsername}"></td>
                         <td>
                           <button class="delete-button">삭제</button>

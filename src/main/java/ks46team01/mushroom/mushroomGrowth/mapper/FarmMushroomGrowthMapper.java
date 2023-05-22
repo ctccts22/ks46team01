@@ -1,7 +1,7 @@
 package ks46team01.mushroom.mushroomGrowth.mapper;
 
-import ks46team01.user.info.entity.User;
-import ks46team01.common.company.info.entity.CompanyInfo;
+import ks46team01.user.info.dto.UserDTO;
+import ks46team01.common.company.info.dto.CompanyInfoDTO;
 import ks46team01.crop.dto.Crop;
 import ks46team01.mushroom.mushroomFarmData.dto.FarmData;
 import ks46team01.mushroom.mushroomGrowth.dto.FarmMushroomGrowth;
@@ -15,9 +15,9 @@ import java.util.List;
 public interface FarmMushroomGrowthMapper {
     //조회
     List<FarmMushroomGrowth> getFarmGrowth();
-    List<User> getUserIdx();
+    List<UserDTO> getUserIdx();
     List<FarmData> getFarmData();
-    List<CompanyInfo> getCompanyInfo();
+    List<CompanyInfoDTO> getCompanyInfo();
     List<Crop> getCropIdx();
 
     //입력
