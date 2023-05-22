@@ -78,7 +78,7 @@
                     },
                     error: function (xhr, status, error) {
                         if (xhr.status === 500 && xhr.responseText.includes('java.sql.SQLIntegrityConstraintViolationException')) {
-                            alert('SQL 무결성 제약 조건 위반');
+                            alert('사용중인 정보입니다.');
                         } else {
                             alert('삭제 실패');
                         }
