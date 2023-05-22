@@ -44,7 +44,7 @@
             model.addAttribute("inventoryList", inventoryList);
             model.addAttribute("companyContractList", companyContractList);
             log.info("fp ={}", fp);
-            return "/mushroom/accountMushroom";
+            return "mushroom/accountMushroom";
         }
 
         //입력
@@ -61,7 +61,7 @@
             model.addAttribute("companyInfoList", companyInfoList);
             model.addAttribute("inventoryList", inventoryList);
             model.addAttribute("companyContractList", companyContractList);
-            return "/mushroom/add/addAccountMushroom";
+            return "mushroom/add/addAccountMushroom";
         }
 
         @PostMapping("/add/addAccountMushroom")

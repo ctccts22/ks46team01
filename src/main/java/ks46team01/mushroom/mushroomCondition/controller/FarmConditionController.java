@@ -28,7 +28,7 @@
             model.addAttribute("fc", fc);
             model.addAttribute("cropList", cropList);
             log.info("fc = {} ", fc);
-            return "/mushroom/conditionMushroom";
+            return "mushroom/conditionMushroom";
         }
         //입력
         @GetMapping("/add/addConditionMushroom")
@@ -38,7 +38,7 @@
             model.addAttribute("cropList", cropList);
             log.info("들어오는값= {}" ,new FarmCondition());
             log.info("들어오는값= {}",cropList);
-            return "/mushroom/add/addConditionMushroom";
+            return "mushroom/add/addConditionMushroom";
         }
         @PostMapping("/add/addConditionMushroom")
         public String addFarmCondition(FarmCondition farmCondition) {
