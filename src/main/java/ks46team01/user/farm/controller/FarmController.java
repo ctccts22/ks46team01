@@ -61,9 +61,11 @@ public class FarmController {
     public String wastedPickupConfirmList(HttpSession session,
                                           Model model){
         User user = (User) session.getAttribute("user");
-        String userId = user.getUsername(); //접속해있는 아이디
-        List<FarmData> farmPickupList = userFarmService.listFarmPickup(userId);
-        model.addAttribute("farmPickupList",farmPickupList);
+        if(user != null){
+            String userId = user.getUsername(); //접속해있는 아이디
+            List<FarmData> farmPickupList = userFarmService.listFarmPickup(userId);
+            model.addAttribute("farmPickupList",farmPickupList);
+        }
 
         return "user/farm/listConfirmPickupWasted";
     }
@@ -121,9 +123,11 @@ public class FarmController {
                                            Model model){
 
         User user = (User) session.getAttribute("user");
-        String userId = user.getUsername(); //접속해있는 아이디
-        List<FarmData> farmDeliveryList = userFarmService.listFarmDelivery(userId);
-        model.addAttribute("DeliveryList",farmDeliveryList);
+        if(user != null){
+            String userId = user.getUsername(); //접속해있는 아이디
+            List<FarmData> farmDeliveryList = userFarmService.listFarmDelivery(userId);
+            model.addAttribute("DeliveryList",farmDeliveryList);
+        }
 
         return "user/farm/listDeliveryPickupWasted";
     }

@@ -80,10 +80,12 @@ public class WastedController {
     public String wastedConfirmList(HttpSession session,
                                     Model model) {
         User user = (User) session.getAttribute("user");
+        if(user != null){
         String sessionId = user.getUsername(); //접속해있는 아이디
 
         List<CompanyDTO> wastedList = userWastedService.listWasted(sessionId);
         model.addAttribute("wastedList", wastedList);
+        }
         return "user/wasted/listConfirmWasted";
     }
 
@@ -91,11 +93,14 @@ public class WastedController {
     public String wastedDeliveryList(HttpSession session,
                                      Model model) {
         User user = (User) session.getAttribute("user");
+        if(user != null){
         String sessionId = user.getUsername(); //접속해있는 아이디
 
         List<CompanyDTO> wastedDeliveryList = userWastedService.listDelivery(sessionId);
 
         model.addAttribute("DeliveryList", wastedDeliveryList);
+
+        }
         return "user/wasted/listDeliveryWasted";
     }
 

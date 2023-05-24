@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks46team01.user.mushroom.mushroomGrowth.mapper.FarmMushroomGrowthMapper">
+
+    <resultMap id="mushroomGrowthResultMap" type="ks46team01.user.mushroom.mushroomGrowth.dto.FarmMushroomGrowth">
+        <id column="mushroom_growth_idx"            property="mushroomGrowthIdx"/>
+        <result column="username"                   property="username"/>
+        <result column="company_info_idx"           property="companyInfoIdx"/>
+        <result column="farm_data_idx"              property="farmDataIdx"/>
+        <result column="crop_idx"                   property="cropIdx"/>
+        <result column="mushroom_growth_daily"      property="mushroomGrowthDaily"/>
+        <result column="mushroom_growth_status"     property="mushroomGrowthStatus"/>
+        <result column="mushroom_growth_date"       property="mushroomGrowthDate"/>
+        <result column="mushroom_growth_content"    property="mushroomGrowthContent"/>
+    </resultMap>
+
+    <select id="getFarmGrowth" resultType="ks46team01.user.mushroom.mushroomGrowth.dto.FarmMushroomGrowth">
+        /* 조회*/
+        SELECT
+        mg.mushroom_growth_idx          as mushroomGrowthIdx
+        , u.name                        as name
+        , ci.company_info_name          as companyInfoName
+        , mg.farm_data_idx              as farmDataIdx
+        , c.crop_type                   as cropType
+        , mg.mushroom_growth_daily      as mushroomGrowthDaily
+        , mg.mushroom_growth_status     as mushroomGrowthStatus
+        , mg.mushroom_growth_date       as mushroomGrowthDate
+        , mg.mushroom_growth_content    as mushroomGrowthContent
+
+        FROM mushroom_growth mg
+        INNER JOIN
+        user u
+        ON
+            mg.username = u.username
+        INNER JOIN
+        company_info ci
+        ON mg.company_info_idx = ci.company_info_idx
+        INNER JOIN
+        mushroom_farm_data mfd
+        ON mg.farm_data_idx = mfd.farm_data_idx
+        INNER JOIN
+        crop c
+        ON mg.crop_idx = c.crop_idx;
+    </select>
+
+    <select id="getUserIdx" resultType="ks46team01.user.info.dto.UserDTO">
+        /* User 테이블 조회*/
+        SELECT
+            username
+            , name
+            , birth
+            , email
+            , phone
+            , address
+        FROM
+            user
+    </select>
+    <select id="getFarmData" resultType="ks46team01.user.mushroom.mushroomFarmData.dto.FarmData">
+        /* FarmData 테이블 조회*/
+        SELECT
+        farm_data_idx                     as farmDataIdx
+        , username                        as username
+        , company_info_idx                as companyInfoIdx
+        , farm_data_compost               as farmDataCompost
+        , farm_data_production            as farmDataProduction
+        , farm_data_expected_sale         as farmDataExpectedSale
+        , farm_data_actual_sale           as farmDataActualSale
+        , farm_data_production_date       as farmDataProductionDate
+        , farm_data_occurrence_sale_date  as farmDataOccurrenceSaleDate
+        , farm_data_expected_wasted       as farmDataExpectedWasted
+        , farm_data_date                  as farmDataDate
+        FROM
+            mushroom_farm_data
+    </select>
+    <select id="getCompanyInfo" resultType="ks46team01.common.company.info.dto.CompanyInfoDTO">
+        /* CompanyInfo 테이블 조회*/
+        SELECT
+        company_info_idx                as companyInfoIdx
+        , company_info_name             as companyInfoName
+        , company_info_license_number   as companyInfoLicenseNumber
+        , company_info_address          as Address
+        , company_info_phone            as companyInfoPhone
+        FROM
+            company_info
+    </select>
+
+    <select id="getCropIdx" resultType="ks46team01.crop.dto.Crop">
+        /* crop 테이블 조회*/
+        SELECT
+        crop_idx        as cropIdx
+        ,crop_type    as cropType
+        ,crop_content   as cropContent
+        FROM
+        crop
+    </select>
+
+    <insert id="addFarmGrownMushroom" parameterType="ks46team01.user.mushroom.mushroomGrowth.dto.FarmMushroomGrowth">
+        /* 입력 */
+        INSERT INTO     mushroom_growth
+        (mushroom_growth_idx
+        , username
+        , company_info_idx
+        , farm_data_idx
+        , crop_idx
+        , mushroom_growth_daily
+        , mushroom_growth_status
+        , mushroom_growth_content
+        , mushroom_growth_date)
+        VALUES
+        (#{mushroomGrowthIdx}
+        ,#{username}
+        ,#{companyInfoIdx}
+        ,#{farmDataIdx}
+        ,#{cropIdx}
+        ,#{mushroomGrowthDaily}
+        ,#{mushroomGrowthStatus}
+        ,#{mushroomGrowthContent}
+        , curdate()
+       )
+    </insert>
+    <select id="getDataGrownInfoByIdx" parameterType="Long" resultMap="mushroomGrowthResultMap">
+        /* idx 조회*/
+        SELECT
+        mushroom_growth_idx
+        , username
+        , company_info_idx
+        , farm_data_idx
+        , crop_idx
+        , mushroom_growth_daily
+        , mushroom_growth_status
+        , mushroom_growth_date
+        , mushroom_growth_content
+        FROM
+        mushroom_growth
+        where
+        mushroom_growth_idx= #{mushroomGrowthIdx}
+    </select>
+    <update id="modifyDataGrown" parameterType="ks46team01.user.mushroom.mushroomGrowth.dto.FarmMushroomGrowth">
+        /* 정보 수정 */
+        UPDATE  mushroom_growth
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="companyInfoIdx != null and companyInfoIdx != ''">
+                company_info_idx = #{companyInfoIdx},
+            </if>
+            <if test="farmDataIdx != null and farmDataIdx != ''">
+                farm_data_idx = #{farmDataIdx},
+            </if>
+            <if test="cropIdx != null and cropIdx != ''">
+                crop_idx = #{cropIdx},
+            </if>
+            <if test="mushroomGrowthDaily != null and mushroomGrowthDaily != ''">
+                mushroom_growth_daily = #{mushroomGrowthDaily},
+            </if>
+            <if test="mushroomGrowthStatus != null and mushroomGrowthStatus != ''">
+                mushroom_growth_status = #{mushroomGrowthStatus},
+            </if>
+
+                mushroom_growth_date = now() ,
+
+            <if test="mushroomGrowthContent != null and mushroomGrowthContent != ''">
+                mushroom_growth_content = #{mushroomGrowthContent},
+            </if>
+
+        </trim>
+        WHERE
+         mushroom_growth_idx= #{mushroomGrowthIdx}
+
+    </update>
+
+    <select id="getDataGrownInfoByDeleteIdx" parameterType="Long" resultMap="mushroomGrowthResultMap">
+        /* idx 조회*/
+        SELECT
+        mushroom_growth_idx
+        , username
+        , company_info_idx
+        , farm_data_idx
+        , crop_idx
+        , mushroom_growth_daily
+        , mushroom_growth_status
+        , mushroom_growth_date
+        , mushroom_growth_content
+        FROM
+        mushroom_growth
+        where
+        mushroom_growth_idx= #{mushroomGrowthIdx}
+    </select>
+
+
+
+
+    <delete id="deleteDataGrownByIdx" parameterType="ks46team01.user.mushroom.mushroomGrowth.dto.FarmMushroomGrowth">
+        /*삭제 */
+        DELETE
+        FROM
+            mushroom_growth
+        WHERE
+        mushroom_growth_idx= #{mushroomGrowthIdx}
+    </delete>
+
+
+
+
+
+
+</mapper>
