@@ -20,7 +20,7 @@ public interface FreeBoardReplyRepository extends JpaRepository<FreeBoardReply, 
     @Query(value = "SELECT * FROM free_board_reply WHERE free_board_idx = ?1 ORDER BY free_board_reply_idx DESC LIMIT ?2 OFFSET ?3", nativeQuery = true)
     List<FreeBoardReply> findByFreeBoardNative(Long freeBoardIdx, int limit, int offset);
 
-
+    int countByFreeBoard(FreeBoard freeBoard);
 
     List<FreeBoardReply> findByFreeBoardFreeBoardIdx(Long freeBoardIdx);
 

@@ -51,15 +51,22 @@ public class FreeBoardController {
         log.info("freeBoardIdx두번째 : {}", freeBoardIdx);
 //        PageRequest pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "freeBoardReplyIdx"));
 //        Page<FreeBoardReply> replies = freeBoardReplyRepository.findByFreeBoard(freeBoard, pageable);
-
         int limit = 5;
         int offset = page * limit;
         List<FreeBoardReply> replies = freeBoardReplyRepository.findByFreeBoardNative(freeBoardIdx, limit, offset);
 
+        int totalReplies = freeBoardReplyRepository.countByFreeBoard(freeBoard);
+        int totalPages = (int) Math.ceil((double) totalReplies / limit);
+        boolean hasPrevious = page > 0;
+        boolean hasNext = page < totalPages - 1;
+
         model.addAttribute("replies", replies);
         model.addAttribute("board", freeBoard);
-//        model.addAttribute("pageable", pageable);
-        model.addAttribute("pageable", PageRequest.of(page, limit));
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("hasPrevious", hasPrevious);
+        model.addAttribute("hasNext", hasNext);
+        //        model.addAttribute("pageable", pageable);
         log.info("board:{}", freeBoard);
         return "user/board/freeBoardContent";
     }
