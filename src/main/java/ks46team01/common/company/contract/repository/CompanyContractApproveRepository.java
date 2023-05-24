@@ -19,4 +19,6 @@ public interface CompanyContractApproveRepository
     Optional<CompanyContractApprove> findWithCompanyContractAndAdminByUsername
             (@Param("companyContractApproveIdx") Long companyContractApproveIdx);
 
+    long countByCompanyContractApproveStatus(String y);
+
 }

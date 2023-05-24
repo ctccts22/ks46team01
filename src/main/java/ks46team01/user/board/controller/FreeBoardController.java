@@ -2,7 +2,6 @@ package ks46team01.user.board.controller;
 
 import jakarta.servlet.http.HttpSession;
 import ks46team01.user.board.Repository.FreeBoardReplyRepository;
-import ks46team01.user.board.dto.FreeBoardDTO;
 import ks46team01.user.board.entity.FreeBoard;
 import ks46team01.user.board.entity.FreeBoardReply;
 import ks46team01.user.board.service.FreeBoardService;
@@ -45,12 +44,19 @@ public class FreeBoardController {
     public String getFreeBoardContent(@PathVariable("freeBoardIdx") Long freeBoardIdx,
                                       @RequestParam(required = false, defaultValue = "0") int page,
                                       Model model) {
+
+        log.info("freeBoardIdx첫번째 : {}", freeBoardIdx);
         freeBoardService.increaseFreeBoardView(freeBoardIdx);
+
         FreeBoard freeBoard = freeBoardService.getFreeBoardById(freeBoardIdx);
+        log.info("freeBoardIdx두번째 : {}", freeBoardIdx);
+
         PageRequest pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "freeBoardReplyIdx"));
         Page<FreeBoardReply> replies = freeBoardReplyRepository.findByFreeBoard(freeBoard, pageable);
+
         model.addAttribute("replies", replies);
         model.addAttribute("board", freeBoard);
+
         model.addAttribute("pageable", pageable);
         log.info("board:{}", freeBoard);
         return "user/board/freeBoardContent";

@@ -25,31 +25,31 @@
               }
 
               Swal.fire({
-                  title: 'Inventory Log',
+                  title: '재고입출고관리',
                   html:
                       `<form id="add-inventory-log-form">
                     <input type="hidden" id="add-inventoryLogIdx" name="inventoryLogIdx" value="${inventoryLogIdx}" />
                     <div class="form-group">
-                        <label for="add-inventoryType">Inventory Type:</label>
+                        <label for="add-inventoryType">재고물품:</label>
                         <select class="form-control" id="add-inventoryType" name="inventoryType">
                             ${inventoryOptions}
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="add-companyInfoName">Company Info:</label>
+                        <label for="add-companyInfoName">회사이름:</label>
                         <select class="form-control" id="add-companyInfoName" name="companyInfoName">
                             ${companyInfoOptions}
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="add-amount">Amount:</label>
+                        <label for="add-amount">중량:</label>
                         <input class="form-control" id="add-amount" name="amount" value="${amount}" type="number"/>
                     </div>
                     <div class="form-group">
-                        <label for="add-transactionType">Transaction Type:</label>
+                        <label for="add-transactionType">입출고:</label>
                         <select class="form-control" id="add-transactionType" name="transactionType">
-                            <option value="I">Input</option>
-                            <option value="O">Output</option>
+                            <option value="I">입고</option>
+                            <option value="O">출고</option>
                         </select>
                     </div>
                 </form>`,
