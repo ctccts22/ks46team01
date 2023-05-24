@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ks46team01.user.mushroom.mushroomCondition.mapper.FarmConditionMapper">
+    <resultMap id="FarmCondition"    type="ks46team01.user.mushroom.mushroomCondition.dto.FarmCondition">
+        <id column="mushroom_condition_idx"                  property="mushroomConditionIdx" />
+        <result column="crop_idx"                            property="cropIdx" />
+        <result column="mushroom_condition_temperature"      property="mushroomConditionTemperature" />
+        <result column="mushroom_condition_humidity"         property="mushroomConditionHumidity" />
+        <result column="mushroom_condition_oxygen"           property="mushroomConditionOxygen" />
+        <result column="mushroom_condition_co2"              property="mushroomConditionCo2" />
+        <result column="mushroom_condition_illuminance"      property="mushroomConditionIlluminance" />
+        <result column="mushroom_condition_ph"               property="mushroomConditionPh" />
+        <result column="mushroom_condition_use"              property="mushroomConditionUse" />
+        <result column="mushroom_condition_year"             property="mushroomConditionYear" />
+    </resultMap>
+
+    <select id="getFarmCondition" resultType="ks46team01.user.mushroom.mushroomCondition.dto.FarmCondition">
+       /* 조회 */
+        SELECT
+                mc.mushroom_condition_idx                   as mushroomConditionIdx
+                ,c.crop_content                             as cropContent
+                ,mc.mushroom_condition_temperature          as mushroomConditionTemperature
+                ,mc.mushroom_condition_humidity             as mushroomConditionHumidity
+                ,mc.mushroom_condition_oxygen               as mushroomConditionOxygen
+                ,mc.mushroom_condition_co2                  as mushroomConditionCo2
+                ,mc.mushroom_condition_illuminance          as mushroomConditionIlluminance
+                ,mc.mushroom_condition_ph                   as mushroomConditionPh
+                ,mc.mushroom_condition_use                  as mushroomConditionUse
+                ,mc.mushroom_condition_year                 as mushroomConditionYear
+
+        FROM
+                mushroom_condition mc
+        INNER JOIN
+                crop c
+        ON
+                 mc.crop_idx = c.crop_idx;
+
+    </select>
+
+    <select id="getCropIdx" resultType="ks46team01.crop.dto.Crop">
+        /* crop 테이블 조회*/
+        SELECT
+            crop_idx        as cropIdx
+            ,crop_content   as cropContent
+        FROM
+          crop
+    </select>
+
+    <insert id="saveFarmCondition" parameterType="ks46team01.user.mushroom.mushroomCondition.dto.FarmCondition">
+       /* 입력 */
+        INSERT INTO       mushroom_condition
+        (mushroom_condition_idx
+        , crop_idx
+        , mushroom_condition_temperature
+        , mushroom_condition_humidity
+        , mushroom_condition_oxygen
+        , mushroom_condition_co2
+        , mushroom_condition_illuminance
+        , mushroom_condition_ph
+        , mushroom_condition_use
+        , mushroom_condition_year
+        )
+        VALUES
+        (
+        #{mushroomConditionIdx}
+        , #{cropIdx}
+        , #{mushroomConditionTemperature}
+        , #{mushroomConditionHumidity}
+        , #{mushroomConditionOxygen}
+        , #{mushroomConditionCo2}
+        , #{mushroomConditionIlluminance}
+        , #{mushroomConditionPh}
+        , '사용'
+        , curdate()
+        )
+    </insert>
+
+    <select id="getFarmConditionInfoById" parameterType="String" resultMap="FarmCondition">
+    /* 특정회원 조회 */
+        SELECT
+        mushroom_condition_idx
+        , crop_idx
+        , mushroom_condition_temperature
+        , mushroom_condition_humidity
+        , mushroom_condition_oxygen
+        , mushroom_condition_co2
+        , mushroom_condition_illuminance
+        , mushroom_condition_ph
+        , mushroom_condition_use
+        , mushroom_condition_year
+        FROM
+         mushroom_condition
+        WHERE
+         mushroom_condition_idx = #{mushroomConditionIdx};
+    </select>
+
+
+    <update id="modifyFarmCondition" parameterType="ks46team01.user.mushroom.mushroomCondition.dto.FarmCondition">
+        /* 정보 수정 */
+        UPDATE mushroom_condition
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cropIdx != null and cropIdx != ''">
+                crop_idx = #{cropIdx},
+            </if>
+            <if test="mushroomConditionTemperature != null and mushroomConditionTemperature != ''">
+                mushroom_condition_temperature = #{mushroomConditionTemperature},
+            </if>
+            <if test="mushroomConditionHumidity != null and mushroomConditionHumidity != ''">
+                mushroom_condition_humidity = #{mushroomConditionHumidity},
+            </if>
+            <if test="mushroomConditionOxygen != null and mushroomConditionOxygen != ''">
+                mushroom_condition_oxygen = #{mushroomConditionOxygen},
+            </if>
+            <if test="mushroomConditionCo2 != null and mushroomConditionCo2 != ''">
+                mushroom_condition_co2 = #{mushroomConditionCo2},
+            </if>
+            <if test="mushroomConditionIlluminance != null and mushroomConditionIlluminance != ''">
+                mushroom_condition_illuminance = #{mushroomConditionIlluminance},
+            </if>
+            <if test="mushroomConditionPh != null and mushroomConditionPh != ''">
+                mushroom_condition_ph = #{mushroomConditionPh},
+            </if>
+            <if test="mushroomConditionUse != null and mushroomConditionUse != ''">
+                mushroom_condition_use = #{mushroomConditionUse},
+            </if>
+            mushroom_condition_year = now()
+
+        </trim>
+        WHERE
+        mushroom_condition_idx = #{mushroomConditionIdx};
+    </update>
+
+
+
+
+
+    <select id="getFarmConditionInfoByDeleteId" parameterType="Long" resultMap="FarmCondition">
+        /* 삭제 대상 회원 조회*/
+        SELECT
+        mushroom_condition_idx
+        , crop_idx
+        , mushroom_condition_temperature
+        , mushroom_condition_humidity
+        , mushroom_condition_oxygen
+        , mushroom_condition_co2
+        , mushroom_condition_illuminance
+        , mushroom_condition_ph
+        , mushroom_condition_use
+        , mushroom_condition_year
+        FROM
+        mushroom_condition
+        WHERE
+        mushroom_condition_idx = #{mushroomConditionIdx};
+    </select>
+
+    <delete id="deleteFarmConditionByIdx" parameterType="ks46team01.user.mushroom.mushroomCondition.dto.FarmCondition">
+        /* 삭제 */
+        DELETE
+        FROM
+            mushroom_condition
+        WHERE
+             mushroom_condition_idx = #{mushroomConditionIdx};
+    </delete>
+
+
+</mapper>
