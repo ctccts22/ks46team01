@@ -6,25 +6,55 @@
 
 	</head>
 	<th:block layout:fragment="customContent">
+
+		<div class="row" style="display: inline-block;" >
+			<div class="tile_count">
+				<div class="col-md-2 col-sm-4  tile_stats_count">
+					<span class="count_top"><i class="fa fa-user"></i> 회원</span>
+					<div class="count green" th:text="${totalUsers}">2500</div>
+					<span class="count_bottom"><i class="green">4% </i> From last Week</span>
+				</div>
+				<!-- Continue with your code, but replace hardcoded numbers with Thymeleaf expressions -->
+				<div class="col-md-2 col-sm-4  tile_stats_count">
+					<span class="count_top"><i class="fa fa-user"></i> 카페회원</span>
+					<div class="count" th:text="${cafeUsers}">2,500</div>
+					<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+				</div>
+				<div class="col-md-2 col-sm-4  tile_stats_count">
+					<span class="count_top"><i class="fa fa-user"></i> 농가회원</span>
+					<div class="count" th:text="${farmUsers}">4,567</div>
+					<span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+				</div>
+				<div class="col-md-2 col-sm-4  tile_stats_count">
+					<span class="count_top"><i class="fa fa-user"></i> 폐배지회원</span>
+					<div class="count" th:text="${wasteUsers}">2,315</div>
+					<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+				</div>
+				<div class="col-md-2 col-sm-4  tile_stats_count">
+					<span class="count_top"><i class="fa fa-user"></i> 계약달성</span>
+					<div class="count" th:text="${contractAchievements}">7,325</div>
+					<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+				</div>
+			</div>
+		</div>
+
 		<div class="page-title">
 			<div class="title_center">
-
 				<main>
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-md-8 offset-md-2">
-								<h3 class="color blue">관리자로 로그인하면, 목록이 열립니다.</h3>
+								<h4 class="color blue">관리자로 로그인하면, 목록이 열립니다.</h4>
 								<h4>아이디: admin1 비밀번호: admin1</h4>
 								<ul>
 									<h5>팀원</h5>
 									<h5 class="color blue">팀장 이규노</h5>
-									<h6>회원관리 : 회원가입, 회원수정, 비밀번호찾기(SMTP), 회원탈퇴(완료)</h6>
-									<h6>로그인 및 보안 : 인터셉터, 권한에 따른 접속권한, 회원비밀번호 암호화(완료)</h6>
-									<h6>관리자 관리 : 관리자 조회 및 관리자 계정관리(완료)</h6>
-									<h6>사업자 관리 : 관리자 역활의 사업자관리 및 회원 사업자 정보 등록(진행중 70%완료)</h6>
-									<h6>재고관리 관리 : 재고물품관리 및 입출고 관리(진행중 20%완료)</h6>
-									<h6>게시판 및 공지사항 관리(진행중 40%)</h6>
-									<h6>사용기술 특이사항 : Mybatis에서 JPA로 마이그레이션 진행, JPQL를 활용해서 db에 데이터 전달</h6>
+									<h6>회원관리</h6>
+									<h6>로그인 및 보안</h6>
+									<h6>관리자 관리</h6>
+									<h6>사업자 관리</h6>
+									<h6>재고관리 관리</h6>
+									<h6>게시판</h6>
 									<h5 class="color green">조원 강형준</h5>
 									<h6>카페사업자 관리</h6>
 									<h6>농가사업자 관리</h6>
@@ -33,15 +63,12 @@
 									<h6>사업자 매입매출 관리</h6>
 									<h6>농가 사업자 데이터 관리</h6>
 								</ul>
-								<p class="text-center">
-									<a href="/intro" class="btn btn-primary btn-lg">소개</a>
-								</p>
 							</div>
 						</div>
 					</div>
 				</main>
-
 			</div>
+		</div>
 		</div>
 	</th:block>
 </html>

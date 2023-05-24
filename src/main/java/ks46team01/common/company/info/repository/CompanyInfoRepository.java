@@ -31,4 +31,6 @@ public interface CompanyInfoRepository
 
     List<CompanyInfo> findByCompanyUnitIdx(CompanyUnit companyUnit);
 
+    long countByCompanyIdx(Company companyIdx);
+
 }
