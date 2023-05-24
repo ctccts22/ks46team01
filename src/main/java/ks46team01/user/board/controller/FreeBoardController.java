@@ -47,9 +47,9 @@ public class FreeBoardController {
 
         log.info("freeBoardIdx첫번째 : {}", freeBoardIdx);
         System.out.println("freeBoardIdx500에러확인확인 = " + freeBoardIdx);
-        freeBoardService.increaseFreeBoardView(freeBoardIdx);
+        freeBoardService.increaseFreeBoardView(33L);
 
-        FreeBoard freeBoard = freeBoardService.getFreeBoardById(freeBoardIdx);
+        FreeBoard freeBoard = freeBoardService.getFreeBoardById(33L);
         log.info("freeBoardIdx두번째 : {}", freeBoardIdx);
         System.out.println("freeBoard 500에러확인확인 = " + freeBoard);
         PageRequest pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "freeBoardReplyIdx"));
