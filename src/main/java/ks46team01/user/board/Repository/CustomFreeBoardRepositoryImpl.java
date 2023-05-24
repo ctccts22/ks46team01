@@ -25,7 +25,7 @@ public class CustomFreeBoardRepositoryImpl extends SimpleJpaRepository<FreeBoard
 
     @Override
     public Page<FreeBoard> findAllWithPagination(Pageable pageable) {
-        String sql = "SELECT * FROM free_board ORDER BY free_board_idx DESC ODERS LIMIT :limit OFFSET :offset";
+        String sql = "SELECT * FROM free_board ORDER BY free_board_idx DESC LIMIT :offset, :limit ";
         Query query = entityManager.createNativeQuery(sql, FreeBoard.class);
         query.setParameter("limit", pageable.getPageSize());
         query.setParameter("offset", pageable.getOffset());
