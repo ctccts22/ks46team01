@@ -46,21 +46,15 @@ public class FreeBoardController {
                                       Model model) {
 
         log.info("freeBoardIdx첫번째 : {}", freeBoardIdx);
-        System.out.println("freeBoardIdx500에러확인확인 = " + freeBoardIdx);
-        freeBoardService.increaseFreeBoardView(33L);
-
-        FreeBoard freeBoard = freeBoardService.getFreeBoardById(33L);
+        freeBoardService.increaseFreeBoardView(freeBoardIdx);
+        FreeBoard freeBoard = freeBoardService.getFreeBoardById(freeBoardIdx);
         log.info("freeBoardIdx두번째 : {}", freeBoardIdx);
-        System.out.println("freeBoard 500에러확인확인 = " + freeBoard);
         PageRequest pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "freeBoardReplyIdx"));
         Page<FreeBoardReply> replies = freeBoardReplyRepository.findByFreeBoard(freeBoard, pageable);
-
         model.addAttribute("replies", replies);
         model.addAttribute("board", freeBoard);
-
         model.addAttribute("pageable", pageable);
         log.info("board:{}", freeBoard);
-        System.out.println("freeBoard 500에러확인확인 = " + freeBoard);
         return "user/board/freeBoardContent";
     }
 
