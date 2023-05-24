@@ -49,11 +49,17 @@ public class FreeBoardController {
         freeBoardService.increaseFreeBoardView(freeBoardIdx);
         FreeBoard freeBoard = freeBoardService.getFreeBoardById(freeBoardIdx);
         log.info("freeBoardIdx두번째 : {}", freeBoardIdx);
-        PageRequest pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "freeBoardReplyIdx"));
-        Page<FreeBoardReply> replies = freeBoardReplyRepository.findByFreeBoard(freeBoard, pageable);
+//        PageRequest pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "freeBoardReplyIdx"));
+//        Page<FreeBoardReply> replies = freeBoardReplyRepository.findByFreeBoard(freeBoard, pageable);
+
+        int limit = 5;
+        int offset = page * limit;
+        List<FreeBoardReply> replies = freeBoardReplyRepository.findByFreeBoardNative(freeBoardIdx, limit, offset);
+
         model.addAttribute("replies", replies);
         model.addAttribute("board", freeBoard);
-        model.addAttribute("pageable", pageable);
+//        model.addAttribute("pageable", pageable);
+        model.addAttribute("pageable", PageRequest.of(page, limit));
         log.info("board:{}", freeBoard);
         return "user/board/freeBoardContent";
     }

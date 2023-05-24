@@ -287,7 +287,7 @@
         <div class="pagination-wrapper">
           <nav aria-label="Page navigation">
             <ul class="pagination pagination-split">
-              <li th:if="${replies.hasPrevious()}">
+              <li th:if="${replies != null and replies.hasPrevious()}">
                 <a aria-label="Previous" class="page-link"
                    th:href="@{'/user/freeBoardContent/' + ${board.freeBoardIdx} + '?page=' + ${replies.number-1}}">
                   <span aria-hidden="true">&laquo;</span>
@@ -299,7 +299,7 @@
                    th:href="@{'/user/freeBoardContent/' + ${board.freeBoardIdx} + '?page=' + ${pageNumber}}">[[${pageNumber
                   + 1}]]</a>
               </li>
-              <li th:if="${replies.hasNext()}">
+              <li th:if="${replies != null and replies.hasNext()}">
                 <a aria-label="Next" class="page-link"
                    th:href="@{'/user/freeBoardContent/' + ${board.freeBoardIdx} + '?page=' + ${replies.number+1}}">
                   <span aria-hidden="true">&raquo;</span>
