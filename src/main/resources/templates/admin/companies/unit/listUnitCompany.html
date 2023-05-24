@@ -249,8 +249,7 @@
                         <th>단가금액(원)</th>
                         <th>운영자아이디</th>
                         <th>운영자등록/수정날짜</th>
-                        <th>수정</th>
-                        <th>삭제</th>
+                        <th>관리</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -264,10 +263,8 @@
                         <td data-key="adminUsername" th:text="${companyUnit[5].adminUsername}"></td>
                         <td data-key="companyUnitDate" th:text="${companyUnit[6]}"></td>
                         <td>
-                          <button class="edit-button" type="button">수정</button>
-                        </td>
-                        <td>
-                          <button class="delete-button" type="button">삭제</button>
+                          <button class="btn btn-outline-primary edit-button" type="button">수정</button>
+                          <button class="btn btn-outline-danger delete-button" type="button">삭제</button>
                         </td>
                       </tr>
                       </tbody>
