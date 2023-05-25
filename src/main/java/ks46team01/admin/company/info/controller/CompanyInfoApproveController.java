@@ -34,7 +34,7 @@ public class CompanyInfoApproveController {
     private final CompanyInfoApproveService companyInfoApproveService;
 
     @GetMapping("/listInfoApproveCompany")
-    public String companyInfoApproveList(Model model) {
+    public String showCompanyInfoApproveList(Model model) {
         List<Object[]> companyInfoList = companyInfoApproveRepository.findAllCompanyInfoWithApprovals();
         model.addAttribute("title", "사업자 정보 관리");
         model.addAttribute("companyInfoList", companyInfoList);

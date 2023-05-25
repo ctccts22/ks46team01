@@ -26,7 +26,7 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("/listAdmin")
-    public String adminList(Model model, @RequestParam(value = "adminUsername", required = false) String adminUsername) {
+    public String showAdminListForm(Model model, @RequestParam(value = "adminUsername", required = false) String adminUsername) {
         log.info("adminUsername={}", adminUsername);
         List<Admin> adminList;
         if (adminUsername != null && !adminUsername.isEmpty()) {
@@ -42,7 +42,7 @@ public class AdminController {
 
 
     @GetMapping("/addAdmin")
-    public String showAddAdminForm(Model model) {
+    public String addAdmin(Model model) {
         model.addAttribute("admin", new Admin());
         log.info("관리자 추가 양식 표시");
         return "admin/addAdmin";

@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("/user")
 public class CompanyContractForUserController {
-    private final CompanyUnitRepository companyUnitRepository;
-    private final CompanyContractRepository companyContractRepository;
+
     private final CompanyContractService companyContractService;
     private final CompanyInfoRepository companyInfoRepository;
 

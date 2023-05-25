@@ -30,7 +30,7 @@ public class CompanyInfoController {
     private final CompanyInfoService companyInfoService;
 
     @GetMapping("/listInfoCompany")
-    public String companyInfoList(Model model) {
+    public String showCompanyInfoList(Model model) {
         List<CompanyInfo> companyInfoList = companyInfoRepository.findAll();
         List<CompanyInfoDTO> companyInfoDTOList = companyInfoList.stream()
                 .map(CompanyInfoDTO::fromEntity)

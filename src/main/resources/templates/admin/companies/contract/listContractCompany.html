@@ -84,15 +84,15 @@
                   }
               });
           });
-      $('#datatable-custom').DataTable({
-          pagination: false,
-          searching: true,
-          lengthChange: false,
-          dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
-              "<'row'<'col-sm-12'tr>>" +
-              "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+          $('#datatable-custom').DataTable({
+              pagination: false,
+              searching: true,
+              lengthChange: false,
+              dom: "<'row'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6'>>" +
+                  "<'row'<'col-sm-12'tr>>" +
+                  "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+          });
       });
-  });
   </script>
 </th:block>
 
@@ -157,7 +157,8 @@
                       <tr class="odd" role="row" th:each="companyContract : ${companyContractList}">
                         <td data-key="companyContractIdx" th:text="${companyContract.companyContractIdx}"></td>
                         <td th:text="${companyContract.companyInfoLicenseNumber}"></td>
-                        <td data-key="companyContractDeliveryTerm" th:text="${companyContract.companyContractDeliveryTerm}"></td>
+                        <td data-key="companyContractDeliveryTerm"
+                            th:text="${companyContract.companyContractDeliveryTerm}"></td>
                         <td data-key="companyContractStart" th:text="${companyContract.companyContractStart}"></td>
                         <td data-key="companyContractEnd" th:text="${companyContract.companyContractEnd}"></td>
                         <td th:text="${companyContract.contractDuration}+일"></td>

@@ -29,7 +29,7 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
     @GetMapping("/listInventory")
-    public String inventoryList(Model model) {
+    public String showInventoryListForm(Model model) {
         List<Inventory> inventoryList = inventoryRepository.findAll();
         model.addAttribute("title", "재고관리");
         model.addAttribute("inventoryList", inventoryList);

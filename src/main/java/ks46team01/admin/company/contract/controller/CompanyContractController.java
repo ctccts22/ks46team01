@@ -28,7 +28,7 @@ public class CompanyContractController {
     private final CompanyContractService companyContractService;
 
     @GetMapping("/listContractCompany")
-    public String companyContractList(Model model) {
+    public String showCompanyContractListForm(Model model) {
         List<CompanyContract> companyContractList = companyContractRepository.findAll();
         List<CompanyContractDTO> companyContractDTOList = companyContractList.stream()
                         .map(CompanyContractDTO::fromEntity)

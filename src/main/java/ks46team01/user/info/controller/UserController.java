@@ -124,7 +124,7 @@ public class UserController {
             }
         }
     @GetMapping("/listUser")
-    public String userList(Model model, @RequestParam(value = "username", required = false) String username) {
+    public String showUserListForm(Model model, @RequestParam(value = "username", required = false) String username) {
         log.info("사용자 이름 목록: {}", username);
         List<User> users;
         if (username != null && !username.isEmpty()) {
@@ -137,7 +137,7 @@ public class UserController {
         return "user/listUser";
     }
         @GetMapping("/addUser")
-        public String userAdd(Model model) {
+        public String addUser(Model model) {
             log.info("사용자 등록 양식 표시");
             model.addAttribute("title", "회원가입");
             model.addAttribute("users", new User());

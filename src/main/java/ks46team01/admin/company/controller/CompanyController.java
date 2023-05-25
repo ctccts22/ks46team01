@@ -28,7 +28,7 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @GetMapping("/listCompany")
-    public String getAllCompony(Model model) {
+    public String showCompanyListForm(Model model) {
         List<CompanyDTO> companyList = companyService.getAllCompanies();
         model.addAttribute("companyList", companyList);
         return "admin/companies/listCompany";

@@ -1,7 +1,6 @@
 package ks46team01.user.company.unit.controller;
 
 import ks46team01.admin.company.unit.repository.CompanyUnitRepository;
-import ks46team01.admin.company.unit.service.CompanyUnitService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,6 @@ import java.util.List;
 public class CompanyUnitForUserController {
 
     private final CompanyUnitRepository companyUnitRepository;
-    private final CompanyUnitService companyUnitService;
 
     @GetMapping("/listUnitCompany")
     public String companyUnitList(Model model) {
